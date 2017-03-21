@@ -279,12 +279,11 @@ p {
 a {
   color: #03a17e;
   text-decoration: none;
-  border-bottom: 1px solid #999;
   word-wrap: break-word;
 }
 a:hover {
-  color: #04c89d;
-  border-bottom-color: #04c89d;
+  color: #03a17e;
+  border-bottom: 1px solid #03a17e;
 }
 blockquote {
   margin: 0;
@@ -1481,7 +1480,7 @@ pre .javascript .function {
   border-bottom: none;
 }
 .post-nav-item a:hover {
-  color: #04c89d;
+  color: #03a17e;
   border-bottom: none;
 }
 .post-nav-item a:active {
@@ -1698,7 +1697,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2f9abb;
+  background: #ffff0e;
 }
 .links-of-blogroll {
   font-size: 13px;
