@@ -998,6 +998,7 @@ pre .javascript .function {
 }
 .brand:hover {
   color: #fff;
+  border-bottom: none;
 }
 .logo {
   display: inline-block;
@@ -1697,7 +1698,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ecf7b0;
+  background: #3dbb12;
 }
 .links-of-blogroll {
   font-size: 13px;
