@@ -320,7 +320,7 @@ disqus_shortname: reyshawn
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-#google_site_verification:
+google_site_verification: true
 
 # Google Analytics
 #google_analytics:
