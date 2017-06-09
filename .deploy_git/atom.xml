@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>A Clock Orange | 橙子时钟</title>
-  
+  <title>Orange Chronicles</title>
+  <subtitle>橙色编年史</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/Reyshawn/reyshawn.github.io/"/>
