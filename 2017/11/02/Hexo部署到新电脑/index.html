@@ -91,16 +91,16 @@
 
 
 
-<meta name="description" content="Hexo 部署到新电脑换了电脑，想把在 hexo 部署的文件拉新电脑上。因为提前在 github 上创建了两个分支，第二个分支专门用于存储源文件的。这样换电脑后也能方便部署。可是今天转了 hexo 之后。在我的 github.io 的仓库下，「hexo」分支是用来存储源文件，「master」分支是用于 hexo 部署时使用。总之，今天遇到的问题是，每次执行万 hexo d 都会把所有源文件都部署到">
+<meta name="description" content="Hexo 部署到新电脑换了新的电脑，想把在 hexo 上的部署文件转移到新电脑上。因为提前在 github 为此做了一些工作，就是按照网上一些朋友的建议，在 github 上创建两个分支，一个分支 「master」 用于 hexo 部署，另一个分支「hexo」用于存储源文件。这样当需要在一台新电脑上使用 hexo 时，只需要把源文件 clone 到本地就行了。但事情总不是一帆风顺😅。今天遇到的问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo 部署到新电脑">
 <meta property="og:url" content="https://github.com/Reyshawn/reyshawn.github.io/2017/11/02/Hexo部署到新电脑/index.html">
 <meta property="og:site_name" content="不如跳舞 | Why Not Dance?">
-<meta property="og:description" content="Hexo 部署到新电脑换了电脑，想把在 hexo 部署的文件拉新电脑上。因为提前在 github 上创建了两个分支，第二个分支专门用于存储源文件的。这样换电脑后也能方便部署。可是今天转了 hexo 之后。在我的 github.io 的仓库下，「hexo」分支是用来存储源文件，「master」分支是用于 hexo 部署时使用。总之，今天遇到的问题是，每次执行万 hexo d 都会把所有源文件都部署到">
-<meta property="og:updated_time" content="2017-11-03T15:02:57.724Z">
+<meta property="og:description" content="Hexo 部署到新电脑换了新的电脑，想把在 hexo 上的部署文件转移到新电脑上。因为提前在 github 为此做了一些工作，就是按照网上一些朋友的建议，在 github 上创建两个分支，一个分支 「master」 用于 hexo 部署，另一个分支「hexo」用于存储源文件。这样当需要在一台新电脑上使用 hexo 时，只需要把源文件 clone 到本地就行了。但事情总不是一帆风顺😅。今天遇到的问">
+<meta property="og:updated_time" content="2017-11-03T15:14:47.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo 部署到新电脑">
-<meta name="twitter:description" content="Hexo 部署到新电脑换了电脑，想把在 hexo 部署的文件拉新电脑上。因为提前在 github 上创建了两个分支，第二个分支专门用于存储源文件的。这样换电脑后也能方便部署。可是今天转了 hexo 之后。在我的 github.io 的仓库下，「hexo」分支是用来存储源文件，「master」分支是用于 hexo 部署时使用。总之，今天遇到的问题是，每次执行万 hexo d 都会把所有源文件都部署到">
+<meta name="twitter:description" content="Hexo 部署到新电脑换了新的电脑，想把在 hexo 上的部署文件转移到新电脑上。因为提前在 github 为此做了一些工作，就是按照网上一些朋友的建议，在 github 上创建两个分支，一个分支 「master」 用于 hexo 部署，另一个分支「hexo」用于存储源文件。这样当需要在一台新电脑上使用 hexo 时，只需要把源文件 clone 到本地就行了。但事情总不是一帆风顺😅。今天遇到的问">
 
 
 
@@ -355,11 +355,12 @@
       
 
       
-        <h1 id="Hexo-部署到新电脑"><a href="#Hexo-部署到新电脑" class="headerlink" title="Hexo 部署到新电脑"></a>Hexo 部署到新电脑</h1><p>换了电脑，想把在 hexo 部署的文件拉新电脑上。因为提前在 github 上创建了两个分支，第二个分支专门用于存储源文件的。这样换电脑后也能方便部署。可是今天转了 hexo 之后。在我的 github.io 的仓库下，「hexo」分支是用来存储源文件，「master」分支是用于 hexo 部署时使用。总之，今天遇到的问题是，每次执行万 <code>hexo d</code> 都会把所有源文件都部署到了 <code>master</code> 分支上。按照常理，应该是只有 public 文件夹里的内容才会放在 <code>master</code> 分支下的。</p>
+        <h1 id="Hexo-部署到新电脑"><a href="#Hexo-部署到新电脑" class="headerlink" title="Hexo 部署到新电脑"></a>Hexo 部署到新电脑</h1><p>换了新的电脑，想把在 hexo 上的部署文件转移到新电脑上。因为提前在 github 为此做了一些工作，就是按照网上一些朋友的建议，在 github 上创建两个分支，一个分支 「master」 用于 hexo 部署，另一个分支「hexo」用于存储源文件。这样当需要在一台新电脑上使用 hexo 时，只需要把源文件 clone 到本地就行了。但事情总不是一帆风顺😅。今天遇到的问题是，把源文件拉到本地以后，每次执行 <code>hexo d</code> 部署， 都会把所有源文件都部署到 <code>master</code> 分支上。按照常理，应该是只有 public 文件夹里的内容才会放在 <code>master</code> 分支下的。</p>
 <a id="more"></a>
+<p>在网上找了很多解决方案，最终认为还是 cache 出了问题。但只是去 <code>hexo clean</code> 并不起效。</p>
 <p>解决办法：</p>
 <p>首先是检查，github.io 仓库下默认分支是哪个，这里要把默认分支改成存储源文件的那个分支。在我的仓库下就是把默认分支改成 「hexo」。</p>
-<p>再者，就是 <code>hexo clean</code>，然后把目录下的 <code>.deploy_git</code> 删掉。然后再重新生成 generate 和部署 deploy。成功！</p>
+<p>再者，就是 <code>hexo clean</code>，然后把目录下的 <code>.deploy_git</code> 删掉。然后再重新进行 <code>hexo generate</code> 和 <code>hexo deploy</code>。成功！</p>
 
       
     </div>
