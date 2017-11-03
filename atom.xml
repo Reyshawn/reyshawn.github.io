@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/Reyshawn/reyshawn.github.io/"/>
-  <updated>2017-11-03T14:35:28.884Z</updated>
+  <updated>2017-11-03T15:02:57.724Z</updated>
   <id>https://github.com/Reyshawn/reyshawn.github.io/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo 部署到新电脑</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2017/11/02/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0%E6%96%B0%E7%94%B5%E8%84%91/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2017/11/02/Hexo部署到新电脑/</id>
+    <published>2017-11-02T14:53:17.000Z</published>
+    <updated>2017-11-03T15:02:57.724Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Hexo-部署到新电脑"><a href="#Hexo-部署到新电脑" class="headerlink" title="Hexo 部署到新电脑"></a>Hexo 部署到新电脑</h1><p>换了电脑，想把在 hexo 部署的文件拉新电脑上。因为提前在 github 上创建了两个分支，第二个分支专门用于存储源文件的。这样换电脑后也能方便部署。可是今天转了 hexo 之后。在我的 github.io 的仓库下，「hexo」分支是用来存储源文件，「master」分支是用于 hexo 部署时使用。总之，今天遇到的问题是，每次执行万 <code>hexo d</code> 都会把所有源文件都部署到了 <code>master</code> 分支上。按照常理，应该是只有 public 文件夹里的内容才会放在 <code>master</code> 分支下的。</p>
+<a id="more"></a>
+<p>解决办法：</p>
+<p>首先是检查，github.io 仓库下默认分支是哪个，这里要把默认分支改成存储源文件的那个分支。在我的仓库下就是把默认分支改成 「hexo」。</p>
+<p>再者，就是 <code>hexo clean</code>，然后把目录下的 <code>.deploy_git</code> 删掉。然后再重新生成 generate 和部署 deploy。成功！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Hexo-部署到新电脑&quot;&gt;&lt;a href=&quot;#Hexo-部署到新电脑&quot; class=&quot;headerlink&quot; title=&quot;Hexo 部署到新电脑&quot;&gt;&lt;/a&gt;Hexo 部署到新电脑&lt;/h1&gt;&lt;p&gt;换了电脑，想把在 hexo 部署的文件拉新电脑上。因为提前在 github 上创建了两个分支，第二个分支专门用于存储源文件的。这样换电脑后也能方便部署。可是今天转了 hexo 之后。在我的 github.io 的仓库下，「hexo」分支是用来存储源文件，「master」分支是用于 hexo 部署时使用。总之，今天遇到的问题是，每次执行万 &lt;code&gt;hexo d&lt;/code&gt; 都会把所有源文件都部署到了 &lt;code&gt;master&lt;/code&gt; 分支上。按照常理，应该是只有 public 文件夹里的内容才会放在 &lt;code&gt;master&lt;/code&gt; 分支下的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>I/O #22: 端午</title>
