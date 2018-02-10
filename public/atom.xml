@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/Reyshawn/reyshawn.github.io/"/>
-  <updated>2017-11-03T15:14:47.377Z</updated>
+  <updated>2018-02-10T02:50:30.720Z</updated>
   <id>https://github.com/Reyshawn/reyshawn.github.io/</id>
   
   <author>
@@ -14,6 +14,101 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Codewars.com | Catching Car Mileage Numbers</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/02/10/Codewars.com-%7C-Catching-Car-Mileage-Numbers/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/</id>
+    <published>2018-02-10T02:38:00.740Z</published>
+    <updated>2018-02-10T02:50:30.720Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Codewars-com-Catching-Car-Mileage-Numbers"><a href="#Codewars-com-Catching-Car-Mileage-Numbers" class="headerlink" title="Codewars.com | Catching Car Mileage Numbers"></a>Codewars.com | <a href="https://www.codewars.com/kata/52c4dd683bfd3b434c000292" target="_blank" rel="external">Catching Car Mileage Numbers</a></h1><h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><blockquote>
+<p>  “7777…<em>8?!??!</em>“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who <em>doesn’t</em> like catching those one-off interesting mileage numbers?</p>
+</blockquote>
+<p>Let’s make it so Bob <strong>never</strong> misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a <code>1</code> or a <code>2</code> (respectively).</p>
+<p>It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a <code>2</code> if the number is “interesting” (see below), a <code>1</code> if an interesting number occurs within the next two miles, or a <code>0</code> if the number is not interesting.</p>
+<p><strong>Note:</strong> In Haskell, we use <code>No</code>, <code>Almost</code> and <code>Yes</code> instead of <code>0</code>, <code>1</code> and <code>2</code>.</p>
+<p> <strong>“Interesting” Numbers</strong></p>
+<p>Interesting numbers are 3-or-more digit numbers that meet one or more of the following criteria:</p>
+<ul>
+<li>Any digit followed by all zeros: <code>100</code>, <code>90000</code></li>
+<li>Every digit is the same number: <code>1111</code></li>
+<li>The digits are sequential, incementing†: <code>1234</code></li>
+<li>The digits are sequential, decrementing‡: <code>4321</code></li>
+<li>The digits are a palindrome: <code>1221</code> or <code>73837</code></li>
+<li>The digits match one of the values in the <code>awesomePhrases</code> array</li>
+</ul>
+<blockquote>
+<p>  † For incrementing sequences, <code>0</code> should come after <code>9</code>, and not before  <code>1</code>, as in <code>7890</code>.<br>  ‡ For decrementing sequences, <code>0</code> should come after <code>1</code>, and not before  <code>9</code>, as in <code>3210</code>.</p>
+</blockquote>
+<p>So, you should expect these inputs and outputs:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// "boring" numbers</span></div><div class="line">isInteresting(<span class="number">3</span>, [<span class="number">1337</span>, <span class="number">256</span>]);    <span class="comment">// 0</span></div><div class="line">isInteresting(<span class="number">3236</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 0</span></div><div class="line"></div><div class="line"><span class="comment">// progress as we near an "interesting" number</span></div><div class="line">isInteresting(<span class="number">11207</span>, []); <span class="comment">// 0</span></div><div class="line">isInteresting(<span class="number">11208</span>, []); <span class="comment">// 0</span></div><div class="line">isInteresting(<span class="number">11209</span>, []); <span class="comment">// 1</span></div><div class="line">isInteresting(<span class="number">11210</span>, []); <span class="comment">// 1</span></div><div class="line">isInteresting(<span class="number">11211</span>, []); <span class="comment">// 2</span></div><div class="line"></div><div class="line"><span class="comment">// nearing a provided "awesome phrase"</span></div><div class="line">isInteresting(<span class="number">1335</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 1</span></div><div class="line">isInteresting(<span class="number">1336</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 1</span></div><div class="line">isInteresting(<span class="number">1337</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 2</span></div></pre></td></tr></table></figure>
+<p><strong>Error Checking</strong></p>
+<ul>
+<li>A number is only interesting if it is greater than <code>99</code>!</li>
+<li>Input will <em>always</em> be an integer greater than <code>0</code>, and less than <code>1,000,000,000</code>. </li>
+<li>The <code>awesomePhrases</code> array will always be provided, and will always be an array, but may be empty. (Not <em>everyone</em> thinks numbers spell funny words…)</li>
+<li>You should only ever output <code>0</code>, <code>1</code>, or <code>2</code>.</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>题目很长，但总结起来，无非就是输入一个 number 类型的数据，检查是否符合上述列出的所谓「interesting number」的规则，按照规则输出 0，1 或 2。以下是自己看到的一个非常简洁的答案，答案来自 <a href="https://www.codewars.com/users/laoris" target="_blank" rel="external">laoris</a>, <a href="https://www.codewars.com/users/jwong483" target="_blank" rel="external">jwong483</a>, <a href="https://www.codewars.com/users/Marlen" target="_blank" rel="external">Marlen</a>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isInteresting</span>(<span class="params">number, awesomePhrases</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> tests = [</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> <span class="regexp">/^\d00+$/</span>.test(n); &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> <span class="regexp">/^(\d)\1+$/</span>.test(n); &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">RegExp</span>(n).test(<span class="number">1234567890</span>); &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">RegExp</span>(n).test(<span class="number">9876543210</span>); &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> n + <span class="string">''</span> == (n + <span class="string">''</span>).split(<span class="string">''</span>).reverse().join(<span class="string">''</span>); &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> awesomePhrases.some(<span class="function"><span class="keyword">function</span>(<span class="params">p</span>) </span>&#123; <span class="keyword">return</span> p == n; &#125;); &#125;</div><div class="line">  ];</div><div class="line"></div><div class="line">  <span class="keyword">var</span> interesting = <span class="number">0</span>;</div><div class="line">  tests.some(<span class="function"><span class="keyword">function</span>(<span class="params">test</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (number &gt; <span class="number">99</span> &amp;&amp; test(number))</div><div class="line">      <span class="keyword">return</span> interesting = <span class="number">2</span>;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ((number &gt; <span class="number">98</span> &amp;&amp; test(number + <span class="number">1</span>)) || (number &gt; <span class="number">97</span> &amp;&amp; test(number + <span class="number">2</span>)))</div><div class="line">      interesting = <span class="number">1</span>;</div><div class="line">  &#125;);</div><div class="line">  <span class="keyword">return</span> interesting;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个答案在代码结构上很厉害的一点在于，使用了 <code>some()</code> 这个函数，以及加上完全由函数组成的 array 数组，来进行给定规则的检验。 <code>some()</code> 方法主要用于测试数组中某些元素。用法就是在方法 <code>some()</code> 中定义一个 callback 回调函数，数组中的每一个元素作为回调函数的参数依次传入到回调函数中（回调函数的意思就是函数作为函数的参数，这里有点儿绕） 。</p>
+<p>在这个例子里，<code>tests</code> 是事先定义好的数组，数组的每一个元素都是一个函数。对这个数组使用 <code>some()</code> 方法，在其中定义了一个回调函数，形如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">tests.some(<span class="function"><span class="keyword">function</span>(<span class="params">test</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>（number &gt; <span class="number">99</span> &amp;&amp; test(number))&#123;</div><div class="line">        <span class="comment">// code here</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">//code here</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>在实际执行过程中，<code>tests</code> 中的每一个元素 element，都会作为回调函数的参数 <code>test</code> 传递进回调函数中。因为 <code>tests</code>  数组里的元素都是函数，所以这里使用参数  <code>test</code>  时也是把它当作函数来使用的。因此才会看到有 <code>test(number)</code> 这样的语句。</p>
+<p>关于 <code>some()</code> 方法，MDN 上给了一个更加简单的例子，来帮助理解这其中的参数传导：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isBigEnough</span>(<span class="params">element, index, array</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (element &gt;= <span class="number">10</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> passed = [<span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">4</span>].some(isBigEnough);</div><div class="line"><span class="comment">// passed is false</span></div><div class="line">passed = [<span class="number">12</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">4</span>].some(isBigEnough);</div><div class="line"><span class="comment">// passed is true</span></div></pre></td></tr></table></figure>
+<p>明白了整个算法的结构，其实在 <code>tests</code> 中定义的检测函数，也都非常巧妙。 </p>
+<ul>
+<li>形如 [1234, 8765] 这类数，把被检测数转化成 <code>RegExp</code> 逆向使用正则表达式；</li>
+<li><code>n+&#39;&#39;</code> 把数字转化成数组；</li>
+<li>检测 palindrome 回文数，使用 <code>reverse()</code> 方法，判断反转后是否相等。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Codewars-com-Catching-Car-Mileage-Numbers&quot;&gt;&lt;a href=&quot;#Codewars-com-Catching-Car-Mileage-Numbers&quot; class=&quot;headerlink&quot; title=&quot;Codewars.com | Catching Car Mileage Numbers&quot;&gt;&lt;/a&gt;Codewars.com | &lt;a href=&quot;https://www.codewars.com/kata/52c4dd683bfd3b434c000292&quot;&gt;Catching Car Mileage Numbers&lt;/a&gt;&lt;/h1&gt;&lt;h2 id=&quot;Kata&quot;&gt;&lt;a href=&quot;#Kata&quot; class=&quot;headerlink&quot; title=&quot;Kata&quot;&gt;&lt;/a&gt;Kata&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;  “7777…&lt;em&gt;8?!??!&lt;/em&gt;“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who &lt;em&gt;doesn’t&lt;/em&gt; like catching those one-off interesting mileage numbers?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Let’s make it so Bob &lt;strong&gt;never&lt;/strong&gt; misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a &lt;code&gt;1&lt;/code&gt; or a &lt;code&gt;2&lt;/code&gt; (respectively).&lt;/p&gt;
+&lt;p&gt;It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a &lt;code&gt;2&lt;/code&gt; if the number is “interesting” (see below), a &lt;code&gt;1&lt;/code&gt; if an interesting number occurs within the next two miles, or a &lt;code&gt;0&lt;/code&gt; if the number is not interesting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; In Haskell, we use &lt;code&gt;No&lt;/code&gt;, &lt;code&gt;Almost&lt;/code&gt; and &lt;code&gt;Yes&lt;/code&gt; instead of &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;1&lt;/code&gt; and &lt;code&gt;2&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt; &lt;strong&gt;“Interesting” Numbers&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Interesting numbers are 3-or-more digit numbers that meet one or more of the following criteria:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Any digit followed by all zeros: &lt;code&gt;100&lt;/code&gt;, &lt;code&gt;90000&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Every digit is the same number: &lt;code&gt;1111&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The digits are sequential, incementing†: &lt;code&gt;1234&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The digits are sequential, decrementing‡: &lt;code&gt;4321&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The digits are a palindrome: &lt;code&gt;1221&lt;/code&gt; or &lt;code&gt;73837&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The digits match one of the values in the &lt;code&gt;awesomePhrases&lt;/code&gt; array&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;  † For incrementing sequences, &lt;code&gt;0&lt;/code&gt; should come after &lt;code&gt;9&lt;/code&gt;, and not before  &lt;code&gt;1&lt;/code&gt;, as in &lt;code&gt;7890&lt;/code&gt;.&lt;br&gt;  ‡ For decrementing sequences, &lt;code&gt;0&lt;/code&gt; should come after &lt;code&gt;1&lt;/code&gt;, and not before  &lt;code&gt;9&lt;/code&gt;, as in &lt;code&gt;3210&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So, you should expect these inputs and outputs:&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// &quot;boring&quot; numbers&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;, [&lt;span class=&quot;number&quot;&gt;1337&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;256&lt;/span&gt;]);    &lt;span class=&quot;comment&quot;&gt;// 0&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;3236&lt;/span&gt;, [&lt;span class=&quot;number&quot;&gt;1337&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;256&lt;/span&gt;]); &lt;span class=&quot;comment&quot;&gt;// 0&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// progress as we near an &quot;interesting&quot; number&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;11207&lt;/span&gt;, []); &lt;span class=&quot;comment&quot;&gt;// 0&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;11208&lt;/span&gt;, []); &lt;span class=&quot;comment&quot;&gt;// 0&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;11209&lt;/span&gt;, []); &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;11210&lt;/span&gt;, []); &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;11211&lt;/span&gt;, []); &lt;span class=&quot;comment&quot;&gt;// 2&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// nearing a provided &quot;awesome phrase&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;1335&lt;/span&gt;, [&lt;span class=&quot;number&quot;&gt;1337&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;256&lt;/span&gt;]); &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;1336&lt;/span&gt;, [&lt;span class=&quot;number&quot;&gt;1337&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;256&lt;/span&gt;]); &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;isInteresting(&lt;span class=&quot;number&quot;&gt;1337&lt;/span&gt;, [&lt;span class=&quot;number&quot;&gt;1337&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;256&lt;/span&gt;]); &lt;span class=&quot;comment&quot;&gt;// 2&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;Error Checking&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A number is only interesting if it is greater than &lt;code&gt;99&lt;/code&gt;!&lt;/li&gt;
+&lt;li&gt;Input will &lt;em&gt;always&lt;/em&gt; be an integer greater than &lt;code&gt;0&lt;/code&gt;, and less than &lt;code&gt;1,000,000,000&lt;/code&gt;. &lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;awesomePhrases&lt;/code&gt; array will always be provided, and will always be an array, but may be empty. (Not &lt;em&gt;everyone&lt;/em&gt; thinks numbers spell funny words…)&lt;/li&gt;
+&lt;li&gt;You should only ever output &lt;code&gt;0&lt;/code&gt;, &lt;code&gt;1&lt;/code&gt;, or &lt;code&gt;2&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo 部署到新电脑</title>
