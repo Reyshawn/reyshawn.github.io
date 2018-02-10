@@ -274,6 +274,165 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Reyshawn/reyshawn.github.io/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Reyshawn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不如跳舞 | Why Not Dance?">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/" itemprop="url">
+                  Codewars.com | Catching Car Mileage Numbers
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-10T10:38:00+08:00">
+                2018-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Codewars-com-Catching-Car-Mileage-Numbers"><a href="#Codewars-com-Catching-Car-Mileage-Numbers" class="headerlink" title="Codewars.com | Catching Car Mileage Numbers"></a>Codewars.com | <a href="https://www.codewars.com/kata/52c4dd683bfd3b434c000292">Catching Car Mileage Numbers</a></h1><h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><blockquote>
+<p>  “7777…<em>8?!??!</em>“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who <em>doesn’t</em> like catching those one-off interesting mileage numbers?</p>
+</blockquote>
+<p>Let’s make it so Bob <strong>never</strong> misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a <code>1</code> or a <code>2</code> (respectively).</p>
+<p>It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a <code>2</code> if the number is “interesting” (see below), a <code>1</code> if an interesting number occurs within the next two miles, or a <code>0</code> if the number is not interesting.</p>
+<p><strong>Note:</strong> In Haskell, we use <code>No</code>, <code>Almost</code> and <code>Yes</code> instead of <code>0</code>, <code>1</code> and <code>2</code>.</p>
+<p> <strong>“Interesting” Numbers</strong></p>
+<p>Interesting numbers are 3-or-more digit numbers that meet one or more of the following criteria:</p>
+<ul>
+<li>Any digit followed by all zeros: <code>100</code>, <code>90000</code></li>
+<li>Every digit is the same number: <code>1111</code></li>
+<li>The digits are sequential, incementing†: <code>1234</code></li>
+<li>The digits are sequential, decrementing‡: <code>4321</code></li>
+<li>The digits are a palindrome: <code>1221</code> or <code>73837</code></li>
+<li>The digits match one of the values in the <code>awesomePhrases</code> array</li>
+</ul>
+<blockquote>
+<p>  † For incrementing sequences, <code>0</code> should come after <code>9</code>, and not before  <code>1</code>, as in <code>7890</code>.<br>  ‡ For decrementing sequences, <code>0</code> should come after <code>1</code>, and not before  <code>9</code>, as in <code>3210</code>.</p>
+</blockquote>
+<p>So, you should expect these inputs and outputs:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// "boring" numbers</span></div><div class="line">isInteresting(<span class="number">3</span>, [<span class="number">1337</span>, <span class="number">256</span>]);    <span class="comment">// 0</span></div><div class="line">isInteresting(<span class="number">3236</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 0</span></div><div class="line"></div><div class="line"><span class="comment">// progress as we near an "interesting" number</span></div><div class="line">isInteresting(<span class="number">11207</span>, []); <span class="comment">// 0</span></div><div class="line">isInteresting(<span class="number">11208</span>, []); <span class="comment">// 0</span></div><div class="line">isInteresting(<span class="number">11209</span>, []); <span class="comment">// 1</span></div><div class="line">isInteresting(<span class="number">11210</span>, []); <span class="comment">// 1</span></div><div class="line">isInteresting(<span class="number">11211</span>, []); <span class="comment">// 2</span></div><div class="line"></div><div class="line"><span class="comment">// nearing a provided "awesome phrase"</span></div><div class="line">isInteresting(<span class="number">1335</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 1</span></div><div class="line">isInteresting(<span class="number">1336</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 1</span></div><div class="line">isInteresting(<span class="number">1337</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 2</span></div></pre></td></tr></table></figure>
+<p><strong>Error Checking</strong></p>
+<ul>
+<li>A number is only interesting if it is greater than <code>99</code>!</li>
+<li>Input will <em>always</em> be an integer greater than <code>0</code>, and less than <code>1,000,000,000</code>. </li>
+<li>The <code>awesomePhrases</code> array will always be provided, and will always be an array, but may be empty. (Not <em>everyone</em> thinks numbers spell funny words…)</li>
+<li>You should only ever output <code>0</code>, <code>1</code>, or <code>2</code>.</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://github.com/Reyshawn/reyshawn.github.io/2017/11/02/Hexo部署到新电脑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1221,7 +1380,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1243,7 +1402,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -1338,8 +1497,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
