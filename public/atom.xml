@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/Reyshawn/reyshawn.github.io/"/>
-  <updated>2018-02-10T02:50:30.720Z</updated>
+  <updated>2018-02-13T15:07:48.666Z</updated>
   <id>https://github.com/Reyshawn/reyshawn.github.io/</id>
   
   <author>
@@ -14,6 +14,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Codewars.com | Wrapped Function</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/02/12/Codewars.com%20%7C%20Wrapped%20Function/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/02/12/Codewars.com | Wrapped Function/</id>
+    <published>2018-02-12T01:59:34.004Z</published>
+    <updated>2018-02-13T15:07:48.666Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Codewars-com-Wrapped-Function"><a href="#Codewars-com-Wrapped-Function" class="headerlink" title="Codewars.com | Wrapped Function"></a>Codewars.com | Wrapped Function</h1><h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Create a function method that allow you to wrap an existing function. The method signature would look something like this:</p>
+<p><strong>Usage Example</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">speak</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">   <span class="keyword">return</span> <span class="string">"Hello "</span> + name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">speak = speak.wrap(<span class="function"><span class="keyword">function</span>(<span class="params">original, yourName, myName</span>)</span>&#123;</div><div class="line">   greeting = original(yourName);</div><div class="line">   <span class="keyword">return</span> greeting + <span class="string">", my name is "</span> + myName;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="keyword">var</span> greeting = speak(<span class="string">"Mary"</span>, <span class="string">"Kate"</span>);</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>这个题目就是给函数扩展一个 <code>wrap</code> 方法，wrap 本意是「包裹」，这里可以理解为，在原由函数功能的基础上，再次添加新的功能，可以视为对原有函数的一种增强。在本例中，<code>speak</code> 是一个简单函数，通过 <code>wrap</code> 方法，使之在 <code>speak</code> 基础之上，增加了 greeting 的功能。</p>
+<h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><h3 id="1-that-this"><a href="#1-that-this" class="headerlink" title="1. that = this"></a>1. that = this</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.wrap = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">arg2,arg3</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> fn(that,arg2,arg3);</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>因为 <code>wrap</code> 方法的参数是一个 callback 函数，其中 <code>original</code> 参数是要能够映射到原函数中才行。这里涉及到 <code>this</code> keyword, scope 以及函数调用的问题。</p>
+<p>在 JavaScript 中，函数调用有三种情况：</p>
+<ol>
+<li><code>fn(arg)</code></li>
+<li><code>obj.child.method(arg)</code></li>
+<li><code>`fn.call(context,arg)</code></li>
+</ol>
+<p>但其实第三种调用方法才是最通用的书写形式，前两种都可以用第三种书写形式写出来，比如第一种，可以写成 <code>fn.call(undefined,arg)</code>， 第二种可以写成 <code>obj.child.method.call(obj.child,arg)</code> 。因此当 <code>wrap</code> 作为函数的方法被函数 <code>speak</code> 调用时，<code>this</code> 指代的为函数 <code>speak</code>。通过创建变量并赋值，将这种映射关系存储下来。</p>
+<h3 id="2-bind"><a href="#2-bind" class="headerlink" title="2. bind()"></a>2. bind()</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.wrap = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> callback.bind(<span class="keyword">this</span>, <span class="keyword">this</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>bind()</code> 方法首先会创建一个新函数，这个新函数的函数体和 <code>callback</code> 保持一致。 <code>bind()</code> 方法本身可能带多个参数，第一个参数用于指定 <code>this</code> 的值，之后的参数作为「预制参数」传入到新函数中。预制参数的含义可以查阅文末的参考链接。</p>
+<p>而在这个例子里，<code>bind()</code> 方法的参数是两个 <code>this</code>，第一个 <code>this</code> 仅仅指定 context，因为是 <code>speak()</code> 调用的 <code>wrap()</code>，所以 <code>this</code> 就指向 <code>speak()</code>。 第二个 <code>this</code> 则作为 <code>callback</code> 函数第一个参数的预制参数，即参数 <code>original</code>。所以 <code>original</code> 表示函数 <code>speak()</code>。剩余参数则通过实参（实际调用时使用的参数）进行传入。为了便于理解其中的参数传递，可以试着做以下实验：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">speak</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">   <span class="keyword">return</span> <span class="string">"Hello "</span> + name;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">Function</span>.prototype.wrap = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> callback.bind(<span class="string">'context'</span>,<span class="keyword">this</span>, <span class="string">'s'</span>, <span class="string">'this'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">speak = speak.wrap(<span class="function"><span class="keyword">function</span>(<span class="params">original, yourName, myName</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(original,yourName,myName)</div><div class="line"></div><div class="line">   <span class="keyword">return</span> <span class="string">", my name is "</span> + myName;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(speak(<span class="string">"Mary"</span>, <span class="string">"Kate"</span>)) <span class="comment">//</span></div></pre></td></tr></table></figure>
+<p>随意改变 <code>callback.bind()</code> 的参数值，查看对应的 <code>console.log(original,yourName,myName)</code> 的输出。可以找到规律，<code>bind()</code> 方法的第一个参数仅仅指定 context，对参数传递无影响。除了第一个之外的其他参数作为预制参数，影响参数传递。</p>
+<p>tl;dr: </p>
+<p><code>bind()</code> 方法第一个参数对应原函数( bound function )的 <code>this</code>，第二个参数对应原函数( bound function )的第一个参数，但三个参数对应原函数的第二个参数，以此类推。</p>
+<h3 id="3-arrow-function"><a href="#3-arrow-function" class="headerlink" title="3. arrow function"></a>3. arrow function</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.wrap = <span class="function"><span class="keyword">function</span> (<span class="params">f</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> f(<span class="keyword">this</span>, ...args)</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><code>…args</code> 表明 rest paramaters，其余参数，字面意思很好理解。<code>=&gt;</code> 为 arrow function，类似 lambda 函数，这里 return 一个新函数，新函数的第一个参数值改为 <code>this</code>，其余参数作为实参传入。原理上这种方法也是类似于预制参数。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this" target="_blank" rel="external">this - MDN web docs</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/23804247" target="_blank" rel="external">this 的值到底是什么？一次说清楚 - 方应杭</a></li>
+<li><a href="https://github.com/Aaaaaaaty/Blog/issues/1">Javascript之bind #1( 预制参数 )</a></li>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/2">JavaScript深入之从原型到原型链 #2</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters" target="_blank" rel="external">Rest parameters</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Codewars-com-Wrapped-Function&quot;&gt;&lt;a href=&quot;#Codewars-com-Wrapped-Function&quot; class=&quot;headerlink&quot; title=&quot;Codewars.com | Wrapped Function&quot;&gt;&lt;/a&gt;Codewars.com | Wrapped Function&lt;/h1&gt;&lt;h2 id=&quot;Kata&quot;&gt;&lt;a href=&quot;#Kata&quot; class=&quot;headerlink&quot; title=&quot;Kata&quot;&gt;&lt;/a&gt;Kata&lt;/h2&gt;&lt;p&gt;Create a function method that allow you to wrap an existing function. The method signature would look something like this:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Usage Example&lt;/strong&gt;:&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;speak&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;name&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;Hello &quot;&lt;/span&gt; + name;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;speak = speak.wrap(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;original, yourName, myName&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;   greeting = original(yourName);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; greeting + &lt;span class=&quot;string&quot;&gt;&quot;, my name is &quot;&lt;/span&gt; + myName;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; greeting = speak(&lt;span class=&quot;string&quot;&gt;&quot;Mary&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Kate&quot;&lt;/span&gt;);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>Codewars.com | Catching Car Mileage Numbers</title>
