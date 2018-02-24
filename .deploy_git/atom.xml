@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/Reyshawn/reyshawn.github.io/"/>
-  <updated>2018-02-13T15:07:48.666Z</updated>
+  <updated>2018-02-24T08:43:56.868Z</updated>
   <id>https://github.com/Reyshawn/reyshawn.github.io/</id>
   
   <author>
@@ -14,6 +14,86 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Codewars.com | ES5 Generators(i) 和闭包 closure </title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/02/18/Codewars.com%20%7C%20ES5%20Generators(i)/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/02/18/Codewars.com | ES5 Generators(i)/</id>
+    <published>2018-02-18T06:37:13.949Z</published>
+    <updated>2018-02-24T08:43:56.868Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
+<p>This is the first part of three (<a href="http://www.codewars.com/kata/es5-generators-ii" target="_blank" rel="external">part2</a>, <a href="http://www.codewars.com/kata/es5-generators-iii" target="_blank" rel="external">part3</a>).</p>
+<p>Generators and Iterators are new ES6 features that will allow things like this:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fibonacci</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> [prev, curr] = [<span class="number">0</span>, <span class="number">1</span>];</div><div class="line">    <span class="keyword">for</span> (;;) &#123;</div><div class="line">        [prev, curr] = [curr, prev + curr];</div><div class="line">        <span class="keyword">yield</span> curr;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Using them in this way, we can do amazing things:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> seq = fibonacci();</div><div class="line">print(seq.next()); <span class="comment">// 1</span></div><div class="line">print(seq.next()); <span class="comment">// 2</span></div><div class="line">print(seq.next()); <span class="comment">// 3</span></div><div class="line">print(seq.next()); <span class="comment">// 5</span></div><div class="line">print(seq.next()); <span class="comment">// 8</span></div></pre></td></tr></table></figure>
+<p>This is powerful, but until a few months later, ES6 will not be born.</p>
+<p>The goal of this kata is to implement pseudo-generators with ES5.</p>
+<a id="more"></a>
+<p>The first thing to do is to implement the generator function:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">generator</span>(<span class="params">sequencer</span>) </span>&#123;</div><div class="line">   ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>generator(sequencer[, arg1, arg2, …])</code> receives a sequencer function to generate the sequence and returns and object with a <code>next()</code> method. When the <code>next()</code> method is invoked, the next value is generated. The method could receive as well optional arguments to be passed to the sequencer function.</p>
+<p>This is an example of a dummy sequencer:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">dummySeq</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"dummy"</span>;</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>To test generator(), you could use <code>dummySeq()</code> in this way:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> seq = generator(dummySeq);</div><div class="line">seq.next(); <span class="comment">// 'dummy'</span></div><div class="line">seq.next(); <span class="comment">// 'dummy'</span></div><div class="line">seq.next(); <span class="comment">// 'dummy'</span></div><div class="line">....</div></pre></td></tr></table></figure>
+<p>When you’re done, you should implement the following generators (I think the functions are self explanatory):<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorialSeq</span>(<span class="params"></span>) </span>&#123;...&#125; <span class="comment">// 1, 1, 2, 6, 24, ...</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciSeq</span>(<span class="params"></span>) </span>&#123;...&#125; <span class="comment">// 1, 1, 2, 3, 5, 8, 13, ...</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rangeSeq</span>(<span class="params">start, step</span>) </span>&#123;...&#125; <span class="comment">// rangeSeq(1, 2)  -&gt; 1, 3, 5, 7, ...</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">primeSeq</span>(<span class="params"></span>) </span>&#123;...&#125; <span class="comment">// 2, 3, 5, 7, 11, 13, ...</span></div><div class="line">partialSumSeq(<span class="number">1</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">0</span>) &#123;...&#125; <span class="comment">// 1, 4, 11, 13, 13, end</span></div></pre></td></tr></table></figure></p>
+<p>You can use any of them in the same way:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> seq = generator(factorialSeq);</div><div class="line">seq.next(); <span class="comment">// !0 = 1</span></div><div class="line">seq.next(); <span class="comment">// !1 = 1</span></div><div class="line">seq.next(); <span class="comment">// !2 = 2</span></div><div class="line">seq.next(); <span class="comment">// !3 = 6</span></div><div class="line">seq.next(); <span class="comment">// !4 = 24</span></div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>There are some sequences which are infinite and others are not. For example:</p>
+<ul>
+<li>primeSeq: Is infinite</li>
+<li>partialSumSeq: Is limited to the passed values.</li>
+</ul>
+<p>When the sequence is done (in finite sequences), if you call seq.next() again, it should produce an error.</p>
+<p>Good luck!</p>
+<h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><p>题目的大体含义是想要通过 ES5 来模拟 ES6 中才有的 generator 生成器功能。主要思路就是使用闭包 closure 这一特性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">generator</span>(<span class="params">sequencer</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">next</span>: sequencer.apply(<span class="keyword">this</span>,args)</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacciSeq</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> prev = <span class="number">0</span></div><div class="line">    <span class="keyword">var</span> current = <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> old = current</div><div class="line">        current = prev + current</div><div class="line">        prev = old</div><div class="line">        <span class="keyword">return</span> prev</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 直接调用</span></div><div class="line"><span class="built_in">console</span>.log(fibonacciSeq()())</div><div class="line"><span class="comment">// 使用 closure</span></div><div class="line"><span class="keyword">var</span> seq = fibonacciSeq()</div><div class="line"><span class="built_in">console</span>.log(seq())</div></pre></td></tr></table></figure>
+<p>关于 Closure，非常推荐阅读 Kyle Simpson 写的 <em>You Don’t Know JS: Scope &amp; Closures</em> ，不到 100 页的小册子，由浅入深，通俗易懂。Closure 简单来讲，就是在一个函数内部定义一个嵌套的子函数，并 return 它，return 这个子函数。形式就像上面代码，在 <code>fibonacciSeq()</code> 函数里 return 了一个 anonymous function，匿名函数。这样做的好处就是，把 <code>fibonacciSeq()</code> 私有变量 <code>prev</code>, <code>current</code> 保护起来，<strong>同时又能通过返回的 anonymous function 去修改函数的私有变量</strong>。听起来很绕。很实用，因为一般来讲，我们是无法在函数的外部去修改一个函数内部的私有变量的，但 closure 却可以。或者换句话，通过「在函数 A 中返回一个子函数」这样的操作，可以去修改函数 A 的私有变量。</p>
+<p>这里关于 closure，主要想提及几个点：</p>
+<p>一、<code>fibonacciSeq()()</code> 和 <code>seq()</code> 区别</p>
+<p>二者函数的调用和执行都不同。<code>fibonacciSeq()()</code> 则是先调用函数 <code>fibonacciSeq()</code>，该函数返回一个匿名函数，再继续调用该匿名函数，得到匿名函数的返回值。所以是连续调用了两个函数，外层函数和内层函数，整个 <code>fibonacciSeq()</code> 函数中的语句都被执行了。</p>
+<p>而使用 closure，首先定义变量 <code>var seq = fibonacciSeq()</code>，然后在调用 <code>seq()</code> 的过程中，仅仅调用执行了 <code>fibonacciSeq()</code> 里内部返回的的匿名函数，换句话说，在执行 <code>seq()</code> 的过程中， <code>fibonacciSeq()</code>  函数并没有被调用执行，整个过程真正调用执行的<strong>只有</strong>被嵌套的内层子函数，也就是返回的匿名函数，anonymous function。</p>
+<p>这么一个简单区别就造成了，前者 <code>fibonacciSeq()()</code> 即便调用无数次，输出结果都是相同的，都是 <code>1</code>。而后者调用多次，却能够得到 Fibonacci 数列 <code>1,1,2,3,5…</code>。原因就在于 closure，虽然仅仅执行了匿名函数，但因为匿名函数是作为子函数存在于  <code>fibonacciSeq()</code>  函数内，所以根据 Lexical scope 的规则，内层函数是可以 access 到外层函数的变量的。所以在执行 <code>seq()</code> 的过程中，程序从内到外寻找变量  <code>prev</code>, <code>current</code>， 不仅在 <code>fibonacciSeq()</code>  找到了它的私有变量  <code>prev</code>, <code>current</code> ，而且还修改了它们的值！被修改了值的私有变量依旧保持在原来位置，即仍然作为函数的私有变量存在。这一点在文章 <a href="https://javascript.info/closure" target="_blank" rel="external">Closure - The Modern JavaScript Tutorial</a> 中有梗详细的解释，这里就不赘述了。</p>
+<p>二、其他一些细节</p>
+<p>在 <code>generator()</code> 中使用的 <code>call()</code> <code>apply()</code> 方法，主要是为了函数传参。 </p>
+<ul>
+<li><code>Array.prototype.slice.call(arguments, 1)</code> </li>
+</ul>
+<p>因为 <code>arguments</code> 是一个 array-like object，而不是真正的 array，所以无法使用 array 的诸多方法，包括 slice。<code>call()</code> 的作用就是让 <code>arguments</code> 用上 slice 方法。在这里去掉了  <code>arguments</code> 里的第一个元素，剩下元素作为一个新的 array 存储到 <code>args</code> 中。</p>
+<ul>
+<li><code>sequencer.apply(this,args)</code></li>
+</ul>
+<p>绑定 this 到 <code>sequencer</code> 并将参数 <code>args</code> 传递到函数中。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.quora.com/What-are-the-reasons-to-use-return-function-in-JavaScript" target="_blank" rel="external">What are the reasons to use ‘return function’ in JavaScript? - Quora</a></li>
+<li><a href="https://javascript.info/closure" target="_blank" rel="external">Closure - The Modern JavaScript Tutorial</a> ✪</li>
+<li>You Don’t Know JS: Scope &amp; Closures - Kyle Simpson</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Kata&quot;&gt;&lt;a href=&quot;#Kata&quot; class=&quot;headerlink&quot; title=&quot;Kata&quot;&gt;&lt;/a&gt;Kata&lt;/h2&gt;&lt;p&gt;Description:&lt;/p&gt;
+&lt;p&gt;This is the first part of three (&lt;a href=&quot;http://www.codewars.com/kata/es5-generators-ii&quot;&gt;part2&lt;/a&gt;, &lt;a href=&quot;http://www.codewars.com/kata/es5-generators-iii&quot;&gt;part3&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Generators and Iterators are new ES6 features that will allow things like this:&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;* &lt;span class=&quot;title&quot;&gt;fibonacci&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; [prev, curr] = [&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (;;) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        [prev, curr] = [curr, prev + curr];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;yield&lt;/span&gt; curr;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Using them in this way, we can do amazing things:&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; seq = fibonacci();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print(seq.next()); &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print(seq.next()); &lt;span class=&quot;comment&quot;&gt;// 2&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print(seq.next()); &lt;span class=&quot;comment&quot;&gt;// 3&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print(seq.next()); &lt;span class=&quot;comment&quot;&gt;// 5&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;print(seq.next()); &lt;span class=&quot;comment&quot;&gt;// 8&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;This is powerful, but until a few months later, ES6 will not be born.&lt;/p&gt;
+&lt;p&gt;The goal of this kata is to implement pseudo-generators with ES5.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>Codewars.com | Wrapped Function</title>
