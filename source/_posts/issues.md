@@ -1,9 +1,13 @@
 ---
-title: 'Issues'
+title: 'issues'
 date: 
-tags: 
+tags:
+- Shell
 categories:
 ---
+
+
+[TOC]
 
 # General
 
