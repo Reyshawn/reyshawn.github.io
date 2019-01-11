@@ -91,18 +91,18 @@
 
 
 
-<meta name="description" content="[TOC] GeneralApache &amp;amp; phpApache 开启 macOS 系统内置了 Apache。目前，我的 Mojave 系统版本是： 12$ Server version: Apache/2.4.34 (Unix)$ Server built:   Aug 17 2018 18:35:43 如果需要对 Apache web server 本地进行开启，关闭，和重新开启的命令是">
+<meta name="description" content="GeneralApache &amp;amp; phpApache 开启 macOS 系统内置了 Apache。目前，我的 Mojave 系统版本是： 12$ Server version: Apache/2.4.34 (Unix)$ Server built:   Aug 17 2018 18:35:43 如果需要对 Apache web server 本地进行开启，关闭，和重新开启的命令是： 123$">
 <meta name="keywords" content="Shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="issues">
 <meta property="og:url" content="https://github.com/Reyshawn/reyshawn.github.io/2018/01/13/issues/index.html">
 <meta property="og:site_name" content="不如跳舞 | Why Not Dance?">
-<meta property="og:description" content="[TOC] GeneralApache &amp;amp; phpApache 开启 macOS 系统内置了 Apache。目前，我的 Mojave 系统版本是： 12$ Server version: Apache/2.4.34 (Unix)$ Server built:   Aug 17 2018 18:35:43 如果需要对 Apache web server 本地进行开启，关闭，和重新开启的命令是">
+<meta property="og:description" content="GeneralApache &amp;amp; phpApache 开启 macOS 系统内置了 Apache。目前，我的 Mojave 系统版本是： 12$ Server version: Apache/2.4.34 (Unix)$ Server built:   Aug 17 2018 18:35:43 如果需要对 Apache web server 本地进行开启，关闭，和重新开启的命令是： 123$">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-11T03:40:08.820Z">
+<meta property="og:updated_time" content="2019-01-11T03:52:41.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="issues">
-<meta name="twitter:description" content="[TOC] GeneralApache &amp;amp; phpApache 开启 macOS 系统内置了 Apache。目前，我的 Mojave 系统版本是： 12$ Server version: Apache/2.4.34 (Unix)$ Server built:   Aug 17 2018 18:35:43 如果需要对 Apache web server 本地进行开启，关闭，和重新开启的命令是">
+<meta name="twitter:description" content="GeneralApache &amp;amp; phpApache 开启 macOS 系统内置了 Apache。目前，我的 Mojave 系统版本是： 12$ Server version: Apache/2.4.34 (Unix)$ Server built:   Aug 17 2018 18:35:43 如果需要对 Apache web server 本地进行开启，关闭，和重新开启的命令是： 123$">
 
 
 
@@ -357,8 +357,7 @@
       
 
       
-        <p>[TOC]</p>
-<h1 id="General"><a href="#General" class="headerlink" title="General"></a>General</h1><h2 id="Apache-amp-php"><a href="#Apache-amp-php" class="headerlink" title="Apache &amp; php"></a>Apache &amp; php</h2><p><strong>Apache 开启</strong></p>
+        <h1 id="General"><a href="#General" class="headerlink" title="General"></a>General</h1><h2 id="Apache-amp-php"><a href="#Apache-amp-php" class="headerlink" title="Apache &amp; php"></a>Apache &amp; php</h2><p><strong>Apache 开启</strong></p>
 <p>macOS 系统内置了 Apache。目前，我的 Mojave 系统版本是：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> Server version: Apache/2.4.34 (Unix)</span><br><span class="line"><span class="meta">$</span> Server built:   Aug 17 2018 18:35:43</span><br></pre></td></tr></table></figure>
 <p>如果需要对 Apache web server 本地进行开启，关闭，和重新开启的命令是：</p>
@@ -608,9 +607,23 @@
 <ul>
 <li><a href="https://stackoverflow.com/questions/22891211/what-is-the-difference-between-save-and-save-dev" target="_blank" rel="noopener">What is the difference between –save and –save-dev?</a></li>
 </ul>
-<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><ul>
+<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><p><strong>git log</strong></p>
+<ul>
 <li><code>git log --pretty=oneline</code> 查看日志，每次提交都是只显示一行。</li>
-<li><code>git diff</code> + 文件名，直接显示当前版本该文件的修改记录。  </li>
+</ul>
+<p><strong>git diff</strong></p>
+<ul>
+<li><code>git diff</code> + 文件名，直接显示当前版本该文件的修改记录。</li>
+</ul>
+<p><strong>git remote</strong></p>
+<ul>
+<li><code>git remote add origin</code> + <a href="mailto:git@xxxx.xx" target="_blank" rel="noopener">git@xxxx.xx</a>，添加一个 URL 作为 remote，并设置它 alias 为 origin。  </li>
+<li><code>git remote show origin</code>，显示 origin 详细信息。</li>
+<li><code>git config --get remote.origin.url</code> , 只显示 remote URL。</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/4089430/how-can-i-determine-the-url-that-a-local-git-repository-was-originally-cloned-fr" target="_blank" rel="noopener">How can I determine the URL that a local Git repository was originally cloned from?</a></li>
 </ul>
 <h1 id="Regex"><a href="#Regex" class="headerlink" title="Regex"></a>Regex</h1><h2 id="Lookahead-operator"><a href="#Lookahead-operator" class="headerlink" title="Lookahead operator"></a>Lookahead operator</h2><p><strong>Positive Lookahead</strong></p>
 <p>Syntax:</p>
