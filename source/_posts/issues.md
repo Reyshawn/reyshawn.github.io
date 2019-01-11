@@ -7,8 +7,6 @@ categories:
 ---
 
 
-[TOC]
-
 # General
 
 ## Apache & php
@@ -622,8 +620,25 @@ lldb 里一些简单操作:
 
 ## git
 
+**git log**
+
 - `git log --pretty=oneline` 查看日志，每次提交都是只显示一行。
-- `git diff` + 文件名，直接显示当前版本该文件的修改记录。  
+
+**git diff**
+
+- `git diff` + 文件名，直接显示当前版本该文件的修改记录。
+
+**git remote**
+
+- `git remote add origin` + git@xxxx.xx，添加一个 URL 作为 remote，并设置它 alias 为 origin。  
+- `git remote show origin`，显示 origin 详细信息。
+- `git config --get remote.origin.url` , 只显示 remote URL。
+
+
+
+参考：
+
+- [How can I determine the URL that a local Git repository was originally cloned from?](https://stackoverflow.com/questions/4089430/how-can-i-determine-the-url-that-a-local-git-repository-was-originally-cloned-fr)
 
 # Regex
 
