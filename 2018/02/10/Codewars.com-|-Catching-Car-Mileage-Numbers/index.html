@@ -1,367 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-  <meta name="google-site-verification" content="257UXcVFt7RrETCZyUxxiq7WIJkJywNk-CH-pHm28MU" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="算法,codewars,JavaScript," />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="不如跳舞 | Why Not Dance?" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="Codewars.com | Catching Car Mileage NumbersKata   “7777…8?!??!“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who">
-<meta name="keywords" content="算法,codewars,JavaScript">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Codewars.com | Catching Car Mileage Numbers">
-<meta property="og:url" content="https://github.com/Reyshawn/reyshawn.github.io/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/index.html">
-<meta property="og:site_name" content="不如跳舞 | Why Not Dance?">
-<meta property="og:description" content="Codewars.com | Catching Car Mileage NumbersKata   “7777…8?!??!“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-02-10T02:50:30.720Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Codewars.com | Catching Car Mileage Numbers">
-<meta name="twitter:description" content="Codewars.com | Catching Car Mileage NumbersKata   “7777…8?!??!“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://github.com/Reyshawn/reyshawn.github.io/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/"/>
-
-
-
-
-
-  <title> Codewars.com | Catching Car Mileage Numbers | 不如跳舞 | Why Not Dance? </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>reyshawn.C</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">不如跳舞 | Why Not Dance?</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle">竹杖芒鞋轻胜马，一蓑烟雨任平生</p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Reyshawn/reyshawn.github.io/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Reyshawn">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不如跳舞 | Why Not Dance?">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Codewars.com | Catching Car Mileage Numbers
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-10T10:38:00+08:00">
-                2018-02-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+<body class='home blog'>
+    <header id="hagoromo-header" class="hagoromo-header">
+    <div class="container">
+        <div class="slot-l">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
         </div>
-      </header>
-    
+        <div class="slot-r">
+            <ul class="hagoromo-nav hagoromo-actions-list">
+                <li class="hagoromo-action-button hagoromo-action-sidebar">
+                    <span><i class="fa fa-bars"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div id="hagoromo-cover" class="hagoromo-cover hagoromo-cover-empty"></div>
 
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="Codewars-com-Catching-Car-Mileage-Numbers"><a href="#Codewars-com-Catching-Car-Mileage-Numbers" class="headerlink" title="Codewars.com | Catching Car Mileage Numbers"></a>Codewars.com | <a href="https://www.codewars.com/kata/52c4dd683bfd3b434c000292" target="_blank" rel="noopener">Catching Car Mileage Numbers</a></h1><h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><blockquote>
+    <div class="hagoromo-fake-bg">
+        <div class="hagoromo-section">
+    <div class="section-content">
+        <article class="hagoromo-post">
+            <header class="entry-header">
+                <h2 class="entry-title h1">
+                    <a href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">Catching Car Mileage Numbers</a>
+                </h2>
+                <div class="entry-meta">
+                    Sat Feb 10 2018 10:38:00 GMT+0800
+                </div>
+                <div class="post-letter"></div>
+            </header>
+            <div class="entry-content">
+                <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><blockquote>
 <p>  “7777…<em>8?!??!</em>“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who <em>doesn’t</em> like catching those one-off interesting mileage numbers?</p>
 </blockquote>
 <p>Let’s make it so Bob <strong>never</strong> misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a <code>1</code> or a <code>2</code> (respectively).</p>
 <p>It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a <code>2</code> if the number is “interesting” (see below), a <code>1</code> if an interesting number occurs within the next two miles, or a <code>0</code> if the number is not interesting.</p>
+<a id="more"></a>
 <p><strong>Note:</strong> In Haskell, we use <code>No</code>, <code>Almost</code> and <code>Yes</code> instead of <code>0</code>, <code>1</code> and <code>2</code>.</p>
 <p> <strong>“Interesting” Numbers</strong></p>
 <p>Interesting numbers are 3-or-more digit numbers that meet one or more of the following criteria:</p>
@@ -377,7 +67,23 @@
 <p>  † For incrementing sequences, <code>0</code> should come after <code>9</code>, and not before  <code>1</code>, as in <code>7890</code>.<br>  ‡ For decrementing sequences, <code>0</code> should come after <code>1</code>, and not before  <code>9</code>, as in <code>3210</code>.</p>
 </blockquote>
 <p>So, you should expect these inputs and outputs:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// "boring" numbers</span></span><br><span class="line">isInteresting(<span class="number">3</span>, [<span class="number">1337</span>, <span class="number">256</span>]);    <span class="comment">// 0</span></span><br><span class="line">isInteresting(<span class="number">3236</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// progress as we near an "interesting" number</span></span><br><span class="line">isInteresting(<span class="number">11207</span>, []); <span class="comment">// 0</span></span><br><span class="line">isInteresting(<span class="number">11208</span>, []); <span class="comment">// 0</span></span><br><span class="line">isInteresting(<span class="number">11209</span>, []); <span class="comment">// 1</span></span><br><span class="line">isInteresting(<span class="number">11210</span>, []); <span class="comment">// 1</span></span><br><span class="line">isInteresting(<span class="number">11211</span>, []); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// nearing a provided "awesome phrase"</span></span><br><span class="line">isInteresting(<span class="number">1335</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 1</span></span><br><span class="line">isInteresting(<span class="number">1336</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 1</span></span><br><span class="line">isInteresting(<span class="number">1337</span>, [<span class="number">1337</span>, <span class="number">256</span>]); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">// &quot;boring&quot; numbers
+isInteresting(3, [1337, 256]);    // 0
+isInteresting(3236, [1337, 256]); // 0
+
+// progress as we near an &quot;interesting&quot; number
+isInteresting(11207, []); // 0
+isInteresting(11208, []); // 0
+isInteresting(11209, []); // 1
+isInteresting(11210, []); // 1
+isInteresting(11211, []); // 2
+
+// nearing a provided &quot;awesome phrase&quot;
+isInteresting(1335, [1337, 256]); // 1
+isInteresting(1336, [1337, 256]); // 1
+isInteresting(1337, [1337, 256]); // 2
+
+</code></pre>
 <p><strong>Error Checking</strong></p>
 <ul>
 <li>A number is only interesting if it is greater than <code>99</code>!</li>
@@ -385,16 +91,47 @@
 <li>The <code>awesomePhrases</code> array will always be provided, and will always be an array, but may be empty. (Not <em>everyone</em> thinks numbers spell funny words…)</li>
 <li>You should only ever output <code>0</code>, <code>1</code>, or <code>2</code>.</li>
 </ul>
-<a id="more"></a>
 <hr>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>题目很长，但总结起来，无非就是输入一个 number 类型的数据，检查是否符合上述列出的所谓「interesting number」的规则，按照规则输出 0，1 或 2。以下是自己看到的一个非常简洁的答案，答案来自 <a href="https://www.codewars.com/users/laoris" target="_blank" rel="noopener">laoris</a>, <a href="https://www.codewars.com/users/jwong483" target="_blank" rel="noopener">jwong483</a>, <a href="https://www.codewars.com/users/Marlen" target="_blank" rel="noopener">Marlen</a>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isInteresting</span>(<span class="params">number, awesomePhrases</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> tests = [</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> <span class="regexp">/^\d00+$/</span>.test(n); &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> <span class="regexp">/^(\d)\1+$/</span>.test(n); &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">RegExp</span>(n).test(<span class="number">1234567890</span>); &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">RegExp</span>(n).test(<span class="number">9876543210</span>); &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> n + <span class="string">''</span> == (n + <span class="string">''</span>).split(<span class="string">''</span>).reverse().join(<span class="string">''</span>); &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; <span class="keyword">return</span> awesomePhrases.some(<span class="function"><span class="keyword">function</span>(<span class="params">p</span>) </span>&#123; <span class="keyword">return</span> p == n; &#125;); &#125;</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> interesting = <span class="number">0</span>;</span><br><span class="line">  tests.some(<span class="function"><span class="keyword">function</span>(<span class="params">test</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (number &gt; <span class="number">99</span> &amp;&amp; test(number))</span><br><span class="line">      <span class="keyword">return</span> interesting = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ((number &gt; <span class="number">98</span> &amp;&amp; test(number + <span class="number">1</span>)) || (number &gt; <span class="number">97</span> &amp;&amp; test(number + <span class="number">2</span>)))</span><br><span class="line">      interesting = <span class="number">1</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> interesting;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">function isInteresting(number, awesomePhrases) {
+  var tests = [
+    function(n) { return /^\d00+$/.test(n); },
+    function(n) { return /^(\d)\1+$/.test(n); },
+    function(n) { return RegExp(n).test(1234567890); },
+    function(n) { return RegExp(n).test(9876543210); },
+    function(n) { return n + &#39;&#39; == (n + &#39;&#39;).split(&#39;&#39;).reverse().join(&#39;&#39;); },
+    function(n) { return awesomePhrases.some(function(p) { return p == n; }); }
+  ];
+
+  var interesting = 0;
+  tests.some(function(test) {
+    if (number &gt; 99 &amp;&amp; test(number))
+      return interesting = 2;
+    else if ((number &gt; 98 &amp;&amp; test(number + 1)) || (number &gt; 97 &amp;&amp; test(number + 2)))
+      interesting = 1;
+  });
+  return interesting;
+}
+</code></pre>
 <p>这个答案在代码结构上很厉害的一点在于，使用了 <code>some()</code> 这个函数，以及加上完全由函数组成的 array 数组，来进行给定规则的检验。 <code>some()</code> 方法主要用于测试数组中某些元素。用法就是在方法 <code>some()</code> 中定义一个 callback 回调函数，数组中的每一个元素作为回调函数的参数依次传入到回调函数中（回调函数的意思就是函数作为函数的参数，这里有点儿绕） 。</p>
 <p>在这个例子里，<code>tests</code> 是事先定义好的数组，数组的每一个元素都是一个函数。对这个数组使用 <code>some()</code> 方法，在其中定义了一个回调函数，形如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tests.some(<span class="function"><span class="keyword">function</span>(<span class="params">test</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>（number &gt; <span class="number">99</span> &amp;&amp; test(number))&#123;</span><br><span class="line">        <span class="comment">// code here</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//code here</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">tests.some(function(test){
+    if（number &gt; 99 &amp;&amp; test(number)){
+        // code here
+    }
+    //code here
+})
+</code></pre>
 <p>在实际执行过程中，<code>tests</code> 中的每一个元素 element，都会作为回调函数的参数 <code>test</code> 传递进回调函数中。因为 <code>tests</code>  数组里的元素都是函数，所以这里使用参数  <code>test</code>  时也是把它当作函数来使用的。因此才会看到有 <code>test(number)</code> 这样的语句。</p>
 <p>关于 <code>some()</code> 方法，MDN 上给了一个更加简单的例子，来帮助理解这其中的参数传导：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isBigEnough</span>(<span class="params">element, index, array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (element &gt;= <span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> passed = [<span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">4</span>].some(isBigEnough);</span><br><span class="line"><span class="comment">// passed is false</span></span><br><span class="line">passed = [<span class="number">12</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">4</span>].some(isBigEnough);</span><br><span class="line"><span class="comment">// passed is true</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">function isBigEnough(element, index, array) {
+  return (element &gt;= 10);
+}
+var passed = [2, 5, 8, 1, 4].some(isBigEnough);
+// passed is false
+passed = [12, 5, 8, 1, 4].some(isBigEnough);
+// passed is true
+</code></pre>
 <p>明白了整个算法的结构，其实在 <code>tests</code> 中定义的检测函数，也都非常巧妙。 </p>
 <ul>
 <li>形如 [1234, 8765] 这类数，把被检测数转化成 <code>RegExp</code> 逆向使用正则表达式；</li>
@@ -402,429 +139,115 @@
 <li>检测 palindrome 回文数，使用 <code>reverse()</code> 方法，判断反转后是否相等。</li>
 </ul>
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/算法/" rel="tag"># 算法</a>
-          
-            <a href="/tags/codewars/" rel="tag"># codewars</a>
-          
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/01/13/issues/" rel="next" title="issues">
-                <i class="fa fa-chevron-left"></i> issues
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/12/Codewars.com | Wrapped Function/" rel="prev" title="Codewars.com | Wrapped Function">
-                Codewars.com | Wrapped Function <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-          
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
-               alt="Reyshawn" />
-          <p class="site-author-name" itemprop="name">Reyshawn</p>
-           
-              <p class="site-description motion-element" itemprop="description">All about Mathematics, Coding, Languages and Art.</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">10</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
             </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">categories</span>
-              </a>
+            <div class="entry-tags">
+                 
+                    <a href="/tags/Algorithm/">Algorithm</a>
+                 
+                    <a href="/tags/codewars/">codewars</a>
+                 
+                    <a href="/tags/JavaScript/">JavaScript</a>
+                
             </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
-                <span class="site-state-item-name">tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/Reyshawn" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/ReshawnChang" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/u/1724849591" target="_blank" title="微博">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  微博
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.douban.com/people/53350454/" target="_blank" title="豆瓣">
-                  
-                    <i class="fa fa-fw fa-film"></i>
-                  
-                  豆瓣
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" target="_blank" title="知乎">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  知乎
-                </a>
-              </span>
-            
-          
+            <div class="entry-footer"></div>
+        </article>
+    </div>
+</div>
+        <footer id="hagoromo-footer" class="hagoromo-footer">
+    <div class="container">
+        <div class="hagoromo-footer-widget"></div>
+        <div class="hagoromo-footer-widget">
+            <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
+            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
+        <div class="hagoromo-footer-widget social">
             
+                
+                    <span class="social-button">
+                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                    </span>
+                
+            
+            <span class="social-button">
+                <a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i></a>
+            </span>
+        </div> 
+    </div>
+</footer>
+    </div>
+
+    <div class="hagoromo-sidebar">
+    <div class="hagoromo-sidebar-header">
+        <div class="hagoromo-sidebar-header-wrapper">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+            <span class="hagoromo-sidebar-close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget search">
+        <form class="hagoromo-search-form">
+            <input name="s" type="text" placeholder="Type here to search ... ">
+            <button type="submit" class="hagoromo-button hagoromo-button-search">SEARCH</button>
+        </form>
+    </div>
+    <div class="widget categories">
+        <h4 class="widget-title h5">分类</h4>
+        <ul>
+            <li><a href="/archive">Archive</a></li>
               
+            <li><a href="/categories/Coding/">Coding</a></li>
+              
+            <li><a href="/categories/I-O/">I/O</a></li>
             
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Codewars-com-Catching-Car-Mileage-Numbers"><span class="nav-number">1.</span> <span class="nav-text">Codewars.com | Catching Car Mileage Numbers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kata"><span class="nav-number">1.1.</span> <span class="nav-text">Kata</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">1.2.</span> <span class="nav-text">Solution</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
+        </ul>
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2017 - 
-  <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Reyshawn</span>
+    <div class="widget tags">
+        <h4 class="widget-title h5">标签</h4>
+        <ul>
+              
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+              
+                <li><a href="/tags/codewars/">codewars<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/电影/">电影<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></li>
+              
+                <li><a href="/tags/故事/">故事<a></li>
+            
+        </ul>
+    </div>
 </div>
 
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-    
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-
-  
-
-    <script type="text/javascript">
-      var disqus_shortname = 'reyshawn';
-      var disqus_identifier = '2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/';
-
-      var disqus_title = "Codewars.com | Catching Car Mileage Numbers";
-
-
-      function run_disqus_script(disqus_script) {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }
-
-      run_disqus_script('count.js');
-
-      
-        var disqus_config = function () {
-            this.page.url = disqus_url;
-            this.page.identifier = disqus_identifier;
-            this.page.title = disqus_title;
-        };
-        run_disqus_script('embed.js');
-      
-
-    </script>
-  
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-  
-  
-
-
-  
-
-  
-
-  
-
-
-  
-
+<div class="hagoromo-sidebar-overlay"></div>
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/highlight.min.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
