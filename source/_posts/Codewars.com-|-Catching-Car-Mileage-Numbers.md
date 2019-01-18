@@ -1,14 +1,13 @@
 ---
-title: 'Codewars.com | Catching Car Mileage Numbers'
+title: 'Catching Car Mileage Numbers'
 date: 
 tags:
-- 算法
+- Algorithm
 - codewars
 - JavaScript
 categories: 
+- Coding
 ---
-
-#  Codewars.com | [Catching Car Mileage Numbers](https://www.codewars.com/kata/52c4dd683bfd3b434c000292)
 
 ## Kata
 
@@ -17,6 +16,8 @@ categories:
 Let's make it so Bob **never** misses another interesting number. We've hacked into his car's computer, and we have a box hooked up that reads mileage numbers. We've got a box glued to his dash that lights up yellow or green depending on whether it receives a `1` or a `2` (respectively).
 
 It's up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a `2` if the number is "interesting" (see below), a `1` if an interesting number occurs within the next two miles, or a `0` if the number is not interesting.
+
+<!-- more -->
 
 **Note:** In Haskell, we use `No`, `Almost` and `Yes` instead of `0`, `1` and `2`.
 
@@ -63,8 +64,6 @@ isInteresting(1337, [1337, 256]); // 2
 -   You should only ever output `0`, `1`, or `2`.
 
 
-
-<!-- more -->
 
 ***
 

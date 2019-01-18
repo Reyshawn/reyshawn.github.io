@@ -1,0 +1,39 @@
+<div class="hagoromo-sidebar">
+    <div class="hagoromo-sidebar-header">
+        <div class="hagoromo-sidebar-header-wrapper">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+            <span class="hagoromo-sidebar-close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget search">
+        <form class="hagoromo-search-form">
+            <input name="s" type="text" placeholder="Type here to search ... ">
+            <button type="submit" class="hagoromo-button hagoromo-button-search">SEARCH</button>
+        </form>
+    </div>
+    <div class="widget categories">
+        <h4 class="widget-title h5">分类</h4>
+        <ul>
+            <li><a href="/archive">Archive</a></li>
+            <% site.categories.each(function(category, i) { %>  
+            <li><a href="<%- url_for(category.path) %>"><%=  category.name %></a></li>
+            <% })%>
+        </ul>
+    </div>
+    <div class="widget tags">
+        <h4 class="widget-title h5">标签</h4>
+        <ul>
+            <% site.tags.each(function(tag, i) { %>  
+                <li><a href="<%- url_for(tag.path) %>"><%=  tag.name %><a></li>
+            <% })%>
+        </ul>
+    </div>
+</div>
+
+<div class="hagoromo-sidebar-overlay"></div>

@@ -1,11 +1,12 @@
 ---
-title: 'Codewars.com | ES5 Generators(i) 和闭包 closure '
+title: 'ES5 Generators(i) 和闭包 closure'
 date: 
 tags:
-- 算法
+- Algorithm
 - codewars
 - JavaScript
 categories: 
+- Coding
 ---
 
 ## Kata

@@ -1,0 +1,24 @@
+<div class="hagoromo-section">
+    <div class="section-content">
+        <article class="hagoromo-post">
+            <header class="entry-header">
+                <h2 class="entry-title h1">
+                    <a href="<%- url_for(page.path) %>"><%= page.title %></a>
+                </h2>
+                <div class="entry-meta">
+                    <%= page.date %>
+                </div>
+                <div class="post-letter"></div>
+            </header>
+            <div class="entry-content">
+                <%- page.content %>
+            </div>
+            <div class="entry-tags">
+                <% page.tags.each(function(tag, i) { %> 
+                    <a href="<%- url_for(tag.path) %>"><%=  tag.name %></a>
+                <% }) %>
+            </div>
+            <div class="entry-footer"></div>
+        </article>
+    </div>
+</div>

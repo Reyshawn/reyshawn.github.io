@@ -1,0 +1,27 @@
+<div class="hagoromo-section">
+    <div class="section-head"><h1 class="section-title h6">Latest stories</h1></div>
+    <div class="section-content">
+        <div class="hagoromo-posts">
+            <% page.posts.each(function(post,i){ %>
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+                    </h2>
+                    <div class="entry-meta">
+                        <%= post.date.format('YYYY 年 MM 月 DD 日'); %>
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <%- post.excerpt %>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="<%- url_for(post.path) %>">READ MORE</a>
+                </div>
+            </article>
+            <% }) %>
+        </div>
+        <%- partial('_partials/pagination', {type: 'page'}) %>
+    </div>
+</div>

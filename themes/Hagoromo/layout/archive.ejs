@@ -1,0 +1,19 @@
+<article class="hagoromo-post">
+    <header class="entry-header">
+        <h2 class="entry-title h1">
+            <a href="<%- url_for(page.path) %>">往期歸檔 Archive</a>
+        </h2>
+        <div class="entry-meta">
+            <%= page.date %>
+        </div>
+        <div class="post-letter"></div>
+    </header>
+    <div class="entry-content">
+        <ul>
+            <% site.posts.each(function(post,i){ %>
+            <li><a href="<%- url_for(post.path) %>"><%= post.title %></a></li>
+            <% }) %>
+        </ul>
+    </div>
+    <div class="entry-footer"></div>
+</article>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- partial('_partials/head') %>
+
+<body class='home blog'>
+    <%- partial('_partials/header') %>
+
+    <div class="hagoromo-fake-bg">
+        <%- body %>
+        <%- partial('_partials/footer') %>
+    </div>
+
+    <%- partial('_partials/sidebar') %>
+
+    <%- js('js/jquery-3.3.1.min.js') %>
+    <%- js('js/highlight.min.js') %>
+    <%- js('js/main.js') %>
+</body>
+</html>

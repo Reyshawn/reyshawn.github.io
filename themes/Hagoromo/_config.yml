@@ -1,0 +1,9 @@
+social_icons:
+  enable: true
+  # Icon Mappings.
+  # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
+  GitHub: github
+  Twitter: twitter
+  微博: weibo
+  豆瓣: film
+  知乎: globe

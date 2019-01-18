@@ -1,0 +1,21 @@
+<footer id="hagoromo-footer" class="hagoromo-footer">
+    <div class="container">
+        <div class="hagoromo-footer-widget"></div>
+        <div class="hagoromo-footer-widget">
+            <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
+            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+        </div>
+        <div class="hagoromo-footer-widget social">
+            <% if (config.social) { %>
+                <% for (let name in config.social){ %>
+                    <span class="social-button">
+                        <a href="<%= config.social[name] %>" rel="alternate"><i class="fa fa-<%= theme.social_icons[name]%>"></i></a>
+                    </span>
+                <% } %>
+            <% } %>
+            <span class="social-button">
+                <a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i></a>
+            </span>
+        </div> 
+    </div>
+</footer>

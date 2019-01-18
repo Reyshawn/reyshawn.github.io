@@ -1,14 +1,13 @@
 ---
-title: 'Codewars.com | Wrapped Function'
+title: 'Wrapped Function'
 date: 
 tags:
-- 算法
+- Algorithm
 - codewars
 - JavaScript
-categories: 
+categories:
+- Coding 
 ---
-
-# Codewars.com | Wrapped Function
 
 ## Kata
 

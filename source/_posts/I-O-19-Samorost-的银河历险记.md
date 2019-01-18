@@ -1,14 +1,14 @@
 ---
-title: 'I/O #19: Samorost 的银河历险记'
+title: '#19: Samorost 的银河历险记'
 date: 2016-12-17 16:31:48
 tags: 
 - 游戏
 - 故事
-categories: "I/O"
+categories: 
+- "I/O"
 ---
 
-# I/O #19: Samorost 的银河历险记
-*2016.12.17*
+
 
 「Samorost」是来自捷克开发者团队  Amanita Design 的作品，中文译名「星际历险记」，如果之前有玩过他们的作品比如「Machinarium」，便能提前对他们的作品风格有所预设。「Samorost」和前作「Machinarium」风格相似，都是相同的鼠标点触操作模式，内含大量构思巧妙的关卡，人物沟通采用了会话气泡加动画的形式，暗藏的手绘攻略，以及故事核心都是一个子供向的童话。
 
