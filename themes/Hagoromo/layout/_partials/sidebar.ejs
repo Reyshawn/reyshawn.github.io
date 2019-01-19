@@ -20,7 +20,7 @@
     <div class="widget categories">
         <h4 class="widget-title h5">分类</h4>
         <ul>
-            <li><a href="/archive">Archive</a></li>
+            <li><a href="/archives">Archive</a></li>
             <% site.categories.each(function(category, i) { %>  
             <li><a href="<%- url_for(category.path) %>"><%=  category.name %></a></li>
             <% })%>
