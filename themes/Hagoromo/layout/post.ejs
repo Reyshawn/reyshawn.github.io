@@ -6,7 +6,7 @@
                     <a href="<%- url_for(page.path) %>"><%= page.title %></a>
                 </h2>
                 <div class="entry-meta">
-                    <%= page.date %>
+                    <%= page.date.format('YYYY 年 MM 月 DD 日'); %>
                 </div>
                 <div class="post-letter"></div>
             </header>

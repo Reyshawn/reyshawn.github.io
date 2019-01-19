@@ -96,6 +96,17 @@ hr {
     height: 0.5rem;
 }
 
+/* inline code style */
+code {
+    font-family: 'Menlo', monospace;
+    font-size: 1.3rem;
+}
+
+/* codeblock style */
+pre code {
+    font-size: 1rem;
+}
+
 
 
 .hagoromo-button {
@@ -735,4 +746,31 @@ input {
     .hagoromo-footer .hagoromo-footer-widget:first-child {
         margin-bottom: 8rem;
     }
+}
+
+
+/* Plugins */
+
+/* highlightjs-line-number */
+
+.hljs-ln td.hljs-ln-numbers {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    text-align: center;
+    color: #ccc;
+    border-right: 1px solid #CCC;
+    vertical-align: top;
+    padding-right: 5px;
+
+    /* your custom style here */
+}
+
+/* for block of code */
+.hljs-ln td.hljs-ln-code {
+    padding-left: 10px;
 }
