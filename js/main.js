@@ -1,6 +1,4 @@
 $(function() {
-    hljs.initHighlightingOnLoad();
-
     $(window).on('scroll', function() {
         let scrollPosition = $(this).scrollTop();
         let $header = $('.hagoromo-header');        
@@ -53,4 +51,14 @@ $(function() {
         let l = $(this).find('.entry-title').text().trim()[0];
         $(this).find('.post-letter').text(l);
     });
+
+    $('#hagoromo-search-form').on('submit', function(event) {
+        event.preventDefault();
+        let q = $(this).find("input[name='s']").val() + "+site:reyshawn.com";
+        window.open("https://www.google.com/search?q=" + q);        
+    });
+
 });
+
+hljs.initHighlightingOnLoad();
+hljs.initLineNumbersOnLoad();
