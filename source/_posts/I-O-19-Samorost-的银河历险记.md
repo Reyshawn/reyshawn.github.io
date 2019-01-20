@@ -1,11 +1,10 @@
 ---
-title: '#19: Samorost 的银河历险记'
+title: 'Samorost 的银河历险记'
 date: 2016-12-17 16:31:48
 tags: 
 - 游戏
 - 故事
-categories: 
-- "I/O"
+categories: "I/O"
 ---
 
 
