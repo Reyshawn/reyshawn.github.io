@@ -46,6 +46,365 @@
   </entry>
   
   <entry>
+    <title>1/n- Cycle | 6kyu</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/07/10/1n-%20Cycle%20%7C%206kyu/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/07/10/1n- Cycle | 6kyu/</id>
+    <published>2018-07-10T14:58:13.061Z</published>
+    <updated>2019-01-22T15:15:12.940Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Let be <code>n</code> an integer prime with <code>10</code> e.g. <code>7</code>. </p><p><code>1/7 = 0.142857 142857 142857 ...</code>.</p><p>We see that the decimal part has a cycle: <code>142857</code>. The length of this cycle is <code>6</code>. In the same way:</p><p><code>1/11 = 0.09 09 09 ...</code>. Cycle length is <code>2</code>.</p><p><strong>Task</strong></p><p>Given an integer n (n &gt; 1), the function cycle(n) returns the length of the cycle if n and 10 are coprimes, otherwise returns -1.</p><p><strong>Exemples:</strong></p><pre><code class="python">cycle(5) = -1cycle(13) = 6 -&gt; 0.076923 076923 0769cycle(21) = 6 -&gt; 0.047619 047619 0476cycle(27) = 3 -&gt; 0.037 037 037 037 0370cycle(33) = 2 -&gt; 0.03 03 03 03 03 03 03 03cycle(37) = 3 -&gt; 0.027 027 027 027 027 0cycle(94) = -1 cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...</code></pre><p>Note</p><ul><li>Translators are welcome for all languages.</li></ul><a id="more"></a><h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">import mathimport fractionsdef cycle(n) :    if n==2 or n==5 :        return -1    t = phi(n)    p = primes(t)    divisor = []    for i in p:        x = i        while t % i == 0:            divisor.append(i)            t //= i        if isprime(t):            divisor.append(t)            break    divisor.sort()    print(divisor)    for i in divisor:        if 10**i % n == 1:            break    return idef phi(n):    &#39;&#39;&#39;compute Euler&#39;s totient function values.&#39;&#39;&#39;    amount = 0    for k in range(1, n + 1):        if math.gcd(n, k) == 1:            amount += 1    return amountdef isprime(n):    &quot;&quot;&quot;Returns True if n is prime.&quot;&quot;&quot;    if n == 2:        return True    if n == 3:        return True    if n % 2 == 0:        return False    if n % 3 == 0:        return False    i = 5    w = 2    while i * i &lt;= n:        if n % i == 0:            return False        i += w        w = 6 - w    return Truedef primes(limit):    D = {}    q = 2    while q &lt;= limit:        if q not in D:            yield q            D[q * q] = [q]        else:            for p in D[q]:                D.setdefault(p + q, []).append(p)            del D[q]        q += 1print(cycle(219199))</code></pre><p>这道题是求 $1/n$ 的循环小数位数的。通过观察其实可以得到如下的性质，假设 $1/n$ 的循环小数位数有 $p$ 位，则有：</p><pre><code class="python">10**p % n == 1</code></pre><p>其实也很好理解，就是 10 扩大 $p$ 倍，小数点向右移动 $p$ 位，整数部分恰好位一个循环数，小数部分则等于 $1/n$ 。</p><p>但是如果按照这个思路来进行求解，写一个循环，对一个稍微大一点的数，如上面的 <code>219199</code>，它的循环位数是 <code>36180</code>。暴力写循环根本就行不通！</p><h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a href="https://www.codewars.com/users/lechevalier" target="_blank" rel="noopener">lechevalier</a></p><pre><code class="python">def cycle(n):    if not n % 2 or not n % 5:        return -1    x, mods = 1, set()    while x not in mods:        mods.add(x)        x = 10 * x % n    return len(mods)</code></pre><p>lechevalier 所用的这个方法的思路，正是我上面说的，只是并非暴力循环，而是不断迭代。我的疑问是，为何一定能保证，<code>mods</code> 长度刚好是循环的位数？</p><p>方法类似这里给出的答案：<a href="https://stackoverflow.com/questions/249372/how-to-calculate-recurring-digits" target="_blank" rel="noopener">How to Calculate Recurring Digits?</a></p><blockquote><p>You can calculate the decimal representation of <code>a / b</code> using the long-division algorithm you learned at school, as Mark Ransom said. To calculate each successive digit, divide the current dividend (numerator or remainder) by <code>b</code>, and find the next dividend as the remainder multiplied by 10 (“bringing down a 0”). When a remainder is the same as some previous remainder, it means that the digits from then on will repeat as well, so you can note this fact and stop.</p></blockquote><p>明白了。其实整个迭代的过程就是去做一次 long division。long division 就是我们小学学过的那种除法计算。</p><p><img src="../images/long division.png" alt="long division"></p><p>那么为什么这样一种循环就比之前我想的那种暴力破解快呢？答案就在于迭代。每次只用 remainder 乘 10 进行迭代，一个非常小的数，算起来自然比用 $10^{n}$ 直接去除要快得多。 </p><p>参考文章：</p><ul><li><a href="https://math.stackexchange.com/questions/1122203/calculating-eulers-totient-function-values" target="_blank" rel="noopener">Calculating Euler’s totient function values.</a></li><li><a href="https://stackoverflow.com/questions/249372/how-to-calculate-recurring-digits" target="_blank" rel="noopener">How to Calculate Recurring Digits?</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Details&quot;&gt;&lt;a href=&quot;#Details&quot; class=&quot;headerlink&quot; title=&quot;Details&quot;&gt;&lt;/a&gt;Details&lt;/h2&gt;&lt;p&gt;Let be &lt;code&gt;n&lt;/code&gt; an integer prime with &lt;code&gt;10&lt;/code&gt; e.g. &lt;code&gt;7&lt;/code&gt;. &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;1/7 = 0.142857 142857 142857 ...&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;We see that the decimal part has a cycle: &lt;code&gt;142857&lt;/code&gt;. The length of this cycle is &lt;code&gt;6&lt;/code&gt;. In the same way:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;1/11 = 0.09 09 09 ...&lt;/code&gt;. Cycle length is &lt;code&gt;2&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Task&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Given an integer n (n &amp;gt; 1), the function cycle(n) returns the length of the cycle if n and 10 are coprimes, otherwise returns -1.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Exemples:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;cycle(5) = -1
+cycle(13) = 6 -&amp;gt; 0.076923 076923 0769
+cycle(21) = 6 -&amp;gt; 0.047619 047619 0476
+cycle(27) = 3 -&amp;gt; 0.037 037 037 037 0370
+cycle(33) = 2 -&amp;gt; 0.03 03 03 03 03 03 03 03
+cycle(37) = 3 -&amp;gt; 0.027 027 027 027 027 0
+cycle(94) = -1 
+
+cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Translators are welcome for all languages.&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Coding" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/Coding/"/>
+    
+    
+      <category term="Algorithm" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Algorithm/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Lowest base system | 4kyu</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/06/29/Lowest%20base%20system%20%7C%204kyu/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/06/29/Lowest base system | 4kyu/</id>
+    <published>2018-06-29T01:58:30.647Z</published>
+    <updated>2019-01-22T15:16:13.178Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul><li>除法，求余，因子</li><li><code>Number.MAX_SAFE_INTEGER</code></li><li>二分法求方程根</li></ul><h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your task is determine lowest number base system in which the input <code>n</code> (base 10), expressed in this number base system, is all <code>1</code> in its digit. See an example:</p><p>‘7’ in base 2 is ‘111’ - fits! answer is 2</p><p>‘21’ in base 2 is ‘10101’ - contains ‘0’ does not fit ‘21’ in base 3 is ‘210’ - contains ‘0’ and ‘2’ does not fit ‘21’ in base 4 is ‘111’ - contains only ‘1’ it fits! answer is 4</p><p><code>n</code> is always less than <code>Number.MAX_SAFE_INTEGER</code>.</p><p>这个题目的难度主要在于性能 performance 方面，对于数值较小的数字，通常方法很容易计算，一旦涉及到九位十位往上的大数，一般的循环方法就会耗时很久。</p><a id="more"></a><h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function getMinBase (number) {    if (number == 3) return 2;    var divisor = number -1    for (let i = 2; i != divisor; i++) {        var k = number - 1;        if (i &gt; 5999) break;        while (!(k % i)) {            divisor = k / i            k = divisor - 1;            if (k == 0) return i;        }    }    var _root = [2,3,4,5]    var k = 11    for (let i=0; i&lt;_root.length; i++){        var possible = parseInt(Math.pow(number, 1/_root[i]))        var k = 10 * k + 1        if (toTenBase(k,possible) == number) return possible    }    return number -1;}function toTenBase (number, base) {    n = number + &#39;&#39;;    n = n.split(&#39;&#39;).map(a =&gt; parseInt(a));    res = 0    for (var i = n.length -1; i &gt; -1; i--) {        res += Math.pow(base,i) * n[i]    }    return res;}</code></pre><p>我的这个方法，似乎有些根据测试的数据，有些取巧。代码分成两部分，第一步是通常意义的查找，<code>i</code> 从 2 开始，依此类加，找到每次减 1 都能被整除的最小 <code>i</code> 值。这里面为了优化用了一些技巧，比如最开始一部其实是要找 <code>number - 1</code> 的所有因子，但注意，因为一个数的所有因子都是对称的。譬如 12 的因子：1，2，3，4，6，12。从 3 开始往后的每一个数，在之前的相除过程中都得到了。比如和 2 相除得到 6，和 3 相除得到 4。</p><p>所以我在代码的第一部分加入了变量 <code>divisor</code>，并把它加入了跳出循环的条件。因为一旦 <code>i</code> 超过了 <code>number - 1</code>  的一半，那么就不可能存在除了 <code>number -1</code> 之外的数，使得以之为 base 能得到 <code>111...</code>。</p><p>但因为每次 <code>i</code> 都是类加 1，经过多次反复实验，<code>i</code> 超过 5000 之后，再计算速度已经很慢了。于是我写了另一个函数 <code>toTenBase()</code> ，给出任意 number 和 base，计算以 10 base 的数。最开始写这个函数，不过是为了去找一些规律。对于测试中出现的那些很大的数，大部分的结果都是 <code>number - 1</code>，然而在特殊测试部分，类似这样的 <code>Test.assertEquals(getMinBase(2500050001), 50000);</code> 数就很难办。</p><p>后来也是借助函数 <code>toTenBase()</code> 才发现，特殊测试中的数字，化成 <code>111…</code> 形式的话，大多都是 <code>111</code>，<code>1111</code> 和 <code>11111</code>，再大的话就没有了。如果我们设 <code>getMinBase()</code> 函数所得值为 $x$，而对应 number 为 $n$，对于 <code>111</code> 的类型，则变成一个二次方程求解：</p><p>$$x^2 +x+1=n$$</p><p>相应的 <code>1111</code> 类型，则是三次方程求解：</p><p>$$x^3+x^2 +x+1=n$$</p><p>对于 <code>11111</code> ，按照上述形式也可写出四次方程来。那么问题就是，针对这样的方程，该如何解呢？那么我们就要意识到，$n$ 此时已经很大了，相应 $x$ 也很大。所以它可以转化成一个球极限的问题，即：</p><p>$\lim\limits_{x \to \infty }x^3+x^2 +x+1=\lim\limits_{n \to \infty }n$<br>$\lim\limits_{x \to \infty }x^3=\lim\limits_{n \to \infty }n$</p><p>因此对于第一个方程，n 直接开方，对于第二个方程，n 直接开三次方。理论终究只是理论，实际检验一下，发现可以，于是就是有代码的第二部分。</p><h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a href="https://www.codewars.com/users/Voile" target="_blank" rel="noopener">Voile</a></p><pre><code class="javascript">function getMinBase(n) {  for(let i=Math.ceil(Math.log2(n)); i&gt;1; i--) {    let root=Math.round(findRoot(n,i));    if([...&#39;1&#39;.repeat(i)].reduce((s,_)=&gt;s*root+1,0)===n) return root;  }}function findRoot(n,i) {  var l=1, r=Number.MAX_SAFE_INTEGER;  while((r-l)/l&gt;1e-12) {    let m=(r+l)/2, g=(Math.pow(m,i)-1)/(m-1);    g&lt;n?l=m:r=m;  }  return (r+l)/2;}</code></pre><p><code>Number.MAX_SAFE_INTEGER</code> 是我们可以在 JavaScript 中进行 <strong>准确计算</strong>的最大数字，比之更大的数依然存在，但如果参与计算就会误差很大。</p><blockquote><p>The <strong>Number.MAX_SAFE_INTEGER</strong> constant represents the maximum safe integer in JavaScript (<code>253 - 1</code>).</p><p>The reasoning behind that number is that JavaScript uses <a href="http://www.wikiwand.com/en/Double_precision_floating-point_format" target="_blank" rel="noopener">double-precision floating-point format numbers</a> as specified in <a href="http://www.wikiwand.com/en/IEEE_floating_point" target="_blank" rel="noopener">IEEE 754</a> and can only safely represent numbers between <code>-(253 - 1)</code> and <code>253 - 1</code>.</p></blockquote><p> <code>findRoot(n,i)</code> 正是求我上面所说 $i-1$ 阶的一元方程。</p><pre><code class="javascript">&gt;x = findRoot(1000,4)9.641969245752986&gt;Math.pow(x,3) + Math.pow(x,2) + Math.pow(x,1) + 1999.9999999995179</code></pre><p>关键一步：<code>g=(Math.pow(m,i)-1)/(m-1)</code>，写成数学式是：</p><p>$g = \dfrac{m^i -1}{m-1} = m^{i-1}+m^{i-2} + … + m + 1$</p><p>求解的方程是：</p><p>$f(x) = x^{i-1}+x^{i-2} + … + x + 1 = n$</p><p>注意到 <code>r</code> 和 <code>l</code>，分别为计算的上界和下届。求  <code>r</code> 和 <code>l</code> 平均值，带入减 $n$，比较 0，大小，按结果分别再次带入到 <code>r</code> 和 <code>l</code>  中。标准的二分法求根的迭代过程，bisection method。</p><p>下面看一下函数的主体部分。主要是 for 循环中 <code>i</code> 的初始值：<code>i=Math.ceil(Math.log2(n))</code>。<code>i</code> 可能的 1 的最大位数，已知当 base 为 2 的时候，1 的位数是最多了，所以这里才会求 2 的对数。然后得到 i 值的上界，之后再依次减 1。</p><p><a href="https://www.codewars.com/users/spiderPan" target="_blank" rel="noopener">spiderPan</a></p><pre><code class="javascript">function getMinBase(number) {  for (var b =2; b&lt;= Math.floor(Math.sqrt(number)); b++) {    var num = number;    while (num % b == 1) {      num = Math.floor(num / b);      if (num == 1) {        return b;      }    }  }  return number - 1;}</code></pre><p> <a href="https://www.codewars.com/users/LesRamer" target="_blank" rel="noopener">LesRamer</a>, <a href="https://www.codewars.com/users/yurak" target="_blank" rel="noopener">yurak</a></p><pre><code class="javascript">function getMinBase(x) {  function test(b) {    var z = x;    while(z % b == 1)      z = (z - 1) / b;    return z == 0;  }  for(var n = Math.ceil(Math.log2(x)); n &gt;= 1; --n) {    var b = Math.floor(Math.pow(x,1/n));    if (test(b)) return b;    if (test(b-1)) return b-1;  }  return -1;}</code></pre><p>参考文章：</p><ul><li><a href="https://math.stackexchange.com/questions/900869/prove-xn-1-x-1xn-1xn-2-x1" target="_blank" rel="noopener">Prove $x^n−1=(x−1)(x^{n−1}+x^{n−2}+…+x+1)$</a></li><li><a href="http://www.wikiwand.com/zh/二分法_(數學" target="_blank" rel="noopener">二分法 (數學)</a>)</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;要点&quot;&gt;&lt;a href=&quot;#要点&quot; class=&quot;headerlink&quot; title=&quot;要点&quot;&gt;&lt;/a&gt;要点&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;除法，求余，因子&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Number.MAX_SAFE_INTEGER&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;二分法求方程根&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Details&quot;&gt;&lt;a href=&quot;#Details&quot; class=&quot;headerlink&quot; title=&quot;Details&quot;&gt;&lt;/a&gt;Details&lt;/h2&gt;&lt;p&gt;Your task is determine lowest number base system in which the input &lt;code&gt;n&lt;/code&gt; (base 10), expressed in this number base system, is all &lt;code&gt;1&lt;/code&gt; in its digit. See an example:&lt;/p&gt;
+&lt;p&gt;‘7’ in base 2 is ‘111’ - fits! answer is 2&lt;/p&gt;
+&lt;p&gt;‘21’ in base 2 is ‘10101’ - contains ‘0’ does not fit ‘21’ in base 3 is ‘210’ - contains ‘0’ and ‘2’ does not fit ‘21’ in base 4 is ‘111’ - contains only ‘1’ it fits! answer is 4&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;n&lt;/code&gt; is always less than &lt;code&gt;Number.MAX_SAFE_INTEGER&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;这个题目的难度主要在于性能 performance 方面，对于数值较小的数字，通常方法很容易计算，一旦涉及到九位十位往上的大数，一般的循环方法就会耗时很久。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Coding" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/Coding/"/>
+    
+    
+      <category term="Algorithm" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Algorithm/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>@wraps | 6kyu</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/06/25/@wraps%20%7C%206kyu/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/06/25/@wraps | 6kyu/</id>
+    <published>2018-06-25T02:21:13.613Z</published>
+    <updated>2019-01-22T15:14:53.756Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul><li><code>decorator</code> 装饰器用法</li><li><code>try</code>…<code>except</code>… <code>else</code> control flow</li><li><code>getattr()</code> 和 <code>setattr()</code></li><li><code>__dict__.update()</code></li></ul><h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Implement the functools.wraps decorator, which is used to preserve the name and docstring of a decorated function. Your decorator must not modify the behavior of the decorated function. Here’s an example :</p><pre><code class="python">def identity(func):  @wraps(func)  def wrapper(*args, **kwargs):    &quot;&quot;&quot;Wraps func&quot;&quot;&quot;    return func(*args, **kwargs)  return wrapper@identitydef return_one():  &quot;&quot;&quot;Return one&quot;&quot;&quot;  return 1return_one.__name__ == &#39;return_one&#39; # If wraps hadn&#39;t been used, __name__ would be equal to &#39;wrapper&#39;return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;</code></pre><p><strong>Note: of course, you may not use the functools module for this kata.</strong></p><p>题目要求，经过一次二重的装饰器，保留原来函数的 <code>__name__</code> 和 <code>__doc__</code>。二重装饰器 decorator，就是用一个 decorator 去 decorate 另一个 decorator。该二重装饰器装饰后的函数， 输出的是一重装饰器装饰过的函数，但是 <code>__name__</code> 和 <code>__doc__</code>  得到保留，及为原函数的值。</p><p>依照题目给的例子，就是输出是被 decorator wraps 修饰过的 <code>wrapper</code> 函数，即函数主体和功能还是 <code>wrapper</code>，但因为被 <code>wraps</code> 装饰了，输出的 <code>wrapper</code> 函数的  <code>__name__</code> 和 <code>__doc__</code>  值为原函数 <code>return_one</code> 的值。</p><a id="more"></a><h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">def wraps(func):    def first(wrapper):        return func    return first</code></pre><p>我的这个方法，其实是不正确的。因为我这个经过几次 decorate 又输出了原函数，按道理应该是输出 <code>wrapper</code> 函数的。</p><h2 id="Other-Solution"><a href="#Other-Solution" class="headerlink" title="Other Solution"></a>Other Solution</h2><p> <a href="https://www.codewars.com/users/siebenschlaefer" target="_blank" rel="noopener">siebenschlaefer</a></p><pre><code class="python">def wraps(wrapped):    def wrapper(func):        for attr in (&#39;__module__&#39;, &#39;__name__&#39;, &#39;__qualname__&#39;, &#39;__doc__&#39;, &#39;__annotations__&#39;):            try:                value = getattr(wrapped, attr)            except AttributeError:                pass            else:                setattr(func, attr, value)        func.__dict__.update(getattr(wrapped, attr, {}))        func.__wrapped__ = wrapped        return func    return wrapper</code></pre><p>首先注意一下对应关系。经过一次二重的装饰后，<br><code>wrapped</code> ➡️ <code>return_one</code><br><code>func</code> ➡️ <code>wrapper</code></p><p>目标是输出 <code>func</code> ，但要把 <code>func</code> 的 <code>__name__</code> 和 <code>__doc__</code> 进行修改。修改这些 built-in 的值用到了 <code>getattr()</code> 和 <code>setattr()</code>。</p><blockquote><p>You use them if the attribute you want to access is a variable and not a literal string. They let you parameterize attribute access/setting.</p><p>There’s no reason to do <code>getattr(x, &#39;foobar&#39;)</code>, but you might have a variable called <code>attr</code> that could be set to “foobar” or “otherAttr”, and then do <code>getattr(x, attr)</code>.</p></blockquote><p><code>try</code>…<code>except</code>… <code>else</code>，<code>else</code> 后面是当 <code>try</code> 中的内容无错误时才执行的，否则时执行 <code>except</code> 中的内容。</p><blockquote><p><code>try</code>:<br>   Normal execution block<br><code>except</code> A:<br>   Exception A handle<br><code>except</code> B:<br>   Exception B handle<br><code>except</code>:<br>   Other exception handleelse:<br><code>else</code>:<br>   if no exception,get here<br><code>finally</code>:<br>   print(“finally”)   </p></blockquote><p> <a href="https://www.codewars.com/users/Voile" target="_blank" rel="noopener">Voile</a></p><pre><code class="python">def wraps(func):    def f(g):        g.__name__ = func.__name__        g.__doc__ = func.__doc__        return g    return f</code></pre><p>Voile 的解法更简洁。</p><p>参考文章：</p><ul><li><a href="https://stackoverflow.com/questions/19123707/why-use-setattr-and-getattr-built-ins" target="_blank" rel="noopener">Why use setattr() and getattr() built-ins?</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;要点&quot;&gt;&lt;a href=&quot;#要点&quot; class=&quot;headerlink&quot; title=&quot;要点&quot;&gt;&lt;/a&gt;要点&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;decorator&lt;/code&gt; 装饰器用法&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;try&lt;/code&gt;…&lt;code&gt;except&lt;/code&gt;… &lt;code&gt;else&lt;/code&gt; control flow&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getattr()&lt;/code&gt; 和 &lt;code&gt;setattr()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;__dict__.update()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Details&quot;&gt;&lt;a href=&quot;#Details&quot; class=&quot;headerlink&quot; title=&quot;Details&quot;&gt;&lt;/a&gt;Details&lt;/h2&gt;&lt;p&gt;Implement the functools.wraps decorator, which is used to preserve the name and docstring of a decorated function. Your decorator must not modify the behavior of the decorated function. Here’s an example :&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;def identity(func):
+  @wraps(func)
+  def wrapper(*args, **kwargs):
+    &amp;quot;&amp;quot;&amp;quot;Wraps func&amp;quot;&amp;quot;&amp;quot;
+    return func(*args, **kwargs)
+  return wrapper
+
+@identity
+def return_one():
+  &amp;quot;&amp;quot;&amp;quot;Return one&amp;quot;&amp;quot;&amp;quot;
+  return 1
+
+return_one.__name__ == &amp;#39;return_one&amp;#39; # If wraps hadn&amp;#39;t been used, __name__ would be equal to &amp;#39;wrapper&amp;#39;
+return_one.__doc__ == &amp;#39;Return one&amp;#39; # If wraps hadn&amp;#39;t been used, __doc__ would be equal to &amp;#39;Wraps func&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Note: of course, you may not use the functools module for this kata.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;题目要求，经过一次二重的装饰器，保留原来函数的 &lt;code&gt;__name__&lt;/code&gt; 和 &lt;code&gt;__doc__&lt;/code&gt;。二重装饰器 decorator，就是用一个 decorator 去 decorate 另一个 decorator。该二重装饰器装饰后的函数， 输出的是一重装饰器装饰过的函数，但是 &lt;code&gt;__name__&lt;/code&gt; 和 &lt;code&gt;__doc__&lt;/code&gt;  得到保留，及为原函数的值。&lt;/p&gt;
+&lt;p&gt;依照题目给的例子，就是输出是被 decorator wraps 修饰过的 &lt;code&gt;wrapper&lt;/code&gt; 函数，即函数主体和功能还是 &lt;code&gt;wrapper&lt;/code&gt;，但因为被 &lt;code&gt;wraps&lt;/code&gt; 装饰了，输出的 &lt;code&gt;wrapper&lt;/code&gt; 函数的  &lt;code&gt;__name__&lt;/code&gt; 和 &lt;code&gt;__doc__&lt;/code&gt;  值为原函数 &lt;code&gt;return_one&lt;/code&gt; 的值。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Coding" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/Coding/"/>
+    
+    
+      <category term="Algorithm" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Algorithm/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Binary Search Trees | 5kyu</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/06/23/Binary%20Search%20Trees%20%7C%205kyu/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/06/23/Binary Search Trees | 5kyu/</id>
+    <published>2018-06-23T05:01:32.183Z</published>
+    <updated>2019-01-22T15:15:34.410Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul><li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;{}&#39;.format()</code></li><li>A <code>and</code> B <code>and</code> C</li><li><code>if</code>  … <code>else</code> 单行语句</li><li><code>for</code> … <code>in</code> 单行语句</li><li><code>join()</code> 函数</li><li><code>str()</code> 函数与 <code>__str__()</code> 方法</li></ul><h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p><p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p><pre><code class="python">&#39;[_ B [C]]&#39;</code></pre><p>This tree is obtained by evaluating the following expression:</p><pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))</code></pre><p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p><a id="more"></a><h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">class Tree(object):    def __init__(self, root, left=None, right=None):        assert root and type(root) == Node        if left: assert type(left) == Tree and left.root &lt; root        if right: assert type(right) == Tree and root &lt; right.root        self.left = left        self.root = root        self.right = right    def is_leaf(self):        return not(self.left or self.right)    def __str__(self):        rep = &#39;[&#39;        if self.left is not None:            rep += self.left.__str__() + &#39; &#39;        elif self.right is not None:            rep += &#39;_ &#39; + self.root.__str__() + &#39; &#39; + self.right.__str__()            return rep + &#39;]&#39;        rep += self.root.__str__()        if self.right is not None:            rep += &#39; &#39; + self.right.__str__()        elif self.left is not None:            rep = self.left.__str__() + &#39; &#39; + self.root.__str__() + &#39; _&#39;            return rep + &#39;]&#39;        return rep + &#39;]&#39;    def __eq__(self, other):        if (self is None) and (other is None):            return True        if self and other and self.root == other.root:            return (self.left == other.left) and (self.right == other.right)        else:            return False    def __ne__(self, other):        return not self == otherclass Node(object):    def __init__(self, value, weight=1):        self.value = value        self.weight = weight    def __str__(self):        return str(self.value)    def __lt__(self, other):        return self.value &lt; other.value    def __gt__(self, other):        return self.value &gt; other.value    def __eq__(self, other):        return self.value == other.value    def __ne__(self, other):        return self.value != other.value</code></pre><h2 id="Other-Solution"><a href="#Other-Solution" class="headerlink" title="Other Solution"></a>Other Solution</h2><p> <a href="https://www.codewars.com/users/siebenschlaefer" target="_blank" rel="noopener">siebenschlaefer</a></p><pre><code class="python">class Tree(object):    # ... 其余重复部分省略    def __str__(self):        if self.is_leaf():            return &quot;[%s]&quot; % self.root        return &quot;[%s %s %s]&quot; % (            self.left if self.left else &quot;_&quot;,            self.root,            self.right if self.right else &quot;_&quot;)    def __eq__(self, other):        if not other:            return False        return (            self.root == other.root and            self.left == other.left and            self.right == other.right)    def __ne__(self, other):        return not (self == other)# ... 其余重复部分省略</code></pre><p>这个在 <code>__str__()</code> 部分写得异常简洁，并且利用到了 <code>is_leaf()</code> 方法。如果  <code>is_leaf()</code> 返回值为 <code>True</code>，则说明 self 没有 left 和 right。还有 <code>if</code> 的单行写法，也要学会使用。</p><p><code>__eq__()</code> 方法的 <code>and</code> 连续使用，要用括号括起来。</p><p><a href="https://www.codewars.com/users/Voile" target="_blank" rel="noopener">Voile</a></p><pre><code class="python">class Tree(object):    def __init__(self, root, left=None, right=None):        assert root and type(root) == Node        if left: assert type(left) == Tree and left.root &lt; root        if right: assert type(right) == Tree and root &lt; right.root        self.left = left        self.root = root        self.right = right    def is_leaf(self):        return not(self.left or self.right)    def __str__(self):        if type(self.left) != Tree and type(self.right) != Tree: return &#39;[{}]&#39;.format(self.root)        if type(self.left) == Tree and type(self.right) == Tree: return &#39;[{} {} {}]&#39;.format(self.left, self.root, self.right)        return &#39;[{}]&#39;.format(&#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [self.left, self.root, self.right]))    def __eq__(self, other):        if self.root != other.root: return False        if type(self.left) != type(other.left): return False        if type(self.right) != type(other.right): return False        return self.left == other.left and self.right == other.right    def __ne__(self, other):        return not self == other</code></pre><p>Voile 在 <code>__str__()</code> 中用的 return 形式是 <code>&#39;[{}]&#39;.format()</code>，也是分了三种情况。注意第三种的单行写法，形如：</p><pre><code class="python">&gt;&gt;&gt; &#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])&#39;1 _ 3&#39;&gt;&gt;&gt; &#39;&#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])&#39;1_3&#39;</code></pre><p><code>__eq__()</code> 写法思路和我的写法差不多，都是在保证 <code>self.root == other.root</code> 的情况下，输出一个 <code>and</code> 并列语句，<code>self.left == other.left and self.right == other.right</code>。当然，他这里用 <code>type</code> 来判断是否是 Node 还是 None。</p><p> <a href="https://www.codewars.com/users/brettso" target="_blank" rel="noopener">brettso</a></p><pre><code class="python">class Tree(object):    def __init__(self, root, left=None, right=None):        assert root and type(root) == Node        if left: assert type(left) == Tree and left.root &lt; root        if right: assert type(right) == Tree and root &lt; right.root        self.left = left        self.root = root        self.right = right    def is_leaf(self):        return not(self.left or self.right)    def __str__(self):        if self.is_leaf():            return &#39;[&#39; + self.root.value + &#39;]&#39;        left = &quot;_&quot; if not self.left else self.left.__str__()        right = &quot;_&quot; if not self.right else self.right.__str__()        return &#39;[&#39; + left + &#39; &#39; + self.root.value + &#39; &#39; + right + &#39;]&#39;        def __eq__(self, other):        return self.__str__() == other.__str__()    def __ne__(self, other):        return self.__str__() != other.__str__()</code></pre><p>这个 <code>__eq__()</code> 的写法很巧妙啊，直接利用了 <code>__str__()</code> 来进行判断。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;要点&quot;&gt;&lt;a href=&quot;#要点&quot; class=&quot;headerlink&quot; title=&quot;要点&quot;&gt;&lt;/a&gt;要点&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;__str__()&lt;/code&gt; 的几种定义方法：如  &lt;code&gt;&amp;quot;%s&amp;quot; % value&lt;/code&gt;  和 &lt;code&gt;&amp;#39;{}&amp;#39;.format()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;and&lt;/code&gt; B &lt;code&gt;and&lt;/code&gt; C&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;if&lt;/code&gt;  … &lt;code&gt;else&lt;/code&gt; 单行语句&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;for&lt;/code&gt; … &lt;code&gt;in&lt;/code&gt; 单行语句&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;join()&lt;/code&gt; 函数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;str()&lt;/code&gt; 函数与 &lt;code&gt;__str__()&lt;/code&gt; 方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Details&quot;&gt;&lt;a href=&quot;#Details&quot; class=&quot;headerlink&quot; title=&quot;Details&quot;&gt;&lt;/a&gt;Details&lt;/h2&gt;&lt;p&gt;A &lt;code&gt;Tree&lt;/code&gt; consists of a root, which is of type &lt;code&gt;Node&lt;/code&gt;, and possibly a left subtree of type &lt;code&gt;Tree&lt;/code&gt; and possibly a right subtree of type &lt;code&gt;Tree&lt;/code&gt;. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes &lt;code&gt;Tree&lt;/code&gt; and &lt;code&gt;Node&lt;/code&gt; have been provided. However, the methods &lt;code&gt;__eq__&lt;/code&gt;, &lt;code&gt;__ne__&lt;/code&gt;, and &lt;code&gt;__str__&lt;/code&gt; are missing from the &lt;code&gt;Tree&lt;/code&gt; class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.&lt;/p&gt;
+&lt;p&gt;As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;&amp;#39;[_ B [C]]&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This tree is obtained by evaluating the following expression:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;Tree(Node(&amp;#39;B&amp;#39;), None, Tree(Node(&amp;#39;C&amp;#39;))))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Coding" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/Coding/"/>
+    
+    
+      <category term="Algorithm" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Algorithm/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="Python" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Born to be chained | 4kyu</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/06/20/Born%20to%20be%20chained%20%7C%204kyu/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/06/20/Born to be chained | 4kyu/</id>
+    <published>2018-06-20T03:14:56.675Z</published>
+    <updated>2019-01-22T15:15:53.626Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>对于 Object 的遍历；</li></ul><h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Function composition is a powerful technique. For example:</p><pre><code class="javascript">function sum(x, y) {  return x + y;}function double(x) {  return sum(x, x);}function minus (x, y) {  return x - y;}function addOne(x) {  return sum(x, 1);}double(sum(2, 3)); // 10</code></pre><p>But in complex expressions, composition may be difficult to understand. For example:</p><pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72</code></pre><p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p><pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72</code></pre><p>Your job is implement the <code>chain</code> function:</p><pre><code class="javascript">function chain(fns) {}var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});</code></pre><p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p><p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p><p>Note that the chain can be reused (the internal state is not stored):</p><a id="more"></a><pre><code class="javascript">c.sum(3, 4).execute(); //7c.sum(1, 2).execute(); //3</code></pre><p>Other examples:</p><pre><code class="javascript">var c1 = c.sum(1, 2);c1.execute(); // == fns.sum(1, 2) == 3c1.double().execute(); // == fns.double(fns.sum(1, 2)) == 6c1.addOne().execute(); // == fns.addOne(fns.sum(1, 2)) == 4c1.execute(); // == fns.sum(1, 2) == 3var c2 = c1.sum(5);c2.addOne().execute(); // == fns.addOne(fns.sum(fns.sum(1, 2) 5)) == 9c2.sum(3).execute(); // == fns.sum(c1.sum(fns.sum(1, 2), 5), 3) == 11c2.execute(); // == fns.sum(fns.sum(1, 2), 5) == 8c1.execute(); // == fns.sum(1, 2) == 3</code></pre><h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a href="https://www.codewars.com/users/ooflorent" target="_blank" rel="noopener">ooflorent</a>, <a href="https://www.codewars.com/users/ChungGor" target="_blank" rel="noopener">ChungGor</a>, <a href="https://www.codewars.com/users/pompeu2004" target="_blank" rel="noopener">pompeu2004</a>, <a href="https://www.codewars.com/users/guilhermeconti" target="_blank" rel="noopener">guilhermeconti</a>, <a href="https://www.codewars.com/users/lwio" target="_blank" rel="noopener">lwio</a> (plus 2 more warriors)</p><pre><code class="javascript">function chain(fns) {  function ChainWrapper(x) {    this._ = x  }  Object.keys(fns).forEach(function(prop) {    var fn = fns[prop]    ChainWrapper.prototype[prop] = function() {      var args = [].slice.call(arguments)      if (this._ != null) args.unshift(this._)      var x = fn.apply(null, args)      return new ChainWrapper(x)    }  })  ChainWrapper.prototype.execute = function() {    return this._  }  return new ChainWrapper()}</code></pre><p>line 6: 关注一下对于一般 Object  的遍历方法。主要用到 <code>Object.keys()</code> 和 <code>forEach()</code>，另外相对应的也有 <code>Object.values()</code>。</p><p>line 9: ChainWrapper 是一个函数，给这个函数添加若干子函数（或也称 method）的办法。这里要弄明白一个问题，直接用 <code>ChainWrapper[prop]</code> 和使用 <code>ChainWrapper.prototype[prop]</code> 的区别在哪里。前者只给该函数加入了一个子函数，而后者透过原型链，给最原始的<strong>函数对象</strong>加入了一个子函数，如果讲函数作为 Object 进行创建，形如 <code>var a = new ChainWrapper(3)</code> 这样，前者创建的子函数不复存在，后者创建的子函数依然存在。如下例子：</p><pre><code class="javascript">function ChainWrapper(x) {    this._ = x}ChainWrapper[&#39;sum&#39;] = (a,b) =&gt; (a+b)ChainWrapper.sum(2,3) //5ChainWrapper[&#39;sum&#39;](2,3) //5var a = new ChainWrapper(1) //ChainWrapper { _: 1 }a.sum(2,3) //TypeError: a.sum is not a functionChainWrapper.prototype[&#39;sum&#39;] = (a,b) =&gt; (a+b)var a = new ChainWrapper(1) //ChainWrapper { _: 1 }a.sum(2,3) //5</code></pre><p>当将函数利用 new 关键字进行创建的时候，得到的是一个 Object 而不是 function。</p><p>line 11: 初次定义时，<code>chain()</code> 函数返回的是 <code>return new ChainWrapper()</code>，此时 Object 内的 <code>this._</code> 为 <code>undefined</code>。当 Object 开始 chain 第一个子函数时，得到的运算结果记录在 <code>this._</code> 中，此时为非 null 值，则在下一次 chain 的时候，前一次函数的运算结果要作为下一次 chain 的参数传入进去，所以要 <code>args.unshift(this._)</code>。</p><p>但这里有一个小 bug，当 <code>this._</code> 出现 <code>NaN</code> 时，此时判定 <code>NaN != null</code>  的结果会是 <code>true</code>。然后会把 <code>NaN</code> 传入到参数的最开头，那么每次结果都会是 <code>NaN</code>。修复的办法就是判定 <code>x</code> 是否为 <code>NaN</code>，在 <code>apply()</code> 方法使用后加一个条件结构。</p><pre><code class="javascript">if (isNaN(x)) return new ChainWrapper();</code></pre><p>但注意，这里默认了当输出为 <code>NaN</code> 为输出无效，不会保留之前的参数。如果要保留参数，但不同函数参数数量都不一样，就比较复杂了。比如 <code>sum()</code> 两个数相加，只输入 1 个数时会得到 <code>NaN</code>，此时输入的那个数也是直接舍弃不再保留了。</p><p><a href="https://www.codewars.com/users/evk" target="_blank" rel="noopener">evk</a>, <a href="https://www.codewars.com/users/niweic" target="_blank" rel="noopener">niweic</a>, <a href="https://www.codewars.com/users/marek_mistrzuk" target="_blank" rel="noopener">marek_mistrzuk</a></p><pre><code class="javascript">function chain(fns) {  let Chain = function(val){    this.execute = () =&gt; val;  };  for(let i in fns) Chain.prototype[i] = function (a, b) {    let val = this.execute(),        args = val === null ? [a, b] : [val, a];    return new Chain(fns[i](...args));  }  return new Chain(null);}</code></pre><p>参考文章：</p><ul><li><a href="https://stackoverflow.com/questions/115548/why-is-isnannull-false-in-js" target="_blank" rel="noopener">Why is isNaN(null) == false in JS?</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;对于 Object 的遍历；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Details&quot;&gt;&lt;a href=&quot;#Details&quot; class=&quot;headerlink&quot; title=&quot;Details&quot;&gt;&lt;/a&gt;Details&lt;/h2&gt;&lt;p&gt;Function composition is a powerful technique. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;function sum(x, y) {
+  return x + y;
+}
+
+function double(x) {
+  return sum(x, x);
+}
+
+function minus (x, y) {
+  return x - y;
+}
+
+function addOne(x) {
+  return sum(x, 1);
+}
+
+double(sum(2, 3)); // 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But in complex expressions, composition may be difficult to understand. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this kata, we will implement a function that allows us to perform this by applying a fluid style:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Your job is implement the &lt;code&gt;chain&lt;/code&gt; function:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;function chain(fns) {
+}
+
+var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the &lt;code&gt;execute&lt;/code&gt;method.&lt;/p&gt;
+&lt;p&gt;Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.&lt;/p&gt;
+&lt;p&gt;Note that the chain can be reused (the internal state is not stored):&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Coding" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/Coding/"/>
+    
+    
+      <category term="Algorithm" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Algorithm/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/06/10/%E8%B1%A1%E6%A3%8B%20(XiangqiChinese%20Chess)%20Board%20Validator%20%7C%204kyu/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/</id>
+    <published>2018-06-10T03:54:25.832Z</published>
+    <updated>2019-01-22T15:18:52.661Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a href="http://www.wikiwand.com/en/Xiangqi" target="_blank" rel="noopener">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p><hr><p>You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:</p><pre><code>Example (the starting Xiangqi board):車馬象士將士象馬車　　　｜Ｘ｜　　　　砲　＋－＋　砲　卒　卒　卒　卒　卒－－－－－－－－－－－－－－－－－－兵　兵　兵　兵　兵　炮　＋－＋　炮　　　　｜Ｘ｜　　　俥傌相仕帥仕相傌俥The bottom and top half corresponds to red and black pieces, respectively.Note that red and black have different characters to distinguish the same piece of both sides.</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p><a id="more"></a><pre><code>俥/車, 傌/馬, 炮/砲 (2 max): no restrictions相/象 (2 max): they can only stay at 7 spots at their side of the board:－－Ｏ－－－Ｏ－－　　　　　　　　　Ｏ　　＋Ｏ＋　　Ｏ　　　｜Ｘ｜　　　　　Ｏ＋－＋Ｏ　　Don&#39;t let them go to the other side of the board: it&#39;s called 飛象過河, which is bad and you should feel bad about it.仕/士 (2 max): they can only stay at the center or the 4 corners of the 3x3 &quot;palace&quot; (九宮):－－－－－－－－－　　　　　　　　　　　　Ｏ－Ｏ　　　　　　｜Ｏ｜　　　　　　Ｏ－Ｏ　　　帥/將 (always 1): they can stay at every tile inside the palace, and nowhere else:－－－－－－－－－　　　　　　　　　　　　＋－＋　　　　　　｜Ｘ｜　　　　　　＋－＋　　　    // anywhere inside this 3x3 block is okayBecause they are your &quot;kings&quot; in Xiangqi, it is mandatory that one and only one exists.Additionally, 帥/將 cannot face each other vertically without any pieces inbetween:　　　＋將＋　　　　　　｜Ｘ｜　　　　　　＋－＋　　　　　　　　　　　　－－－－－－－－－－－－－－－－－－　　　　　　　　　　　　＋帥＋　　　　　　｜Ｘ｜　　　　　　＋－＋　　　  // this is illegal because they&#39;re directly facing each other at the same column兵/卒 (5 max): at their starting positions (look at the above starting board), they can only move forward. However, once they reached the other side, they can move sideways as well as moving forward, at least until they reach the last row of the opponent side (no falling back, though!):　　　　　　　　　－－－－兵－－－－－－－－－－－－兵兵　　　　　　　　The left and right 兵s can do nothing but moving forward. The center one, however, can move sideways since it has crossed the center line.(By the way, there is no such thing as pawn promotion in Xiangqi.)</code></pre><hr><p>You program should validate that:</p><ul><li>Number of pieces of each side is within their respective limits</li><li>The pieces are placed in a legal position</li><li>Said configuration is legal (in respect to 帥/將 and 兵/卒 rules). Note that we don’t care about whether it is practically reachable in-game, Xiangqi endgame puzzles can be pretty ridiculous at piece placements, and you might even start out being checked. We only care about whether it is legal. For example:</li></ul><pre><code>－－－－兵－兵－兵兵－－－－－－－－兵</code></pre><p>would be illegal because 兵 cannot move sideways before they go across the center row, which means the above configuration is fundamentally impossible.</p><p>You can assume that the board will always be well-formatted. Always assume red is at the bottom.</p><p>See example test cases for some examples.</p><h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function chessValidator(board) {    let b = board.split(&#39;\n&#39;).map(x =&gt; x.split(&#39;&#39;));    // check the number of 俥/車, 傌/馬, 炮/砲    let chariot1 = chessIndex(b, &#39;車&#39;);    let chariot2 = chessIndex(b, &#39;俥&#39;);    let horse1 = chessIndex(b, &#39;馬&#39;);    let horse2 = chessIndex(b, &#39;傌&#39;);    let cannon1 = chessIndex(b, &#39;砲&#39;);    let cannon2 = chessIndex(b, &#39;炮&#39;);    let elep1 = chessIndex(b, &#39;象&#39;);    let elep2 = chessIndex(b, &#39;相&#39;);    let advisor1 = chessIndex(b, &#39;士&#39;);    let advisor2 = chessIndex(b, &#39;仕&#39;);    let two = [chariot1, chariot2, horse1, horse2,cannon1,cannon2, elep1, elep2, advisor1, advisor2];    for (var i = 0; i &lt; two.length; i++) {        if (two[i].length &gt; 2) {            console.log(&#39;over two pieces for the same kind&#39;)            return false;        }    }    // 相/象    let elep1T = [[0,2], [0,6], [2,0], [2,4], [2,8], [4,2], [4,6]];    let elep2T = [[9,2], [9,6], [7,0], [7,4], [7,8], [5,2], [5,6]];    for (var i = 0; i &lt; elep1.length; i++) {        if(!isArrayInArray(elep1T,elep1[i])) {            console.log(&#39;象 at the wrong position&#39;)            return false;        }    }    for (var i = 0; i &lt; elep2.length; i++) {        if(!isArrayInArray(elep2T,elep2[i])) {            console.log(&#39;相 at the wrong position&#39;)            return false;        }    }    // 仕/士    let advisor1T = [[0,3], [0,5], [1,4], [2,3], [2,5]]    let advisor2T = [[9,3], [9,5], [8,4], [7,3], [7,5]]    for (var i = 0; i &lt; advisor1.length; i++) {        if(!isArrayInArray(advisor1T,advisor1[i])) {            console.log(&#39;士 at the wrong position&#39;)            return false;        }    }    for (var i = 0; i &lt; advisor2.length; i++) {        if(!isArrayInArray(advisor2T,advisor2[i])) {            console.log(&#39;仕 at the wrong position&#39;)            return false;        }    }    // 兵/卒    let soldier1 = chessIndex(b, &#39;卒&#39;);    let soldier2 = chessIndex(b, &#39;兵&#39;);    for (var i = 0; i &lt; soldier1.length; i++) {        if (soldier1[i][0] &lt; 3) {            console.log(&#39;卒 at the wrong position&#39;)            return false;        } else if(soldier1[i][0] &lt; 5 &amp;&amp; soldier1[i][1] % 2 === 1 ) {            console.log(&#39;卒 at the wrong position&#39;)            return false;        }    }    for (var i = 0; i &lt; soldier2.length; i++) {        if (soldier2[i][0] &gt; 6) {            console.log(&#39;兵 at the wrong position&#39;)            return false;        } else if(soldier2[i][0] &gt; 4 &amp;&amp; soldier2[i][1] % 2 === 1 ) {            console.log(&#39;兵 at the wrong position&#39;)            return false;        }    }    for (var i = 0; i &lt; 9; i++) {        if(b[3][i] === &#39;卒&#39; &amp;&amp; b[4][i] === &#39;卒&#39;) {            console.log(&#39;卒 at the wrong position&#39;)            return false;        }        if(b[5][i] === &#39;兵&#39; &amp;&amp; b[6][i] === &#39;兵&#39;) {            console.log(&#39;兵 at the wrong position&#39;)            return false;        }    }    // 帥/將    let general1 = chessIndex(b, &#39;將&#39;);    let general2 = chessIndex(b, &#39;帥&#39;);    if (general1.length !== 1 || general2.length !== 1) {        console.log( &#39;帥/將 lost &#39;)        return false;    }    if (general1[0][0] &gt; 2 ||        general1[0][1] &lt; 3 ||        general1[0][1] &gt; 5 ||        general2[0][0] &lt; 7 ||        general2[0][1] &lt; 3 ||        general2[0][1] &gt; 5) {        console.log( &#39;帥/將 at the wrong position &#39;)        return false;    }    if(general1[0][1] === general2[0][1]) {        let k = general1[0][1]        for (var i = general1[0][0]+1; i &lt; general2[0][0]; i++) {            if (b[i][k] !== &#39;Ｘ&#39; &amp;&amp;                b[i][k] !== &#39;－&#39; &amp;&amp;                b[i][k] !== &#39;　&#39; &amp;&amp;                b[i][k] !== &#39;｜&#39; &amp;&amp;                b[i][k] !== &#39;＋&#39;) {                break;            }        }        if(i === general2[0][0]) {            console.log(&#39;帥/將 are directly facing each other at the same column&#39;)            return false;        }    }    //if a flipped starting board    return true;}function chessIndex(b, s) {    let res = [];    for (var i = 0; i &lt; b.length; i++) {        let k = -1;        while((k = b[i].indexOf(s,k+1)) !== -1) {            res.push([i,k]);        }    }    return res;}function isArrayInArray(arr, item){  var item_as_string = JSON.stringify(item);  var contains = arr.some(function(ele){    return JSON.stringify(ele) === item_as_string;  });  return contains;}</code></pre><p>主要讲一下重复用到的两个 function 吧，一个是 <code>chessIndex()</code> 来得到棋盘上某个棋子的坐标，输出的是一个二维 array。另一个 <code>isArrayInArray(arr, item)</code> ，arr 是一个二维 array，item 是一个 array，检测 item 是否再 arr 里面。</p><p><code>chessIndex()</code> 难点在与处理一行内重复的元素。比如:</p><pre><code class="javascript">&gt;a = a.split(&quot;&quot;)[ &#39;　&#39;, &#39;砲&#39;, &#39;　&#39;, &#39;＋&#39;, &#39;－&#39;, &#39;＋&#39;, &#39;　&#39;, &#39;砲&#39;, &#39;　&#39; ]&gt;a.indexOf(&#39;砲&#39;)1&gt;a.indexOf(&#39;砲&#39;,2)7&gt;</code></pre><p>这里 array 中含有两个 <code>&#39;砲&#39;</code>。要获取第二个 <code>&#39;砲&#39;</code>，就要给 <code>indexOf()</code> 加上第二个参数。</p><p><code>isArrayInArray()</code> 方法中用到 <code>JSON.stringfy</code>：</p><pre><code class="javascript">&gt;a = [[1,2],[2,3]][ [ 1, 2 ], [ 2, 3 ] ]&gt;JSON.stringify(a)&#39;[[1,2],[2,3]]&#39;&gt;obj = { &quot;name&quot;:&quot;John&quot;, &quot;age&quot;:30, &quot;city&quot;:&quot;New York&quot;};{ name: &#39;John&#39;, age: 30, city: &#39;New York&#39; }&gt;JSON.stringify(obj)&#39;{&quot;name&quot;:&quot;John&quot;,&quot;age&quot;:30,&quot;city&quot;:&quot;New York&quot;}&#39;&gt;obj = { &quot;name&quot;:&quot;John&quot;, &quot;today&quot;:new Date(), &quot;city&quot;:&quot;New York&quot;};{ name: &#39;John&#39;,  today: 2018-06-10T03:44:24.742Z,  city: &#39;New York&#39; }&gt;JSON.stringify(obj)&#39;{&quot;name&quot;:&quot;John&quot;,&quot;today&quot;:&quot;2018-06-10T03:44:24.742Z&quot;,&quot;city&quot;:&quot;New York&quot;}&#39;&gt; obj = { &quot;name&quot;:&quot;John&quot;, &quot;age&quot;:function () {return 30;}, &quot;city&quot;:&quot;New York&quot;};{ name: &#39;John&#39;, age: [Function: age], city: &#39;New York&#39; }&gt;JSON.stringify(obj)&#39;{&quot;name&quot;:&quot;John&quot;,&quot;city&quot;:&quot;New York&quot;}&#39;&gt;obj.age = obj.age.toString()&#39;function () {return 30;}&#39;&gt;obj { name: &#39;John&#39;,  age: &#39;function () {return 30;}&#39;,  city: &#39;New York&#39; }&gt;JSON.stringify(obj)&#39;{&quot;name&quot;:&quot;John&quot;,&quot;age&quot;:&quot;function () {return 30;}&quot;,&quot;city&quot;:&quot;New York&quot;}&#39;&gt;</code></pre><p>上面的例子，后面一大部分摘自 <a href="https://www.w3schools.com/js/js_json_stringify.asp" target="_blank" rel="noopener">JSON.stringify()</a>，可以看到，可以把  array，object 等直接转化成 string。最后两个例子是讲，如果 object 中包含函数，则会被忽略。</p><p>用到了 <code>some()</code> 方法，<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some" target="_blank" rel="noopener">MDN docs</a> 给出的解释：</p><blockquote><p>The <code>some()</code> method tests whether at least one element in the array passes the test implemented by the provided function.</p></blockquote><p>上述两个函数方法的构造是关键。在这两个函数的基础上，对棋盘的棋子进行依此按照相应的的规则进行检测，剩下的只是一些比较繁琐的工作，和细节上的修饰。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Details&quot;&gt;&lt;a href=&quot;#Details&quot; class=&quot;headerlink&quot; title=&quot;Details&quot;&gt;&lt;/a&gt;Details&lt;/h2&gt;&lt;p&gt;Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary &lt;a href=&quot;http://www.wikiwand.com/en/Xiangqi&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;象棋&lt;/a&gt;, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is &lt;code&gt;七步擒士&lt;/code&gt; or &lt;code&gt;雙馬飲泉&lt;/code&gt;), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Example (the starting Xiangqi board):
+
+車馬象士將士象馬車
+　　　｜Ｘ｜　　　
+　砲　＋－＋　砲　
+卒　卒　卒　卒　卒
+－－－－－－－－－
+－－－－－－－－－
+兵　兵　兵　兵　兵
+　炮　＋－＋　炮　
+　　　｜Ｘ｜　　　
+俥傌相仕帥仕相傌俥
+
+The bottom and top half corresponds to red and black pieces, respectively.
+Note that red and black have different characters to distinguish the same piece of both sides.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Your function, &lt;code&gt;chessValidator&lt;/code&gt;, should determine whether the pieces in argument &lt;code&gt;board&lt;/code&gt; are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Coding" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/Coding/"/>
+    
+    
+      <category term="Algorithm" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Algorithm/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Argument Mapper | 5kyu</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/06/07/Argument%20Mapper%20%7C%205kyu/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/06/07/Argument Mapper | 5kyu/</id>
+    <published>2018-06-07T07:32:38.890Z</published>
+    <updated>2019-01-22T15:15:24.035Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>As part of a broader functionality you need to develop an argument mapper.</p><p>The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.</p><p>The usage is:</p><pre><code class="javascript">function func1(arg1, arg2) { ... }var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre><p>The passed values are in the same order as they appear in the function object.</p><p>Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.</p><p>Hajime!</p><a id="more"></a><h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function createArgumentMap(func) {    // create an argument map and return it    let args = Array.prototype.slice.call(arguments,1);    let res = {};    for (var i = 1; i &lt;= args.length; i++) {        res[&#39;a&#39; + i] = args[i-1]    }    return res  }</code></pre><p>关于 JavaScript 中 arguments 的性质参看：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments" target="_blank" rel="noopener">Arguments object</a></p><p><code>res[&#39;a&#39;+i]</code> 是为了契合 test 中都是用形如 map[a1] map[a2] 等来 check 答案的。这里我的方法有些取巧。实际上需要得到的是实际定义函数时使用的参数名称，就像上次 review 中那样，要用到 <code>.toString()</code> 和正则表达式。</p><h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p><a href="https://www.codewars.com/users/colbydauph" target="_blank" rel="noopener">colbydauph</a></p><pre><code class="javascript">function createArgumentMap(func) {  var args = (/function\s[^(]*\(([^)]+)\)/g.exec(func.toString()) || [&#39;&#39;]).pop().split(/,/g);  return Array.prototype.slice.call(arguments, 1).reduce(function(p, c, i){ return p[args[i]] = c, p }, {});}</code></pre><p><code>reduce()</code> 中 callback 函数的三个参数，依次分别是 <code>accumulator</code>, <code>currentValue</code>, <code>currentIndex</code>。对应代码中的 <code>function(p, c, i){...}</code></p><p>正则表达式分析：</p><p><code>/function\s[^(]*\(([^)]+)\)/g</code></p><ul><li><code>/…/g</code> : 表明正则表达式 global 模式，找到所有可能的 match，而不是仅仅是找到第一个 mathc 就停下来。</li><li><code>function\s</code> : 以 function 开头，紧接着是一个 space 空格 <code>\s</code>。</li><li><code>[^(]*</code> : 0 个或多个非 <code>(</code> 的字符。</li><li><code>\(</code>: 匹配左括号 <code>(</code>。</li><li><code>([^)]+)</code>: 1个或多个非 <code>)</code> 的字符。注意这里用括号括住，那么输出匹配结果时也会把这个括号括住的匹配输出来。</li><li><code>\)</code>: 匹配右括号 <code>)</code>。</li></ul><pre><code class="javascript">&gt;(/function\s[^(]*\(([^)]+)\)/g.exec(func1.toString()))[ &#39;function func1(arg1, arg2)&#39;,  &#39;arg1, arg2&#39;,  index: 0,  input: &#39;function func1(arg1, arg2) { console.log(arg1, arg2) }&#39; ]&gt;(/function\s[^(]*\([^)]+\)/g.exec(func1.toString()))[ &#39;function func1(arg1, arg2)&#39;,  index: 0,  input: &#39;function func1(arg1, arg2) { console.log(arg1, arg2) }&#39; ]&gt;</code></pre><p>上述展示了加中间那对括号，和不加括号时的区别。</p><p>另外注意这里的 <code>.split(/,/g)</code> 方法的参数。这里的参数并不是两个。而是一个，一个正则表达式，global 模式匹配单字符 <code>,</code>，用正则表达式的 <code>/.../g</code> 扩起来。同理也可以写成 <code>.split(&#39;,&#39;)</code>。</p><p><code>.reduce()</code>方法使用及参数说明：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">Array.prototype.reduce()</a></p><p>关于最后在 reduce 的 callback 函数中，return 那里出现的 comma，<code>return p[args[i]] = c, p</code>，其实就是多个语句的简写，先进行赋值，然后输出 <code>p</code>。参见 stack overflow 上的解释：<a href="https://stackoverflow.com/questions/10284536/return-statement-with-multiple-comma-separated-values" target="_blank" rel="noopener">return statement with multiple comma separated values</a></p><blockquote><p>It’s the <a href="http://es5.github.com/#x11.14" target="_blank" rel="noopener">comma operator</a>. It runs a series of expressions, in order, and then returns the result of the <em>last</em> of them.  </p></blockquote><p><a href="https://www.codewars.com/users/stnever" target="_blank" rel="noopener">stnever</a></p><pre><code class="javascript">function createArgumentMap(func) {  var argumentNames = getArgumentNames(func);  var argumentValues = arguments;  var result = {};  argumentNames.forEach(function(key, index) {    result[key] = argumentValues[index+1];      });  return result;}// shamelessly copied from http://stackoverflow.com/questions/1007981var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;var ARGUMENT_NAMES = /([^\s,]+)/g;function getArgumentNames(func) {  var fnStr = func.toString().replace(STRIP_COMMENTS, &#39;&#39;)  var result = fnStr.slice(fnStr.indexOf(&#39;(&#39;)+1, fnStr.indexOf(&#39;)&#39;)).match(ARGUMENT_NAMES)  if(result === null)     result = []  return result}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Details&quot;&gt;&lt;a href=&quot;#Details&quot; class=&quot;headerlink&quot; title=&quot;Details&quot;&gt;&lt;/a&gt;Details&lt;/h2&gt;&lt;p&gt;As part of a broader functionality you need to develop an argument mapper.&lt;/p&gt;
+&lt;p&gt;The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.&lt;/p&gt;
+&lt;p&gt;The usage is:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;function func1(arg1, arg2) { ... }
+
+var map = createArgumentMap(func1,&amp;#39;valueOfArg1&amp;#39;, &amp;#39;valueOfArg2&amp;#39;);
+console.log(map[&amp;#39;arg1&amp;#39;]);  // writes &amp;#39;valueOfArg1&amp;#39;
+console.log(map[&amp;#39;arg2&amp;#39;]);  // writes &amp;#39;valueOfArg2&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The passed values are in the same order as they appear in the function object.&lt;/p&gt;
+&lt;p&gt;Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.&lt;/p&gt;
+&lt;p&gt;Hajime!&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Coding" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/Coding/"/>
+    
+    
+      <category term="Algorithm" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Algorithm/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Default Arguments | 4kyu</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/06/05/Default%20Arguments%20%7C%204kyu/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2018/06/05/Default Arguments | 4kyu/</id>
+    <published>2018-06-05T08:56:46.278Z</published>
+    <updated>2019-01-22T15:14:34.880Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p><p>You cannot assume that the function’s arguments have any particular names.</p><p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p><pre><code class="javascript">function add(a,b) { return a+b;};var add_ = defaultArguments(add,{b:9});add_(10); // returns 19add_(10,7); // returns 17add_(); // returns NaNadd_ = defaultArguments(add_,{b:3, a:2});add_(10); // returns 13 nowadd_(); // returns 5add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argumentadd_(10); // returns NaNadd_(10,10); // returns 20</code></pre><p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p><a id="more"></a><h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function defaultArguments(func, params) {    // get the properties list of params    let defArg = Object.keys(params);    // use Function.prototype.toString() to get the arguments list    let args = func.args || func.toString().replace(/\/\/.*$|\/\*.*?\*\/|\s/gm, &#39;&#39;).match(/(?:[\w]+(?:,[\w]+)*)?(?=\))/m)[0].split(&#39;,&#39;);    // pass the properties into func    let newArgs = {};    for (var i = 0; i &lt; defArg.length; i++) {        if (args.indexOf(defArg[i]) &gt; -1) {            let idx = args.indexOf(defArg[i]);            newArgs[idx] = params[defArg[i]];        }    }    // bind the func and params into a new function    let detour = function() {                let argsArray = [].slice.call(arguments);                let x = Object.keys(newArgs);                for (var i = 0; i &lt; x.length; i++) {                    if(x[i] &gt;= argsArray.length) {                        argsArray[x[i]] = newArgs[x[i]];                    }                }                return func.apply(this,argsArray);            }    detour.args = args;    return detour;}</code></pre><p><code>args</code> 那一大串正则表达式，获得的是原函数的参数列表，是一个 array。<code>defArg</code> 是函数 <code>defaultArguments()</code> 预先给定的参数。将两者合并成新的参数 <code>newArgs</code> ，类型为 object。</p><p>举例说明，如果 <code>params</code> 传入的值是 <code>{ b: 3, a: 2 }</code>，那么经过中间 10 行到 16 行的循环运算得到的 <code>newArgs</code> 值是 <code>{ &#39;0&#39;: 2, &#39;1&#39;: 3 }</code>。</p><p>20 行 <code>argsArray = [].slice.call(arguments);</code>作用是打印参数列表。举例说明：</p><pre><code class="javascript">&gt;function add(a,b) { console.log([].slice.call(arguments));return a+b;};undefined&gt;add(1,2)[ 1, 2 ]3&gt;add(1,2,3)[ 1, 2, 3 ]3&gt;add(1,2,3,4)[ 1, 2, 3, 4 ]3</code></pre><p>因为整个函数最后 return 的是 detour。也就是说当第一次运行 <code>defaultArguments()</code> 时，仅仅是声明了 <code>detour()</code> 函数但是并没有运行。按照 details 里给出的例子，只有当 <code>add_(10)</code> 调用时， <code>detour()</code> 函数才真正被运行。此时的 <code>arguments</code> 值为 <code>[10]</code>。</p><p>27 行 <code>apply()</code> 方法的应用，就是调取 <code>func</code> 函数，并给他特定的 arguments 值，并获得结果。第一个参数是修改 <code>func</code> 函数的 <code>this</code> 指向的， 是 <code>this</code> 还是 <code>null</code> 对结果都是没有影响的。<a href="https://stackoverflow.com/questions/9644044/javascript-this-pointer-within-nested-function" target="_blank" rel="noopener">因为都是对函数的直接调用，不存在对某个 object 的 method 进行调用。</a></p><p>注意第 29 行的，函数也是 object，而且这个定义使得返回的函数对象多携带了 args 信息。这一点当时自己没有想到，也是看了答案后才明白的。</p><h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a href="https://www.codewars.com/users/mrkishi" target="_blank" rel="noopener">mrkishi</a>, <a href="https://www.codewars.com/users/guyingll" target="_blank" rel="noopener">guyingll</a>, <a href="https://www.codewars.com/users/iphp" target="_blank" rel="noopener">iphp</a>, <a href="https://www.codewars.com/users/willin" target="_blank" rel="noopener">willin</a>, <a href="https://www.codewars.com/users/marek_mistrzuk" target="_blank" rel="noopener">marek_mistrzuk</a></p><pre><code class="javascript">function defaultArguments(func, params) {  var names = func.names || func.toString()    .replace(/\/\/.*$|\/\*.*?\*\/|\s/gm, &#39;&#39;)    .match(/(?:[\w]+(?:,[\w]+)*)?(?=\))/m)[0].split(&#39;,&#39;);  var detour = function () {    var input = arguments;    return func.apply(this, names.map(function (val, i) {      return i &lt; input.length ? input[i] : params[names[i]];    }));  };  detour.names = names;  return detour;}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Details&quot;&gt;&lt;a href=&quot;#Details&quot; class=&quot;headerlink&quot; title=&quot;Details&quot;&gt;&lt;/a&gt;Details&lt;/h2&gt;&lt;p&gt;Write a function &lt;code&gt;defaultArguments&lt;/code&gt;. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. &lt;/p&gt;
+&lt;p&gt;You cannot assume that the function’s arguments have any particular names.&lt;/p&gt;
+&lt;p&gt;You should be able to call &lt;code&gt;defaultArguments&lt;/code&gt; repeatedly to change the defaults.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;function add(a,b) { return a+b;};
+
+var add_ = defaultArguments(add,{b:9});
+add_(10); // returns 19
+add_(10,7); // returns 17
+add_(); // returns NaN
+
+add_ = defaultArguments(add_,{b:3, a:2});
+add_(10); // returns 13 now
+add_(); // returns 5
+
+add_ = defaultArguments(add_,{c:3}); // doesn&amp;#39;t do anything, since c isn&amp;#39;t an argument
+add_(10); // returns NaN
+add_(10,10); // returns 20
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;HINT: This problem requires using &lt;code&gt;Fuction.prototype.toString()&lt;/code&gt; in order to extract a function’s argument list&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Coding" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/Coding/"/>
+    
+    
+      <category term="Algorithm" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Algorithm/"/>
+    
+      <category term="codewars" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/codewars/"/>
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ES5 Generators(i) 和闭包 closure</title>
     <link href="https://github.com/Reyshawn/reyshawn.github.io/2018/02/18/Codewars.com%20%7C%20ES5%20Generators(i)/"/>
     <id>https://github.com/Reyshawn/reyshawn.github.io/2018/02/18/Codewars.com | ES5 Generators(i)/</id>
