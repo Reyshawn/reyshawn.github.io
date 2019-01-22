@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+        <link rel="icon" type="image/png" href="./favicon.png">
+        <link rel="apple-touch-icon" href="./favicon180x180.png" sizes="180x180">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>reyshawn.C</title>
+</head>
+
+<body class='home blog'>
+    <header id="hagoromo-header" class="hagoromo-header">
+    <div class="container">
+        <div class="slot-l">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+        </div>
+        <div class="slot-r">
+            <ul class="hagoromo-nav hagoromo-actions-list">
+                <li class="hagoromo-action-button hagoromo-action-sidebar">
+                    <span><i class="fa fa-bars"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div id="hagoromo-cover" class="hagoromo-cover hagoromo-cover-empty"></div>
+
+    <div class="hagoromo-fake-bg">
+        <div class="hagoromo-section">
+    <div class="section-content">
+        <article class="hagoromo-post">
+            <header class="entry-header">
+                <h2 class="entry-title h1">
+                    <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
+                </h2>
+                <div class="entry-meta">
+                    2018 年 06 月 05 日
+                </div>
+                <div class="post-letter"></div>
+            </header>
+            <div class="entry-content">
+                <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p>
+<p>You cannot assume that the function’s arguments have any particular names.</p>
+<p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p>
+<pre><code class="javascript">function add(a,b) { return a+b;};
+
+var add_ = defaultArguments(add,{b:9});
+add_(10); // returns 19
+add_(10,7); // returns 17
+add_(); // returns NaN
+
+add_ = defaultArguments(add_,{b:3, a:2});
+add_(10); // returns 13 now
+add_(); // returns 5
+
+add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
+add_(10); // returns NaN
+add_(10,10); // returns 20
+</code></pre>
+<p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
+<a id="more"></a>
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function defaultArguments(func, params) {
+
+    // get the properties list of params
+    let defArg = Object.keys(params);
+
+    // use Function.prototype.toString() to get the arguments list
+    let args = func.args || func.toString().replace(/\/\/.*$|\/\*.*?\*\/|\s/gm, &#39;&#39;).match(/(?:[\w]+(?:,[\w]+)*)?(?=\))/m)[0].split(&#39;,&#39;);
+
+    // pass the properties into func
+    let newArgs = {};
+    for (var i = 0; i &lt; defArg.length; i++) {
+        if (args.indexOf(defArg[i]) &gt; -1) {
+            let idx = args.indexOf(defArg[i]);
+            newArgs[idx] = params[defArg[i]];
+        }
+    }
+    // bind the func and params into a new function
+
+    let detour = function() {
+                let argsArray = [].slice.call(arguments);
+                let x = Object.keys(newArgs);
+                for (var i = 0; i &lt; x.length; i++) {
+                    if(x[i] &gt;= argsArray.length) {
+                        argsArray[x[i]] = newArgs[x[i]];
+                    }
+                }
+                return func.apply(this,argsArray);
+            }
+    detour.args = args;
+    return detour;
+}
+</code></pre>
+<p><code>args</code> 那一大串正则表达式，获得的是原函数的参数列表，是一个 array。<code>defArg</code> 是函数 <code>defaultArguments()</code> 预先给定的参数。将两者合并成新的参数 <code>newArgs</code> ，类型为 object。</p>
+<p>举例说明，如果 <code>params</code> 传入的值是 <code>{ b: 3, a: 2 }</code>，那么经过中间 10 行到 16 行的循环运算得到的 <code>newArgs</code> 值是 <code>{ &#39;0&#39;: 2, &#39;1&#39;: 3 }</code>。</p>
+<p>20 行 <code>argsArray = [].slice.call(arguments);</code>作用是打印参数列表。举例说明：</p>
+<pre><code class="javascript">&gt;function add(a,b) { console.log([].slice.call(arguments));return a+b;};
+undefined
+&gt;add(1,2)
+[ 1, 2 ]
+3
+&gt;add(1,2,3)
+[ 1, 2, 3 ]
+3
+&gt;add(1,2,3,4)
+[ 1, 2, 3, 4 ]
+3
+</code></pre>
+<p>因为整个函数最后 return 的是 detour。也就是说当第一次运行 <code>defaultArguments()</code> 时，仅仅是声明了 <code>detour()</code> 函数但是并没有运行。按照 details 里给出的例子，只有当 <code>add_(10)</code> 调用时， <code>detour()</code> 函数才真正被运行。此时的 <code>arguments</code> 值为 <code>[10]</code>。</p>
+<p>27 行 <code>apply()</code> 方法的应用，就是调取 <code>func</code> 函数，并给他特定的 arguments 值，并获得结果。第一个参数是修改 <code>func</code> 函数的 <code>this</code> 指向的， 是 <code>this</code> 还是 <code>null</code> 对结果都是没有影响的。<a href="https://stackoverflow.com/questions/9644044/javascript-this-pointer-within-nested-function" target="_blank" rel="noopener">因为都是对函数的直接调用，不存在对某个 object 的 method 进行调用。</a></p>
+<p>注意第 29 行的，函数也是 object，而且这个定义使得返回的函数对象多携带了 args 信息。这一点当时自己没有想到，也是看了答案后才明白的。</p>
+<h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a href="https://www.codewars.com/users/mrkishi" target="_blank" rel="noopener">mrkishi</a>, <a href="https://www.codewars.com/users/guyingll" target="_blank" rel="noopener">guyingll</a>, <a href="https://www.codewars.com/users/iphp" target="_blank" rel="noopener">iphp</a>, <a href="https://www.codewars.com/users/willin" target="_blank" rel="noopener">willin</a>, <a href="https://www.codewars.com/users/marek_mistrzuk" target="_blank" rel="noopener">marek_mistrzuk</a></p>
+<pre><code class="javascript">function defaultArguments(func, params) {
+  var names = func.names || func.toString()
+    .replace(/\/\/.*$|\/\*.*?\*\/|\s/gm, &#39;&#39;)
+    .match(/(?:[\w]+(?:,[\w]+)*)?(?=\))/m)[0].split(&#39;,&#39;);
+
+  var detour = function () {
+    var input = arguments;
+    return func.apply(this, names.map(function (val, i) {
+      return i &lt; input.length ? input[i] : params[names[i]];
+    }));
+  };
+
+  detour.names = names;
+  return detour;
+}
+</code></pre>
+
+            </div>
+            <div class="entry-tags">
+                 
+                    <a href="/tags/Algorithm/">Algorithm</a>
+                 
+                    <a href="/tags/codewars/">codewars</a>
+                 
+                    <a href="/tags/JavaScript/">JavaScript</a>
+                
+            </div>
+            <div class="entry-footer"></div>
+        </article>
+    </div>
+</div>
+        <footer id="hagoromo-footer" class="hagoromo-footer">
+    <div class="container">
+        <div class="hagoromo-footer-widget"></div>
+        <div class="hagoromo-footer-widget">
+            <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
+            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+        </div>
+        <div class="hagoromo-footer-widget social">
+            
+                
+                    <span class="social-button">
+                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                    </span>
+                
+            
+            <span class="social-button">
+                <a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i></a>
+            </span>
+        </div> 
+    </div>
+</footer>
+    </div>
+
+    <div class="hagoromo-sidebar">
+    <div class="hagoromo-sidebar-header">
+        <div class="hagoromo-sidebar-header-wrapper">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+            <span class="hagoromo-sidebar-close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget search">
+        <form id="hagoromo-search-form" class="hagoromo-search-form">
+            <input name="s" type="text" placeholder="Type here to search ... ">
+            <button type="submit" class="hagoromo-button hagoromo-button-search">SEARCH</button>
+        </form>
+    </div>
+    <div class="widget categories">
+        <h4 class="widget-title h5">分类</h4>
+        <ul>
+            <li><a href="/archives">Archive</a></li>
+              
+            <li><a href="/categories/Coding/">Coding</a></li>
+              
+            <li><a href="/categories/I-O/">I/O</a></li>
+            
+        </ul>
+    </div>
+    <div class="widget tags">
+        <h4 class="widget-title h5">标签</h4>
+        <ul>
+              
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+              
+                <li><a href="/tags/codewars/">codewars<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
+              
+                <li><a href="/tags/电影/">电影<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></li>
+              
+                <li><a href="/tags/故事/">故事<a></li>
+              
+                <li><a href="/tags/Front-end/">Front-end<a></li>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="hagoromo-sidebar-overlay"></div>
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/highlight.min.js"></script>
+    <script src="/js/highlightjs-line-numbers.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

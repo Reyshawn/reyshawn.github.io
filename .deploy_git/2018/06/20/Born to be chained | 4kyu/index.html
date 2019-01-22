@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+        <link rel="icon" type="image/png" href="./favicon.png">
+        <link rel="apple-touch-icon" href="./favicon180x180.png" sizes="180x180">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>reyshawn.C</title>
+</head>
+
+<body class='home blog'>
+    <header id="hagoromo-header" class="hagoromo-header">
+    <div class="container">
+        <div class="slot-l">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+        </div>
+        <div class="slot-r">
+            <ul class="hagoromo-nav hagoromo-actions-list">
+                <li class="hagoromo-action-button hagoromo-action-sidebar">
+                    <span><i class="fa fa-bars"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div id="hagoromo-cover" class="hagoromo-cover hagoromo-cover-empty"></div>
+
+    <div class="hagoromo-fake-bg">
+        <div class="hagoromo-section">
+    <div class="section-content">
+        <article class="hagoromo-post">
+            <header class="entry-header">
+                <h2 class="entry-title h1">
+                    <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
+                </h2>
+                <div class="entry-meta">
+                    2018 年 06 月 20 日
+                </div>
+                <div class="post-letter"></div>
+            </header>
+            <div class="entry-content">
+                <ul>
+<li>对于 Object 的遍历；</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Function composition is a powerful technique. For example:</p>
+<pre><code class="javascript">function sum(x, y) {
+  return x + y;
+}
+
+function double(x) {
+  return sum(x, x);
+}
+
+function minus (x, y) {
+  return x - y;
+}
+
+function addOne(x) {
+  return sum(x, 1);
+}
+
+double(sum(2, 3)); // 10
+</code></pre>
+<p>But in complex expressions, composition may be difficult to understand. For example:</p>
+<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72
+</code></pre>
+<p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p>
+<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72
+</code></pre>
+<p>Your job is implement the <code>chain</code> function:</p>
+<pre><code class="javascript">function chain(fns) {
+}
+
+var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});
+</code></pre>
+<p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p>
+<p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p>
+<p>Note that the chain can be reused (the internal state is not stored):</p>
+<a id="more"></a>
+<pre><code class="javascript">c.sum(3, 4).execute(); //7
+c.sum(1, 2).execute(); //3
+</code></pre>
+<p>Other examples:</p>
+<pre><code class="javascript">var c1 = c.sum(1, 2);
+c1.execute(); // == fns.sum(1, 2) == 3
+c1.double().execute(); // == fns.double(fns.sum(1, 2)) == 6
+c1.addOne().execute(); // == fns.addOne(fns.sum(1, 2)) == 4
+c1.execute(); // == fns.sum(1, 2) == 3
+
+var c2 = c1.sum(5);
+c2.addOne().execute(); // == fns.addOne(fns.sum(fns.sum(1, 2) 5)) == 9
+c2.sum(3).execute(); // == fns.sum(c1.sum(fns.sum(1, 2), 5), 3) == 11
+c2.execute(); // == fns.sum(fns.sum(1, 2), 5) == 8
+
+c1.execute(); // == fns.sum(1, 2) == 3
+</code></pre>
+<h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a href="https://www.codewars.com/users/ooflorent" target="_blank" rel="noopener">ooflorent</a>, <a href="https://www.codewars.com/users/ChungGor" target="_blank" rel="noopener">ChungGor</a>, <a href="https://www.codewars.com/users/pompeu2004" target="_blank" rel="noopener">pompeu2004</a>, <a href="https://www.codewars.com/users/guilhermeconti" target="_blank" rel="noopener">guilhermeconti</a>, <a href="https://www.codewars.com/users/lwio" target="_blank" rel="noopener">lwio</a> (plus 2 more warriors)</p>
+<pre><code class="javascript">function chain(fns) {
+  function ChainWrapper(x) {
+    this._ = x
+  }
+
+  Object.keys(fns).forEach(function(prop) {
+    var fn = fns[prop]
+
+    ChainWrapper.prototype[prop] = function() {
+      var args = [].slice.call(arguments)
+      if (this._ != null) args.unshift(this._)
+
+      var x = fn.apply(null, args)
+      return new ChainWrapper(x)
+    }
+  })
+
+  ChainWrapper.prototype.execute = function() {
+    return this._
+  }
+
+  return new ChainWrapper()
+}
+</code></pre>
+<p>line 6: 关注一下对于一般 Object  的遍历方法。主要用到 <code>Object.keys()</code> 和 <code>forEach()</code>，另外相对应的也有 <code>Object.values()</code>。</p>
+<p>line 9: ChainWrapper 是一个函数，给这个函数添加若干子函数（或也称 method）的办法。这里要弄明白一个问题，直接用 <code>ChainWrapper[prop]</code> 和使用 <code>ChainWrapper.prototype[prop]</code> 的区别在哪里。前者只给该函数加入了一个子函数，而后者透过原型链，给最原始的<strong>函数对象</strong>加入了一个子函数，如果讲函数作为 Object 进行创建，形如 <code>var a = new ChainWrapper(3)</code> 这样，前者创建的子函数不复存在，后者创建的子函数依然存在。如下例子：</p>
+<pre><code class="javascript">function ChainWrapper(x) {
+    this._ = x
+}
+ChainWrapper[&#39;sum&#39;] = (a,b) =&gt; (a+b)
+
+ChainWrapper.sum(2,3) //5
+ChainWrapper[&#39;sum&#39;](2,3) //5
+
+var a = new ChainWrapper(1) //ChainWrapper { _: 1 }
+
+a.sum(2,3) //TypeError: a.sum is not a function
+
+ChainWrapper.prototype[&#39;sum&#39;] = (a,b) =&gt; (a+b)
+
+var a = new ChainWrapper(1) //ChainWrapper { _: 1 }
+a.sum(2,3) //5
+
+</code></pre>
+<p>当将函数利用 new 关键字进行创建的时候，得到的是一个 Object 而不是 function。</p>
+<p>line 11: 初次定义时，<code>chain()</code> 函数返回的是 <code>return new ChainWrapper()</code>，此时 Object 内的 <code>this._</code> 为 <code>undefined</code>。当 Object 开始 chain 第一个子函数时，得到的运算结果记录在 <code>this._</code> 中，此时为非 null 值，则在下一次 chain 的时候，前一次函数的运算结果要作为下一次 chain 的参数传入进去，所以要 <code>args.unshift(this._)</code>。</p>
+<p>但这里有一个小 bug，当 <code>this._</code> 出现 <code>NaN</code> 时，此时判定 <code>NaN != null</code>  的结果会是 <code>true</code>。然后会把 <code>NaN</code> 传入到参数的最开头，那么每次结果都会是 <code>NaN</code>。修复的办法就是判定 <code>x</code> 是否为 <code>NaN</code>，在 <code>apply()</code> 方法使用后加一个条件结构。</p>
+<pre><code class="javascript">if (isNaN(x)) return new ChainWrapper();
+</code></pre>
+<p>但注意，这里默认了当输出为 <code>NaN</code> 为输出无效，不会保留之前的参数。如果要保留参数，但不同函数参数数量都不一样，就比较复杂了。比如 <code>sum()</code> 两个数相加，只输入 1 个数时会得到 <code>NaN</code>，此时输入的那个数也是直接舍弃不再保留了。</p>
+<p><a href="https://www.codewars.com/users/evk" target="_blank" rel="noopener">evk</a>, <a href="https://www.codewars.com/users/niweic" target="_blank" rel="noopener">niweic</a>, <a href="https://www.codewars.com/users/marek_mistrzuk" target="_blank" rel="noopener">marek_mistrzuk</a></p>
+<pre><code class="javascript">function chain(fns) {
+  let Chain = function(val){
+    this.execute = () =&gt; val;
+  };
+  for(let i in fns) Chain.prototype[i] = function (a, b) {
+    let val = this.execute(),
+        args = val === null ? [a, b] : [val, a];
+    return new Chain(fns[i](...args));
+  }
+  return new Chain(null);
+}
+</code></pre>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/115548/why-is-isnannull-false-in-js" target="_blank" rel="noopener">Why is isNaN(null) == false in JS?</a></li>
+</ul>
+
+            </div>
+            <div class="entry-tags">
+                 
+                    <a href="/tags/Algorithm/">Algorithm</a>
+                 
+                    <a href="/tags/codewars/">codewars</a>
+                 
+                    <a href="/tags/JavaScript/">JavaScript</a>
+                
+            </div>
+            <div class="entry-footer"></div>
+        </article>
+    </div>
+</div>
+        <footer id="hagoromo-footer" class="hagoromo-footer">
+    <div class="container">
+        <div class="hagoromo-footer-widget"></div>
+        <div class="hagoromo-footer-widget">
+            <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
+            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+        </div>
+        <div class="hagoromo-footer-widget social">
+            
+                
+                    <span class="social-button">
+                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                    </span>
+                
+            
+            <span class="social-button">
+                <a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i></a>
+            </span>
+        </div> 
+    </div>
+</footer>
+    </div>
+
+    <div class="hagoromo-sidebar">
+    <div class="hagoromo-sidebar-header">
+        <div class="hagoromo-sidebar-header-wrapper">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+            <span class="hagoromo-sidebar-close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget search">
+        <form id="hagoromo-search-form" class="hagoromo-search-form">
+            <input name="s" type="text" placeholder="Type here to search ... ">
+            <button type="submit" class="hagoromo-button hagoromo-button-search">SEARCH</button>
+        </form>
+    </div>
+    <div class="widget categories">
+        <h4 class="widget-title h5">分类</h4>
+        <ul>
+            <li><a href="/archives">Archive</a></li>
+              
+            <li><a href="/categories/Coding/">Coding</a></li>
+              
+            <li><a href="/categories/I-O/">I/O</a></li>
+            
+        </ul>
+    </div>
+    <div class="widget tags">
+        <h4 class="widget-title h5">标签</h4>
+        <ul>
+              
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+              
+                <li><a href="/tags/codewars/">codewars<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
+              
+                <li><a href="/tags/电影/">电影<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></li>
+              
+                <li><a href="/tags/故事/">故事<a></li>
+              
+                <li><a href="/tags/Front-end/">Front-end<a></li>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="hagoromo-sidebar-overlay"></div>
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/highlight.min.js"></script>
+    <script src="/js/highlightjs-line-numbers.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

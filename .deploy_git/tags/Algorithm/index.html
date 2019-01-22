@@ -46,6 +46,301 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/07/10/1n- Cycle | 6kyu/">1/n- Cycle | 6kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Tue Jul 10 2018 22:58:13 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Let be <code>n</code> an integer prime with <code>10</code> e.g. <code>7</code>. </p>
+<p><code>1/7 = 0.142857 142857 142857 ...</code>.</p>
+<p>We see that the decimal part has a cycle: <code>142857</code>. The length of this cycle is <code>6</code>. In the same way:</p>
+<p><code>1/11 = 0.09 09 09 ...</code>. Cycle length is <code>2</code>.</p>
+<p><strong>Task</strong></p>
+<p>Given an integer n (n &gt; 1), the function cycle(n) returns the length of the cycle if n and 10 are coprimes, otherwise returns -1.</p>
+<p><strong>Exemples:</strong></p>
+<pre><code class="python">cycle(5) = -1
+cycle(13) = 6 -&gt; 0.076923 076923 0769
+cycle(21) = 6 -&gt; 0.047619 047619 0476
+cycle(27) = 3 -&gt; 0.037 037 037 037 0370
+cycle(33) = 2 -&gt; 0.03 03 03 03 03 03 03 03
+cycle(37) = 3 -&gt; 0.027 027 027 027 027 0
+cycle(94) = -1 
+
+cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...
+</code></pre>
+<p>Note</p>
+<ul>
+<li>Translators are welcome for all languages.</li>
+</ul>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/07/10/1n- Cycle | 6kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2018/06/29/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Fri Jun 29 2018 09:58:30 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li>除法，求余，因子</li>
+<li><code>Number.MAX_SAFE_INTEGER</code></li>
+<li>二分法求方程根</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your task is determine lowest number base system in which the input <code>n</code> (base 10), expressed in this number base system, is all <code>1</code> in its digit. See an example:</p>
+<p>‘7’ in base 2 is ‘111’ - fits! answer is 2</p>
+<p>‘21’ in base 2 is ‘10101’ - contains ‘0’ does not fit ‘21’ in base 3 is ‘210’ - contains ‘0’ and ‘2’ does not fit ‘21’ in base 4 is ‘111’ - contains only ‘1’ it fits! answer is 4</p>
+<p><code>n</code> is always less than <code>Number.MAX_SAFE_INTEGER</code>.</p>
+<p>这个题目的难度主要在于性能 performance 方面，对于数值较小的数字，通常方法很容易计算，一旦涉及到九位十位往上的大数，一般的循环方法就会耗时很久。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/29/Lowest base system | 4kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2018/06/25/@wraps | 6kyu/">@wraps | 6kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Mon Jun 25 2018 10:21:13 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li><code>decorator</code> 装饰器用法</li>
+<li><code>try</code>…<code>except</code>… <code>else</code> control flow</li>
+<li><code>getattr()</code> 和 <code>setattr()</code></li>
+<li><code>__dict__.update()</code></li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Implement the functools.wraps decorator, which is used to preserve the name and docstring of a decorated function. Your decorator must not modify the behavior of the decorated function. Here’s an example :</p>
+<pre><code class="python">def identity(func):
+  @wraps(func)
+  def wrapper(*args, **kwargs):
+    &quot;&quot;&quot;Wraps func&quot;&quot;&quot;
+    return func(*args, **kwargs)
+  return wrapper
+
+@identity
+def return_one():
+  &quot;&quot;&quot;Return one&quot;&quot;&quot;
+  return 1
+
+return_one.__name__ == &#39;return_one&#39; # If wraps hadn&#39;t been used, __name__ would be equal to &#39;wrapper&#39;
+return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;
+</code></pre>
+<p><strong>Note: of course, you may not use the functools module for this kata.</strong></p>
+<p>题目要求，经过一次二重的装饰器，保留原来函数的 <code>__name__</code> 和 <code>__doc__</code>。二重装饰器 decorator，就是用一个 decorator 去 decorate 另一个 decorator。该二重装饰器装饰后的函数， 输出的是一重装饰器装饰过的函数，但是 <code>__name__</code> 和 <code>__doc__</code>  得到保留，及为原函数的值。</p>
+<p>依照题目给的例子，就是输出是被 decorator wraps 修饰过的 <code>wrapper</code> 函数，即函数主体和功能还是 <code>wrapper</code>，但因为被 <code>wraps</code> 装饰了，输出的 <code>wrapper</code> 函数的  <code>__name__</code> 和 <code>__doc__</code>  值为原函数 <code>return_one</code> 的值。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/25/@wraps | 6kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2018/06/23/Binary Search Trees | 5kyu/">Binary Search Trees | 5kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Sat Jun 23 2018 13:01:32 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;{}&#39;.format()</code></li>
+<li>A <code>and</code> B <code>and</code> C</li>
+<li><code>if</code>  … <code>else</code> 单行语句</li>
+<li><code>for</code> … <code>in</code> 单行语句</li>
+<li><code>join()</code> 函数</li>
+<li><code>str()</code> 函数与 <code>__str__()</code> 方法</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p>
+<p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p>
+<pre><code class="python">&#39;[_ B [C]]&#39;
+</code></pre>
+<p>This tree is obtained by evaluating the following expression:</p>
+<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))
+</code></pre>
+<p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/23/Binary Search Trees | 5kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Wed Jun 20 2018 11:14:56 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <ul>
+<li>对于 Object 的遍历；</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Function composition is a powerful technique. For example:</p>
+<pre><code class="javascript">function sum(x, y) {
+  return x + y;
+}
+
+function double(x) {
+  return sum(x, x);
+}
+
+function minus (x, y) {
+  return x - y;
+}
+
+function addOne(x) {
+  return sum(x, 1);
+}
+
+double(sum(2, 3)); // 10
+</code></pre>
+<p>But in complex expressions, composition may be difficult to understand. For example:</p>
+<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72
+</code></pre>
+<p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p>
+<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72
+</code></pre>
+<p>Your job is implement the <code>chain</code> function:</p>
+<pre><code class="javascript">function chain(fns) {
+}
+
+var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});
+</code></pre>
+<p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p>
+<p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p>
+<p>Note that the chain can be reused (the internal state is not stored):</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/20/Born to be chained | 4kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Sun Jun 10 2018 11:54:25 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a href="http://www.wikiwand.com/en/Xiangqi" target="_blank" rel="noopener">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
+<hr>
+<p>You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:</p>
+<pre><code>Example (the starting Xiangqi board):
+
+車馬象士將士象馬車
+　　　｜Ｘ｜　　　
+　砲　＋－＋　砲　
+卒　卒　卒　卒　卒
+－－－－－－－－－
+－－－－－－－－－
+兵　兵　兵　兵　兵
+　炮　＋－＋　炮　
+　　　｜Ｘ｜　　　
+俥傌相仕帥仕相傌俥
+
+The bottom and top half corresponds to red and black pieces, respectively.
+Note that red and black have different characters to distinguish the same piece of both sides.
+</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2018/06/07/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Thu Jun 07 2018 15:32:38 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>As part of a broader functionality you need to develop an argument mapper.</p>
+<p>The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.</p>
+<p>The usage is:</p>
+<pre><code class="javascript">function func1(arg1, arg2) { ... }
+
+var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
+console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
+console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
+</code></pre>
+<p>The passed values are in the same order as they appear in the function object.</p>
+<p>Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.</p>
+<p>Hajime!</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/07/Argument Mapper | 5kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Tue Jun 05 2018 16:56:46 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p>
+<p>You cannot assume that the function’s arguments have any particular names.</p>
+<p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p>
+<pre><code class="javascript">function add(a,b) { return a+b;};
+
+var add_ = defaultArguments(add,{b:9});
+add_(10); // returns 19
+add_(10,7); // returns 17
+add_(); // returns NaN
+
+add_ = defaultArguments(add_,{b:3, a:2});
+add_(10); // returns 13 now
+add_(); // returns 5
+
+add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
+add_(10); // returns NaN
+add_(10,10); // returns 20
+</code></pre>
+<p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/05/Default Arguments | 4kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
                     </h2>
                     <div class="entry-meta">
@@ -111,30 +406,16 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">Catching Car Mileage Numbers</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Sat Feb 10 2018 10:38:00 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><blockquote>
-<p>  “7777…<em>8?!??!</em>“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who <em>doesn’t</em> like catching those one-off interesting mileage numbers?</p>
-</blockquote>
-<p>Let’s make it so Bob <strong>never</strong> misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a <code>1</code> or a <code>2</code> (respectively).</p>
-<p>It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a <code>2</code> if the number is “interesting” (see below), a <code>1</code> if an interesting number occurs within the next two miles, or a <code>0</code> if the number is not interesting.</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">Read More</a>
-                </div>
-            </article>
-            
         </div>
         
+<div class="hagoromo-pagination">
+    <nav class="navigation pagination" role="navigation">
+        
+        
+        <span class="page-number current">1</span><a class="page-number" href="/tags/Algorithm/page/2/">2</a><a class="extend next" rel="next" href="/tags/Algorithm/page/2/">next &raquo;</a>
+    </nav>
+</div>
+
 
     </div>
 </div>
@@ -216,6 +497,8 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
                 <li><a href="/tags/codewars/">codewars<a></li>
               
                 <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
               
                 <li><a href="/tags/电影/">电影<a></li>
               
