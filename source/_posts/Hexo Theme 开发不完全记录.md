@@ -231,4 +231,19 @@ favicon: ./favicon.ico
 
 即可。
 
-测试的话，local 本地测试我是没有成功。但 deploy 之后，把网页加入收藏，等待片刻就能看到  icon。
+测试的话，local 本地测试我是没有成功。但 deploy 之后，把网页加入收藏，在 iOS 端的 Safari 等待 片刻能看到 icon，在桌面端的 Chrome 也可以。但是唯独桌面端的 Safari 不显示。在 `/Users/reyshawn/Library/Safari/Touch\ Icons\ Cache ` 这个文件夹下能看到，Safari 需要的 icon 都是 png 格式图片。所以要在 `<head>` 中加入下面两个 `<link>`:
+
+```html
+<link rel="icon" type="image/png" href="./favicon.png">
+<link rel="apple-touch-icon" href="./favicon.png" sizes="180x180">
+```
+
+同时要把 png 的icon 移动到 `source` 文件夹下。
+
+这样
+
+参考：
+
+- [What is the best practice for creating a favicon on a web site?](https://stackoverflow.com/questions/25952907/favicon-ico-vs-link-rel-shortcut-icon)
+- [What size should apple-touch-icon.png be for iPad and iPhone?](https://stackoverflow.com/questions/2997437/what-size-should-apple-touch-icon-png-be-for-ipad-and-iphone)
+

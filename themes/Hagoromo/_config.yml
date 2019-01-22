@@ -1,4 +1,4 @@
-favicon: ./favicon.ico
+favicon: true
 
 social_icons:
   enable: true
