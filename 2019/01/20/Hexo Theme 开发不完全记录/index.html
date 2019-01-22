@@ -7,7 +7,7 @@
     
         <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
         <link rel="icon" type="image/png" href="./favicon.png">
-        <link rel="apple-touch-icon" href="./favicon.png">
+        <link rel="apple-touch-icon" href="./favicon.png" sizes="180x180">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
@@ -195,7 +195,17 @@ pagination_dir: page
 <pre><code class="yaml">favicon: ./favicon.ico
 </code></pre>
 <p>即可。</p>
-<p>测试的话，local 本地测试我是没有成功。但 deploy 之后，把网页加入收藏，等待片刻就能看到  icon。</p>
+<p>测试的话，local 本地测试我是没有成功。但 deploy 之后，把网页加入收藏，在 iOS 端的 Safari 等待 片刻能看到 icon，在桌面端的 Chrome 也可以。但是唯独桌面端的 Safari 不显示。在 <code>/Users/reyshawn/Library/Safari/Touch\ Icons\ Cache</code> 这个文件夹下能看到，Safari 需要的 icon 都是 png 格式图片。所以要在 <code>&lt;head&gt;</code> 中加入下面两个 <code>&lt;link&gt;</code>:</p>
+<pre><code class="html">&lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;./favicon.png&quot;&gt;
+&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;./favicon.png&quot; sizes=&quot;180x180&quot;&gt;
+</code></pre>
+<p>同时要把 png 的icon 移动到 <code>source</code> 文件夹下。</p>
+<p>这样</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/25952907/favicon-ico-vs-link-rel-shortcut-icon" target="_blank" rel="noopener">What is the best practice for creating a favicon on a web site?</a></li>
+<li><a href="https://stackoverflow.com/questions/2997437/what-size-should-apple-touch-icon-png-be-for-ipad-and-iphone" target="_blank" rel="noopener">What size should apple-touch-icon.png be for iPad and iPhone?</a></li>
+</ul>
 
             </div>
             <div class="entry-tags">
