@@ -84,6 +84,14 @@ type: atom
 path: atom.xml
 limit: 20
 
+# hexo-generator-archive
+archive_generator:
+  per_page: 0
+  yearly: true
+  monthly: true
+  daily: false
+  order_by: -date
+
 # Specify the date when the site was setup
 since: 2017
 
