@@ -231,16 +231,16 @@ favicon: ./favicon.ico
 
 即可。
 
-测试的话，local 本地测试我是没有成功。但 deploy 之后，把网页加入收藏，在 iOS 端的 Safari 等待 片刻能看到 icon，在桌面端的 Chrome 也可以。但是唯独桌面端的 Safari 不显示。在 `/Users/reyshawn/Library/Safari/Touch\ Icons\ Cache ` 这个文件夹下能看到，Safari 需要的 icon 都是 png 格式图片。所以要在 `<head>` 中加入下面两个 `<link>`:
+测试的话，local 本地测试是没有看到 icon。但 deploy 之后，把网页加入收藏，在 iOS 端的 Safari 等待片刻就能看到 icon，在桌面端的 Chrome 也可以。但唯独桌面端的 Safari 不显示。在 `/Users/reyshawn/Library/Safari/Touch\ Icons\ Cache ` 这个文件夹下能看到，Safari 需要的 icon 都是 png 格式图片，大小通常是 180*180，参考了以下其他能正常显示 icon 的网站，它们 head 的写法。所以要在 `<head>` 中加入下面两个 `<link>`:
 
 ```html
 <link rel="icon" type="image/png" href="./favicon.png">
-<link rel="apple-touch-icon" href="./favicon.png" sizes="180x180">
+<link rel="apple-touch-icon" href="./favicon180x180.png" sizes="180x180">
 ```
 
-同时要把 png 的icon 移动到 `source` 文件夹下。
+同时要把 png 的icon 移动到 `source` 文件夹下。这样在桌面端的 Safari 也能正常显示 favicon 了。不得不讲，苹果对于 icon 分辨率的控制之严苛，也侧面反映对设计，整体 icon 一致性的重视。
 
-这样
+
 
 参考：
 
