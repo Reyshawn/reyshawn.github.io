@@ -208,3 +208,27 @@ hljs.initHighlightingOnLoad();
 ## 后记
 
 文章主要写了自己开发过程中碰到的几个棘手的难题。另外还有一大部分关于设计的内容没有涉及。包括字体，颜色，layout，z-index，footer，responsive design 等等。虽然大部分的设计使用了 typology 的 css 文件，但弄懂其中的逻辑结构，写出更优雅的 css ，还需要一番努力和功夫。
+
+## 番外
+
+### 配置 favicon
+
+需要将自己准备好 icon 文件，通常是 .ico 格式的文件，存储在 `source` 文件夹下。在 `head.ejs` 中加入一条 `<link>` 来声明 favicon 地址：
+
+```ejs
+<% if (theme.favicon){ %>
+	<link rel="icon" href="<%- theme.favicon %>">
+<% } %>
+```
+
+这里使用 if 结构是为了方便在 `config.yaml` 中进行配置。
+
+在 theme 的配置文件 `config.yaml` 中添加，
+
+```yaml
+favicon: ./favicon.ico
+```
+
+即可。
+
+测试的话，local 本地测试我是没有成功。但 deploy 之后，把网页加入收藏，等待片刻就能看到  icon。

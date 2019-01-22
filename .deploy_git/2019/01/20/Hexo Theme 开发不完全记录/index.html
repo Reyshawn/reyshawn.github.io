@@ -183,6 +183,17 @@ pagination_dir: page
 <p>第二种暂时只是我个人想法。就是借助 Google 的 <a href="https://developers.google.com/custom-search/v1/overview" target="_blank" rel="noopener">Custom Search JSON API</a>。但这个需要新建一个 search page 页面来展示 search 结果。需要 js 通过 ajax 得到返回的 json，实时渲染到 search 页面上。</p>
 <p>第三种，也就是我现在使用的比较简单的办法。记得 <a href="www.v2ex.com">V2EX</a> 也是这么实现的。利用 Google 搜索中的 <code>site:</code> 语句。点击 <code>SEARCH</code> 后是直接打开 Google，展示 Google 的站内搜索结果。</p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>文章主要写了自己开发过程中碰到的几个棘手的难题。另外还有一大部分关于设计的内容没有涉及。包括字体，颜色，layout，z-index，footer，responsive design 等等。虽然大部分的设计使用了 typology 的 css 文件，但弄懂其中的逻辑结构，写出更优雅的 css ，还需要一番努力和功夫。</p>
+<h2 id="番外"><a href="#番外" class="headerlink" title="番外"></a>番外</h2><h3 id="配置-favicon"><a href="#配置-favicon" class="headerlink" title="配置 favicon"></a>配置 favicon</h3><p>需要将自己准备好 icon 文件，通常是 .ico 格式的文件，存储在 <code>source</code> 文件夹下。在 <code>head.ejs</code> 中加入一条 <code>&lt;link&gt;</code> 来声明 favicon 地址：</p>
+<pre><code class="ejs">&lt;% if (theme.favicon){ %&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;&lt;%- theme.favicon %&gt;&quot;&gt;
+&lt;% } %&gt;
+</code></pre>
+<p>这里使用 if 结构是为了方便在 <code>config.yaml</code> 中进行配置。</p>
+<p>在 theme 的配置文件 <code>config.yaml</code> 中添加，</p>
+<pre><code class="yaml">favicon: ./favicon.ico
+</code></pre>
+<p>即可。</p>
+<p>测试的话，local 本地测试我是没有成功。但 deploy 之后，把网页加入收藏，等待片刻就能看到  icon。</p>
 
             </div>
             <div class="entry-tags">
@@ -275,13 +286,13 @@ pagination_dir: page
               
                 <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
-              
-                <li><a href="/tags/Anime/">Anime<a></li>
-              
                 <li><a href="/tags/游戏/">游戏<a></li>
               
                 <li><a href="/tags/故事/">故事<a></li>
+              
+                <li><a href="/tags/电影/">电影<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
             
