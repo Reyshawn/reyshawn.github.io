@@ -1,3 +1,5 @@
+favicon: ./favicon.ico
+
 social_icons:
   enable: true
   # Icon Mappings.
