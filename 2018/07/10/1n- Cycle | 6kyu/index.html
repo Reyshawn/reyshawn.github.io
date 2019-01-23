@@ -161,7 +161,7 @@ print(cycle(219199))
 <p>You can calculate the decimal representation of <code>a / b</code> using the long-division algorithm you learned at school, as Mark Ransom said. To calculate each successive digit, divide the current dividend (numerator or remainder) by <code>b</code>, and find the next dividend as the remainder multiplied by 10 (“bringing down a 0”). When a remainder is the same as some previous remainder, it means that the digits from then on will repeat as well, so you can note this fact and stop.</p>
 </blockquote>
 <p>明白了。其实整个迭代的过程就是去做一次 long division。long division 就是我们小学学过的那种除法计算。</p>
-<p><img src="../images/long division.png" alt="long division"></p>
+<p><img src="/images/long division.png" alt="long division"></p>
 <p>那么为什么这样一种循环就比之前我想的那种暴力破解快呢？答案就在于迭代。每次只用 remainder 乘 10 进行迭代，一个非常小的数，算起来自然比用 $10^{n}$ 直接去除要快得多。 </p>
 <p>参考文章：</p>
 <ul>
@@ -176,7 +176,7 @@ print(cycle(219199))
                  
                     <a href="/tags/codewars/">codewars</a>
                  
-                    <a href="/tags/JavaScript/">JavaScript</a>
+                    <a href="/tags/Python/">Python</a>
                 
             </div>
             <div class="entry-footer"></div>
@@ -260,9 +260,9 @@ print(cycle(219199))
               
                 <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/Python/">Python<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/电影/">电影<a></li>
               
