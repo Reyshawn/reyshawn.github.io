@@ -23,9 +23,9 @@ Habitica 的量化系统里有四个关键要素：
 
 
 
-![value1](/images/value1.PNG)
+![value1](/images/value1.png)
 <br>
-![value2](/images/value2.PNG)
+![value2](/images/value2.png)
 <br>
 在 Habitica 的设定中，生命值永远都是 50，而升级所需要的经验值，则随着等级的增加而增加。因为升级补满生命值，而当生命值耗完，就会被降一级，并且丢失所有金币，以及随机丢失一些装备。这样下来，随着等级的增加，每升一级所需的经验值就越高，而生命值是不变的，这样难度是逐渐增加的。
 
