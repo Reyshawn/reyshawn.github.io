@@ -4,7 +4,7 @@ date:
 tags:
 - Algorithm
 - codewars
-- JavaScript
+- Python
 categories: 
 - Coding
 ---
@@ -149,7 +149,7 @@ lechevalier 所用的这个方法的思路，正是我上面说的，只是并�
 
 明白了。其实整个迭代的过程就是去做一次 long division。long division 就是我们小学学过的那种除法计算。
 
-![long division](../images/long division.png)
+![long division](/images/long division.png)
 
 那么为什么这样一种循环就比之前我想的那种暴力破解快呢？答案就在于迭代。每次只用 remainder 乘 10 进行迭代，一个非常小的数，算起来自然比用 $10^{n}$ 直接去除要快得多。 
 
