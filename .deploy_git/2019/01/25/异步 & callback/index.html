@@ -104,7 +104,7 @@ function processData(callback) {
 <p>Nearly everything in node.js is asynchronous. So, nearly every method that is called, you must specify a callback method to handle the result of the method call. Normally, the callback function takes two parameters: error, result. So it is up to you to check for the error and then handle the result. </p>
 <p>– <a href="https://stackoverflow.com/questions/13789095/understanding-node-js-callback-structure" target="_blank" rel="noopener">understanding node.js callback structure</a></p>
 </blockquote>
-<h2 id="Web-Spider-的-callback-实现"><a href="#Web-Spider-的-callback-实现" class="headerlink" title="Web Spider 的 callback 实现"></a>Web Spider 的 callback 实现</h2><p>在 <em>Node.js Design Patterns</em> 这本书的第二章节，作者通过 web spider 这个例子，介绍了 async 在 node 里的各种实现方案。有最原生的 callback hell，改良后的 callback，也有 async，Promise，generator 等等更加简单的写法。无论使用哪种方式，会用到 <code>fs.stat(path, callback)</code> 和 <code>request(url, callback)</code>[^1]。前者是 Node.js 自身的关于文件操作的一系列 api，后者是一个第三方 module。因为这两个函数都用到了 callback，所以在 debug 模式下，就去更深一层看看是如何运作的。Web Spider 的函数源码已付在了参考链接里。</p>
+<h2 id="Web-Spider-的-callback-实现"><a href="#Web-Spider-的-callback-实现" class="headerlink" title="Web Spider 的 callback 实现"></a>Web Spider 的 callback 实现</h2><p>在 <em>Node.js Design Patterns</em> 这本书的第二章节，作者通过 web spider 这个例子，介绍了 async 在 node 里的各种实现方案。有最原生的 callback hell，改良后的 callback，也有 async，Promise，generator 等等更加简单的写法。无论使用哪种方式，会用到 <code>fs.stat(path, callback)</code> 和 <code>request(url, callback)</code>[^1]。前者是 Node.js 自身的关于文件操作的一系列 api，后者是一个第三方 module。因为这两个函数都用到了 callback，所以在 debug 模式下，就去更深一层看看是如何运作的。Web Spider 的函数源码已附在了参考链接里。</p>
 <pre><code class="javascript">function download(url, filename, callback) {
   console.log(`Downloading ${url}`);
   request(url, (err, response, body) =&gt; {
@@ -379,9 +379,9 @@ function Stream() {
               
                 <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
-              
                 <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
               
                 <li><a href="/tags/电影/">电影<a></li>
               

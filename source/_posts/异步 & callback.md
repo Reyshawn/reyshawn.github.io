@@ -77,7 +77,7 @@ function processData(callback) {
 
 ## Web Spider 的 callback 实现
 
-在 *Node.js Design Patterns* 这本书的第二章节，作者通过 web spider 这个例子，介绍了 async 在 node 里的各种实现方案。有最原生的 callback hell，改良后的 callback，也有 async，Promise，generator 等等更加简单的写法。无论使用哪种方式，会用到 `fs.stat(path, callback)` 和 `request(url, callback)`[^1]。前者是 Node.js 自身的关于文件操作的一系列 api，后者是一个第三方 module。因为这两个函数都用到了 callback，所以在 debug 模式下，就去更深一层看看是如何运作的。Web Spider 的函数源码已付在了参考链接里。
+在 *Node.js Design Patterns* 这本书的第二章节，作者通过 web spider 这个例子，介绍了 async 在 node 里的各种实现方案。有最原生的 callback hell，改良后的 callback，也有 async，Promise，generator 等等更加简单的写法。无论使用哪种方式，会用到 `fs.stat(path, callback)` 和 `request(url, callback)`[^1]。前者是 Node.js 自身的关于文件操作的一系列 api，后者是一个第三方 module。因为这两个函数都用到了 callback，所以在 debug 模式下，就去更深一层看看是如何运作的。Web Spider 的函数源码已附在了参考链接里。
 
 ```javascript
 function download(url, filename, callback) {
