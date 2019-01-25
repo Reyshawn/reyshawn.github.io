@@ -46,6 +46,25 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/01/25/异步 & callback/">异步 &amp; callback</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Fri Jan 25 2019 11:27:39 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>最近开始学习 Node.js。主要看两本书：<em>Node.js in Practice</em> 和 <em>Node.js Design Patterns</em>。前者类似于 o’reilly 的 cookbook 系列，整本书的编排是通过一个个 recipe，一个个具体的 problem&amp;solution 实现的。后者就是 <a href="https://search.packtpub.com/" target="_blank" rel="noopener">Packt Publishing</a> 出品的一系列 Design Patterns 书籍。包括这两本书在内的许多讲解 Node.js 的书籍，都会不断强调两个关键词， asynchronous 和 non-blocking I/O。在最初开始学习编程的时候，无论是写一些算法题目，或是做一些本地测试，它都是同步的，即时响应的，单线程的，blocking I/O。但如果进入的网络领域，「异步」则会被不断提起。相比 synchronous，「异步」更加接近我们相处的真实世界。</p>
+<p>这篇文章以 <em>Node.js Design Patterns</em> 第二章的 Web Spider 例子，探究思考在 Node.js 中是如何通过 callback 来实现异步操作的。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/25/异步 & callback/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/20/Hexo Theme 开发不完全记录/">Hexo Theme 开发不完全记录</a>
                     </h2>
                     <div class="entry-meta">
@@ -361,44 +380,6 @@ add_(10,10); // returns 20
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Sun Feb 18 2018 14:37:13 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
-<p>This is the first part of three (<a href="http://www.codewars.com/kata/es5-generators-ii" target="_blank" rel="noopener">part2</a>, <a href="http://www.codewars.com/kata/es5-generators-iii" target="_blank" rel="noopener">part3</a>).</p>
-<p>Generators and Iterators are new ES6 features that will allow things like this:</p>
-<pre><code class="javascript">function* fibonacci() {
-    let [prev, curr] = [0, 1];
-    for (;;) {
-        [prev, curr] = [curr, prev + curr];
-        yield curr;
-    }
-}
-</code></pre>
-<p>Using them in this way, we can do amazing things:</p>
-<pre><code class="javascript">let seq = fibonacci();
-print(seq.next()); // 1
-print(seq.next()); // 2
-print(seq.next()); // 3
-print(seq.next()); // 5
-print(seq.next()); // 8
-</code></pre>
-<p>This is powerful, but until a few months later, ES6 will not be born.</p>
-<p>The goal of this kata is to implement pseudo-generators with ES5.</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/18/Codewars.com | ES5 Generators(i)/">Read More</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
@@ -502,6 +483,8 @@ print(seq.next()); // 8
                 <li><a href="/tags/故事/">故事<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
