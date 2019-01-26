@@ -46,6 +46,42 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2018 年 06 月 05 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p>
+<p>You cannot assume that the function’s arguments have any particular names.</p>
+<p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p>
+<pre><code class="javascript">function add(a,b) { return a+b;};
+
+var add_ = defaultArguments(add,{b:9});
+add_(10); // returns 19
+add_(10,7); // returns 17
+add_(); // returns NaN
+
+add_ = defaultArguments(add_,{b:3, a:2});
+add_(10); // returns 13 now
+add_(); // returns 5
+
+add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
+add_(10); // returns NaN
+add_(10,10); // returns 20
+</code></pre>
+<p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/05/Default Arguments | 4kyu/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
                     </h2>
                     <div class="entry-meta">
@@ -252,35 +288,13 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2016/09/12/I-O-18-名为丢失的记忆/">名为丢失的记忆</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2016 年 09 月 12 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <ul>
-<li><a href="https://www.wikiwand.com/en/Kaiba" target="_blank" rel="noopener">『カイバ』</a></li>
-<li>如何在 AI 中加入人的思考和情感？</li>
-</ul>
-<p>『カイバ』(读作：Kaiba)可能会是一部我目前看过的汤浅的所有作品中，最喜欢的一部，喜欢的程度已经超过了『ケモノヅメ』(读作：Kemonozume)。在之前我的另一个系列文章<a href="https://app.yinxiang.com/shard/s6/nl/1479304/bfbcd12c-218a-4d89-b76d-77aee6d8d9ad" target="_blank" rel="noopener">「间隔年日记 #008: 人体机器」</a>中，我曾经得到了这样的结论：<br>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2016/09/12/I-O-18-名为丢失的记忆/">READ MORE</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
     <nav class="navigation pagination" role="navigation">
         
         
-        <a class="extend prev" rel="prev" href="/">&laquo; prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+        <a class="extend prev" rel="prev" href="/">&laquo; prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">next &raquo;</a>
     </nav>
 </div>
 
@@ -364,9 +378,9 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
               
                 <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/Python/">Python<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/电影/">电影<a></li>
               
@@ -376,9 +390,9 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
               
                 <li><a href="/tags/故事/">故事<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
-              
                 <li><a href="/tags/Node-js/">Node.js<a></li>
+              
+                <li><a href="/tags/Front-end/">Front-end<a></li>
             
         </ul>
     </div>
