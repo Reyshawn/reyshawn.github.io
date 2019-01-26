@@ -46,6 +46,31 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Sat Jan 26 2019 19:41:00 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async/await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：</p>
+<ul>
+<li>Node.js 的异步特性及异步是如何实现的</li>
+<li>异步实现的几种方式，callback 到 Promise 到 async/await</li>
+<li>什么是 middleware？</li>
+<li>ejs template engine</li>
+</ul>
+<p>通过本文，你能了解到。Koa 最基础的 HelloWorld，它 如何渲染一个 template 页面，传递数据。什么是「Routing 路由」，路由在 Koa 中如何实现的。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/26/初见 Koa/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/25/异步 & callback/">异步 &amp; callback</a>
                     </h2>
                     <div class="entry-meta">
@@ -347,36 +372,6 @@ print(seq.next()); // 8
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/02/12/Codewars.com | Wrapped Function/">Wrapped Function</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Mon Feb 12 2018 09:59:34 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Create a function method that allow you to wrap an existing function. The method signature would look something like this:</p>
-<p><strong>Usage Example</strong>:</p>
-<pre><code class="javascript">function speak(name){
-   return &quot;Hello &quot; + name;
-}
-
-speak = speak.wrap(function(original, yourName, myName){
-   greeting = original(yourName);
-   return greeting + &quot;, my name is &quot; + myName;
-})
-
-var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
-</code></pre>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/12/Codewars.com | Wrapped Function/">Read More</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
@@ -467,9 +462,9 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
               
                 <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/Python/">Python<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/电影/">电影<a></li>
               
@@ -479,9 +474,9 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
               
                 <li><a href="/tags/故事/">故事<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
-              
                 <li><a href="/tags/Node-js/">Node.js<a></li>
+              
+                <li><a href="/tags/Front-end/">Front-end<a></li>
             
         </ul>
     </div>

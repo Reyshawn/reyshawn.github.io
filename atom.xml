@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/Reyshawn/reyshawn.github.io/"/>
-  <updated>2019-01-25T08:52:18.896Z</updated>
+  <updated>2019-01-26T11:48:30.956Z</updated>
   <id>https://github.com/Reyshawn/reyshawn.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>初见 Koa.js</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2019/01/26/%E5%88%9D%E8%A7%81%20Koa/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2019/01/26/初见 Koa/</id>
+    <published>2019-01-26T11:41:00.000Z</published>
+    <updated>2019-01-26T11:48:30.956Z</updated>
+    
+    <content type="html"><![CDATA[<p>去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async/await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：</p><ul><li>Node.js 的异步特性及异步是如何实现的</li><li>异步实现的几种方式，callback 到 Promise 到 async/await</li><li>什么是 middleware？</li><li>ejs template engine</li></ul><p>通过本文，你能了解到。Koa 最基础的 HelloWorld，它 如何渲染一个 template 页面，传递数据。什么是「Routing 路由」，路由在 Koa 中如何实现的。</p><a id="more"></a><h2 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h2><p><code>app.use()</code> 就是添加一个 middleware。我们通过 Koa 进行的许多操作，比如处理 request，处理 data，routing 都是通过 <code>app.use()</code> 来实现的。</p><p><code>ctx</code> 内封装了 request 和 response  object。</p><pre><code class="javascript">const Koa = require(&#39;koa&#39;);const app = new Koa();app.use(async function(ctx) {    ctx.body = &quot;hello world ssss&quot;;})app.listen(3000, function() {    console.log(&#39;listen port: 3000...&#39;)})</code></pre><h2 id="渲染-ejs-模版"><a href="#渲染-ejs-模版" class="headerlink" title="渲染 ejs 模版"></a>渲染 ejs 模版</h2><p>这里以 ejs 为例来进行说明，其他的 template engine，使用方法都是相通的。</p><p>使用 npm 安装：</p><pre><code class="shell">$ npm install koa-views --save$ npm install ejs --save</code></pre><p>server.js 内容是</p><pre><code class="javascript">const Koa = require(&#39;koa&#39;);const app = new Koa();const views = require(&#39;koa-views&#39;);app.use(views(__dirname + &#39;/views&#39;, {    map: {        html: &#39;ejs&#39;    }}));app.use(async function(ctx) {    await ctx.render(&#39;layout.ejs&#39;);})app.listen(3000, function() {    console.log(&#39;listen port: 3000...&#39;)})</code></pre><p><code>./views/layout.ejs</code> 内容是</p><pre><code class="html">&lt;!DOCTYPE html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;    &lt;h1&gt;Hello Koa, This is from ejs&lt;/h1&gt;&lt;/body&gt;</code></pre><p>上面这个例子是不包含传值的，当需要向 template 传递值时，通过 <code>ctx.state</code> 来设置，将上面 render 部分修改成：</p><pre><code class="javascript">app.use(async function(ctx) {    ctx.state = {        title: &#39;This is title&#39;,        body: &#39;body bla bla&#39;    };    await ctx.render(&#39;layout.ejs&#39;);})</code></pre><p>或者写成 <code>render</code> 的参数，二者是等价的：</p><pre><code class="javascript">app.use(async function(ctx) {    await ctx.render(&#39;layout.ejs&#39;, {        title: &#39;This is title&#39;,        body: &#39;body bla bla&#39;    });})</code></pre><p>此时 template 修改成：</p><pre><code class="ejs">&lt;!DOCTYPE html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;    &lt;h1&gt;&lt;%- title %&gt;&lt;/h1&gt;    &lt;p&gt;&lt;%- body %&gt;&lt;/p&gt;&lt;/body&gt;</code></pre><p>通常我们在写一个 template 的时候，会分成好多组件，首先有一个大体的框架，layout.ejs，新建一个 partials 文件夹，里面存储我们所需的各个组件，如 head.ejs，header.ejs，footer.ejs 等等。我们在一个需要渲染的页面里引用这些组件，那么这个过程在 koa 应该如何实现呢？</p><p>这里直接在 ejs 里使用 <code>include</code> 进行引用。</p><p>header.ejs</p><pre><code class="html">&lt;header&gt;    &lt;p&gt;This is a header&lt;/p&gt;&lt;/header&gt;</code></pre><p>layout.ejs</p><pre><code class="ejs">&lt;!DOCTYPE html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;    &lt;%- include ./header %&gt;    &lt;h1&gt;&lt;%- title %&gt;&lt;/h1&gt;    &lt;p&gt;&lt;%- body %&gt;&lt;/p&gt;&lt;/body&gt;</code></pre><h2 id="Router-路由功能"><a href="#Router-路由功能" class="headerlink" title="Router 路由功能"></a>Router 路由功能</h2><p>对于一个 web site，需要处理各种各样不同的请求，针对不同的请求 request，有着不同的反馈 response，以及可能要调用不同的资源 resource。有些需要调用一些 javascript 文件，css 文件，有些需要调用一些图片 images，有些需要访问数据库。这些不同的资源 resource 有着不同的存储路径，为了让 request 得到合适的反馈，就需要一个 router 路由功能，告诉 server，这个 request，需要去哪里找相应的 resource 去反馈。</p><p><img src="/images/koa_routing.png" alt="koa_routing"></p><pre><code class="shell">$ npm install koa-router --save</code></pre><p>server.js 中修改为：</p><pre><code class="javascript">const Router = require(&#39;koa-router&#39;);const router = new Router()router.get(&#39;/&#39;, async function(ctx) {    await ctx.render(&#39;layout.ejs&#39;, {        title: &#39;This is title&#39;,        body: &#39;body bla bla&#39;    });})app.use(router.routes());</code></pre><p>我们看到，各个页面的渲染完全由 router 进行了接管。</p><p>上面是最简单的 “Get” 请求，下面是给出一个”Post” 请求的例子，来自 <a href="https://chenshenhai.github.io/koa2-note/note/request/post.html" target="_blank" rel="noopener">koa2 进阶学习笔记</a>，我做了一些小改动，原文使用的是原生 koa 中的 ctx 来判断请求。我这里直接使用了 <code>koa-router</code> 实现，通过对比，也可以明白 koa-router 这个 module 是如何工作的，只不过是在原生 Koa 基础上增加了一层判断。</p><pre><code class="javascript">// receive the posting datafunction parsePostData(ctx) {    return new Promise((resolve, reject) =&gt; {        try {            let postData = &quot;&quot;;            ctx.req.addListener(&#39;data&#39;, (data) =&gt; {                postData += data;            });            ctx.req.addListener(&#39;end&#39;, () =&gt; {                let parseData = parseQueryStr(postData);                resolve(parseData);            });        } catch(err) {            reject(err);        }    })}// convert the posting data to Objectfunction parseQueryStr(data) {    let queryData = {};    let queryStrList = data.split(&#39;&amp;&#39;);    for (let queryStr of queryStrList) {        let itemList = queryStr.split(&#39;=&#39;);        queryData[ itemList[0] ] = decodeURIComponent(itemList[1]);    }    return queryData;}app.use(views(__dirname + &#39;/views&#39;, {    map: {        html: &#39;ejs&#39;    }}));router.get(&#39;/&#39;, async function(ctx) {    await ctx.render(&#39;layout.ejs&#39;, {        data: &#39;no data posted&#39;    });})router.post(&#39;/&#39;, async function(ctx) {    let postData = await parsePostData(ctx);    await ctx.render(&#39;layout.ejs&#39;, {        data: JSON.stringify(postData)    })})app.use(router.routes());</code></pre><p>layout.ejs 添加一个可以提交的表格，注意表格的 <code>method</code> 是 <code>POST</code>，<code>action</code> 是根目录页面 <code>&quot;/&quot;</code>。 </p><pre><code class="ejs">&lt;!DOCTYPE html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;    &lt;%- include ./header %&gt;    &lt;h1&gt;koa2 request post demo&lt;/h1&gt;      &lt;form method=&quot;POST&quot; action=&quot;/&quot;&gt;            &lt;p&gt;userName&lt;/p&gt;            &lt;input name=&quot;userName&quot; /&gt;&lt;br/&gt;            &lt;p&gt;nickName&lt;/p&gt;            &lt;input name=&quot;nickName&quot; /&gt;&lt;br/&gt;            &lt;p&gt;email&lt;/p&gt;            &lt;input name=&quot;email&quot; /&gt;&lt;br/&gt;            &lt;button type=&quot;submit&quot;&gt;submit&lt;/button&gt;      &lt;/form&gt;      &lt;p&gt;&lt;%- data %&gt;&lt;p&gt;&lt;/body&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async/await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Node.js 的异步特性及异步是如何实现的&lt;/li&gt;
+&lt;li&gt;异步实现的几种方式，callback 到 Promise 到 async/await&lt;/li&gt;
+&lt;li&gt;什么是 middleware？&lt;/li&gt;
+&lt;li&gt;ejs template engine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过本文，你能了解到。Koa 最基础的 HelloWorld，它 如何渲染一个 template 页面，传递数据。什么是「Routing 路由」，路由在 Koa 中如何实现的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+      <category term="Node.js" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Node-js/"/>
+    
+      <category term="Front-end" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Front-end/"/>
+    
+  </entry>
   
   <entry>
     <title>异步 &amp; callback</title>
@@ -673,34 +704,6 @@ var greeting = speak(&amp;quot;Mary&amp;quot;, &amp;quot;Kate&amp;quot;);
       <category term="游戏" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/%E6%B8%B8%E6%88%8F/"/>
     
       <category term="故事" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/%E6%95%85%E4%BA%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>名为丢失的记忆</title>
-    <link href="https://github.com/Reyshawn/reyshawn.github.io/2016/09/12/I-O-18-%E5%90%8D%E4%B8%BA%E4%B8%A2%E5%A4%B1%E7%9A%84%E8%AE%B0%E5%BF%86/"/>
-    <id>https://github.com/Reyshawn/reyshawn.github.io/2016/09/12/I-O-18-名为丢失的记忆/</id>
-    <published>2016-09-12T01:59:19.000Z</published>
-    <updated>2019-01-20T09:35:17.098Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><a href="https://www.wikiwand.com/en/Kaiba" target="_blank" rel="noopener">『カイバ』</a></li><li>如何在 AI 中加入人的思考和情感？</li></ul><p>『カイバ』(读作：Kaiba)可能会是一部我目前看过的汤浅的所有作品中，最喜欢的一部，喜欢的程度已经超过了『ケモノヅメ』(读作：Kemonozume)。在之前我的另一个系列文章<a href="https://app.yinxiang.com/shard/s6/nl/1479304/bfbcd12c-218a-4d89-b76d-77aee6d8d9ad" target="_blank" rel="noopener">「间隔年日记 #008: 人体机器」</a>中，我曾经得到了这样的结论：<br><a id="more"></a></p><blockquote><p>小時候，也有過像蘇菲那樣思考「我是誰？」這樣終極的哲學命題。前幾日我似乎終於找到了答案。當我在問「我是誰？」時，我其實是想知道我的意識從何而來，爲什麼我是屬於這具軀體而不是屬於另外一具軀體。我最後得以確定，所有關於「人」意識的問題都要回歸于記憶，有了記憶才有線性時間的概念，進而在線性時間上衍生出事件，以及出現因果概念，因果概念加上線性時間上的事件，就是更加抽象的思考。</p></blockquote><p>在『カイバ』中，作者和我这一想法不谋而合，并且通过将记忆进行实体化，可移植，可贩卖，由此引申一个庞大的世界设定。在这个世界里，因为记忆可以移植，肉体不再具有意义。有钱人将记忆不断载入健康的身体，用掉的身体则丢掉回收，以此达到永生的目的。穷人迫不得已通过贩卖自己的身体来度日维生，有时甚至要贩卖自己学过的知识。删除痛苦的记忆，下载快乐的记忆。这些看似超现实下的科幻描写，其实也在当下不断发生。你还记得你上次做爱是什么时候吗？上一次自慰是什么时候？上次和女友/男友争吵是什么原因？这些不愉快的记忆早已经忘的一干二净。但是，是不是能清晰的记得，高考后的那天晚上做了什么，还记得大四最后毕业那些天，一起爬山，在山上看看星星的情景。高兴的，快乐的记忆被我们一遍又一遍想起，在脑中的那段脑回路，被一遍遍的补给营养得到加强。而那些痛苦的，伤心的，羞耻的，不堪的记忆，我们希望它消失，希望它从来没有发生过，希望脑中那段回路消失，消失，消失。我们愿意记起那些快乐的回忆，希望忘掉不好的事情。</p><blockquote><p>海马体，Hippocampus，是组成大脑边缘系统的一部分，位于大脑皮质下方，担当着关于短期记忆，长期记忆和空间定位的作用。</p></blockquote><p>在电影『Who Am I - Kein System ist sicher』中，导演试图告诉我们，我们更愿意相信我们眼中看到的事情。在本文的主题下，可以解读为，我们更愿意相信我们自己的记忆。但有时候记忆会撒谎，记忆也会被篡改，记忆会像『Memento』里 Leonard 那样，会被打破成碎片。而与之相对的，事实就是事实，是客观存在发生过的事。记忆是事实的一面镜子，有时候能照出事实，有时候只能照出一部分，有时候甚至会导向与事实相反的方向。我有时候会很洁癖，手机的屏幕，电脑的屏幕，平板的屏幕擦了又擦，擦的跟新的一样。但无论怎么擦，也擦不掉我已经使用了三年零六个月的事实了。在做了坏事之后，希望忘掉不愉快，一切从新开始。这大概是我以后需要更正的态度，那就是，我不应该刻意忘掉那些给我带来伤痛的回忆，所有的一切，无论好的，坏的，都实实在在的曾经发生在我身上。我想要采取的态度是，希望自己的记忆能最大程度的还原现实，还原真实。</p><p>如何让一个机器人更像人，如何引入人的思考和人的情感？我想了下，只需要加入和海马体类似的存储机制。之前还在思考，为了情感的需要，是不是需要性欲。想了想，情感和性欲终究是两件不同的事情，性欲是生殖的需求，而情感，是由于在一起时间久了以后所产生的依恋，羁绊。这种依恋，羁绊自是由时间产生，也是由记忆产生。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.wikiwand.com/en/Kaiba&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;『カイバ』&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;如何在 AI 中加入人的思考和情感？&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;『カイバ』(读作：Kaiba)可能会是一部我目前看过的汤浅的所有作品中，最喜欢的一部，喜欢的程度已经超过了『ケモノヅメ』(读作：Kemonozume)。在之前我的另一个系列文章&lt;a href=&quot;https://app.yinxiang.com/shard/s6/nl/1479304/bfbcd12c-218a-4d89-b76d-77aee6d8d9ad&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;「间隔年日记 #008: 人体机器」&lt;/a&gt;中，我曾经得到了这样的结论：&lt;br&gt;
-    
-    </summary>
-    
-      <category term="I/O" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/I-O/"/>
-    
-    
-      <category term="电影" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/%E7%94%B5%E5%BD%B1/"/>
-    
-      <category term="Anime" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/Anime/"/>
     
   </entry>
   
