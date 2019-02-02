@@ -89,8 +89,6 @@ $ createdb koa_api
 $ createdb koa_api_test
 ```
 
-除此以外，还可以通过 Knex 来创建数据库。理论上，可以通过 Knex 来进行所有的数据库操作。
-
 `psql` + Database，进入 database 的命令行。
 
 `\dt` 显示所有 tables
@@ -111,6 +109,8 @@ $ createdb koa_api_test
 > See the manual about [psql](http://www.postgresql.org/docs/current/interactive/app-psql.html).
 >
 > -- [How do I list all databases and tables using psql?](https://dba.stackexchange.com/questions/1285/how-do-i-list-all-databases-and-tables-using-psql)
+
+除此以外，还可以通过 Knex 来创建数据库。理论上，可以通过 Knex 来进行所有的数据库操作。
 
 ## knex
 
