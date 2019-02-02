@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+        <link rel="icon" type="image/png" href="./favicon.png">
+        <link rel="apple-touch-icon" href="./favicon180x180.png" sizes="180x180">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>reyshawn.C</title>
+</head>
+
+<body class='home blog'>
+    <header id="hagoromo-header" class="hagoromo-header">
+    <div class="container">
+        <div class="slot-l">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+        </div>
+        <div class="slot-r">
+            <ul class="hagoromo-nav hagoromo-actions-list">
+                <li class="hagoromo-action-button hagoromo-action-sidebar">
+                    <span><i class="fa fa-bars"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div id="hagoromo-cover" class="hagoromo-cover hagoromo-cover-empty"></div>
+
+    <div class="hagoromo-fake-bg">
+        <div class="hagoromo-section">
+    <div class="section-content">
+        <article class="hagoromo-post">
+            <header class="entry-header">
+                <h2 class="entry-title h1">
+                    <a href="/2019/01/31/「User Authentication with Passport and Koa 」Summary/">「User Authentication with Passport and Koa 」Summary</a>
+                </h2>
+                <div class="entry-meta">
+                    2019 年 01 月 31 日
+                </div>
+                <div class="post-letter"></div>
+            </header>
+            <div class="entry-content">
+                <p>上周在阅读 <em>Express.js Blueprints</em> 时看到 Authentication 的部分，就想着使用 Koa 去复现一遍。于是在网上看到这篇文章 <a href="https://mherman.org/blog/user-authentication-with-passport-and-koa/" target="_blank" rel="noopener">User Authentication with Passport and Koa</a> 。文章给出了源代码和详细的步骤。其中不乏遇到自己不熟悉的知识领域，比如 knex，postgresql 和 redis 等等。写这篇文章的目的：一是熟悉下在 koa 框架下的程序结构；二是对于自己不熟悉的知识领域的一个总结。</p>
+<p>需要通过 brew 安装：</p>
+<ul>
+<li>postgresql</li>
+<li>redis</li>
+</ul>
+<p>使用 npm 全局安装：</p>
+<ul>
+<li>knex</li>
+</ul>
+<a id="more"></a>
+<h2 id="文件结构，逻辑"><a href="#文件结构，逻辑" class="headerlink" title="文件结构，逻辑"></a>文件结构，逻辑</h2><p>文件最后的结构：</p>
+<pre><code class="shell">.
+├── LICENSE
+├── README.md
+├── knexfile.js
+├── package-lock.json
+├── package.json
+├── src
+│   └── server
+│       ├── auth.js
+│       ├── db
+│       │   ├── connection.js
+│       │   ├── migrations
+│       │   │   ├── 20170817152841_movies.js
+│       │   │   └── 20190127152820_users.js
+│       │   ├── queries
+│       │   │   ├── movies.js
+│       │   │   └── users.js
+│       │   └── seeds
+│       │       ├── movies_seed.js
+│       │       └── users.js
+│       ├── index.js
+│       ├── routes
+│       │   ├── auth.js
+│       │   ├── index.js
+│       │   └── movies.js
+│       └── views
+│           ├── login.html
+│           ├── register.html
+│           └── status.html
+└── test
+    ├── routes.auth.test.js
+    ├── routes.index.test.js
+    ├── routes.movies.test.js
+    └── sample.test.js
+</code></pre>
+<p>有一些文件夹，文件属于自动生成的 boilerplate，比如 <code>package.json</code>，<code>knexfile.js</code>，<code>db</code> 文件夹里的一些内容。项目的结构清晰明朗。<code>test</code> 为测试文件夹。测试文件的标题统一加上 <code>test</code> 标示，并用 dot 分隔。这也提醒自己，文件标题的命名可以不使用 underscore 或 dash 来分隔，也可以用 dot。在 <code>server</code> 文件夹下，<code>db</code> 几乎都是数据库，knex 相关的。另外有路由 <code>routes</code> 文件夹和 <code>views</code> 视图文件夹。</p>
+<h2 id="Postgresql"><a href="#Postgresql" class="headerlink" title="Postgresql"></a>Postgresql</h2><p>在 macOS 上直接使用 Brew 安装即可。由于我个人不习惯开机自动启动数据库，那个需要用到类似 <code>service start</code> 的命令。这里是手动开启的办法：</p>
+<pre><code class="shell">$ pg_ctl -D /usr/local/var/postgres start  
+</code></pre>
+<p>和 Mysql 一样，把 <code>start</code> 可以换成 <code>stop</code>，<code>restart</code>。</p>
+<p>数据库初始化：</p>
+<pre><code class="shell">$ initdb /usr/local/var/postgres  
+</code></pre>
+<p>在这篇教程里，需要我事先创建两个数据库，创建数据库用如下命令：</p>
+<pre><code class="shell">$ createdb koa_api    
+$ createdb koa_api_test
+</code></pre>
+<p>除此以外，还可以通过 Knex 来创建数据库。理论上，可以通过 Knex 来进行所有的数据库操作。</p>
+<p><code>psql</code> + Database，进入 database 的命令行。</p>
+<p><code>\dt</code> 显示所有 tables</p>
+<blockquote>
+<p>Please note the following commands:</p>
+<ul>
+<li><code>\list</code> or <code>\l</code>: list all databases</li>
+<li><code>\dt</code>: list all tables in the current database</li>
+</ul>
+<p>You will never see tables in other databases, these tables aren’t visible. You have to connect to the correct database to see its tables (and other objects).</p>
+<p>To switch databases:</p>
+<pre><code>\connect database_name` or `\c database_name
+</code></pre><p>See the manual about <a href="http://www.postgresql.org/docs/current/interactive/app-psql.html" target="_blank" rel="noopener">psql</a>.</p>
+<p>– <a href="https://dba.stackexchange.com/questions/1285/how-do-i-list-all-databases-and-tables-using-psql" target="_blank" rel="noopener">How do I list all databases and tables using psql?</a></p>
+</blockquote>
+<h2 id="knex"><a href="#knex" class="headerlink" title="knex"></a>knex</h2><blockquote>
+<p><strong>Knex.js</strong> is a “batteries included” SQL query builder for <strong>Postgres</strong>, <strong>MSSQL</strong>, <strong>MySQL</strong>, <strong>MariaDB</strong>, <strong>SQLite3</strong>, <strong>Oracle</strong>, and <strong>Amazon Redshift</strong> designed to be flexible, portable, and fun to use. </p>
+<p>– <a href="https://knexjs.org" target="_blank" rel="noopener">Knex.js</a></p>
+</blockquote>
+<p>Knex，可以看作是各种不同数据库下统一封装的一套 API。通过 Knex 来和数据库进行交互。比如创建表，更新，添加数据等等。上文引用里提到了「battery-included」一词，意思是「开箱即用」，即这个 Library 已经包含了它所需要的全部依赖 Dependency。我们装完拿来直接用即可，不需要在进行其他 Library 的安装。</p>
+<p><img src="/images/knex.png" alt="knex"></p>
+<p>因为要频繁在 Terminal 里用到 <code>knex</code> 命令，所以最后事先全局安装 Knex。在这篇教程里，我们在使用 Postgresql 创建完数据库以后，会看到需要我们执行这两条命令：</p>
+<pre><code class="shell">$ knex migrate:latest --env development
+$ knex seed:run --env development
+</code></pre>
+<hr>
+<p><em>Tips：</em></p>
+<p><em>如果不想要全局安装 Knex，依然想在 Terminal 运行。在生成的 <code>node_modules</code> 文件夹下会有个隐藏文件夹 <code>.bin</code>，里面包含了全部我们可以直接运行的 package。所以直接：</em></p>
+<pre><code class="shell">$ node_modules/.bin/knex init
+</code></pre>
+<hr>
+<p><code>init</code> 之后，本地会自动生成一个 <code>knexfile.js</code> 文件。里面大致是些 boilerplates。在这篇教程给的 source code 里，    <code>knexfile.js</code> 已经针对 postgresql 配置完毕。但这里要明白 migration 和 seed 两个操作。</p>
+<blockquote>
+<p>Migrations are a way to make database changes or updates, like creating or dropping tables, as well as updating a table with new columns with constraints via generated scripts. We can build these scripts via the command line using <code>knex</code>command line tool.</p>
+</blockquote>
+<p>例如，通过 knex 创建 table：</p>
+<pre><code class="shell">$ knex migrate:make users
+</code></pre>
+<p>这里会自动生成一个 <code>users.js</code> 文件，文件名前面还会有 time stamp。存储路径在 <code>./server/db/migration/</code>。所有的文件夹都会自动生成。在新生成的文件，我们需要定义新建的这个 table 各个 field 属性。例如在这篇文章的例子里，新建了 users table，定义属性如下：</p>
+<pre><code class="javascript">exports.up = (knex, Promise) =&gt; {
+  return knex.schema.createTable(&#39;users&#39;, (table) =&gt; {
+    table.increments();
+    table.string(&#39;username&#39;).unique().notNullable();
+    table.string(&#39;password&#39;).notNullable();
+  });
+};
+
+exports.down = (knex, Promise) =&gt; {
+  return knex.schema.dropTable(&#39;users&#39;);
+};
+</code></pre>
+<p>通过下面这条命令来应用我们定义的属性：</p>
+<pre><code class="shell">knex migrate:latest --env development
+</code></pre>
+<blockquote>
+<p>To run the migration, use the command:</p>
+<pre><code>knex migrate:latest
+</code></pre><p>The default environment is development, which works for us here, but if you need to specify a different environment, such as a test environment, then you can use the <em>env</em> flag in the migration command like:</p>
+<pre><code>knex migrate:latest --env test
+</code></pre></blockquote>
+<p><code>development</code> 是我们事先在 <code>knexfile.js</code> 里定义好的。可以理解为对于 database 的映射。从上面定义的属性中，可以很轻松的知道这个 table 有两个 field，分别是 <code>username</code> 和 <code>password</code>。以及每个 field 的属性都通过 chain function 的形式来表达。</p>
+<blockquote>
+<p>Similar to migrations, the <code>knex</code> module allows us to create scripts to insert initial data into our tables called seed files! If we have relations on our tables, the seeding <strong>must be in a specific order</strong> to so that we can rely on data that might already be in the database. </p>
+</blockquote>
+<p>seed 是用来初始化数据的。同 migrate 一样：</p>
+<pre><code class="shell">$ knex seed:make users
+$ knex seed:run --env development
+</code></pre>
+<p>line 1 会自动创建一个 <code>user.js</code> 在路径 <code>./server/db/seeds/</code> 里。line 2 运行这个 seeds，对 table 里数据进行初始化。</p>
+<h2 id="Mocha-js-Chai-js"><a href="#Mocha-js-Chai-js" class="headerlink" title="Mocha.js ,  Chai.js"></a>Mocha.js ,  Chai.js</h2><p>一个测试 module 被称为 specification，简称 spec，结构如下图所示：</p>
+<p><img src="/images/Mocha_test.png" alt="Mocha_test"></p>
+<p>在这篇教程中，用到 Mocha 和 Chai 两个测试 Library。</p>
+<blockquote>
+<ul>
+<li><a href="http://mochajs.org/" target="_blank" rel="noopener">Mocha</a> – the core framework: it provides common testing functions including <code>describe</code> and <code>it</code> and the main function that runs tests.</li>
+<li><a href="http://chaijs.com/" target="_blank" rel="noopener">Chai</a> – the library with many assertions. It allows to use a lot of different assertions, for now we need only <code>assert.equal</code>.</li>
+</ul>
+</blockquote>
+<p>使用 Mocha 进行测试，运行 Mocha，它会自动找项目目录里 test 文件夹下的文件运行。</p>
+<blockquote>
+<p>Mocha automatically looks for tests inside the <code>**test**</code> directory of your project. Hence, you should go ahead and create this directory in your project root.</p>
+</blockquote>
+<p>以下是写的一个很简单的小例子：</p>
+<pre><code class="javascript">const assert = require(&#39;assert&#39;);
+
+describe(&quot;sample&quot;, ()=&gt;{
+    it(&quot;it&#39;s just a test&quot;, ()=&gt;{
+        let x = 5;
+        let result = x;
+        assert.equal(Math.pow(x, 1), result);
+    });
+});
+</code></pre>
+<p>在 Terminal 里运行：</p>
+<pre><code class="shell">$ node_modules/.bin/_mocha
+
+  sample
+    ✓ it&#39;s just a test
+
+
+  1 passing (6ms)
+</code></pre>
+<p>Chai 的作用是提供了更多测试的方法。例如教程里测试是否 render view 成功：</p>
+<pre><code class="javascript">describe(&#39;GET /auth/register&#39;, () =&gt; {
+  it(&#39;should render the register view&#39;, (done) =&gt; {
+    chai.request(server)
+    .get(&#39;/auth/register&#39;)
+    .end((err, res) =&gt; {
+      should.not.exist(err);
+      res.redirects.length.should.eql(0);
+      res.status.should.eql(200);
+      res.type.should.eql(&#39;text/html&#39;);
+      res.text.should.contain(&#39;&lt;h1&gt;Register&lt;/h1&gt;&#39;);
+      res.text.should.contain(
+        &#39;&lt;p&gt;&lt;button type=&quot;submit&quot;&gt;Register&lt;/button&gt;&lt;/p&gt;&#39;);
+      done();
+    });
+  });
+});
+</code></pre>
+<p>其主要内容检测返回的 res 里有没有想的 DOM Node 。当然，前提还是去验证返回代码是否是 200， 返回文本类型这些。</p>
+<h2 id="Redis-Session"><a href="#Redis-Session" class="headerlink" title="Redis, Session"></a>Redis, Session</h2><p>这篇教程的最后介绍了 redis，把用户的 user 信息从 memory 中拿出来存进 redis 里。这样当关闭浏览器，短时间再重新打开时，不需要重新输入用户名密码进行登录。</p>
+<blockquote>
+<p>It’s a good idea to move session data out of memory and into an external session store as you begin scaling your application.</p>
+</blockquote>
+<p>Redis 同样也是数据库 Database，但不同于之前接触的 MySql，Postgresql，Redis 属于 in-memory database。看了 Wikipedia 的解释。in-memory database 主要依赖于内存 memory，而不是通常的外存 storage。</p>
+<p>关于 session 和 cookie 的区别。</p>
+<p>cookie 是存储在 client 端的，通常是一些偏好设定，比如颜色啊等等，通常不会有敏感信息。session 存储在 server 端，因为 http 通信是无状态的。session 用来保存 client 和 server 之间的通信状态，以及 client 可能会访问多个不同的页面，这些页面都在这一个 server 上，通信的双方并没有变化，通过 session 在不同的页面共享数据。</p>
+<blockquote>
+<p>A session is a unit of maybe variables, state, settings while a certain user is accessing a server/domain in a specific time frame. All the session information is in the traditional model stored on the server (!)</p>
+<p>Because many concurrent users can visit a server/domain at the same time the server needs to be able to distinguish many different concurrent sessions and always assign the right session to the right user. (And no user may “steal” another uses’s session)</p>
+</blockquote>
+<p>这里首先用到两个 middleware，koa-session 和 koa-redis。koa-session 是 koa 基础的 session 管理 middleware。通常 session 是存储在 memory 里的，通过 koa-redis 将 session 存储在 redis 里。</p>
+<p>把 session 存储在 redis 的优势：</p>
+<blockquote>
+<p>Redis is perfect for storing sessions. All operations are performed in memory, and so reads and writes will be fast. </p>
+<p>The second aspect is persistence of session state. Redis gives you a lot of flexibility in how you want to persist session state to your hard-disk. You can go through <a href="http://redis.io/topics/persistence" target="_blank" rel="noopener">http://redis.io/topics/persistence</a> to learn more, but at a high level, here are your options …</p>
+</blockquote>
+<p>依旧是通过 brew 安装 redis。</p>
+<p>redis 启动：</p>
+<pre><code class="shell">$ redis-server /usr/local/etc/redis.conf
+</code></pre>
+<p>redis 关闭，直接 <code>ctrl</code> + <code>C</code> 或是：</p>
+<pre><code class="shell">$ redis-cli shutdown
+</code></pre>
+<p>参考：</p>
+<ul>
+<li><a href="https://knexjs.org" target="_blank" rel="noopener">Knex.js</a></li>
+<li><a href="https://medium.com/@jaeger.rob/seed-knex-postgresql-database-with-json-data-3677c6e7c9bc" target="_blank" rel="noopener">Seed Knex PostgreSQL Database with JSON Data</a></li>
+<li><a href="https://github.com/l4nk332/stuff/tree/master/node/Knex">l4nk332/stuff - Github</a></li>
+<li><a href="https://www.zhihu.com/question/24710451" target="_blank" rel="noopener">「batteries-included」该怎么翻译比较好？ - 知乎</a></li>
+<li><a href="https://gist.github.com/NigelEarle/70db130cc040cc2868555b29a0278261" target="_blank" rel="noopener">Migrations &amp; Seeding</a></li>
+<li><a href="https://javascript.info/testing-mocha" target="_blank" rel="noopener">Automated testing with mocha</a></li>
+<li><a href="https://stackoverflow.com/questions/12236890/run-mocha-tests-in-test-environment" target="_blank" rel="noopener">Run mocha tests in test environment? - StackOverflow</a></li>
+<li><a href="https://blog.logrocket.com/a-quick-and-complete-guide-to-mocha-testing-d0e0ea09f09d" target="_blank" rel="noopener">A quick and complete guide to Mocha testing</a></li>
+<li><a href="https://stackoverflow.com/questions/623815/what-is-the-difference-between-a-session-and-a-cookie" target="_blank" rel="noopener">What is the difference between a Session and a Cookie? - StackOverflow</a></li>
+<li><a href="https://stackoverflow.com/questions/10278683/how-safe-is-it-to-store-sessions-with-redis" target="_blank" rel="noopener">How safe is it to store sessions with Redis?</a></li>
+<li><a href="https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298" target="_blank" rel="noopener">Install and config Redis on Mac OS X via Homebrew</a></li>
+</ul>
+
+            </div>
+            <div class="entry-tags">
+                 
+                    <a href="/tags/JavaScript/">JavaScript</a>
+                 
+                    <a href="/tags/Node-js/">Node.js</a>
+                 
+                    <a href="/tags/Front-end/">Front-end</a>
+                
+            </div>
+            <div class="entry-footer"></div>
+        </article>
+    </div>
+</div>
+        <footer id="hagoromo-footer" class="hagoromo-footer">
+    <div class="container">
+        <div class="hagoromo-footer-widget"></div>
+        <div class="hagoromo-footer-widget">
+            <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
+            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+        </div>
+        <div class="hagoromo-footer-widget social">
+            
+                
+                    <span class="social-button">
+                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                    </span>
+                
+            
+            <span class="social-button">
+                <a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i></a>
+            </span>
+        </div> 
+    </div>
+</footer>
+    </div>
+
+    <div class="hagoromo-sidebar">
+    <div class="hagoromo-sidebar-header">
+        <div class="hagoromo-sidebar-header-wrapper">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+            <span class="hagoromo-sidebar-close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget search">
+        <form id="hagoromo-search-form" class="hagoromo-search-form">
+            <input name="s" type="text" placeholder="Type here to search ... ">
+            <button type="submit" class="hagoromo-button hagoromo-button-search">SEARCH</button>
+        </form>
+    </div>
+    <div class="widget categories">
+        <h4 class="widget-title h5">分类</h4>
+        <ul>
+            <li><a href="/archives">Archive</a></li>
+              
+            <li><a href="/categories/Coding/">Coding</a></li>
+              
+            <li><a href="/categories/I-O/">I/O</a></li>
+            
+        </ul>
+    </div>
+    <div class="widget tags">
+        <h4 class="widget-title h5">标签</h4>
+        <ul>
+              
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+              
+                <li><a href="/tags/codewars/">codewars<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/电影/">电影<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></li>
+              
+                <li><a href="/tags/故事/">故事<a></li>
+              
+                <li><a href="/tags/Node-js/">Node.js<a></li>
+              
+                <li><a href="/tags/Front-end/">Front-end<a></li>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="hagoromo-sidebar-overlay"></div>
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/highlight.min.js"></script>
+    <script src="/js/highlightjs-line-numbers.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

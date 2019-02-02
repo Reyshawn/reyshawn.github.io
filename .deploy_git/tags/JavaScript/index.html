@@ -46,6 +46,33 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/01/31/「User Authentication with Passport and Koa 」Summary/">「User Authentication with Passport and Koa 」Summary</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Thu Jan 31 2019 10:11:15 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>上周在阅读 <em>Express.js Blueprints</em> 时看到 Authentication 的部分，就想着使用 Koa 去复现一遍。于是在网上看到这篇文章 <a href="https://mherman.org/blog/user-authentication-with-passport-and-koa/" target="_blank" rel="noopener">User Authentication with Passport and Koa</a> 。文章给出了源代码和详细的步骤。其中不乏遇到自己不熟悉的知识领域，比如 knex，postgresql 和 redis 等等。写这篇文章的目的：一是熟悉下在 koa 框架下的程序结构；二是对于自己不熟悉的知识领域的一个总结。</p>
+<p>需要通过 brew 安装：</p>
+<ul>
+<li>postgresql</li>
+<li>redis</li>
+</ul>
+<p>使用 npm 全局安装：</p>
+<ul>
+<li>knex</li>
+</ul>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/31/「User Authentication with Passport and Koa 」Summary/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
                     </h2>
                     <div class="entry-meta">
@@ -331,44 +358,6 @@ add_(10,10); // returns 20
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/06/05/Default Arguments | 4kyu/">Read More</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Sun Feb 18 2018 14:37:13 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
-<p>This is the first part of three (<a href="http://www.codewars.com/kata/es5-generators-ii" target="_blank" rel="noopener">part2</a>, <a href="http://www.codewars.com/kata/es5-generators-iii" target="_blank" rel="noopener">part3</a>).</p>
-<p>Generators and Iterators are new ES6 features that will allow things like this:</p>
-<pre><code class="javascript">function* fibonacci() {
-    let [prev, curr] = [0, 1];
-    for (;;) {
-        [prev, curr] = [curr, prev + curr];
-        yield curr;
-    }
-}
-</code></pre>
-<p>Using them in this way, we can do amazing things:</p>
-<pre><code class="javascript">let seq = fibonacci();
-print(seq.next()); // 1
-print(seq.next()); // 2
-print(seq.next()); // 3
-print(seq.next()); // 5
-print(seq.next()); // 8
-</code></pre>
-<p>This is powerful, but until a few months later, ES6 will not be born.</p>
-<p>The goal of this kata is to implement pseudo-generators with ES5.</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/18/Codewars.com | ES5 Generators(i)/">Read More</a>
                 </div>
             </article>
             
