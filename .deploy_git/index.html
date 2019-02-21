@@ -46,6 +46,29 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/02/21/赤烛 - 『还愿』/">赤烛 - 『还愿』</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 02 月 21 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>『还愿』这个游戏，从去年放出预告开始，我就有关注。去年 7 月释出先导预告，内容是几支 80 年代广告和一档童星选秀节目。随后又陆续释出一些图片，比如贴满广告的大门的照片。去看网上关于这些预告的分析，发现这里不免夹杂了凶杀、分尸、拜神、祭祀等等恐怖惊悚的「奇情」元素。类似于 93 年的香港电影『人肉叉烧包』，或者是近一些，15 年翁子光导演执导的『踏雪寻梅』。这类电影都可以归纳如「奇情片」的概念，往往会是一些凶杀案件，犯罪手段凶狠残忍，动机难以捉摸。</p>
+<blockquote>
+<p>奇情电影的背后往往蕴含着对时局动荡、社会不稳定的一种本能性的恐惧。要么直接诉苦，要么转移视线。</p>
+<p>–<a href="https://hardimage.pro/32" target="_blank" rel="noopener">『奇异的……』 Episode 32 - 硬影像</a></p>
+</blockquote>
+<p>以下内容涉及剧透。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/02/21/赤烛 - 『还愿』/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/02/07/棋盘上的「古墓丽影」/">棋盘上的「古墓丽影」</a>
                     </h2>
                     <div class="entry-meta">
@@ -295,60 +318,6 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/06/23/Binary Search Trees | 5kyu/">READ MORE</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2018 年 06 月 20 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <ul>
-<li>对于 Object 的遍历；</li>
-</ul>
-<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Function composition is a powerful technique. For example:</p>
-<pre><code class="javascript">function sum(x, y) {
-  return x + y;
-}
-
-function double(x) {
-  return sum(x, x);
-}
-
-function minus (x, y) {
-  return x - y;
-}
-
-function addOne(x) {
-  return sum(x, 1);
-}
-
-double(sum(2, 3)); // 10
-</code></pre>
-<p>But in complex expressions, composition may be difficult to understand. For example:</p>
-<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72
-</code></pre>
-<p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p>
-<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72
-</code></pre>
-<p>Your job is implement the <code>chain</code> function:</p>
-<pre><code class="javascript">function chain(fns) {
-}
-
-var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});
-</code></pre>
-<p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p>
-<p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p>
-<p>Note that the chain can be reused (the internal state is not stored):</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/20/Born to be chained | 4kyu/">READ MORE</a>
                 </div>
             </article>
             
