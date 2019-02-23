@@ -243,7 +243,7 @@ pre code {
 }
 
 
-.hagoromo-header .hagoromo-nav span:hover {
+.hagoromo-header .hagoromo-nav>li:hover {
     background: rgba(255,255,255,.1);
     -webkit-box-shadow: 0 10px 15px 0 rgba(0,0,0,.15);
     box-shadow: 0 10px 15px 0 rgba(0,0,0,.15);
