@@ -46,6 +46,42 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Tue Jun 05 2018 16:56:46 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p>
+<p>You cannot assume that the function’s arguments have any particular names.</p>
+<p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p>
+<pre><code class="javascript">function add(a,b) { return a+b;};
+
+var add_ = defaultArguments(add,{b:9});
+add_(10); // returns 19
+add_(10,7); // returns 17
+add_(); // returns NaN
+
+add_ = defaultArguments(add_,{b:3, a:2});
+add_(10); // returns 13 now
+add_(); // returns 5
+
+add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
+add_(10); // returns NaN
+add_(10,10); // returns 20
+</code></pre>
+<p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/05/Default Arguments | 4kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
                     </h2>
                     <div class="entry-meta">
@@ -223,9 +259,9 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
               
                 <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
-              
                 <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
               
                 <li><a href="/tags/电影/">电影<a></li>
               
