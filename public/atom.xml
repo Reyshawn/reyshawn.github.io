@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/Reyshawn/reyshawn.github.io/"/>
-  <updated>2019-02-23T03:18:14.548Z</updated>
+  <updated>2019-05-18T13:47:39.158Z</updated>
   <id>https://github.com/Reyshawn/reyshawn.github.io/</id>
   
   <author>
@@ -15,6 +15,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript async and Promise</title>
+    <link href="https://github.com/Reyshawn/reyshawn.github.io/2019/05/18/JavaScript-async-and-Promise/"/>
+    <id>https://github.com/Reyshawn/reyshawn.github.io/2019/05/18/JavaScript-async-and-Promise/</id>
+    <published>2019-05-18T11:42:34.993Z</published>
+    <updated>2019-05-18T13:47:39.158Z</updated>
+    
+    <content type="html"><![CDATA[<p>非常推荐先看一下参考链接里两个 youtube 视频，分别介绍了 event loop 和 setTimeout 的实现原理，这对于理解 JavaScript 里异步操作实现非常有帮助。其次是关于 Promise object 的手动实现，有一些抽象，因为包含了大量的  callback 函数。这里一定要分清楚，哪些是函数的声明，哪些是函数的调用。</p><h2 id="Event-loop"><a href="#Event-loop" class="headerlink" title="Event loop"></a>Event loop</h2><p>JavaScript 是一种 single thread 的语言。既然单一线程，那么在某个时间点，只能完成一项任务。于是</p><pre><code class="javascript">$.get(&#39;http://twitter.com&#39;)$.get(&#39;http://youtube.com&#39;)$.get(&#39;http://google.com&#39;)</code></pre><p>在单线程下，如果某一行执行所需要的时间太久了，那么余下的的 command 也无法执行，程序就在那一行停滞下来了。我们把这个叫做 blocking。然而事实上，当我们在使用 <code>setTimeout()</code> 函数时，程序似乎不会出现 blocking。</p><pre><code class="Javascript">console.log(&#39;hi&#39;)setTimeout(() =&gt; console.log(&#39;there&#39;), 0)console.log(&#39;Welcome!&#39;)// output:// hi// Welcome// there</code></pre><p>这里哪怕是设置 delay 为 0s， <code>setTimeout()</code> 里的函数也是在最后才执行，是怎么回事呢？</p><p>在 JavaScript 的执行环境中，所有的需要运行的函数是单线程的，按照次序会出现在 call stack 里。而通常，JavaScript 要么在 Browser 里运行，要么在 Node 环境运行，在 Browser 里运行时，会有一整套来自 Browser 提供的 web API，同理在 node 环境里也有相应的 API。 <code>setTimeout()</code> 函数就来自这些提供的 API 中。当我们 declare and call  一个  <code>setTimeout()</code> 函数时，Browser 会生成一个 timer 计时器，计时器的时间达到时，  <code>setTimeout()</code>  里定义的 callback 函数会进入到一个叫 <code>task queue</code> 的容器中，此时程序会去检测 call stack 是否为空，当 call stack 为空时，会将 task queue 中最上层的函数移入 call stack 中进行执行。因此本质上来讲，由于有 web API 的加持，最终类似  <code>setTimeout()</code> 函数还是使用了多线程。只不过对于 JavaScript 来讲，一直是执行的是 call stack 里的内容，可以认为一直是单线程操作。</p><a id="more"></a><p><img src="/images/eventLoop.png" alt="Event Loop"></p><h2 id="Promise-的实现"><a href="#Promise-的实现" class="headerlink" title="Promise 的实现"></a>Promise 的实现</h2><p>Promise 和   <code>setTimeout()</code> 的区别是，<code>setTimeout()</code> 是 delay 一个确定的时间，比如 3000ms，5000ms，然后执行 callback 函数。Promise 本身执行 callback 的时间是不确定的，只有 resolve 之后才算执行完毕，因为 resolve 后会改变 state，比如从 pending 改变成 fulfilled，通过 <code>.then()</code> 的方法执行下一个任务。</p><blockquote><p>Timeouts and Promises serve different purposes.</p><p>setTimeout delays the execution of the code block by a specific time duration. Promises are an interface to allow async execution of code.</p><p>A promise allows code to continue executing while you wait for another action to complete. Usually this is a network call. So anything in your <code>then()</code> call will be executed once the network call (or whatever the promise is waiting for) is completed. The time difference between the start of the promise and the resolution of the promise entirely depends on what the promise is executing, and can change with every execution.</p><p>The reason the promise is executing before your timeout is that the promise isn’t actually waiting for anything so it resolved right away.</p></blockquote><p>以下是来自 <a href="https://www.promisejs.org/implementing/" target="_blank" rel="noopener">Implementing</a>，对于 Promise object 的实现：</p><p>最好的方式是将下面的代码粘贴进 editor 里，调试几遍。不太明白的地方打上断点，或是 <code>console.log()</code>。</p><pre><code class="javascript">let PENDING = 0;let FULFILLED = 1;let REJECTED = 2;function Promise(fn) {  // store state which can be PENDING, FULFILLED or REJECTED  let state = PENDING;  // store value or error once FULFILLED or REJECTED  let value = null;  // store sucess &amp; failure handlers attached by calling .then or .done  let handlers = [];  function fulfill(result) {    state = FULFILLED;    value = result;    handlers.forEach(handle);    handlers = null;  }  function reject(error) {    state = REJECTED;    value = error;    handlers.forEach(handle);    handlers = null;  }  function resolve(result) {    try {      let then = getThen(result);      if (then) {        doResolve(then.bind(result), resolve, reject);        return ;      }      fulfill(result)    } catch (e) {      reject(e);    }  }  function handle(handler) {    if (state === PENDING) {      handlers.push(handler);    } else {      if (state === FULFILLED &amp;&amp;        typeof handler.onFulfilled === &#39;function&#39;) {        handler.onFulfilled(value);      }      if (state === REJECTED &amp;&amp;        typeof handler.onRejected === &#39;function&#39;) {        handler.onRejected(value);      }    }  }  this.done = function (onFulfilled, onRejected) {    // ensure we are always asynchronous    setTimeout(function () {      console.log(&#39;instantly implemented ⚠️&#39;)      handle({        onFulfilled: onFulfilled,        onRejected: onRejected      });    }, 0);  }  doResolve(fn, resolve, reject)  this.then = function (onFulfilled, onRejected) {    var self = this;    return new Promise(function (resolve, reject) {      return self.done(function (result) {        if (typeof onFulfilled === &#39;function&#39;) {          try {            return resolve(onFulfilled(result));          } catch (ex) {            return reject(ex);          }        } else {          return resolve(result);        }      }, function (error) {        if (typeof onRejected === &#39;function&#39;) {          try {            return resolve(onRejected(error));          } catch (ex) {            return reject(ex);          }        } else {          return reject(error);        }      });    });  }}function getThen(value) {  var t = typeof value;  if (value &amp;&amp; (t === &#39;object&#39; || t === &#39;function&#39;)) {    var then = value.then;    if (typeof then === &#39;function&#39;) {      return then;    }  }  return null;}function doResolve(fn, onFulfilled, onRejected) {  var done = false;  try {    fn(function (value) {      if (done) return      done = true      onFulfilled(value)    }, function (reason) {      if (done) return      done = true      onRejected(reason)    })  } catch (ex) {    if (done) return    done = true    onRejected(ex)  }}var promise1 = new Promise(function(resolve, reject) {  setTimeout(function() {    resolve(&#39;foo&#39;);  }, 3000);});promise1.then(function(value) {  console.log(value)  // expected output: &quot;foo&quot;});console.log(promise1);</code></pre><p><img src="/images/Promise.png" alt="Promise"></p><p>一些帮助理解这段代码的小 tips：</p><ol><li><code>doResolve()</code> ，第一，会直接执行 <code>fn</code> 函数，也就是声明 Promise 时传递的 callback 函数。第二， 保证 <code>resolve</code> 或是 <code>reject</code> function 仅执行一次。</li><li>每次声明 Promise object，都会先执行一次 <code>doResolve()</code> 函数；</li><li><code>.then()</code> 返回一个新的 Promise object，这个 Promise 会执行 <code>doResolve()</code>  函数，从而会直接执行这个新 Promise 的 callback 函数；line 73 - line 93，执行 callback 函数返回的是 <code>self.done()</code> 函数的执行结果；</li><li><code>.done()</code> 方法会 check state 的值，确定是否将 <code>resolve</code> 添加进 <code>handlers</code> 中；</li><li><code>resolve</code> 函数执行完毕后，将 <code>state</code> 从 <code>PENDING</code> 改为了 <code>FULFILLED</code>，同时 <code>handlers.forEach(handle)</code> 依次执行 <code>.then</code> 方法中添加进去的函数。</li><li><code>resolve</code> 和 <code>reject</code> 都会将值赋给 <code>value</code> 变量；</li><li><code>setTimeout(cb, 0)</code> 使用了上述提到的 event loop，此时 <code>cb</code> 会在几乎 0ms 的间隔时间后，进入 task queue。</li></ol><p>参考链接：</p><ul><li><a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ&amp;list=LLhaQJ_wSNai6JEl8bBjymqA&amp;index=3&amp;t=0s" target="_blank" rel="noopener">What the heck is the event loop anyway? | Philip Roberts | JSConf EU</a></li><li><p><a href="https://www.youtube.com/watch?v=PoRJizFvM7s&amp;list=LLhaQJ_wSNai6JEl8bBjymqA&amp;index=2&amp;t=0s" target="_blank" rel="noopener">Async JS Crash Course - Callbacks, Promises, Async Await</a></p></li><li><p><a href="https://www.promisejs.org/implementing/" target="_blank" rel="noopener">Implementing</a></p></li><li><p><a href="https://stackoverflow.com/questions/23772801/basic-javascript-promise-implementation-attempt" target="_blank" rel="noopener">Basic Javascript promise implementation attempt</a></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;非常推荐先看一下参考链接里两个 youtube 视频，分别介绍了 event loop 和 setTimeout 的实现原理，这对于理解 JavaScript 里异步操作实现非常有帮助。其次是关于 Promise object 的手动实现，有一些抽象，因为包含了大量的  callback 函数。这里一定要分清楚，哪些是函数的声明，哪些是函数的调用。&lt;/p&gt;
+&lt;h2 id=&quot;Event-loop&quot;&gt;&lt;a href=&quot;#Event-loop&quot; class=&quot;headerlink&quot; title=&quot;Event loop&quot;&gt;&lt;/a&gt;Event loop&lt;/h2&gt;&lt;p&gt;JavaScript 是一种 single thread 的语言。既然单一线程，那么在某个时间点，只能完成一项任务。于是&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;$.get(&amp;#39;http://twitter.com&amp;#39;)
+$.get(&amp;#39;http://youtube.com&amp;#39;)
+$.get(&amp;#39;http://google.com&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在单线程下，如果某一行执行所需要的时间太久了，那么余下的的 command 也无法执行，程序就在那一行停滞下来了。我们把这个叫做 blocking。然而事实上，当我们在使用 &lt;code&gt;setTimeout()&lt;/code&gt; 函数时，程序似乎不会出现 blocking。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;Javascript&quot;&gt;console.log(&amp;#39;hi&amp;#39;)
+setTimeout(() =&amp;gt; console.log(&amp;#39;there&amp;#39;), 0)
+console.log(&amp;#39;Welcome!&amp;#39;)
+
+// output:
+// hi
+// Welcome
+// there
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这里哪怕是设置 delay 为 0s， &lt;code&gt;setTimeout()&lt;/code&gt; 里的函数也是在最后才执行，是怎么回事呢？&lt;/p&gt;
+&lt;p&gt;在 JavaScript 的执行环境中，所有的需要运行的函数是单线程的，按照次序会出现在 call stack 里。而通常，JavaScript 要么在 Browser 里运行，要么在 Node 环境运行，在 Browser 里运行时，会有一整套来自 Browser 提供的 web API，同理在 node 环境里也有相应的 API。 &lt;code&gt;setTimeout()&lt;/code&gt; 函数就来自这些提供的 API 中。当我们 declare and call  一个  &lt;code&gt;setTimeout()&lt;/code&gt; 函数时，Browser 会生成一个 timer 计时器，计时器的时间达到时，  &lt;code&gt;setTimeout()&lt;/code&gt;  里定义的 callback 函数会进入到一个叫 &lt;code&gt;task queue&lt;/code&gt; 的容器中，此时程序会去检测 call stack 是否为空，当 call stack 为空时，会将 task queue 中最上层的函数移入 call stack 中进行执行。因此本质上来讲，由于有 web API 的加持，最终类似  &lt;code&gt;setTimeout()&lt;/code&gt; 函数还是使用了多线程。只不过对于 JavaScript 来讲，一直是执行的是 call stack 里的内容，可以认为一直是单线程操作。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://github.com/Reyshawn/reyshawn.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>赤烛 - 『还愿』</title>
@@ -700,27 +737,6 @@ var greeting = speak(&amp;quot;Mary&amp;quot;, &amp;quot;Kate&amp;quot;);
 &lt;h2 id=&quot;畢業一年&quot;&gt;&lt;a href=&quot;#畢業一年&quot; class=&quot;headerlink&quot; title=&quot;畢業一年&quot;&gt;&lt;/a&gt;畢業一年&lt;/h2&gt;&lt;p&gt;來之前，沒曾想到自己會在德語考試上停留這麼久。&lt;/p&gt;
 &lt;p&gt;二〇一六年九月到二〇一七年九月。&lt;/p&gt;
 &lt;p&gt;二〇一六年九月底到德國，處理很多事情，落戶，銀行卡，房屋合同，保險，找房，還有房屋的衛生問題，自己又盲目的報名了十一月份的考試，當時由於整個大四下忙於畢設，疏於德語的學習，等我到德國時，德語退步很大，加上剛來的不適應，十一月考試結果特別差。然後十二月找房，一月份搬入新家。二月份的時候又考了一次，結果較上次有很大進步，到三月份，自己在 Tandem 的六個月語言課程結束，然後是面臨四月的考試，那時的狀態也是最焦慮，最混亂的，當時覺得如果考試考不過就全完了，巨大的壓力和焦慮也導致了考前複習的極度混亂，甚至一度的通過上網來麻痺自己，緩解焦慮，清楚的記得考前的一晚都還在看著 BiliBili 網站的視頻，想要逃避現實。四月底的那次考試考完，反倒讓我開始反思自己的學習模式，然後是五月份自己開始了極度自律的一個月，每週統計，效率上很高，直到六月二號開始，黃同學的到來，我那極度自律的狀態也隨即結束了。從六月二號到六月十四號又回到考前的極度緊張和焦慮，加之考前一天得知四月的考試結果，頂着巨大的壓力和焦慮又去考了六月那一場。雖然五月份自己極度的自律地在複習，但複習方向以聽力，口語為主，沒有很集中的背單詞和準備句式，考試最終還是在寫作上吃了虧。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="I/O" scheme="https://github.com/Reyshawn/reyshawn.github.io/categories/I-O/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>端午</title>
-    <link href="https://github.com/Reyshawn/reyshawn.github.io/2017/05/31/I-O-22-%E7%AB%AF%E5%8D%88/"/>
-    <id>https://github.com/Reyshawn/reyshawn.github.io/2017/05/31/I-O-22-端午/</id>
-    <published>2017-05-31T15:59:17.000Z</published>
-    <updated>2019-01-20T09:32:44.494Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="关于端午的几段记忆"><a href="#关于端午的几段记忆" class="headerlink" title="关于端午的几段记忆"></a>关于端午的几段记忆</h2><p>其实现在想想，最后悔的大概是大学本科时代，没有像现在这样，对时间规划，时间管理有非常深的思考，没有在本科就把英文学得足够的好，没有在大一大二就开始接触播客，开始阅读英文教材。我每次站在现在去回望过去，都总会觉得过去的自己幼稚到不行，很难想象过去的自己在看着过去的过去的时候，也是一样的想法。</p><p>时值端午。如果不是在社交网络上看到些许的关键词，远离中文社会很长时间的我是感受不到任何节日的气息的。我想分享几段个人关于端午的几段记忆，或许也是，关于端午我能想起来的全部事情。<br><a id="more"></a><br>记忆里所有关于端午的记忆，除去那篇『离骚』，总是和吃粽子有关。赛龙舟， 悬艾叶配香囊，在我们那个小地方都是见不到的。一般的粽子也都不是自家制作，都是购自街边的小摊贩。摊贩上一般是放一个盆，盆里盛着温水，盆上堆满一个个包好的粽子，都只有一种口味。那时候小学放学，步行回家，端午时节就有这些卖粽子的摊贩出现，有时候是母亲，有时候是自己，会去那里买一两个粽子来，摊主会把外面的艾叶取掉，然后是把一个不带艾叶的粽子用塑料袋装起来，就这样掂回家。在家中把没有艾叶的粽子放到盘子里，洒上白糖，就直接拿着勺子吃了。这在当时实在不是什么稀罕的食物，直到我可能离家很久之后吧。后来就有了速冻的粽子，记忆里比较深刻的是三全出过的一款「龙舟粽」，当时的他们的广告词我现在都还记得。有了速冻粽子之后，街边卖粽子的摊贩就很少了。也可能是我上了初中后，骑车上下学，对周围的事物不怎么留心了吧。后来的这种速冻粽子，经常冷不丁出现在家里的餐桌上，一年四季，并不是只有端午才能吃到了。通常是早餐，母亲煮粥的时候，会馏一个小粽子，或者咸鸭蛋。再者就是晚餐的时候，早上或者之前没有吃的会继续馏，直到一个粽子会被馏了很多次，表面的艾草颜色都有些斑驳了，因为每次都被人遗忘。</p><p>高中就已经离家在外了。当时学业压力很重。三年一心做题，都没怎么关注过窗外事吧。每日的三餐都是在高中学校的食堂，除了周末能够去躺姥姥姥爷家，能吃几顿好吃的。端午那天，食堂的窗口会专门卖粽子，自己当时也会去买一个来吧，口味什么的都不重要了，只是作为一种节日上的重要的仪式吧。上了大学，大学第一年，二〇一二年，离第一代 iPhone 发布已经过去了五年时间，然而移动互联网还依然在风口。 当年拥有了第一款智能手机，也是从高中解放之后，进入大学总是一直在关注窗外事吧。也许是移动互联网兴起的缘故，这一年的端午节，突然就出现了「咸粽子」，并且在网上有了粽子版本的「甜咸之争」。而对于我从小都是吃的甜粽子长大的人，无疑是非常颠覆的。我在想，一定是移动互联网的兴起，才能让这样的「甜咸之争」迅速的传播。在以前，可能只是有少部分人同时知道甜粽子和咸粽子的存在。大部分一辈子只是生活在北方，或者大部分一辈子只是生活在南方的人，他们一辈子见到的粽子，可能就只有一种。哪怕其中的几个人偶然接触到了另一种的粽子，如果仅凭几个人之力，也是无法达到尽人皆知的社会性事件的。我上大学的第二年才第一次尝了咸粽子，肉馅的粽子。那时已经到了二〇一四年了，当时是在新校区的最后一个学期，那个学期自己要应付很多事情，学生会的工作，社团的排练，微软方面的任务，当时还在追求一个女生，所以成绩上几乎的大范围的溃败。这种溃败甚至已经波及到了体育课。我体育课选择的是篮球，在最后的上篮考试中成绩很差，需要在下一节课重新测试。于是我就只好在周内找一个时间去操场练球，当时叫了一个同学，也是大学难得的能聊得来的同学吧。叫他过来帮我传球，然后我接球三步上篮。这样练习了很久，都累了，旁边是「星天苑」的餐厅，我去那里买了俩粽子，其中一个买了一个肉馅的。这个肉馅的粽子一直被放到晚上十点，我回到寝室才把它吃了。嗯，那是第一次吃咸粽子。</p><p>今年是二〇一七年，距离第一代 iPhone 发布都已经过去十年了。我兜兜转转已经毕业。毕业之后的一年里，没有找工作，没有读研究生，没有谈恋爱，没有旅行，也没有待在家里。跟很多好朋友，同学，朋友，也没能够频繁的保持联系。因为对门的张叔刚从国内回来，中午煮了四个粽子，他自己吃掉两个，给我留了两个。就在几个小时前，我自己其实有蒸好米饭，热了一个小菜，是中午去超市时买的。但米饭只吃了一点。把张叔留的两个粽子有在锅里煮了一下。第一个是咸粽子，夹的有蛋黄和牛肉，第二个是甜的，夹的是红枣。也是在剥去艾叶的时候，才突然想到从小到大的这些事情，才想起来把这些事情记下来。时值端午，如果不是在社交网络看到的些许关键词，我应该是不会意识到端午节的。今日在 twitter 上的 <a href="https://twitter.com/hao520" target="_blank" rel="noopener">Chih-Hao Tsai</a> 这样写道：</p><blockquote><p>年節食俗可以休矣。我們早已過了那個平日吃不飽、過節吃到飽的時代。行為抽離原本的脈絡就蠢了。何不重建新習俗，例如運動，為節日帶來更多價值。</p></blockquote><p>可是，年节带来的远非饭桌上的食物。更是一个端由，能想起一些事情的端由，能约上心仪女子的一个端由，能够自我反思的端由，以及偷的半日清闲的端由。当我真的想着顺着「端午」这条线往前捋的时候，一个非常恐怖的事情是，大概十年前的事情都已经记得非常不清楚了，再久远些，十五年前，已经是完全模糊到什么也看不清了。这种模糊带来的可能就是看老照片时候的陌生和惊喜感，而当时拍下那一张张照片时自己当时的所思所想，已无法回溯。而文首提到的，每当我站在现在去观望过去的自己，总是觉得过去幼稚的不行。但有时候，幼稚也是感动，成熟也是妥协。</p><hr><h2 id="目前的状态以及之后的计划"><a href="#目前的状态以及之后的计划" class="headerlink" title="目前的状态以及之后的计划"></a>目前的状态以及之后的计划</h2><p>目前的个人状态还是很棒的，至少在时间管理的问题上，解决过去一两年自己都没能解决的问题。而且能真实的感到自己对时间的利用率成倍的增加。而未来的几个月，七月，八月，想把本科所学的东西好好整理整理，不想一毕业就把东西还给老师，最近找到了很多不错的外文教材，想借着这三个月时间好好读一读，把一些忘掉的知识，柯西，拉普拉斯等等都拾起来。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;关于端午的几段记忆&quot;&gt;&lt;a href=&quot;#关于端午的几段记忆&quot; class=&quot;headerlink&quot; title=&quot;关于端午的几段记忆&quot;&gt;&lt;/a&gt;关于端午的几段记忆&lt;/h2&gt;&lt;p&gt;其实现在想想，最后悔的大概是大学本科时代，没有像现在这样，对时间规划，时间管理有非常深的思考，没有在本科就把英文学得足够的好，没有在大一大二就开始接触播客，开始阅读英文教材。我每次站在现在去回望过去，都总会觉得过去的自己幼稚到不行，很难想象过去的自己在看着过去的过去的时候，也是一样的想法。&lt;/p&gt;
-&lt;p&gt;时值端午。如果不是在社交网络上看到些许的关键词，远离中文社会很长时间的我是感受不到任何节日的气息的。我想分享几段个人关于端午的几段记忆，或许也是，关于端午我能想起来的全部事情。&lt;br&gt;
     
     </summary>
     

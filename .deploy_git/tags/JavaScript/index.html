@@ -46,6 +46,41 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/05/18/JavaScript-async-and-Promise/">JavaScript async and Promise</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Sat May 18 2019 19:42:34 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>非常推荐先看一下参考链接里两个 youtube 视频，分别介绍了 event loop 和 setTimeout 的实现原理，这对于理解 JavaScript 里异步操作实现非常有帮助。其次是关于 Promise object 的手动实现，有一些抽象，因为包含了大量的  callback 函数。这里一定要分清楚，哪些是函数的声明，哪些是函数的调用。</p>
+<h2 id="Event-loop"><a href="#Event-loop" class="headerlink" title="Event loop"></a>Event loop</h2><p>JavaScript 是一种 single thread 的语言。既然单一线程，那么在某个时间点，只能完成一项任务。于是</p>
+<pre><code class="javascript">$.get(&#39;http://twitter.com&#39;)
+$.get(&#39;http://youtube.com&#39;)
+$.get(&#39;http://google.com&#39;)
+</code></pre>
+<p>在单线程下，如果某一行执行所需要的时间太久了，那么余下的的 command 也无法执行，程序就在那一行停滞下来了。我们把这个叫做 blocking。然而事实上，当我们在使用 <code>setTimeout()</code> 函数时，程序似乎不会出现 blocking。</p>
+<pre><code class="Javascript">console.log(&#39;hi&#39;)
+setTimeout(() =&gt; console.log(&#39;there&#39;), 0)
+console.log(&#39;Welcome!&#39;)
+
+// output:
+// hi
+// Welcome
+// there
+</code></pre>
+<p>这里哪怕是设置 delay 为 0s， <code>setTimeout()</code> 里的函数也是在最后才执行，是怎么回事呢？</p>
+<p>在 JavaScript 的执行环境中，所有的需要运行的函数是单线程的，按照次序会出现在 call stack 里。而通常，JavaScript 要么在 Browser 里运行，要么在 Node 环境运行，在 Browser 里运行时，会有一整套来自 Browser 提供的 web API，同理在 node 环境里也有相应的 API。 <code>setTimeout()</code> 函数就来自这些提供的 API 中。当我们 declare and call  一个  <code>setTimeout()</code> 函数时，Browser 会生成一个 timer 计时器，计时器的时间达到时，  <code>setTimeout()</code>  里定义的 callback 函数会进入到一个叫 <code>task queue</code> 的容器中，此时程序会去检测 call stack 是否为空，当 call stack 为空时，会将 task queue 中最上层的函数移入 call stack 中进行执行。因此本质上来讲，由于有 web API 的加持，最终类似  <code>setTimeout()</code> 函数还是使用了多线程。只不过对于 JavaScript 来讲，一直是执行的是 call stack 里的内容，可以认为一直是单线程操作。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/05/18/JavaScript-async-and-Promise/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/31/「User Authentication with Passport and Koa 」Summary/">「User Authentication with Passport and Koa 」Summary</a>
                     </h2>
                     <div class="entry-meta">
@@ -325,42 +360,6 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Tue Jun 05 2018 16:56:46 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p>
-<p>You cannot assume that the function’s arguments have any particular names.</p>
-<p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p>
-<pre><code class="javascript">function add(a,b) { return a+b;};
-
-var add_ = defaultArguments(add,{b:9});
-add_(10); // returns 19
-add_(10,7); // returns 17
-add_(); // returns NaN
-
-add_ = defaultArguments(add_,{b:3, a:2});
-add_(10); // returns 13 now
-add_(); // returns 5
-
-add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
-add_(10); // returns NaN
-add_(10,10); // returns 20
-</code></pre>
-<p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/05/Default Arguments | 4kyu/">Read More</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
@@ -451,9 +450,9 @@ add_(10,10); // returns 20
               
                 <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
-              
                 <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
               
                 <li><a href="/tags/电影/">电影<a></li>
               
