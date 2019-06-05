@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+        <link rel="icon" type="image/png" href="./favicon.png">
+        <link rel="apple-touch-icon" href="./favicon180x180.png" sizes="180x180">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>reyshawn.C</title>
+</head>
+
+<body class='home blog'>
+    <header id="hagoromo-header" class="hagoromo-header">
+    <div class="container">
+        <div class="slot-l">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+        </div>
+        <div class="slot-r">
+            <ul class="hagoromo-nav hagoromo-actions-list">
+                <li class="hagoromo-action-button hagoromo-action-sidebar">
+                    <span><i class="fa fa-bars"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div id="hagoromo-cover" class="hagoromo-cover hagoromo-cover-empty"></div>
+
+    <div class="hagoromo-fake-bg">
+        <div class="hagoromo-section">
+    <div class="section-content">
+        <article class="hagoromo-post">
+            <header class="entry-header">
+                <h2 class="entry-title h1">
+                    <a href="/2019/06/05/iPadOS-使用体验/">iPadOS 使用体验</a>
+                </h2>
+                <div class="entry-meta">
+                    2019 年 06 月 05 日
+                </div>
+                <div class="post-letter"></div>
+            </header>
+            <div class="entry-content">
+                <p>今早安装了 iPadOS Development Beta 版本，体验了一会儿。因为不太敢拿 mac 升级 Catalina，据说文件系统改掉了。目前 mac 不太敢升，所以 Sidecar 功能暂时还没办法体验。iPhone 变化其实没那么大，也就只有 iPad 可以尝试了。提前做好备份，在苹果的开发者官网 <a href="https://developer.apple.com/support/beta-software/install-beta/" target="_blank" rel="noopener">Installing Apple Beta Software</a> 下载安装 Xcode beta，安装完毕要打开运行，这样做的目的是帮助 iTunes 能够识别 iOS13。下载你所使用设备的 ipsw 文件。我是在<a href="https://www.udid.in/install-beta" target="_blank" rel="noopener">这里</a>下载的。然后在 iTunes 里更新就行了，注意要提前做好备份。</p>
+<p>具体的安装教程也可以参考这个 <a href="https://www.youtube.com/watch?v=iPZ6eNc8BvU&amp;frags=pl%2Cwn" target="_blank" rel="noopener">YouTube 视频</a>。</p>
+<p>下面按照给我带来惊喜的顺序，来简单谈一下这次的 iPadOS / iOS13。</p>
+<a id="more"></a>
+<h2 id="Safari"><a href="#Safari" class="headerlink" title="Safari"></a>Safari</h2><h3 id="Always-Request-Desktop-Page"><a href="#Always-Request-Desktop-Page" class="headerlink" title="Always Request Desktop Page"></a>Always Request Desktop Page</h3><p>永远访问桌面网页，这对于使用 iPad 而言是巨大的进步。在电脑端，无论是 Safari 或是 Chrome，都已经成为了无比强大的通用客户端，general client，在浏览器里几乎可以做任何事情。而在 iPhone 上，苹果对于第三方浏览器有很多限制，因此，原生 Safari 的增强就显得无比重要。这让 iPad 变得更像是 laptop 了。不仅如此：</p>
+<ul>
+<li>在 bilibili.com 可以调整更高清的分辨率；</li>
+<li>可以在 repl.it 上在线 coding 了；</li>
+</ul>
+<p><img src="/images/repl.png" alt="repl"></p>
+<p>bilibili 的 iPad app 极为难用。而在以前在 iPad 上使用 Safari 浏览 bilibili，总会自动跳到移动端页面，而且可恶的是移动端仅支持 240P 的分辨率。哪怕你在 share sheet 里去 request desktop page 也不行。而在新的 iOS13 里，使用 Safari 进行浏览就和电脑端一模一样，体验非常友好。</p>
+<p>理论上，现在的 iPadOS 可以开无数个 Safari 窗口，但由于内存限制，只能同时运行 2-3 个 Safari，多余的就会被后台 kill 掉。目前，只有 1T 容量的 iPad Pro 搭配有 6G RAM 内存，其余 iPad Pro 是只有 4G RAM。</p>
+<p>可以预见的是，未来 iPad 产品也将逐渐加入更大的内存，以此实现后台的多任务运行。</p>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>Safari 终于有了原生的下载功能。可以在 Settings 设置里选择下载保存的文件夹，可以保存在本地 On My iPad，或者是 iCloud 里。这对于日常使用，通过 http 或 ftp 下载一些文件资源已经足够了。但如果想要使用「磁力链」或 bitTorrent，在目前或可以想象的未来的 iOS 系统中，都不太可能。</p>
+<h2 id="手势交互"><a href="#手势交互" class="headerlink" title="手势交互"></a>手势交互</h2><p>手势交互一直是 iPad 有别于 Mac 和 iPhone 的一个最重要特征。</p>
+<h3 id="截图-长截图"><a href="#截图-长截图" class="headerlink" title="截图 / 长截图"></a>截图 / 长截图</h3><p>两种截图方式：</p>
+<ol>
+<li>power button + volume button；</li>
+<li>使用 Apple Pencil 在屏幕左下角或右下角向上拉；</li>
+</ol>
+<p>第一种是一直以来很传统的截图方式。第二种很有趣，很自然，截图之后直接进入编辑页面。</p>
+<h3 id="文字选取高亮-光标移动"><a href="#文字选取高亮-光标移动" class="headerlink" title="文字选取高亮 / 光标移动"></a>文字选取高亮 / 光标移动</h3><p>在以前，要想选中某段文字，需要在想要选中的位置上 touch 两下才会出现光标。在新的 iOS 13 中，苹果把这个操作进一步简化，更加接近在桌面端的交互逻辑。而以前的双击，是选中一个词，三击是选中整个句子。</p>
+<h3 id="copy-paste"><a href="#copy-paste" class="headerlink" title="copy / paste"></a>copy / paste</h3><p>我们在电脑端编辑文字，使用的很多的快捷键便是 cmd+c/cmd+v。现在在 iPad，复制是三指 pinch （捏合），粘贴是三指 spread。类似的手势在 mac 上很常用。需要指出的是，这里手势操作的复制粘贴并不仅仅限于文字，它可以用于所有可以进行复制粘贴的地方，比如文件。</p>
+<p>通常如果使用键盘，cmd+c/cmd+v 是更好的方式。但如果在 files 里整理文件，首先多选，再利用手势进行操作，就非常方便了。</p>
+<h2 id="外接存储"><a href="#外接存储" class="headerlink" title="外接存储"></a>外接存储</h2><p>是的，等了很多年了，iPad 终于可以外接闪存了。这里为什么强调是闪存，因为我在发布会上只听到了说 flash drive。而在我自己的实验里，exFAT 格式的 flash drive 可以准确读取，嗯，这点和 mac 是一致的。因为一定会有文件格式的壁垒在。但我使用我的 APFS 格式的外接机械硬盘，读取失败，甚至出现了一个 bug。这里要说明一下，我的这个机械硬盘被分成了两个区，一个用作 time machine，另一个是正常存储。但连接 iPad 后，似乎识别成了 image 什么的，而且出现的外接存储图标再也消除不掉了。</p>
+<p>不清楚各位有没有连接 APFS 格式机械硬盘成功的。</p>
+<p><img src="/images/ipad files bug.png" alt="ipad files bug"></p>
+<h2 id="UI-变化"><a href="#UI-变化" class="headerlink" title="UI 变化"></a>UI 变化</h2><p>苹果在每一代系统里，对 UI 设计都有一些细微的变化。最明显的是顶部选项卡</p>
+<p><img src="/images/iOS13 tab 1.png" alt="iOS13 tab 1"></p>
+<p><img src="/images/iOS13 tab 2.png" alt="iOS13 tab 2"></p>
+<p><img src="/images/iOS13 tab 3.png" alt="iOS13 tab 3"></p>
+<h2 id="关于-iPad-的未来"><a href="#关于-iPad-的未来" class="headerlink" title="关于 iPad 的未来"></a>关于 iPad 的未来</h2><ol>
+<li>Files 和 Safari 都会持续进化。Files 会加入更丰富的文件编辑功能，能够原生支持更多格式的文件直接在 Files 读取。</li>
+<li>会有 iPad Terminal，并且会有一整套的 iPad 上的有关编程的 API 及 editor。</li>
+<li>内存会更多，将来可以后台多任务运行的数量会增多。</li>
+</ol>
+<p>最后，从 WWDC19 结束后，就很多人在讨论 iPad 上的鼠标。我也看了别人在 iPad 上使用鼠标的演示视频。我能想到比较好的使用方式是进行 FPS 枪战游戏。但目前来看，iPad 上的鼠标还仅仅是模拟手指操作，而不是类似 Apple Pencil 那种更精细的指针，而且不支持滚轮滚动，所以整个下来体验并不好。我个人是很多年都不在用鼠标了，电脑上一直用触控板，体验很好。我也一直认为，iPad 上最好的精确输入方式是 Apple Pencil。而鼠标的作用，想一想，定位可能是和现在已经支持的 playstation controller 或 Xbox controller 那样吧。</p>
+
+            </div>
+            <div class="entry-tags">
+                
+            </div>
+            <div class="entry-footer"></div>
+        </article>
+    </div>
+</div>
+        <footer id="hagoromo-footer" class="hagoromo-footer">
+    <div class="container">
+        <div class="hagoromo-footer-widget"></div>
+        <div class="hagoromo-footer-widget">
+            <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
+            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+        </div>
+        <div class="hagoromo-footer-widget social">
+            
+                
+                    <span class="social-button">
+                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                    </span>
+                
+            
+            <span class="social-button">
+                <a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i></a>
+            </span>
+        </div> 
+    </div>
+</footer>
+    </div>
+
+    <div class="hagoromo-sidebar">
+    <div class="hagoromo-sidebar-header">
+        <div class="hagoromo-sidebar-header-wrapper">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+            <span class="hagoromo-sidebar-close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget search">
+        <form id="hagoromo-search-form" class="hagoromo-search-form">
+            <input name="s" type="text" placeholder="Type here to search ... ">
+            <button type="submit" class="hagoromo-button hagoromo-button-search">SEARCH</button>
+        </form>
+    </div>
+    <div class="widget categories">
+        <h4 class="widget-title h5">分类</h4>
+        <ul>
+            <li><a href="/archives">Archive</a></li>
+              
+            <li><a href="/categories/Coding/">Coding</a></li>
+              
+            <li><a href="/categories/I-O/">I/O</a></li>
+            
+        </ul>
+    </div>
+    <div class="widget tags">
+        <h4 class="widget-title h5">标签</h4>
+        <ul>
+              
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+              
+                <li><a href="/tags/codewars/">codewars<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/电影/">电影<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></li>
+              
+                <li><a href="/tags/故事/">故事<a></li>
+              
+                <li><a href="/tags/Node-js/">Node.js<a></li>
+              
+                <li><a href="/tags/音乐/">音乐<a></li>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="hagoromo-sidebar-overlay"></div>
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/highlight.min.js"></script>
+    <script src="/js/highlightjs-line-numbers.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
