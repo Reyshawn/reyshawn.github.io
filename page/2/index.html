@@ -46,6 +46,33 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/06/29/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2018 年 06 月 29 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li>除法，求余，因子</li>
+<li><code>Number.MAX_SAFE_INTEGER</code></li>
+<li>二分法求方程根</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your task is determine lowest number base system in which the input <code>n</code> (base 10), expressed in this number base system, is all <code>1</code> in its digit. See an example:</p>
+<p>‘7’ in base 2 is ‘111’ - fits! answer is 2</p>
+<p>‘21’ in base 2 is ‘10101’ - contains ‘0’ does not fit ‘21’ in base 3 is ‘210’ - contains ‘0’ and ‘2’ does not fit ‘21’ in base 4 is ‘111’ - contains only ‘1’ it fits! answer is 4</p>
+<p><code>n</code> is always less than <code>Number.MAX_SAFE_INTEGER</code>.</p>
+<p>这个题目的难度主要在于性能 performance 方面，对于数值较小的数字，通常方法很容易计算，一旦涉及到九位十位往上的大数，一般的循环方法就会耗时很久。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/29/Lowest base system | 4kyu/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/06/25/@wraps | 6kyu/">@wraps | 6kyu</a>
                     </h2>
                     <div class="entry-meta">
@@ -360,24 +387,6 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">READ MORE</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2017/11/02/Hexo部署到新电脑/">Hexo 部署到新电脑</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2017 年 11 月 02 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <p>换了新的电脑，想把在 hexo 上的部署文件转移到新电脑上。因为提前在 github 为此做了一些工作，就是按照网上一些朋友的建议，在 github 上创建两个分支，一个分支 「master」 用于 hexo 部署，另一个分支「hexo」用于存储源文件。这样当需要在一台新电脑上使用 hexo 时，只需要把源文件 clone 到本地就行了。但事情总不是一帆风顺😅。今天遇到的问题是，把源文件拉到本地以后，每次执行 <code>hexo d</code> 部署， 都会把所有源文件都部署到 <code>master</code> 分支上。按照常理，应该是只有 public 文件夹里的内容才会放在 <code>master</code> 分支下的。</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2017/11/02/Hexo部署到新电脑/">READ MORE</a>
                 </div>
             </article>
             
