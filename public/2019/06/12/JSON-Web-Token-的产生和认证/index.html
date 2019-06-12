@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -75,42 +75,37 @@
 <li>cookie 对跨域 CORS 操作不友好，token 则没有这个问题；</li>
 </ol>
 <a id="more"></a>
+
 <h2 id="JWT-如何产生的"><a href="#JWT-如何产生的" class="headerlink" title="JWT 如何产生的"></a>JWT 如何产生的</h2><p>一条完整的 JWT 格式是这样的：<code>header.payload.signature</code>。</p>
 <p>第一步，创建一个 JSON 格式的 header。header 里包含的信息需要有这个 JSON 使用的 hash 算法，例如：</p>
 <pre><code class="javascript">const header = {
     typ: &quot;JWT&quot;,
     alg: &quot;HS256&quot;
-}
-</code></pre>
+}</code></pre>
 <p><code>&quot;typ&quot;</code> 声明这是一个 JWT，<code>&quot;alg&quot;</code> 声明所有是用的 hash 算法；</p>
 <p>第二步，创建 payload。这里的 payload 就是你想在 JWT 里存储的任何数据信息，但最好不要把敏感信息，比如密码放在里面，</p>
 <pre><code class="javascript">const payload = {
     userId: &quot;b08f86af-35da-48f2-8fab-cef3904660bd&quot;
-}
-</code></pre>
+}</code></pre>
 <p>对于 JWT 的 payload，会有一些标准，比如 <code>iss</code> 代表 issuer，<code>sub</code> 代表 subject，<code>exp</code> 代表 expiration time。</p>
 <p>第三步，创建 signature 签名。</p>
 <pre><code class="javascript">const encodedHeader = Buffer.from(JSON.stringify(header)).toString(&#39;base64&#39;)
-const encodedPayload = Buffer.from(JSON.stringify(payload)).toString(&#39;base64&#39;)
-</code></pre>
+const encodedPayload = Buffer.from(JSON.stringify(payload)).toString(&#39;base64&#39;)</code></pre>
 <p>将 header 和 payload 都使用 base64 编码。</p>
 <pre><code class="javascript">const crypto = require(&#39;crypto&#39;)
 const jwtSecret = &#39;secretKey&#39;
 
-const signature = crypto.createHmac(&#39;sha256&#39;, jwtSecret).update(encodedHeader + &#39;.&#39; + encodedPayload).digest(&#39;base64&#39;)
-</code></pre>
+const signature = crypto.createHmac(&#39;sha256&#39;, jwtSecret).update(encodedHeader + &#39;.&#39; + encodedPayload).digest(&#39;base64&#39;)</code></pre>
 <p>base64 编码后的文本使用 <code>.</code> 连接，再进行 hash，hash 后的文本再进行 base64 编码。</p>
 <p>最终 JWT 为：</p>
-<pre><code class="javascript">const jwt = `${encodedHeader}.${encodedPayload}.${signature}`
-</code></pre>
+<pre><code class="javascript">const jwt = `${encodedHeader}.${encodedPayload}.${signature}`</code></pre>
 <h2 id="JWT-的认证"><a href="#JWT-的认证" class="headerlink" title="JWT 的认证"></a>JWT 的认证</h2><blockquote>
 <p>The <strong>very</strong> important thing to note here is that this token is signed by the HMACSHA256 algorithm, and the header and payload are Base64URL encoded, it is <strong>not</strong> encrypted. If I go to <a href="https://jwt.io/" target="_blank" rel="noopener">jwt.io</a>, paste this token and select the HMACSHA256 algorithm, I could decode the token and read its contents. Therefore, it should go without saying that sensitive data, such as passwords, should never be stored in the payload.</p>
 <p>— <a href="https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide" target="_blank" rel="noopener">Cookies vs. Tokens: The Definitive Guide</a></p>
 </blockquote>
 <p>一定要区分认证和加密，JWT 不会加密混淆数据。当用户成功登录，服务器端按照上述过程生成一条 JWT 返回给了客户端。因为 JWT 涉及到了身份认证，还是很敏感的，客户端把这个 JWT 存储在 <code>HttpOnly Cookie</code>，不同于传统 cookie，标有 <code>HttpOnly</code> 的 cookie 只能由 Server 端获取。</p>
 <p>登录成功后，当需要请求某个需要权限的 api 或是进入某个 route 时，client 端在发送 request 请求就会把这个 JWT 稍带着，通常是在 <code>Authorization</code> 里，以 Bearer 作为开头：</p>
-<pre><code class="yaml">Authorization: Bearer &lt;token&gt;
-</code></pre>
+<pre><code class="yaml">Authorization: Bearer &lt;token&gt;</code></pre>
 <p>服务器收到请求后，首先需要验证这个 token。验证 JWT 包含以下几个步骤：</p>
 <ol>
 <li>验证 JWT 的格式是否正确；</li>
@@ -191,8 +186,7 @@ function verifyToken(req, res, next) {
 
 }
 
-app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))
-</code></pre>
+app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))</code></pre>
 <p>通过 <code>jwt.sign()</code> 进行签名。</p>
 <p>函数 <code>verifyToken</code>  仅仅是作为一个 middleware 去 retrieve header 里的 token，并把它保存在 <code>req.token</code>  里，具体的认证是通过 <code>jwt.verify()</code> 实现的。</p>
 <h2 id="HS256-vs-RS256"><a href="#HS256-vs-RS256" class="headerlink" title="HS256 vs RS256"></a>HS256 vs RS256</h2><p>前者是对称加密，只有一个 key 值。后者 RS256 是非对称加密，有一个 private key 和一个 public key。上文仅仅提到了 HS256 的认证过程，但如果使用非对称加密（也更推荐这种方式）来生成 JWT，认证时需要用到 JSON Web Key Set。</p>
@@ -295,27 +289,27 @@ app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>

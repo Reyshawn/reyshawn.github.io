@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -62,6 +62,7 @@
 <p><code>n</code> is always less than <code>Number.MAX_SAFE_INTEGER</code>.</p>
 <p>这个题目的难度主要在于性能 performance 方面，对于数值较小的数字，通常方法很容易计算，一旦涉及到九位十位往上的大数，一般的循环方法就会耗时很久。</p>
 <a id="more"></a>
+
 <h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function getMinBase (number) {
     if (number == 3) return 2;
     var divisor = number -1
@@ -95,8 +96,7 @@ function toTenBase (number, base) {
     }
 
     return res;
-}
-</code></pre>
+}</code></pre>
 <p>我的这个方法，似乎有些根据测试的数据，有些取巧。代码分成两部分，第一步是通常意义的查找，<code>i</code> 从 2 开始，依此类加，找到每次减 1 都能被整除的最小 <code>i</code> 值。这里面为了优化用了一些技巧，比如最开始一部其实是要找 <code>number - 1</code> 的所有因子，但注意，因为一个数的所有因子都是对称的。譬如 12 的因子：1，2，3，4，6，12。从 3 开始往后的每一个数，在之前的相除过程中都得到了。比如和 2 相除得到 6，和 3 相除得到 4。</p>
 <p>所以我在代码的第一部分加入了变量 <code>divisor</code>，并把它加入了跳出循环的条件。因为一旦 <code>i</code> 超过了 <code>number - 1</code>  的一半，那么就不可能存在除了 <code>number -1</code> 之外的数，使得以之为 base 能得到 <code>111...</code>。</p>
 <p>但因为每次 <code>i</code> 都是类加 1，经过多次反复实验，<code>i</code> 超过 5000 之后，再计算速度已经很慢了。于是我写了另一个函数 <code>toTenBase()</code> ，给出任意 number 和 base，计算以 10 base 的数。最开始写这个函数，不过是为了去找一些规律。对于测试中出现的那些很大的数，大部分的结果都是 <code>number - 1</code>，然而在特殊测试部分，类似这样的 <code>Test.assertEquals(getMinBase(2500050001), 50000);</code> 数就很难办。</p>
@@ -122,8 +122,7 @@ function findRoot(n,i) {
     g&lt;n?l=m:r=m;
   }
   return (r+l)/2;
-}
-</code></pre>
+}</code></pre>
 <p><code>Number.MAX_SAFE_INTEGER</code> 是我们可以在 JavaScript 中进行 <strong>准确计算</strong>的最大数字，比之更大的数依然存在，但如果参与计算就会误差很大。</p>
 <blockquote>
 <p>The <strong>Number.MAX_SAFE_INTEGER</strong> constant represents the maximum safe integer in JavaScript (<code>253 - 1</code>).</p>
@@ -133,8 +132,7 @@ function findRoot(n,i) {
 <pre><code class="javascript">&gt;x = findRoot(1000,4)
 9.641969245752986
 &gt;Math.pow(x,3) + Math.pow(x,2) + Math.pow(x,1) + 1
-999.9999999995179
-</code></pre>
+999.9999999995179</code></pre>
 <p>关键一步：<code>g=(Math.pow(m,i)-1)/(m-1)</code>，写成数学式是：</p>
 <p>$g = \dfrac{m^i -1}{m-1} = m^{i-1}+m^{i-2} + … + m + 1$</p>
 <p>求解的方程是：</p>
@@ -155,8 +153,7 @@ function findRoot(n,i) {
   }
 
   return number - 1;
-}
-</code></pre>
+}</code></pre>
 <p> <a href="https://www.codewars.com/users/LesRamer" target="_blank" rel="noopener">LesRamer</a>, <a href="https://www.codewars.com/users/yurak" target="_blank" rel="noopener">yurak</a></p>
 <pre><code class="javascript">function getMinBase(x) {
   function test(b) {
@@ -171,12 +168,11 @@ function findRoot(n,i) {
     if (test(b-1)) return b-1;
   }
   return -1;
-}
-</code></pre>
+}</code></pre>
 <p>参考文章：</p>
 <ul>
 <li><a href="https://math.stackexchange.com/questions/900869/prove-xn-1-x-1xn-1xn-2-x1" target="_blank" rel="noopener">Prove $x^n−1=(x−1)(x^{n−1}+x^{n−2}+…+x+1)$</a></li>
-<li><a href="http://www.wikiwand.com/zh/二分法_(數學" target="_blank" rel="noopener">二分法 (數學)</a>)</li>
+<li><a href="http://www.wikiwand.com/zh/二分法_(數學)" target="_blank" rel="noopener">二分法 (數學)</a></li>
 </ul>
 
             </div>
@@ -266,27 +262,27 @@ function findRoot(n,i) {
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>

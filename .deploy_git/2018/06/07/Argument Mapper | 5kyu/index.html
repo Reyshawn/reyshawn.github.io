@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -58,12 +58,12 @@
 
 var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
 console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
-console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
-</code></pre>
+console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
 <p>The passed values are in the same order as they appear in the function object.</p>
 <p>Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.</p>
 <p>Hajime!</p>
 <a id="more"></a>
+
 <h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function createArgumentMap(func) {
     // create an argument map and return it
     let args = Array.prototype.slice.call(arguments,1);
@@ -72,16 +72,14 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
         res[&#39;a&#39; + i] = args[i-1]
     }
     return res
-  }
-</code></pre>
+  }</code></pre>
 <p>关于 JavaScript 中 arguments 的性质参看：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments" target="_blank" rel="noopener">Arguments object</a></p>
 <p><code>res[&#39;a&#39;+i]</code> 是为了契合 test 中都是用形如 map[a1] map[a2] 等来 check 答案的。这里我的方法有些取巧。实际上需要得到的是实际定义函数时使用的参数名称，就像上次 review 中那样，要用到 <code>.toString()</code> 和正则表达式。</p>
 <h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p><a href="https://www.codewars.com/users/colbydauph" target="_blank" rel="noopener">colbydauph</a></p>
 <pre><code class="javascript">function createArgumentMap(func) {
   var args = (/function\s[^(]*\(([^)]+)\)/g.exec(func.toString()) || [&#39;&#39;]).pop().split(/,/g);
   return Array.prototype.slice.call(arguments, 1).reduce(function(p, c, i){ return p[args[i]] = c, p }, {});
-}
-</code></pre>
+}</code></pre>
 <p><code>reduce()</code> 中 callback 函数的三个参数，依次分别是 <code>accumulator</code>, <code>currentValue</code>, <code>currentIndex</code>。对应代码中的 <code>function(p, c, i){...}</code></p>
 <p>正则表达式分析：</p>
 <p><code>/function\s[^(]*\(([^)]+)\)/g</code></p>
@@ -102,8 +100,7 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
 [ &#39;function func1(arg1, arg2)&#39;,
   index: 0,
   input: &#39;function func1(arg1, arg2) { console.log(arg1, arg2) }&#39; ]
-&gt;
-</code></pre>
+&gt;</code></pre>
 <p>上述展示了加中间那对括号，和不加括号时的区别。</p>
 <p>另外注意这里的 <code>.split(/,/g)</code> 方法的参数。这里的参数并不是两个。而是一个，一个正则表达式，global 模式匹配单字符 <code>,</code>，用正则表达式的 <code>/.../g</code> 扩起来。同理也可以写成 <code>.split(&#39;,&#39;)</code>。</p>
 <p><code>.reduce()</code>方法使用及参数说明：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">Array.prototype.reduce()</a></p>
@@ -131,8 +128,7 @@ function getArgumentNames(func) {
   if(result === null)
      result = []
   return result
-}
-</code></pre>
+}</code></pre>
 
             </div>
             <div class="entry-tags">
@@ -221,27 +217,27 @@ function getArgumentNames(func) {
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>

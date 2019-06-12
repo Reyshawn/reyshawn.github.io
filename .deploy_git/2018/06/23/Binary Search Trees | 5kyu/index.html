@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -61,13 +61,12 @@
 </ul>
 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p>
 <p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p>
-<pre><code class="python">&#39;[_ B [C]]&#39;
-</code></pre>
+<pre><code class="python">&#39;[_ B [C]]&#39;</code></pre>
 <p>This tree is obtained by evaluating the following expression:</p>
-<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))
-</code></pre>
+<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))</code></pre>
 <p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p>
 <a id="more"></a>
+
 <h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">class Tree(object):
 
     def __init__(self, root, left=None, right=None):
@@ -130,8 +129,7 @@ class Node(object):
         return self.value == other.value
 
     def __ne__(self, other):
-        return self.value != other.value
-</code></pre>
+        return self.value != other.value</code></pre>
 <h2 id="Other-Solution"><a href="#Other-Solution" class="headerlink" title="Other Solution"></a>Other Solution</h2><p> <a href="https://www.codewars.com/users/siebenschlaefer" target="_blank" rel="noopener">siebenschlaefer</a></p>
 <pre><code class="python">class Tree(object):
     # ... 其余重复部分省略
@@ -154,8 +152,7 @@ class Node(object):
     def __ne__(self, other):
         return not (self == other)
 
-# ... 其余重复部分省略
-</code></pre>
+# ... 其余重复部分省略</code></pre>
 <p>这个在 <code>__str__()</code> 部分写得异常简洁，并且利用到了 <code>is_leaf()</code> 方法。如果  <code>is_leaf()</code> 返回值为 <code>True</code>，则说明 self 没有 left 和 right。还有 <code>if</code> 的单行写法，也要学会使用。</p>
 <p><code>__eq__()</code> 方法的 <code>and</code> 连续使用，要用括号括起来。</p>
 <p><a href="https://www.codewars.com/users/Voile" target="_blank" rel="noopener">Voile</a></p>
@@ -187,14 +184,12 @@ class Node(object):
 
     def __ne__(self, other):
         return not self == other
-
 </code></pre>
 <p>Voile 在 <code>__str__()</code> 中用的 return 形式是 <code>&#39;[{}]&#39;.format()</code>，也是分了三种情况。注意第三种的单行写法，形如：</p>
 <pre><code class="python">&gt;&gt;&gt; &#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])
 &#39;1 _ 3&#39;
 &gt;&gt;&gt; &#39;&#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])
-&#39;1_3&#39;
-</code></pre>
+&#39;1_3&#39;</code></pre>
 <p><code>__eq__()</code> 写法思路和我的写法差不多，都是在保证 <code>self.root == other.root</code> 的情况下，输出一个 <code>and</code> 并列语句，<code>self.left == other.left and self.right == other.right</code>。当然，他这里用 <code>type</code> 来判断是否是 Node 还是 None。</p>
 <p> <a href="https://www.codewars.com/users/brettso" target="_blank" rel="noopener">brettso</a></p>
 <pre><code class="python">class Tree(object):
@@ -225,8 +220,7 @@ class Node(object):
 
 
     def __ne__(self, other):
-        return self.__str__() != other.__str__()
-</code></pre>
+        return self.__str__() != other.__str__()</code></pre>
 <p>这个 <code>__eq__()</code> 的写法很巧妙啊，直接利用了 <code>__str__()</code> 来进行判断。</p>
 
             </div>
@@ -316,27 +310,27 @@ class Node(object):
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>
