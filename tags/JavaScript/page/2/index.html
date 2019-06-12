@@ -46,6 +46,35 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/06/07/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Thu Jun 07 2018 15:32:38 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>As part of a broader functionality you need to develop an argument mapper.</p>
+<p>The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.</p>
+<p>The usage is:</p>
+<pre><code class="javascript">function func1(arg1, arg2) { ... }
+
+var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
+console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
+console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
+</code></pre>
+<p>The passed values are in the same order as they appear in the function object.</p>
+<p>Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.</p>
+<p>Hajime!</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/07/Argument Mapper | 5kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
