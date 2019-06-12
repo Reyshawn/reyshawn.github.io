@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -92,8 +92,7 @@ cycle(33) = 2 -&gt; 0.03 03 03 03 03 03 03 03
 cycle(37) = 3 -&gt; 0.027 027 027 027 027 0
 cycle(94) = -1 
 
-cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...
-</code></pre>
+cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...</code></pre>
 <p>Note</p>
 <ul>
 <li>Translators are welcome for all languages.</li>
@@ -162,8 +161,7 @@ def return_one():
   return 1
 
 return_one.__name__ == &#39;return_one&#39; # If wraps hadn&#39;t been used, __name__ would be equal to &#39;wrapper&#39;
-return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;
-</code></pre>
+return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;</code></pre>
 <p><strong>Note: of course, you may not use the functools module for this kata.</strong></p>
 <p>题目要求，经过一次二重的装饰器，保留原来函数的 <code>__name__</code> 和 <code>__doc__</code>。二重装饰器 decorator，就是用一个 decorator 去 decorate 另一个 decorator。该二重装饰器装饰后的函数， 输出的是一重装饰器装饰过的函数，但是 <code>__name__</code> 和 <code>__doc__</code>  得到保留，及为原函数的值。</p>
 <p>依照题目给的例子，就是输出是被 decorator wraps 修饰过的 <code>wrapper</code> 函数，即函数主体和功能还是 <code>wrapper</code>，但因为被 <code>wraps</code> 装饰了，输出的 <code>wrapper</code> 函数的  <code>__name__</code> 和 <code>__doc__</code>  值为原函数 <code>return_one</code> 的值。</p>
@@ -194,11 +192,9 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
 </ul>
 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p>
 <p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p>
-<pre><code class="python">&#39;[_ B [C]]&#39;
-</code></pre>
+<pre><code class="python">&#39;[_ B [C]]&#39;</code></pre>
 <p>This tree is obtained by evaluating the following expression:</p>
-<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))
-</code></pre>
+<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))</code></pre>
 <p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p>
                 </div>
                 <div class="entry-footer">
@@ -237,20 +233,16 @@ function addOne(x) {
   return sum(x, 1);
 }
 
-double(sum(2, 3)); // 10
-</code></pre>
+double(sum(2, 3)); // 10</code></pre>
 <p>But in complex expressions, composition may be difficult to understand. For example:</p>
-<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72
-</code></pre>
+<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72</code></pre>
 <p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p>
-<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72
-</code></pre>
+<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72</code></pre>
 <p>Your job is implement the <code>chain</code> function:</p>
 <pre><code class="javascript">function chain(fns) {
 }
 
-var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});
-</code></pre>
+var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});</code></pre>
 <p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p>
 <p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p>
 <p>Note that the chain can be reused (the internal state is not stored):</p>
@@ -288,8 +280,7 @@ var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});
 俥傌相仕帥仕相傌俥
 
 The bottom and top half corresponds to red and black pieces, respectively.
-Note that red and black have different characters to distinguish the same piece of both sides.
-</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
+Note that red and black have different characters to distinguish the same piece of both sides.</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">READ MORE</a>
@@ -314,8 +305,7 @@ Note that red and black have different characters to distinguish the same piece 
 
 var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
 console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
-console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
-</code></pre>
+console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
 <p>The passed values are in the same order as they appear in the function object.</p>
 <p>Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.</p>
 <p>Hajime!</p>
@@ -352,8 +342,7 @@ add_(); // returns 5
 
 add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
 add_(10); // returns NaN
-add_(10,10); // returns 20
-</code></pre>
+add_(10,10); // returns 20</code></pre>
 <p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
                 </div>
                 <div class="entry-footer">
@@ -381,16 +370,14 @@ add_(10,10); // returns 20
         [prev, curr] = [curr, prev + curr];
         yield curr;
     }
-}
-</code></pre>
+}</code></pre>
 <p>Using them in this way, we can do amazing things:</p>
 <pre><code class="javascript">let seq = fibonacci();
 print(seq.next()); // 1
 print(seq.next()); // 2
 print(seq.next()); // 3
 print(seq.next()); // 5
-print(seq.next()); // 8
-</code></pre>
+print(seq.next()); // 8</code></pre>
 <p>This is powerful, but until a few months later, ES6 will not be born.</p>
 <p>The goal of this kata is to implement pseudo-generators with ES5.</p>
                 </div>
@@ -485,27 +472,27 @@ print(seq.next()); // 8
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>

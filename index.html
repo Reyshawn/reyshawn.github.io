@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -129,7 +129,7 @@
                 </header>
                 <div class="entry-content">
                     <p>今早安装了 iPadOS Development Beta 版本，体验了一会儿。因为不太敢拿 mac 升级 Catalina，据说文件系统改掉了。目前 mac 不太敢升，所以 Sidecar 功能暂时还没办法体验。iPhone 变化其实没那么大，也就只有 iPad 可以尝试了。提前做好备份，在苹果的开发者官网 <a href="https://developer.apple.com/support/beta-software/install-beta/" target="_blank" rel="noopener">Installing Apple Beta Software</a> 下载安装 Xcode beta，安装完毕要打开运行，这样做的目的是帮助 iTunes 能够识别 iOS13。下载你所使用设备的 ipsw 文件。我是在<a href="https://www.udid.in/install-beta" target="_blank" rel="noopener">这里</a>下载的。然后在 iTunes 里更新就行了，注意要提前做好备份。</p>
-<p>具体的安装教程也可以参考这个 <a href="https://www.youtube.com/watch?v=iPZ6eNc8BvU&amp;frags=pl%2Cwn" target="_blank" rel="noopener">YouTube 视频</a>。</p>
+<p>具体的安装教程也可以参考这个 <a href="https://www.youtube.com/watch?v=iPZ6eNc8BvU&frags=pl%2Cwn" target="_blank" rel="noopener">YouTube 视频</a>。</p>
 <p>下面按照给我带来惊喜的顺序，来简单谈一下这次的 iPadOS / iOS13。</p>
                 </div>
                 <div class="entry-footer">
@@ -171,8 +171,7 @@
 <h2 id="Event-loop"><a href="#Event-loop" class="headerlink" title="Event loop"></a>Event loop</h2><p>JavaScript 是一种 single thread 的语言。既然单一线程，那么在某个时间点，只能完成一项任务。于是</p>
 <pre><code class="javascript">$.get(&#39;http://twitter.com&#39;)
 $.get(&#39;http://youtube.com&#39;)
-$.get(&#39;http://google.com&#39;)
-</code></pre>
+$.get(&#39;http://google.com&#39;)</code></pre>
 <p>在单线程下，如果某一行执行所需要的时间太久了，那么余下的的 command 也无法执行，程序就在那一行停滞下来了。我们把这个叫做 blocking。然而事实上，当我们在使用 <code>setTimeout()</code> 函数时，程序似乎不会出现 blocking。</p>
 <pre><code class="Javascript">console.log(&#39;hi&#39;)
 setTimeout(() =&gt; console.log(&#39;there&#39;), 0)
@@ -181,8 +180,7 @@ console.log(&#39;Welcome!&#39;)
 // output:
 // hi
 // Welcome
-// there
-</code></pre>
+// there</code></pre>
 <p>这里哪怕是设置 delay 为 0s， <code>setTimeout()</code> 里的函数也是在最后才执行，是怎么回事呢？</p>
 <p>在 JavaScript 的执行环境中，所有的需要运行的函数是单线程的，按照次序会出现在 call stack 里。而通常，JavaScript 要么在 Browser 里运行，要么在 Node 环境运行，在 Browser 里运行时，会有一整套来自 Browser 提供的 web API，同理在 node 环境里也有相应的 API。 <code>setTimeout()</code> 函数就来自这些提供的 API 中。当我们 declare and call  一个  <code>setTimeout()</code> 函数时，Browser 会生成一个 timer 计时器，计时器的时间达到时，  <code>setTimeout()</code>  里定义的 callback 函数会进入到一个叫 <code>task queue</code> 的容器中，此时程序会去检测 call stack 是否为空，当 call stack 为空时，会将 task queue 中最上层的函数移入 call stack 中进行执行。因此本质上来讲，由于有 web API 的加持，最终类似  <code>setTimeout()</code> 函数还是使用了多线程。只不过对于 JavaScript 来讲，一直是执行的是 call stack 里的内容，可以认为一直是单线程操作。</p>
                 </div>
@@ -228,7 +226,7 @@ console.log(&#39;Welcome!&#39;)
                 </header>
                 <div class="entry-content">
                     <p>又是一个新年过去了。在年复一年不变的习俗和渐渐消淡的年味里，我把 Lara Croft Go 打通了。在 Square Enix 的 Go 游戏三部曲里，Hitman Go 是几年前玩过的，去年尝试了 Deus Ex Go。相比之下，更喜欢这部 Lara Go。Deus 里的科幻风太过浓重，Hitman Go 很贴近现代都市，在棋盘模拟的场景里，有熟悉的游泳池，花园，房屋里的家具等等。Lara Go 的场景都是放在野外，山窟洞穴，悬崖峭壁。如果另外两作的特点都是在「潜入」，那么 Lara Go 的特点则是在「冒险」。尽管有着固定的棋盘，每次只能前进一格，但这的确是个不折不扣的 Tomb Raider 式的冒险故事。</p>
-<p><img src="/images/Game/Lara Go 1.jpg" alt="Lara Go 1"></p>
+<p>![Lara Go 1](/images/Game/Lara Go 1.jpg)</p>
 <p>游戏整体美术风格，偏向折纸，背景的黑色剪影提供沉浸感。这样的美术风格在 iOS 平台并不少见。熟悉的有「纪念碑谷」「Alto’s Odyssey」。这样偏折纸的艺术风格，也比较适合这样的游戏模式。Square Enix 在 Go 系列游戏里想做的，是希望把 Go 系列做成一种桌游类型的游戏，所以这样的折纸风格再完美不过了。几年前在玩 Hitman Go 时，每一关的地图，都是按照桌游的包装盒来设计的。</p>
 <p>以下内容涉及剧透。</p>
                 </div>
@@ -394,27 +392,27 @@ console.log(&#39;Welcome!&#39;)
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>

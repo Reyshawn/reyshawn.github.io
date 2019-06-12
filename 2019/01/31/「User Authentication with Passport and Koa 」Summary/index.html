@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -62,6 +62,7 @@
 <li>knex</li>
 </ul>
 <a id="more"></a>
+
 <h2 id="文件结构，逻辑"><a href="#文件结构，逻辑" class="headerlink" title="文件结构，逻辑"></a>文件结构，逻辑</h2><p>文件最后的结构：</p>
 <pre><code class="shell">.
 ├── LICENSE
@@ -96,20 +97,16 @@
     ├── routes.auth.test.js
     ├── routes.index.test.js
     ├── routes.movies.test.js
-    └── sample.test.js
-</code></pre>
+    └── sample.test.js</code></pre>
 <p>有一些文件夹，文件属于自动生成的 boilerplate，比如 <code>package.json</code>，<code>knexfile.js</code>，<code>db</code> 文件夹里的一些内容。项目的结构清晰明朗。<code>test</code> 为测试文件夹。测试文件的标题统一加上 <code>test</code> 标示，并用 dot 分隔。这也提醒自己，文件标题的命名可以不使用 underscore 或 dash 来分隔，也可以用 dot。在 <code>server</code> 文件夹下，<code>db</code> 几乎都是数据库，knex 相关的。另外有路由 <code>routes</code> 文件夹和 <code>views</code> 视图文件夹。</p>
 <h2 id="Postgresql"><a href="#Postgresql" class="headerlink" title="Postgresql"></a>Postgresql</h2><p>在 macOS 上直接使用 Brew 安装即可。由于我个人不习惯开机自动启动数据库，那个需要用到类似 <code>service start</code> 的命令。这里是手动开启的办法：</p>
-<pre><code class="shell">$ pg_ctl -D /usr/local/var/postgres start  
-</code></pre>
+<pre><code class="shell">$ pg_ctl -D /usr/local/var/postgres start  </code></pre>
 <p>和 Mysql 一样，把 <code>start</code> 可以换成 <code>stop</code>，<code>restart</code>。</p>
 <p>数据库初始化：</p>
-<pre><code class="shell">$ initdb /usr/local/var/postgres  
-</code></pre>
+<pre><code class="shell">$ initdb /usr/local/var/postgres  </code></pre>
 <p>在这篇教程里，需要我事先创建两个数据库，创建数据库用如下命令：</p>
 <pre><code class="shell">$ createdb koa_api    
-$ createdb koa_api_test
-</code></pre>
+$ createdb koa_api_test</code></pre>
 <p><code>psql</code> + Database，进入 database 的命令行。</p>
 <p><code>\dt</code> 显示所有 tables</p>
 <blockquote>
@@ -120,8 +117,7 @@ $ createdb koa_api_test
 </ul>
 <p>You will never see tables in other databases, these tables aren’t visible. You have to connect to the correct database to see its tables (and other objects).</p>
 <p>To switch databases:</p>
-<pre><code>\connect database_name` or `\c database_name
-</code></pre><p>See the manual about <a href="http://www.postgresql.org/docs/current/interactive/app-psql.html" target="_blank" rel="noopener">psql</a>.</p>
+<pre><code>\connect database_name` or `\c database_name</code></pre><p>See the manual about <a href="http://www.postgresql.org/docs/current/interactive/app-psql.html" target="_blank" rel="noopener">psql</a>.</p>
 <p>– <a href="https://dba.stackexchange.com/questions/1285/how-do-i-list-all-databases-and-tables-using-psql" target="_blank" rel="noopener">How do I list all databases and tables using psql?</a></p>
 </blockquote>
 <p>除此以外，还可以通过 Knex 来创建数据库。理论上，可以通过 Knex 来进行所有的数据库操作。</p>
@@ -133,21 +129,18 @@ $ createdb koa_api_test
 <p><img src="/images/knex.png" alt="knex"></p>
 <p>因为要频繁在 Terminal 里用到 <code>knex</code> 命令，所以最后事先全局安装 Knex。在这篇教程里，我们在使用 Postgresql 创建完数据库以后，会看到需要我们执行这两条命令：</p>
 <pre><code class="shell">$ knex migrate:latest --env development
-$ knex seed:run --env development
-</code></pre>
+$ knex seed:run --env development</code></pre>
 <hr>
 <p><em>Tips：</em></p>
 <p><em>如果不想要全局安装 Knex，依然想在 Terminal 运行。在生成的 <code>node_modules</code> 文件夹下会有个隐藏文件夹 <code>.bin</code>，里面包含了全部我们可以直接运行的 package。所以直接：</em></p>
-<pre><code class="shell">$ node_modules/.bin/knex init
-</code></pre>
+<pre><code class="shell">$ node_modules/.bin/knex init</code></pre>
 <hr>
 <p><code>init</code> 之后，本地会自动生成一个 <code>knexfile.js</code> 文件。里面大致是些 boilerplates。在这篇教程给的 source code 里，    <code>knexfile.js</code> 已经针对 postgresql 配置完毕。但这里要明白 migration 和 seed 两个操作。</p>
 <blockquote>
 <p>Migrations are a way to make database changes or updates, like creating or dropping tables, as well as updating a table with new columns with constraints via generated scripts. We can build these scripts via the command line using <code>knex</code>command line tool.</p>
 </blockquote>
 <p>例如，通过 knex 创建 table：</p>
-<pre><code class="shell">$ knex migrate:make users
-</code></pre>
+<pre><code class="shell">$ knex migrate:make users</code></pre>
 <p>这里会自动生成一个 <code>users.js</code> 文件，文件名前面还会有 time stamp。存储路径在 <code>./server/db/migration/</code>。所有的文件夹都会自动生成。在新生成的文件，我们需要定义新建的这个 table 各个 field 属性。例如在这篇文章的例子里，新建了 users table，定义属性如下：</p>
 <pre><code class="javascript">exports.up = (knex, Promise) =&gt; {
   return knex.schema.createTable(&#39;users&#39;, (table) =&gt; {
@@ -159,25 +152,20 @@ $ knex seed:run --env development
 
 exports.down = (knex, Promise) =&gt; {
   return knex.schema.dropTable(&#39;users&#39;);
-};
-</code></pre>
+};</code></pre>
 <p>通过下面这条命令来应用我们定义的属性：</p>
-<pre><code class="shell">knex migrate:latest --env development
-</code></pre>
+<pre><code class="shell">knex migrate:latest --env development</code></pre>
 <blockquote>
 <p>To run the migration, use the command:</p>
-<pre><code>knex migrate:latest
-</code></pre><p>The default environment is development, which works for us here, but if you need to specify a different environment, such as a test environment, then you can use the <em>env</em> flag in the migration command like:</p>
-<pre><code>knex migrate:latest --env test
-</code></pre></blockquote>
+<pre><code>knex migrate:latest</code></pre><p>The default environment is development, which works for us here, but if you need to specify a different environment, such as a test environment, then you can use the <em>env</em> flag in the migration command like:</p>
+<pre><code>knex migrate:latest --env test</code></pre></blockquote>
 <p><code>development</code> 是我们事先在 <code>knexfile.js</code> 里定义好的。可以理解为对于 database 的映射。从上面定义的属性中，可以很轻松的知道这个 table 有两个 field，分别是 <code>username</code> 和 <code>password</code>。以及每个 field 的属性都通过 chain function 的形式来表达。</p>
 <blockquote>
 <p>Similar to migrations, the <code>knex</code> module allows us to create scripts to insert initial data into our tables called seed files! If we have relations on our tables, the seeding <strong>must be in a specific order</strong> to so that we can rely on data that might already be in the database. </p>
 </blockquote>
 <p>seed 是用来初始化数据的。同 migrate 一样：</p>
 <pre><code class="shell">$ knex seed:make users
-$ knex seed:run --env development
-</code></pre>
+$ knex seed:run --env development</code></pre>
 <p>line 1 会自动创建一个 <code>user.js</code> 在路径 <code>./server/db/seeds/</code> 里。line 2 运行这个 seeds，对 table 里数据进行初始化。</p>
 <h2 id="Mocha-js-Chai-js"><a href="#Mocha-js-Chai-js" class="headerlink" title="Mocha.js ,  Chai.js"></a>Mocha.js ,  Chai.js</h2><p>一个测试 module 被称为 specification，简称 spec，结构如下图所示：</p>
 <p><img src="/images/Mocha_test.png" alt="Mocha_test"></p>
@@ -201,8 +189,7 @@ describe(&quot;sample&quot;, ()=&gt;{
         let result = x;
         assert.equal(Math.pow(x, 1), result);
     });
-});
-</code></pre>
+});</code></pre>
 <p>在 Terminal 里运行：</p>
 <pre><code class="shell">$ node_modules/.bin/_mocha
 
@@ -210,8 +197,7 @@ describe(&quot;sample&quot;, ()=&gt;{
     ✓ it&#39;s just a test
 
 
-  1 passing (6ms)
-</code></pre>
+  1 passing (6ms)</code></pre>
 <p>Chai 的作用是提供了更多测试的方法。例如教程里测试是否 render view 成功：</p>
 <pre><code class="javascript">describe(&#39;GET /auth/register&#39;, () =&gt; {
   it(&#39;should render the register view&#39;, (done) =&gt; {
@@ -228,8 +214,7 @@ describe(&quot;sample&quot;, ()=&gt;{
       done();
     });
   });
-});
-</code></pre>
+});</code></pre>
 <p>其主要内容检测返回的 res 里有没有想的 DOM Node 。当然，前提还是去验证返回代码是否是 200， 返回文本类型这些。</p>
 <h2 id="Redis-Session"><a href="#Redis-Session" class="headerlink" title="Redis, Session"></a>Redis, Session</h2><p>这篇教程的最后介绍了 redis，把用户的 user 信息从 memory 中拿出来存进 redis 里。这样当关闭浏览器，短时间再重新打开时，不需要重新输入用户名密码进行登录。</p>
 <blockquote>
@@ -250,11 +235,9 @@ describe(&quot;sample&quot;, ()=&gt;{
 </blockquote>
 <p>依旧是通过 brew 安装 redis。</p>
 <p>redis 启动：</p>
-<pre><code class="shell">$ redis-server /usr/local/etc/redis.conf
-</code></pre>
+<pre><code class="shell">$ redis-server /usr/local/etc/redis.conf</code></pre>
 <p>redis 关闭，直接 <code>ctrl</code> + <code>C</code> 或是：</p>
-<pre><code class="shell">$ redis-cli shutdown
-</code></pre>
+<pre><code class="shell">$ redis-cli shutdown</code></pre>
 <p>参考：</p>
 <ul>
 <li><a href="https://knexjs.org" target="_blank" rel="noopener">Knex.js</a></li>
@@ -357,27 +340,27 @@ describe(&quot;sample&quot;, ()=&gt;{
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -57,6 +57,7 @@
 <p>Let’s make it so Bob <strong>never</strong> misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a <code>1</code> or a <code>2</code> (respectively).</p>
 <p>It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a <code>2</code> if the number is “interesting” (see below), a <code>1</code> if an interesting number occurs within the next two miles, or a <code>0</code> if the number is not interesting.</p>
 <a id="more"></a>
+
 <p><strong>Note:</strong> In Haskell, we use <code>No</code>, <code>Almost</code> and <code>Yes</code> instead of <code>0</code>, <code>1</code> and <code>2</code>.</p>
 <p> <strong>“Interesting” Numbers</strong></p>
 <p>Interesting numbers are 3-or-more digit numbers that meet one or more of the following criteria:</p>
@@ -69,7 +70,8 @@
 <li>The digits match one of the values in the <code>awesomePhrases</code> array</li>
 </ul>
 <blockquote>
-<p>  † For incrementing sequences, <code>0</code> should come after <code>9</code>, and not before  <code>1</code>, as in <code>7890</code>.<br>  ‡ For decrementing sequences, <code>0</code> should come after <code>1</code>, and not before  <code>9</code>, as in <code>3210</code>.</p>
+<p>  † For incrementing sequences, <code>0</code> should come after <code>9</code>, and not before  <code>1</code>, as in <code>7890</code>.
+  ‡ For decrementing sequences, <code>0</code> should come after <code>1</code>, and not before  <code>9</code>, as in <code>3210</code>.</p>
 </blockquote>
 <p>So, you should expect these inputs and outputs:</p>
 <pre><code class="javascript">// &quot;boring&quot; numbers
@@ -87,7 +89,6 @@ isInteresting(11211, []); // 2
 isInteresting(1335, [1337, 256]); // 1
 isInteresting(1336, [1337, 256]); // 1
 isInteresting(1337, [1337, 256]); // 2
-
 </code></pre>
 <p><strong>Error Checking</strong></p>
 <ul>
@@ -116,8 +117,7 @@ isInteresting(1337, [1337, 256]); // 2
       interesting = 1;
   });
   return interesting;
-}
-</code></pre>
+}</code></pre>
 <p>这个答案在代码结构上很厉害的一点在于，使用了 <code>some()</code> 这个函数，以及加上完全由函数组成的 array 数组，来进行给定规则的检验。 <code>some()</code> 方法主要用于测试数组中某些元素。用法就是在方法 <code>some()</code> 中定义一个 callback 回调函数，数组中的每一个元素作为回调函数的参数依次传入到回调函数中（回调函数的意思就是函数作为函数的参数，这里有点儿绕） 。</p>
 <p>在这个例子里，<code>tests</code> 是事先定义好的数组，数组的每一个元素都是一个函数。对这个数组使用 <code>some()</code> 方法，在其中定义了一个回调函数，形如：</p>
 <pre><code class="javascript">tests.some(function(test){
@@ -125,8 +125,7 @@ isInteresting(1337, [1337, 256]); // 2
         // code here
     }
     //code here
-})
-</code></pre>
+})</code></pre>
 <p>在实际执行过程中，<code>tests</code> 中的每一个元素 element，都会作为回调函数的参数 <code>test</code> 传递进回调函数中。因为 <code>tests</code>  数组里的元素都是函数，所以这里使用参数  <code>test</code>  时也是把它当作函数来使用的。因此才会看到有 <code>test(number)</code> 这样的语句。</p>
 <p>关于 <code>some()</code> 方法，MDN 上给了一个更加简单的例子，来帮助理解这其中的参数传导：</p>
 <pre><code class="javascript">function isBigEnough(element, index, array) {
@@ -135,8 +134,7 @@ isInteresting(1337, [1337, 256]); // 2
 var passed = [2, 5, 8, 1, 4].some(isBigEnough);
 // passed is false
 passed = [12, 5, 8, 1, 4].some(isBigEnough);
-// passed is true
-</code></pre>
+// passed is true</code></pre>
 <p>明白了整个算法的结构，其实在 <code>tests</code> 中定义的检测函数，也都非常巧妙。 </p>
 <ul>
 <li>形如 [1234, 8765] 这类数，把被检测数转化成 <code>RegExp</code> 逆向使用正则表达式；</li>
@@ -231,27 +229,27 @@ passed = [12, 5, 8, 1, 4].some(isBigEnough);
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -68,9 +68,9 @@
 俥傌相仕帥仕相傌俥
 
 The bottom and top half corresponds to red and black pieces, respectively.
-Note that red and black have different characters to distinguish the same piece of both sides.
-</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
+Note that red and black have different characters to distinguish the same piece of both sides.</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
 <a id="more"></a>
+
 <pre><code>俥/車, 傌/馬, 炮/砲 (2 max): no restrictions
 
 相/象 (2 max): they can only stay at 7 spots at their side of the board:
@@ -116,8 +116,7 @@ Additionally, 帥/將 cannot face each other vertically without any pieces inbet
 兵　　　　　　　　
 The left and right 兵s can do nothing but moving forward. The center one, however, can move sideways since it has crossed the center line.
 
-(By the way, there is no such thing as pawn promotion in Xiangqi.)
-</code></pre><hr>
+(By the way, there is no such thing as pawn promotion in Xiangqi.)</code></pre><hr>
 <p>You program should validate that:</p>
 <ul>
 <li>Number of pieces of each side is within their respective limits</li>
@@ -126,8 +125,7 @@ The left and right 兵s can do nothing but moving forward. The center one, howev
 </ul>
 <pre><code>－－－－兵－兵－兵
 兵－－－－－－－－
-兵
-</code></pre><p>would be illegal because 兵 cannot move sideways before they go across the center row, which means the above configuration is fundamentally impossible.</p>
+兵</code></pre><p>would be illegal because 兵 cannot move sideways before they go across the center row, which means the above configuration is fundamentally impossible.</p>
 <p>You can assume that the board will always be well-formatted. Always assume red is at the bottom.</p>
 <p>See example test cases for some examples.</p>
 <h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function chessValidator(board) {
@@ -282,8 +280,7 @@ function isArrayInArray(arr, item){
     return JSON.stringify(ele) === item_as_string;
   });
   return contains;
-}
-</code></pre>
+}</code></pre>
 <p>主要讲一下重复用到的两个 function 吧，一个是 <code>chessIndex()</code> 来得到棋盘上某个棋子的坐标，输出的是一个二维 array。另一个 <code>isArrayInArray(arr, item)</code> ，arr 是一个二维 array，item 是一个 array，检测 item 是否再 arr 里面。</p>
 <p><code>chessIndex()</code> 难点在与处理一行内重复的元素。比如:</p>
 <pre><code class="javascript">&gt;a = a.split(&quot;&quot;)
@@ -292,8 +289,7 @@ function isArrayInArray(arr, item){
 1
 &gt;a.indexOf(&#39;砲&#39;,2)
 7
-&gt;
-</code></pre>
+&gt;</code></pre>
 <p>这里 array 中含有两个 <code>&#39;砲&#39;</code>。要获取第二个 <code>&#39;砲&#39;</code>，就要给 <code>indexOf()</code> 加上第二个参数。</p>
 <p><code>isArrayInArray()</code> 方法中用到 <code>JSON.stringfy</code>：</p>
 <pre><code class="javascript">&gt;a = [[1,2],[2,3]]
@@ -322,8 +318,7 @@ function isArrayInArray(arr, item){
   city: &#39;New York&#39; }
 &gt;JSON.stringify(obj)
 &#39;{&quot;name&quot;:&quot;John&quot;,&quot;age&quot;:&quot;function () {return 30;}&quot;,&quot;city&quot;:&quot;New York&quot;}&#39;
-&gt;
-</code></pre>
+&gt;</code></pre>
 <p>上面的例子，后面一大部分摘自 <a href="https://www.w3schools.com/js/js_json_stringify.asp" target="_blank" rel="noopener">JSON.stringify()</a>，可以看到，可以把  array，object 等直接转化成 string。最后两个例子是讲，如果 object 中包含函数，则会被忽略。</p>
 <p>用到了 <code>some()</code> 方法，<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some" target="_blank" rel="noopener">MDN docs</a> 给出的解释：</p>
 <blockquote>
@@ -418,27 +413,27 @@ function isArrayInArray(arr, item){
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></li>
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+                <li><a href="/tags/Python/">Python<a></a></a></li>
               
-                <li><a href="/tags/Python/">Python<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></li>
+                <li><a href="/tags/电影/">电影<a></a></a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></li>
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
-                <li><a href="/tags/故事/">故事<a></li>
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></li>
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>
