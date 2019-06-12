@@ -46,6 +46,46 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/06/12/JSON-Web-Token-的产生和认证/">JSON Web Token 的产生和认证</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Wed Jun 12 2019 13:49:07 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Cookie-based-vs-Token-based"><a href="#Cookie-based-vs-Token-based" class="headerlink" title="Cookie-based vs Token-based"></a>Cookie-based vs Token-based</h2><p>有两种认证方式，一种是基于 cookie 的认证，另一种是基于 token 的认证。后者实现往往是通过 JSON Web Token （以下简称 JWT）实现的。首先要说明一下两种认证方式的区别：</p>
+<p>cookie-based authentication 的认证流程是:</p>
+<ol>
+<li>用户填写 credentials，包括用户名，邮箱，密码这些内容；</li>
+<li>Server 服务器验证这些 credentials 是否正确，如果正确，则<strong>认证成功</strong>，创建一个 session 存储在数据库中；</li>
+<li>将这个 session 的 session id 存储在浏览器端的 cookie 里；</li>
+<li>接下来的每一个请求，都会带着这个 session id，Server 在接收请求后也会验证 session id 与 session 是否匹配；</li>
+<li>一旦用户登出，client 端和 server 端的 session 均被摧毁；</li>
+</ol>
+<p>token-based authentication:</p>
+<ol>
+<li>用户填写 credentials，包括用户名，邮箱，密码；</li>
+<li>Server 服务器验证这些 credentials 是否正确，如果<strong>认证成功</strong>，则返回一个 signed token；</li>
+<li>这个 token 会被存储在 client 端，大部分是在 localStorage，但也会存储在 session storage 或是 cookie 里；</li>
+<li>接下来的每一个请求，都会带着 token 作为额外的 authentication 信息。</li>
+<li>Server 收到请求后，首先 decode 这个 token 并对 token 里的 signature 进行验证；</li>
+</ol>
+<p><img src="/images/auto01.png" alt="auto01"></p>
+<p>为什么会说 token-based 更好：</p>
+<ol>
+<li>stateless，也就是不需要再在 server 端保存一份纪录，但 server 端要保存用于签名时用的「secret key」；</li>
+<li>cookie 对跨域 CORS 操作不友好，token 则没有这个问题；</li>
+</ol>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/06/12/JSON-Web-Token-的产生和认证/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/05/18/JavaScript-async-and-Promise/">JavaScript async and Promise</a>
                     </h2>
                     <div class="entry-meta">
@@ -328,35 +368,6 @@ Note that red and black have different characters to distinguish the same piece 
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">Read More</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/07/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Thu Jun 07 2018 15:32:38 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>As part of a broader functionality you need to develop an argument mapper.</p>
-<p>The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.</p>
-<p>The usage is:</p>
-<pre><code class="javascript">function func1(arg1, arg2) { ... }
-
-var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
-console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
-console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
-</code></pre>
-<p>The passed values are in the same order as they appear in the function object.</p>
-<p>Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.</p>
-<p>Hajime!</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/07/Argument Mapper | 5kyu/">Read More</a>
                 </div>
             </article>
             

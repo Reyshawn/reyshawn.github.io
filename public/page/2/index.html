@@ -46,6 +46,44 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/07/10/1n- Cycle | 6kyu/">1/n- Cycle | 6kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2018 年 07 月 10 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Let be <code>n</code> an integer prime with <code>10</code> e.g. <code>7</code>. </p>
+<p><code>1/7 = 0.142857 142857 142857 ...</code>.</p>
+<p>We see that the decimal part has a cycle: <code>142857</code>. The length of this cycle is <code>6</code>. In the same way:</p>
+<p><code>1/11 = 0.09 09 09 ...</code>. Cycle length is <code>2</code>.</p>
+<p><strong>Task</strong></p>
+<p>Given an integer n (n &gt; 1), the function cycle(n) returns the length of the cycle if n and 10 are coprimes, otherwise returns -1.</p>
+<p><strong>Exemples:</strong></p>
+<pre><code class="python">cycle(5) = -1
+cycle(13) = 6 -&gt; 0.076923 076923 0769
+cycle(21) = 6 -&gt; 0.047619 047619 0476
+cycle(27) = 3 -&gt; 0.037 037 037 037 0370
+cycle(33) = 2 -&gt; 0.03 03 03 03 03 03 03 03
+cycle(37) = 3 -&gt; 0.027 027 027 027 027 0
+cycle(94) = -1 
+
+cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...
+</code></pre>
+<p>Note</p>
+<ul>
+<li>Translators are welcome for all languages.</li>
+</ul>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/07/10/1n- Cycle | 6kyu/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/06/29/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
@@ -365,28 +403,6 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/02/12/Codewars.com | Wrapped Function/">READ MORE</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">Catching Car Mileage Numbers</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2018 年 02 月 10 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><blockquote>
-<p>  “7777…<em>8?!??!</em>“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who <em>doesn’t</em> like catching those one-off interesting mileage numbers?</p>
-</blockquote>
-<p>Let’s make it so Bob <strong>never</strong> misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a <code>1</code> or a <code>2</code> (respectively).</p>
-<p>It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a <code>2</code> if the number is “interesting” (see below), a <code>1</code> if an interesting number occurs within the next two miles, or a <code>0</code> if the number is not interesting.</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">READ MORE</a>
                 </div>
             </article>
             
