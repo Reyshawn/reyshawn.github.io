@@ -195,7 +195,7 @@ binding.stat(pathModule.toNamespacedPath(path),
 const { FSReqCallback, statValues } = binding;
 </code></pre>
 <p>从这里开始，就逐渐进入 <code>libuv</code> ，C library 的领域了。在这些 C library 中做了什么事情，以我目前的知识结构就很难理解了。只是大体上，应该是设置异步操作，规定在函数结束后去执行 callback 等等，就如这句 <code>req.oncomplete = callback;</code> 字面含义所写的那样。</p>
-<h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><p>request 是一个简单的 Http client。这是它们的 <a href="https://github.com/request/request">Git repo</a>。web spider 的目标就是要下载目标 url 的内容。在上一小节，我们通过 <code>fs.stat()</code> 来检测文件是否存在。当检测到文件不存在的时候，则对目标 url 进行下载。下载这个动作，展开来讲，首要工作就是创建一个 http clinet，来向 server 发送请求，然后接收来自 server 返回的数据。即 <code>body</code> 内容。这些操作，都是通过 <code>request</code> 这个 module 来实现的。创建的 http client 就可类比浏览器，当它发送 request 请求时，需要按照 TCP/IP 协议，加入 head，设置 tunnel，redirect 等等内容。这些是通过 <code>request.Request(params)</code> 来实现的。</p>
+<h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><p>request 是一个简单的 Http client。这是它们的 <a href="https://github.com/request/request" target="_blank" rel="noopener">Git repo</a>。web spider 的目标就是要下载目标 url 的内容。在上一小节，我们通过 <code>fs.stat()</code> 来检测文件是否存在。当检测到文件不存在的时候，则对目标 url 进行下载。下载这个动作，展开来讲，首要工作就是创建一个 http clinet，来向 server 发送请求，然后接收来自 server 返回的数据。即 <code>body</code> 内容。这些操作，都是通过 <code>request</code> 这个 module 来实现的。创建的 http client 就可类比浏览器，当它发送 request 请求时，需要按照 TCP/IP 协议，加入 head，设置 tunnel，redirect 等等内容。这些是通过 <code>request.Request(params)</code> 来实现的。</p>
 <pre><code class="javascript">function request (uri, options, callback) {
   if (typeof uri === &#39;undefined&#39;) {
     throw new Error(&#39;undefined is not a valid uri or options object.&#39;)
@@ -287,7 +287,7 @@ function Stream() {
 <li><a href="https://medium.com/javascript-in-plain-english/callbacks-in-node-js-how-why-when-ac293f0403ca" target="_blank" rel="noopener">Callbacks in Node.js: Why, When, How?</a></li>
 <li><a href="https://stackoverflow.com/questions/24042861/nodejs-what-does-process-binding-mean" target="_blank" rel="noopener">Nodejs: What does <code>process.binding</code> mean?</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/40977678" target="_blank" rel="noopener">深入出不来nodejs源码-从fs.stat看node架构</a></li>
-<li><a href="https://github.com/PacktPublishing/Node.js_Design_Patterns_Second_Edition_Code">Node.js_Design Patterns Second Edition Code</a></li>
+<li><a href="https://github.com/PacktPublishing/Node.js_Design_Patterns_Second_Edition_Code" target="_blank" rel="noopener">Node.js_Design Patterns Second Edition Code</a></li>
 </ul>
 
             </div>
@@ -383,11 +383,11 @@ function Stream() {
               
                 <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></li>
-              
                 <li><a href="/tags/电影/">电影<a></li>
               
                 <li><a href="/tags/Anime/">Anime<a></li>
+              
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
                 <li><a href="/tags/游戏/">游戏<a></li>
               

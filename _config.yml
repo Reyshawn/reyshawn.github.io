@@ -12,7 +12,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://github.com/Reyshawn/reyshawn.github.io
+url: http://reyshawn.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -80,9 +80,9 @@ plugin:
 - hexo-generator-feed
 #Feed Atom
 feed:
-type: atom
-path: atom.xml
-limit: 20
+  type: atom
+  path: atom.xml
+  limit: 20
 
 # hexo-generator-archive
 archive_generator:
