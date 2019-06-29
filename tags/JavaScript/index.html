@@ -46,6 +46,37 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/06/29/JavaScript-Semicolon 二三事/">JavaScript: Semicolon 二三事</a>
+                    </h2>
+                    <div class="entry-meta">
+                        Sat Jun 29 2019 23:02:41 GMT+0800
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>由于 JavaScript 拥有 <em>Automatic Semicolon Insertion</em> 这样的机制，我已经很长时间在写 js 的时候不加分号了。但今天碰到了这样的一个情况：</p>
+<pre><code class="javascript">let i = 0
+
+(function test () {
+  console.log(&#39;hello&#39;)
+})()</code></pre>
+<p>这里会提示报错：</p>
+<pre><code>TypeError: 0 is not a function</code></pre><p>观察了一会儿，才发现，JavaScript 引擎一定是把第一行和第三行看成一行代码，按道理，第一行末尾应该是要自动加一个分号的。这里如果我们手动加上分号，程序就不会报错了。</p>
+<pre><code class="javascript">let i = 0;
+
+(function test () {
+  console.log(&#39;hello&#39;)
+})()</code></pre>
+<p>关于 JavaScript 的 <em>Automatic Semicolon Insertion</em>，规则是这样的：</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/06/29/JavaScript-Semicolon 二三事/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/06/12/JSON-Web-Token-的产生和认证/">JSON Web Token 的产生和认证</a>
                     </h2>
                     <div class="entry-meta">
@@ -325,41 +356,6 @@ var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});</code><
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/06/20/Born to be chained | 4kyu/">Read More</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Sun Jun 10 2018 11:54:25 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a href="http://www.wikiwand.com/en/Xiangqi" target="_blank" rel="noopener">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
-<hr>
-<p>You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:</p>
-<pre><code>Example (the starting Xiangqi board):
-
-車馬象士將士象馬車
-　　　｜Ｘ｜　　　
-　砲　＋－＋　砲　
-卒　卒　卒　卒　卒
-－－－－－－－－－
-－－－－－－－－－
-兵　兵　兵　兵　兵
-　炮　＋－＋　炮　
-　　　｜Ｘ｜　　　
-俥傌相仕帥仕相傌俥
-
-The bottom and top half corresponds to red and black pieces, respectively.
-Note that red and black have different characters to distinguish the same piece of both sides.</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">Read More</a>
                 </div>
             </article>
             
