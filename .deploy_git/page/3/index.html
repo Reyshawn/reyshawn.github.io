@@ -46,6 +46,42 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2018 年 02 月 18 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
+<p>This is the first part of three (<a href="http://www.codewars.com/kata/es5-generators-ii" target="_blank" rel="noopener">part2</a>, <a href="http://www.codewars.com/kata/es5-generators-iii" target="_blank" rel="noopener">part3</a>).</p>
+<p>Generators and Iterators are new ES6 features that will allow things like this:</p>
+<pre><code class="javascript">function* fibonacci() {
+    let [prev, curr] = [0, 1];
+    for (;;) {
+        [prev, curr] = [curr, prev + curr];
+        yield curr;
+    }
+}</code></pre>
+<p>Using them in this way, we can do amazing things:</p>
+<pre><code class="javascript">let seq = fibonacci();
+print(seq.next()); // 1
+print(seq.next()); // 2
+print(seq.next()); // 3
+print(seq.next()); // 5
+print(seq.next()); // 8</code></pre>
+<p>This is powerful, but until a few months later, ES6 will not be born.</p>
+<p>The goal of this kata is to implement pseudo-generators with ES5.</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/02/18/Codewars.com | ES5 Generators(i)/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/02/12/Codewars.com | Wrapped Function/">Wrapped Function</a>
                     </h2>
                     <div class="entry-meta">

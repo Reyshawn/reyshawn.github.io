@@ -46,6 +46,37 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/06/29/JavaScript-Semicolon 二三事/">JavaScript: Semicolon 二三事</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 06 月 29 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>由于 JavaScript 拥有 <em>Automatic Semicolon Insertion</em> 这样的机制，我已经很长时间在写 js 的时候不加分号了。但今天碰到了这样的一个情况：</p>
+<pre><code class="javascript">let i = 0
+
+(function test () {
+  console.log(&#39;hello&#39;)
+})()</code></pre>
+<p>这里会提示报错：</p>
+<pre><code>TypeError: 0 is not a function</code></pre><p>观察了一会儿，才发现，JavaScript 引擎一定是把第一行和第三行看成一行代码，按道理，第一行末尾应该是要自动加一个分号的。这里如果我们手动加上分号，程序就不会报错了。</p>
+<pre><code class="javascript">let i = 0;
+
+(function test () {
+  console.log(&#39;hello&#39;)
+})()</code></pre>
+<p>关于 JavaScript 的 <em>Automatic Semicolon Insertion</em>，规则是这样的：</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/06/29/JavaScript-Semicolon 二三事/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/06/12/阅读摘要-issue-2/">阅读摘要 | issue #2</a>
                     </h2>
                     <div class="entry-meta">
@@ -284,25 +315,6 @@ console.log(&#39;Welcome!&#39;)
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2019/01/26/初见 Koa/">READ MORE</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2019/01/25/异步 & callback/">异步 &amp; callback</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2019 年 01 月 25 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <p>最近开始学习 Node.js。主要看两本书：<em>Node.js in Practice</em> 和 <em>Node.js Design Patterns</em>。前者类似于 o’reilly 的 cookbook 系列，整本书的编排是通过一个个 recipe，一个个具体的 problem&amp;solution 实现的。后者就是 <a href="https://search.packtpub.com/" target="_blank" rel="noopener">Packt Publishing</a> 出品的一系列 Design Patterns 书籍。包括这两本书在内的许多讲解 Node.js 的书籍，都会不断强调两个关键词， asynchronous 和 non-blocking I/O。在最初开始学习编程的时候，无论是写一些算法题目，或是做一些本地测试，它都是同步的，即时响应的，单线程的，blocking I/O。但如果进入的网络领域，「异步」则会被不断提起。相比 synchronous，「异步」更加接近我们相处的真实世界。</p>
-<p>这篇文章以 <em>Node.js Design Patterns</em> 第二章的 Web Spider 例子，探究思考在 Node.js 中是如何通过 callback 来实现异步操作的。</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/25/异步 & callback/">READ MORE</a>
                 </div>
             </article>
             
