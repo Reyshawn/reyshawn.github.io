@@ -46,6 +46,49 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/07/06/Lazy-Evaluation/">Lazy Evaluation, foldr | 5kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 07 月 06 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>关于 lazy evaluation，首先要明白两个概念：call by name 和 call by value：</p>
+<pre><code class="javascript">// Evaluates with call-by-name strategy
+1 function callByName (a, b) {
+2  if (a === 1) {
+3    return 10
+4  }
+5  return a + b
+6 }
+// Evaluates with call-by-value strategy
+1 function callByValue (a, b) {
+2  if (a === 1) {
+3    return 10
+4  }
+5  return a + b
+6 }</code></pre>
+<p>两个函数在形式上没有什么区别，只是在运行时采取了不同的策略或态度，前者是 lazy，后者是 eager；</p>
+<pre><code class="shell">&gt; callByName (1, 2 + 3)
+&gt; a === 1
+&gt; return 10
+
+&gt; callByValue(1, 2 + 3)
+&gt; callByValue(1, 5)
+&gt; a === 1
+&gt; return 10</code></pre>
+<p>使用 lazy evaluation，只用当真正需要读取这个变量或 expression 的时候，才会对其进行运算或 evaluate，也就是字面意义上的 call by need。</p>
+<p>实现 lazy evaluation 有很多方法，但其核心概念则是 functional programming。即我们把所有的 variable 写成函数的形式，这样的函数通常被称为 thunk：</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/07/06/Lazy-Evaluation/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/06/29/JavaScript-Semicolon 二三事/">JavaScript: Semicolon 二三事</a>
                     </h2>
                     <div class="entry-meta">
@@ -293,38 +336,13 @@ console.log(&#39;Welcome!&#39;)
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2019 年 01 月 26 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <p>去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async/await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：</p>
-<ul>
-<li>Node.js 的异步特性及异步是如何实现的</li>
-<li>异步实现的几种方式，callback 到 Promise 到 async/await</li>
-<li>什么是 middleware？</li>
-<li>ejs template engine</li>
-</ul>
-<p>通过本文，你能了解到。Koa 最基础的 HelloWorld，它 如何渲染一个 template 页面，传递数据。什么是「Routing 路由」，路由在 Koa 中如何实现的。</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/26/初见 Koa/">READ MORE</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
     <nav class="navigation pagination" role="navigation">
         
         
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">next &raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">next &raquo;</a>
     </nav>
 </div>
 
@@ -421,6 +439,8 @@ console.log(&#39;Welcome!&#39;)
                 <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
                 <li><a href="/tags/故事/">故事<a></a></a></li>
+              
+                <li><a href="/tags/codewars-com/">codewars.com<a></a></a></li>
               
                 <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
