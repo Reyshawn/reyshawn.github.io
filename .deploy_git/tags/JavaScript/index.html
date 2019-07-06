@@ -46,10 +46,53 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/07/06/Lazy-Evaluation/">Lazy Evaluation, foldr | 5kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 07 月 06 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>关于 lazy evaluation，首先要明白两个概念：call by name 和 call by value：</p>
+<pre><code class="javascript">// Evaluates with call-by-name strategy
+1 function callByName (a, b) {
+2  if (a === 1) {
+3    return 10
+4  }
+5  return a + b
+6 }
+// Evaluates with call-by-value strategy
+1 function callByValue (a, b) {
+2  if (a === 1) {
+3    return 10
+4  }
+5  return a + b
+6 }</code></pre>
+<p>两个函数在形式上没有什么区别，只是在运行时采取了不同的策略或态度，前者是 lazy，后者是 eager；</p>
+<pre><code class="shell">&gt; callByName (1, 2 + 3)
+&gt; a === 1
+&gt; return 10
+
+&gt; callByValue(1, 2 + 3)
+&gt; callByValue(1, 5)
+&gt; a === 1
+&gt; return 10</code></pre>
+<p>使用 lazy evaluation，只用当真正需要读取这个变量或 expression 的时候，才会对其进行运算或 evaluate，也就是字面意义上的 call by need。</p>
+<p>实现 lazy evaluation 有很多方法，但其核心概念则是 functional programming。即我们把所有的 variable 写成函数的形式，这样的函数通常被称为 thunk：</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/07/06/Lazy-Evaluation/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/06/29/JavaScript-Semicolon 二三事/">JavaScript: Semicolon 二三事</a>
                     </h2>
                     <div class="entry-meta">
-                        Sat Jun 29 2019 23:02:41 GMT+0800
+                        2019 年 06 月 29 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -80,7 +123,7 @@
                         <a href="/2019/06/12/JSON-Web-Token-的产生和认证/">JSON Web Token 的产生和认证</a>
                     </h2>
                     <div class="entry-meta">
-                        Wed Jun 12 2019 13:49:07 GMT+0800
+                        2019 年 06 月 12 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -120,7 +163,7 @@
                         <a href="/2019/05/18/JavaScript-async-and-Promise/">JavaScript async and Promise</a>
                     </h2>
                     <div class="entry-meta">
-                        Sat May 18 2019 19:42:34 GMT+0800
+                        2019 年 05 月 18 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -153,7 +196,7 @@ console.log(&#39;Welcome!&#39;)
                         <a href="/2019/01/31/「User Authentication with Passport and Koa 」Summary/">「User Authentication with Passport and Koa 」Summary</a>
                     </h2>
                     <div class="entry-meta">
-                        Thu Jan 31 2019 10:11:15 GMT+0800
+                        2019 年 01 月 31 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -180,7 +223,7 @@ console.log(&#39;Welcome!&#39;)
                         <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
                     </h2>
                     <div class="entry-meta">
-                        Sat Jan 26 2019 19:41:00 GMT+0800
+                        2019 年 01 月 26 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -205,7 +248,7 @@ console.log(&#39;Welcome!&#39;)
                         <a href="/2019/01/25/异步 & callback/">异步 &amp; callback</a>
                     </h2>
                     <div class="entry-meta">
-                        Fri Jan 25 2019 11:27:39 GMT+0800
+                        2019 年 01 月 25 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -224,7 +267,7 @@ console.log(&#39;Welcome!&#39;)
                         <a href="/2019/01/20/Hexo Theme 开发不完全记录/">Hexo Theme 开发不完全记录</a>
                     </h2>
                     <div class="entry-meta">
-                        Sun Jan 20 2019 08:22:36 GMT+0800
+                        2019 年 01 月 20 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -247,7 +290,7 @@ console.log(&#39;Welcome!&#39;)
                         <a href="/2018/06/29/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Fri Jun 29 2018 09:58:30 GMT+0800
+                        2018 年 06 月 29 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -274,7 +317,7 @@ console.log(&#39;Welcome!&#39;)
                         <a href="/2018/06/25/@wraps | 6kyu/">@wraps | 6kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Mon Jun 25 2018 10:21:13 GMT+0800
+                        2018 年 06 月 25 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -306,56 +349,6 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/06/25/@wraps | 6kyu/">Read More</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Wed Jun 20 2018 11:14:56 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <ul>
-<li>对于 Object 的遍历；</li>
-</ul>
-<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Function composition is a powerful technique. For example:</p>
-<pre><code class="javascript">function sum(x, y) {
-  return x + y;
-}
-
-function double(x) {
-  return sum(x, x);
-}
-
-function minus (x, y) {
-  return x - y;
-}
-
-function addOne(x) {
-  return sum(x, 1);
-}
-
-double(sum(2, 3)); // 10</code></pre>
-<p>But in complex expressions, composition may be difficult to understand. For example:</p>
-<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72</code></pre>
-<p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p>
-<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72</code></pre>
-<p>Your job is implement the <code>chain</code> function:</p>
-<pre><code class="javascript">function chain(fns) {
-}
-
-var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});</code></pre>
-<p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p>
-<p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p>
-<p>Note that the chain can be reused (the internal state is not stored):</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/20/Born to be chained | 4kyu/">Read More</a>
                 </div>
             </article>
             

@@ -46,10 +46,53 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/07/06/Lazy-Evaluation/">Lazy Evaluation, foldr | 5kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 07 月 06 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>关于 lazy evaluation，首先要明白两个概念：call by name 和 call by value：</p>
+<pre><code class="javascript">// Evaluates with call-by-name strategy
+1 function callByName (a, b) {
+2  if (a === 1) {
+3    return 10
+4  }
+5  return a + b
+6 }
+// Evaluates with call-by-value strategy
+1 function callByValue (a, b) {
+2  if (a === 1) {
+3    return 10
+4  }
+5  return a + b
+6 }</code></pre>
+<p>两个函数在形式上没有什么区别，只是在运行时采取了不同的策略或态度，前者是 lazy，后者是 eager；</p>
+<pre><code class="shell">&gt; callByName (1, 2 + 3)
+&gt; a === 1
+&gt; return 10
+
+&gt; callByValue(1, 2 + 3)
+&gt; callByValue(1, 5)
+&gt; a === 1
+&gt; return 10</code></pre>
+<p>使用 lazy evaluation，只用当真正需要读取这个变量或 expression 的时候，才会对其进行运算或 evaluate，也就是字面意义上的 call by need。</p>
+<p>实现 lazy evaluation 有很多方法，但其核心概念则是 functional programming。即我们把所有的 variable 写成函数的形式，这样的函数通常被称为 thunk：</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/07/06/Lazy-Evaluation/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/07/10/1n- Cycle | 6kyu/">1/n- Cycle | 6kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Tue Jul 10 2018 22:58:13 GMT+0800
+                        2018 年 07 月 10 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -86,7 +129,7 @@ cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...</code></pre>
                         <a href="/2018/06/29/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Fri Jun 29 2018 09:58:30 GMT+0800
+                        2018 年 06 月 29 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -113,7 +156,7 @@ cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...</code></pre>
                         <a href="/2018/06/25/@wraps | 6kyu/">@wraps | 6kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Mon Jun 25 2018 10:21:13 GMT+0800
+                        2018 年 06 月 25 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -154,7 +197,7 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
                         <a href="/2018/06/23/Binary Search Trees | 5kyu/">Binary Search Trees | 5kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Sat Jun 23 2018 13:01:32 GMT+0800
+                        2018 年 06 月 23 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -185,7 +228,7 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
                         <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Wed Jun 20 2018 11:14:56 GMT+0800
+                        2018 年 06 月 20 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -235,7 +278,7 @@ var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});</code><
                         <a href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Sun Jun 10 2018 11:54:25 GMT+0800
+                        2018 年 06 月 10 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -270,7 +313,7 @@ Note that red and black have different characters to distinguish the same piece 
                         <a href="/2018/06/07/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Thu Jun 07 2018 15:32:38 GMT+0800
+                        2018 年 06 月 07 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -298,7 +341,7 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
                         <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Tue Jun 05 2018 16:56:46 GMT+0800
+                        2018 年 06 月 05 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -333,7 +376,7 @@ add_(10,10); // returns 20</code></pre>
                         <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
                     </h2>
                     <div class="entry-meta">
-                        Sun Feb 18 2018 14:37:13 GMT+0800
+                        2018 年 02 月 18 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -360,35 +403,6 @@ print(seq.next()); // 8</code></pre>
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/02/18/Codewars.com | ES5 Generators(i)/">Read More</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/02/12/Codewars.com | Wrapped Function/">Wrapped Function</a>
-                    </h2>
-                    <div class="entry-meta">
-                        Mon Feb 12 2018 09:59:34 GMT+0800
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Create a function method that allow you to wrap an existing function. The method signature would look something like this:</p>
-<p><strong>Usage Example</strong>:</p>
-<pre><code class="javascript">function speak(name){
-   return &quot;Hello &quot; + name;
-}
-
-speak = speak.wrap(function(original, yourName, myName){
-   greeting = original(yourName);
-   return greeting + &quot;, my name is &quot; + myName;
-})
-
-var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);</code></pre>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/12/Codewars.com | Wrapped Function/">Read More</a>
                 </div>
             </article>
             

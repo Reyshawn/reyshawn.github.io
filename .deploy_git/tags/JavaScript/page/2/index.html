@@ -46,10 +46,60 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2018 年 06 月 20 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <ul>
+<li>对于 Object 的遍历；</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Function composition is a powerful technique. For example:</p>
+<pre><code class="javascript">function sum(x, y) {
+  return x + y;
+}
+
+function double(x) {
+  return sum(x, x);
+}
+
+function minus (x, y) {
+  return x - y;
+}
+
+function addOne(x) {
+  return sum(x, 1);
+}
+
+double(sum(2, 3)); // 10</code></pre>
+<p>But in complex expressions, composition may be difficult to understand. For example:</p>
+<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72</code></pre>
+<p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p>
+<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72</code></pre>
+<p>Your job is implement the <code>chain</code> function:</p>
+<pre><code class="javascript">function chain(fns) {
+}
+
+var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});</code></pre>
+<p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p>
+<p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p>
+<p>Note that the chain can be reused (the internal state is not stored):</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/20/Born to be chained | 4kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Sun Jun 10 2018 11:54:25 GMT+0800
+                        2018 年 06 月 10 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -84,7 +134,7 @@ Note that red and black have different characters to distinguish the same piece 
                         <a href="/2018/06/07/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Thu Jun 07 2018 15:32:38 GMT+0800
+                        2018 年 06 月 07 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -112,7 +162,7 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
                         <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        Tue Jun 05 2018 16:56:46 GMT+0800
+                        2018 年 06 月 05 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -147,7 +197,7 @@ add_(10,10); // returns 20</code></pre>
                         <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
                     </h2>
                     <div class="entry-meta">
-                        Sun Feb 18 2018 14:37:13 GMT+0800
+                        2018 年 02 月 18 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -183,7 +233,7 @@ print(seq.next()); // 8</code></pre>
                         <a href="/2018/02/12/Codewars.com | Wrapped Function/">Wrapped Function</a>
                     </h2>
                     <div class="entry-meta">
-                        Mon Feb 12 2018 09:59:34 GMT+0800
+                        2018 年 02 月 12 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -212,7 +262,7 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);</code></pre>
                         <a href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">Catching Car Mileage Numbers</a>
                     </h2>
                     <div class="entry-meta">
-                        Sat Feb 10 2018 10:38:00 GMT+0800
+                        2018 年 02 月 10 日
                     </div>
                     <div class="post-letter"></div>
                 </header>

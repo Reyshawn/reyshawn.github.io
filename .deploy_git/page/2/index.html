@@ -46,6 +46,31 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 01 月 26 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async/await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：</p>
+<ul>
+<li>Node.js 的异步特性及异步是如何实现的</li>
+<li>异步实现的几种方式，callback 到 Promise 到 async/await</li>
+<li>什么是 middleware？</li>
+<li>ejs template engine</li>
+</ul>
+<p>通过本文，你能了解到。Koa 最基础的 HelloWorld，它 如何渲染一个 template 页面，传递数据。什么是「Routing 路由」，路由在 Koa 中如何实现的。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/26/初见 Koa/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/25/异步 & callback/">异步 &amp; callback</a>
                     </h2>
                     <div class="entry-meta">
@@ -334,48 +359,13 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2018 年 06 月 05 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p>
-<p>You cannot assume that the function’s arguments have any particular names.</p>
-<p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p>
-<pre><code class="javascript">function add(a,b) { return a+b;};
-
-var add_ = defaultArguments(add,{b:9});
-add_(10); // returns 19
-add_(10,7); // returns 17
-add_(); // returns NaN
-
-add_ = defaultArguments(add_,{b:3, a:2});
-add_(10); // returns 13 now
-add_(); // returns 5
-
-add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
-add_(10); // returns NaN
-add_(10,10); // returns 20</code></pre>
-<p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/05/Default Arguments | 4kyu/">READ MORE</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
     <nav class="navigation pagination" role="navigation">
         
         
-        <a class="extend prev" rel="prev" href="/">&laquo; prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/">&laquo; prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">next &raquo;</a>
     </nav>
 </div>
 
