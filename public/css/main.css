@@ -486,6 +486,10 @@ input {
     z-index: 2;
 }
 
+.entry-content p a, .entry-content li a {
+    border-bottom: 1px solid;
+}
+
 .entry-header {
     margin-bottom: 2.6rem;
 }
