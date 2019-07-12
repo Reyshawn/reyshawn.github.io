@@ -59,8 +59,6 @@
 <li>call graph，所有的函数调用关系；</li>
 <li>control flow graph，字面意思，程序运行时的 control flow，比如 if，for 循环这些；</li>
 </ol>
-<a id="more"></a>
-
 <h2 id="The-Designer’s-Growth-Model"><a href="#The-Designer’s-Growth-Model" class="headerlink" title="The Designer’s Growth Model"></a><a href="https://medium.com/design-leadership-notebook/the-designers-growth-model-8240dafb7137" target="_blank" rel="noopener">The Designer’s Growth Model</a></h2><p><a href="https://css-tricks.com/the-developers-growth-model/" target="_blank" rel="noopener">https://css-tricks.com/the-developers-growth-model/</a></p>
 <p>模仿 <a href="https://wiki.mbalib.com/wiki/葛雷纳的企业成长模型" target="_blank" rel="noopener">Grenier</a> groth model，  Dennis Hambeukers 提出他的「设计师成长模型」，分为五个阶段：</p>
 <ol>
@@ -70,21 +68,29 @@
 <li>第四阶段是 Scientists，能够应对系统级别的复杂性 complexity，在更高一层级上进行思考，统筹，降低风险，指明方向；</li>
 <li>第五阶段是 Visionaries，skill, mind, toolset，所有一切集大成者，对于策略，组织，领导力又有着自己独到的见解，对于更远的未来有着自己清晰的解读，清晰的 roadmap；</li>
 </ol>
+<a id="more"></a>
+
+
+
 <h2 id="CSS-Architecture-—-Folders-amp-Files-Structure"><a href="#CSS-Architecture-—-Folders-amp-Files-Structure" class="headerlink" title="CSS Architecture — Folders &amp; Files Structure"></a><a href="https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b" target="_blank" rel="noopener">CSS Architecture — Folders &amp; Files Structure</a></h2><p>Elad Shechter 介绍了他的 CSS 文件结构。</p>
 <h2 id="How-to-Increase-Your-Page-Size-by-1-500-with-webpack-and-Vue"><a href="#How-to-Increase-Your-Page-Size-by-1-500-with-webpack-and-Vue" class="headerlink" title="How to Increase Your Page Size by 1,500% with webpack and Vue"></a><a href="https://css-tricks.com/how-to-increase-your-page-size-by-1500-with-webpack-and-vue/" target="_blank" rel="noopener">How to Increase Your Page Size by 1,500% with webpack and Vue</a></h2><p>Burke Holland 引入了 Bulma 来重构了它的网站，结果发现编译后 css 从原来 30kb 增加到了接近 300 kb。这里涉及到 Vue 中关于 css style 的 scoped 概念。因为 Bulma 被重复声明了十多次的缘故。解决办法就是 Bulma 首先要能够全局引入，Bulma 的变量要能够在各个 component 被调用。把 Bulma 的所有文件在 <code>main.js</code> 里导入即可，以及在 vue.config.js 增加 css.loadOptions.sass.data 的配置，让 components 能够使用预先定义的变量。</p>
 <h2 id="Blendle"><a href="#Blendle" class="headerlink" title="Blendle"></a><a href="https://launch.blendle.com" target="_blank" rel="noopener">Blendle</a></h2><p>今天在美区 App Store 偶然看到这个。一家荷兰公司，和 New Yorker，The Economists 等报业集团合作，将内容打包统一放在他们这一个平台上，供人们选择阅读。</p>
 <p>它的收费模式很有意思。文章按照单篇收费，大概20 - 40 美分不等，不满意可以退款。我下载下来适用了一下，免费的账户会有 0.45$。所有单篇文章价格小于这个数字的都可以打开，但更贵的文章就会提示 no enough credits。在一篇文章停留过长时间，超过 1min？就会判定为阅读，并从你的账户里扣除相应金额。但假如你不满意，可以 refund，被扣除的金额又会立即回来。</p>
+<h2 id="Matrix-org"><a href="#Matrix-org" class="headerlink" title="Matrix.org"></a><a href="https://matrix.org" target="_blank" rel="noopener">Matrix.org</a></h2><p>一个开源的，e2e 加密，去中心化的 message 项目</p>
 <blockquote>
 <p>The not-so-talked-about but killer feature of Matrix is that you can bridge other services into it. I’m currently able to send and receive messages from Hangouts, iMessage, SMS, and Slack all from within Matrix. If I’m working on my laptop I can put my phone in my bag and not even touch it for 8 hours, because there’s no need. I have Riot running on my laptop with a full keyboard and access to all my communication platforms.<br>— <a href="https://news.ycombinator.com/item?id=20157809" target="_blank" rel="noopener">comments from Hacker News</a></p>
 </blockquote>
-<h2 id="Discoveries"><a href="#Discoveries" class="headerlink" title="Discoveries"></a>Discoveries</h2><ul>
-<li><a href="https://bennettfeely.com/clippy/" target="_blank" rel="noopener">Clippy - CSS clip-path maker</a></li>
-<li><a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/" target="_blank" rel="noopener">Which programming language is fastest? | Computer Language Benchmarks Game</a></li>
-<li><a href="https://observablehq.com" target="_blank" rel="noopener">Observable</a> JavaScript 版本的 Juypter</li>
-<li><a href="https://every-layout.dev" target="_blank" rel="noopener">Relearn CSS layout</a> CSS layout</li>
-<li><a href="https://jsperf.com" target="_blank" rel="noopener">jsPerf: JavaScript performance playground</a> 比较不同 js 写法的性能</li>
-<li><a href="https://flutter.dev" target="_blank" rel="noopener">Flutter - Beautiful native apps in record time</a> Google 推出的跨平台 UI 框架</li>
-</ul>
+<h2 id="Discoveries"><a href="#Discoveries" class="headerlink" title="Discoveries"></a>Discoveries</h2><p><a href="https://bennettfeely.com/clippy/" target="_blank" rel="noopener">Clippy - CSS clip-path maker</a></p>
+<p><a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/" target="_blank" rel="noopener">Which programming language is fastest? | Computer Language Benchmarks Game</a></p>
+<p><em>Toy-program performance measurements for ~24 language implementations.</em></p>
+<p><a href="https://observablehq.com" target="_blank" rel="noopener">Observable</a> </p>
+<p><em>JavaScript 版本的 Juypter</em></p>
+<p><a href="https://every-layout.dev" target="_blank" rel="noopener">Relearn CSS layout</a> </p>
+<p><em>CSS layout</em></p>
+<p><a href="https://jsperf.com" target="_blank" rel="noopener">jsPerf: JavaScript performance playground</a> </p>
+<p><em>比较不同 js 写法的性能</em></p>
+<p><a href="https://flutter.dev" target="_blank" rel="noopener">Flutter - Beautiful native apps in record time</a> </p>
+<p><em>Google 推出的跨平台 UI 框架</em></p>
 
             </div>
             <div class="entry-tags">
@@ -177,13 +183,13 @@
               
                 <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
-              
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
-              
                 <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
                 <li><a href="/tags/故事/">故事<a></a></a></li>
+              
+                <li><a href="/tags/电影/">电影<a></a></a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
                 <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
