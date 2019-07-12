@@ -46,6 +46,33 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/01/31/「User Authentication with Passport and Koa 」Summary/">「User Authentication with Passport and Koa 」Summary</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 01 月 31 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>上周在阅读 <em>Express.js Blueprints</em> 时看到 Authentication 的部分，就想着使用 Koa 去复现一遍。于是在网上看到这篇文章 <a href="https://mherman.org/blog/user-authentication-with-passport-and-koa/" target="_blank" rel="noopener">User Authentication with Passport and Koa</a> 。文章给出了源代码和详细的步骤。其中不乏遇到自己不熟悉的知识领域，比如 knex，postgresql 和 redis 等等。写这篇文章的目的：一是熟悉下在 koa 框架下的程序结构；二是对于自己不熟悉的知识领域的一个总结。</p>
+<p>需要通过 brew 安装：</p>
+<ul>
+<li>postgresql</li>
+<li>redis</li>
+</ul>
+<p>使用 npm 全局安装：</p>
+<ul>
+<li>knex</li>
+</ul>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/31/「User Authentication with Passport and Koa 」Summary/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
                     </h2>
                     <div class="entry-meta">
@@ -328,34 +355,6 @@ Note that red and black have different characters to distinguish the same piece 
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">READ MORE</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/07/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2018 年 06 月 07 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>As part of a broader functionality you need to develop an argument mapper.</p>
-<p>The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.</p>
-<p>The usage is:</p>
-<pre><code class="javascript">function func1(arg1, arg2) { ... }
-
-var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
-console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
-console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
-<p>The passed values are in the same order as they appear in the function object.</p>
-<p>Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.</p>
-<p>Hajime!</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/07/Argument Mapper | 5kyu/">READ MORE</a>
                 </div>
             </article>
             
