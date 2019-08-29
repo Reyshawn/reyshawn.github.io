@@ -46,6 +46,47 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/06/25/@wraps | 6kyu/">@wraps | 6kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2018 年 06 月 25 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li><code>decorator</code> 装饰器用法</li>
+<li><code>try</code>…<code>except</code>… <code>else</code> control flow</li>
+<li><code>getattr()</code> 和 <code>setattr()</code></li>
+<li><code>__dict__.update()</code></li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Implement the functools.wraps decorator, which is used to preserve the name and docstring of a decorated function. Your decorator must not modify the behavior of the decorated function. Here’s an example :</p>
+<pre><code class="python">def identity(func):
+  @wraps(func)
+  def wrapper(*args, **kwargs):
+    &quot;&quot;&quot;Wraps func&quot;&quot;&quot;
+    return func(*args, **kwargs)
+  return wrapper
+
+@identity
+def return_one():
+  &quot;&quot;&quot;Return one&quot;&quot;&quot;
+  return 1
+
+return_one.__name__ == &#39;return_one&#39; # If wraps hadn&#39;t been used, __name__ would be equal to &#39;wrapper&#39;
+return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;</code></pre>
+<p><strong>Note: of course, you may not use the functools module for this kata.</strong></p>
+<p>题目要求，经过一次二重的装饰器，保留原来函数的 <code>__name__</code> 和 <code>__doc__</code>。二重装饰器 decorator，就是用一个 decorator 去 decorate 另一个 decorator。该二重装饰器装饰后的函数， 输出的是一重装饰器装饰过的函数，但是 <code>__name__</code> 和 <code>__doc__</code>  得到保留，及为原函数的值。</p>
+<p>依照题目给的例子，就是输出是被 decorator wraps 修饰过的 <code>wrapper</code> 函数，即函数主体和功能还是 <code>wrapper</code>，但因为被 <code>wraps</code> 装饰了，输出的 <code>wrapper</code> 函数的  <code>__name__</code> 和 <code>__doc__</code>  值为原函数 <code>return_one</code> 的值。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/25/@wraps | 6kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
@@ -374,13 +415,13 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);</code></pre>
               
                 <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
-              
-                <li><a href="/tags/故事/">故事<a></a></a></li>
-              
                 <li><a href="/tags/电影/">电影<a></a></a></li>
               
                 <li><a href="/tags/Anime/">Anime<a></a></a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+              
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
                 <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
