@@ -46,6 +46,30 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/08/29/多个项目共享-Webpack/">多个项目共享 Webpack</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 08 月 29 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>最近在看 <a href>@keyframer</a> 的一系列视频，需要用到 webpack 来配置 scss 环境，这就导致了每一个项目都要重复下载一遍 webpack 和相关的所有 node modules，这样很浪费空间。</p>
+<p>因此要想办法把 webpack 独立出来，让每一个项目都可以访问到 webpack，一个方法是全局安装 webpack。这里提供另一种方法，想到我们通常使用 webpack 的情景是，在  <code>package.json</code> 里预先定义好 </p>
+<pre><code class="json">&quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;webpack-dev-server&quot;,
+    &quot;build&quot;: &quot;webpack&quot;
+}</code></pre>
+<p>然后 <code>npm run dev</code>。我们需要把这里修改一下，让每个项目都统一调用同一个 webpack。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/08/29/多个项目共享-Webpack/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/07/12/阅读摘要-issue-3/">阅读摘要 | issue #3</a>
                     </h2>
                     <div class="entry-meta">
@@ -322,27 +346,6 @@ console.log(&#39;Welcome!&#39;)
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2019/02/07/棋盘上的「古墓丽影」/">棋盘上的「古墓丽影」</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2019 年 02 月 07 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <p>又是一个新年过去了。在年复一年不变的习俗和渐渐消淡的年味里，我把 Lara Croft Go 打通了。在 Square Enix 的 Go 游戏三部曲里，Hitman Go 是几年前玩过的，去年尝试了 Deus Ex Go。相比之下，更喜欢这部 Lara Go。Deus 里的科幻风太过浓重，Hitman Go 很贴近现代都市，在棋盘模拟的场景里，有熟悉的游泳池，花园，房屋里的家具等等。Lara Go 的场景都是放在野外，山窟洞穴，悬崖峭壁。如果另外两作的特点都是在「潜入」，那么 Lara Go 的特点则是在「冒险」。尽管有着固定的棋盘，每次只能前进一格，但这的确是个不折不扣的 Tomb Raider 式的冒险故事。</p>
-<p>![Lara Go 1](/images/Game/Lara Go 1.jpg)</p>
-<p>游戏整体美术风格，偏向折纸，背景的黑色剪影提供沉浸感。这样的美术风格在 iOS 平台并不少见。熟悉的有「纪念碑谷」「Alto’s Odyssey」。这样偏折纸的艺术风格，也比较适合这样的游戏模式。Square Enix 在 Go 系列游戏里想做的，是希望把 Go 系列做成一种桌游类型的游戏，所以这样的折纸风格再完美不过了。几年前在玩 Hitman Go 时，每一关的地图，都是按照桌游的包装盒来设计的。</p>
-<p>以下内容涉及剧透。</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/02/07/棋盘上的「古墓丽影」/">READ MORE</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
@@ -439,13 +442,13 @@ console.log(&#39;Welcome!&#39;)
               
                 <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
-              
-                <li><a href="/tags/故事/">故事<a></a></a></li>
-              
                 <li><a href="/tags/电影/">电影<a></a></a></li>
               
                 <li><a href="/tags/Anime/">Anime<a></a></a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+              
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
                 <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               

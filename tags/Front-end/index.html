@@ -46,6 +46,30 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/08/29/多个项目共享-Webpack/">多个项目共享 Webpack</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 08 月 29 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>最近在看 <a href>@keyframer</a> 的一系列视频，需要用到 webpack 来配置 scss 环境，这就导致了每一个项目都要重复下载一遍 webpack 和相关的所有 node modules，这样很浪费空间。</p>
+<p>因此要想办法把 webpack 独立出来，让每一个项目都可以访问到 webpack，一个方法是全局安装 webpack。这里提供另一种方法，想到我们通常使用 webpack 的情景是，在  <code>package.json</code> 里预先定义好 </p>
+<pre><code class="json">&quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;webpack-dev-server&quot;,
+    &quot;build&quot;: &quot;webpack&quot;
+}</code></pre>
+<p>然后 <code>npm run dev</code>。我们需要把这里修改一下，让每个项目都统一调用同一个 webpack。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/08/29/多个项目共享-Webpack/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/31/「User Authentication with Passport and Koa 」Summary/">「User Authentication with Passport and Koa 」Summary</a>
                     </h2>
                     <div class="entry-meta">
@@ -206,13 +230,13 @@
               
                 <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
-              
-                <li><a href="/tags/故事/">故事<a></a></a></li>
-              
                 <li><a href="/tags/电影/">电影<a></a></a></li>
               
                 <li><a href="/tags/Anime/">Anime<a></a></a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+              
+                <li><a href="/tags/故事/">故事<a></a></a></li>
               
                 <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
