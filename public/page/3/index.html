@@ -46,6 +46,56 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2018 年 06 月 20 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <ul>
+<li>对于 Object 的遍历；</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Function composition is a powerful technique. For example:</p>
+<pre><code class="javascript">function sum(x, y) {
+  return x + y;
+}
+
+function double(x) {
+  return sum(x, x);
+}
+
+function minus (x, y) {
+  return x - y;
+}
+
+function addOne(x) {
+  return sum(x, 1);
+}
+
+double(sum(2, 3)); // 10</code></pre>
+<p>But in complex expressions, composition may be difficult to understand. For example:</p>
+<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72</code></pre>
+<p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p>
+<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72</code></pre>
+<p>Your job is implement the <code>chain</code> function:</p>
+<pre><code class="javascript">function chain(fns) {
+}
+
+var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});</code></pre>
+<p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p>
+<p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p>
+<p>Note that the chain can be reused (the internal state is not stored):</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2018/06/20/Born to be chained | 4kyu/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
@@ -292,24 +342,6 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);</code></pre>
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2017/04/15/I-O-21-Habitica 的量化人生/">Habitica 的量化人生</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2017 年 04 月 15 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <p>从去年十二月开始，自己一直在使用一款效率软件 Habitica 来进行管理生活。本来我已经对所有 to-do 类的效率应用都失去信心了。Habitica 别出心裁的「游戏化」概念真的戳中痛点。这也是它能够在众多效率类应用中有着明显区分度的原因。而在使用了几个月之后，我发现这种「游戏化」是一种很好的量化工具。它把你生活中大大小小的事件，量化为不同的价值。这样的价值则是通过「经验」、「金币」、「魔法值」、「生命值」来进行体现的。</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2017/04/15/I-O-21-Habitica 的量化人生/">READ MORE</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
@@ -406,13 +438,13 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);</code></pre>
               
                 <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
-              
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
-              
                 <li><a href="/tags/游戏/">游戏<a></a></a></li>
               
                 <li><a href="/tags/故事/">故事<a></a></a></li>
+              
+                <li><a href="/tags/电影/">电影<a></a></a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
                 <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
               
