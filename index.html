@@ -46,6 +46,29 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2020/12/31/「可我会永远喜欢你的，这和时间没关系，我想」/">「可我会永远喜欢你的，这和时间没关系，我想」</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2020 年 12 月 31 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>每每到年末，大部分时候都是一个人度过。通常的仪式是看一部电影，有几次是用手机录音，对自己说一些想说的话，存储起来，借以日后怀念。一年三百六十六天，发生了许多事情，大大小小。目前的状态是，我会花很多的时间回忆过去，回忆过去的许多事情，玩过的游戏，看过的动漫，拍过的照片。好像未来只会越来越糟，经过大脑滤镜美化后的回忆，无限向往。真的无比想要回到过去，无比想要回去。</p>
+<blockquote>
+<p>“是的。他一直对将有什么消失这点耿耿于怀，其实何必那样呢？任何东西迟早都要消失。我们每个人都在移动当中生存，我们周围的东西都随着我们的移动而终究归于消失，这是我们所无法左右的。该消失的时候自然消失，不到消失的时候自然不消失。比如你将长大成人，再过两年，这身漂亮的连衣裙就要变得不合尺寸，对Talking Heads你也可能感到陈腐不堪，而且再也不想和我一起兜什么风了。这是没有办法的事情，只能随波逐流，想也无济于事。” </p>
+<p>“可我会永远喜欢你的，这和时间没有关系，我想。”</p>
+<p>– 「舞！舞！舞！」</p>
+</blockquote>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2020/12/31/「可我会永远喜欢你的，这和时间没关系，我想」/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2020/01/01/十年回顾/">十年回顾</a>
                     </h2>
                     <div class="entry-meta">
@@ -304,39 +327,6 @@
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2019/05/31/阅读摘要-issues-1/">READ MORE</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2019/05/18/JavaScript-async-and-Promise/">JavaScript async and Promise</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2019 年 05 月 18 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <p>非常推荐先看一下参考链接里两个 youtube 视频，分别介绍了 event loop 和 setTimeout 的实现原理，这对于理解 JavaScript 里异步操作实现非常有帮助。其次是关于 Promise object 的手动实现，有一些抽象，因为包含了大量的  callback 函数。这里一定要分清楚，哪些是函数的声明，哪些是函数的调用。</p>
-<h2 id="Event-loop"><a href="#Event-loop" class="headerlink" title="Event loop"></a>Event loop</h2><p>JavaScript 是一种 single thread 的语言。既然单一线程，那么在某个时间点，只能完成一项任务。于是</p>
-<pre><code class="javascript">$.get(&#39;http://twitter.com&#39;)
-$.get(&#39;http://youtube.com&#39;)
-$.get(&#39;http://google.com&#39;)</code></pre>
-<p>在单线程下，如果某一行执行所需要的时间太久了，那么余下的的 command 也无法执行，程序就在那一行停滞下来了。我们把这个叫做 blocking。然而事实上，当我们在使用 <code>setTimeout()</code> 函数时，程序似乎不会出现 blocking。</p>
-<pre><code class="Javascript">console.log(&#39;hi&#39;)
-setTimeout(() =&gt; console.log(&#39;there&#39;), 0)
-console.log(&#39;Welcome!&#39;)
-
-// output:
-// hi
-// Welcome
-// there</code></pre>
-<p>这里哪怕是设置 delay 为 0s， <code>setTimeout()</code> 里的函数也是在最后才执行，是怎么回事呢？</p>
-<p>在 JavaScript 的执行环境中，所有的需要运行的函数是单线程的，按照次序会出现在 call stack 里。而通常，JavaScript 要么在 Browser 里运行，要么在 Node 环境运行，在 Browser 里运行时，会有一整套来自 Browser 提供的 web API，同理在 node 环境里也有相应的 API。 <code>setTimeout()</code> 函数就来自这些提供的 API 中。当我们 declare and call  一个  <code>setTimeout()</code> 函数时，Browser 会生成一个 timer 计时器，计时器的时间达到时，  <code>setTimeout()</code>  里定义的 callback 函数会进入到一个叫 <code>task queue</code> 的容器中，此时程序会去检测 call stack 是否为空，当 call stack 为空时，会将 task queue 中最上层的函数移入 call stack 中进行执行。因此本质上来讲，由于有 web API 的加持，最终类似  <code>setTimeout()</code> 函数还是使用了多线程。只不过对于 JavaScript 来讲，一直是执行的是 call stack 里的内容，可以认为一直是单线程操作。</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/05/18/JavaScript-async-and-Promise/">READ MORE</a>
                 </div>
             </article>
             
