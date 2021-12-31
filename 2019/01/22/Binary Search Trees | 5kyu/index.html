@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+        <link rel="icon" type="image/png" href="./favicon.png">
+        <link rel="apple-touch-icon" href="./favicon180x180.png" sizes="180x180">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>reyshawn.C</title>
+</head>
+
+<body class='home blog'>
+    <header id="hagoromo-header" class="hagoromo-header">
+    <div class="container">
+        <div class="slot-l">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+        </div>
+        <div class="slot-r">
+            <ul class="hagoromo-nav hagoromo-actions-list">
+                <li class="hagoromo-action-button hagoromo-action-sidebar">
+                    <span><i class="fa fa-bars"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div id="hagoromo-cover" class="hagoromo-cover hagoromo-cover-empty"></div>
+
+    <div class="hagoromo-fake-bg">
+        <div class="hagoromo-section">
+    <div class="section-content">
+        <article class="hagoromo-post">
+            <header class="entry-header">
+                <h2 class="entry-title h1">
+                    <a href="/2019/01/22/Binary Search Trees | 5kyu/">Binary Search Trees | 5kyu</a>
+                </h2>
+                <div class="entry-meta">
+                    2019 年 01 月 22 日
+                </div>
+                <div class="post-letter"></div>
+            </header>
+            <div class="entry-content">
+                <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;{}&#39;.format()</code></li>
+<li>A <code>and</code> B <code>and</code> C</li>
+<li><code>if</code>  … <code>else</code> 单行语句</li>
+<li><code>for</code> … <code>in</code> 单行语句</li>
+<li><code>join()</code> 函数</li>
+<li><code>str()</code> 函数与 <code>__str__()</code> 方法</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p>
+<p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p>
+<pre><code class="python">&#39;[_ B [C]]&#39;</code></pre>
+<p>This tree is obtained by evaluating the following expression:</p>
+<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))</code></pre>
+<p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p>
+<a id="more"></a>
+
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">class Tree(object):
+
+    def __init__(self, root, left=None, right=None):
+        assert root and type(root) == Node
+        if left: assert type(left) == Tree and left.root &lt; root
+        if right: assert type(right) == Tree and root &lt; right.root
+
+        self.left = left
+        self.root = root
+        self.right = right
+
+    def is_leaf(self):
+        return not(self.left or self.right)
+
+
+    def __str__(self):
+        rep = &#39;[&#39;
+        if self.left is not None:
+            rep += self.left.__str__() + &#39; &#39;
+        elif self.right is not None:
+            rep += &#39;_ &#39; + self.root.__str__() + &#39; &#39; + self.right.__str__()
+            return rep + &#39;]&#39;
+        rep += self.root.__str__()
+        if self.right is not None:
+            rep += &#39; &#39; + self.right.__str__()
+        elif self.left is not None:
+            rep = self.left.__str__() + &#39; &#39; + self.root.__str__() + &#39; _&#39;
+            return rep + &#39;]&#39;
+        return rep + &#39;]&#39;
+
+
+    def __eq__(self, other):
+        if (self is None) and (other is None):
+            return True
+        if self and other and self.root == other.root:
+            return (self.left == other.left) and (self.right == other.right)
+        else:
+            return False
+
+    def __ne__(self, other):
+        return not self == other
+
+
+class Node(object):
+
+    def __init__(self, value, weight=1):
+        self.value = value
+        self.weight = weight
+
+    def __str__(self):
+        return str(self.value)
+
+    def __lt__(self, other):
+        return self.value &lt; other.value
+
+    def __gt__(self, other):
+        return self.value &gt; other.value
+
+    def __eq__(self, other):
+        return self.value == other.value
+
+    def __ne__(self, other):
+        return self.value != other.value</code></pre>
+<h2 id="Other-Solution"><a href="#Other-Solution" class="headerlink" title="Other Solution"></a>Other Solution</h2><p> <a href="https://www.codewars.com/users/siebenschlaefer" target="_blank" rel="noopener">siebenschlaefer</a></p>
+<pre><code class="python">class Tree(object):
+    # ... 其余重复部分省略
+    def __str__(self):
+        if self.is_leaf():
+            return &quot;[%s]&quot; % self.root
+        return &quot;[%s %s %s]&quot; % (
+            self.left if self.left else &quot;_&quot;,
+            self.root,
+            self.right if self.right else &quot;_&quot;)
+
+    def __eq__(self, other):
+        if not other:
+            return False
+        return (
+            self.root == other.root and
+            self.left == other.left and
+            self.right == other.right)
+
+    def __ne__(self, other):
+        return not (self == other)
+
+# ... 其余重复部分省略</code></pre>
+<p>这个在 <code>__str__()</code> 部分写得异常简洁，并且利用到了 <code>is_leaf()</code> 方法。如果  <code>is_leaf()</code> 返回值为 <code>True</code>，则说明 self 没有 left 和 right。还有 <code>if</code> 的单行写法，也要学会使用。</p>
+<p><code>__eq__()</code> 方法的 <code>and</code> 连续使用，要用括号括起来。</p>
+<p><a href="https://www.codewars.com/users/Voile" target="_blank" rel="noopener">Voile</a></p>
+<pre><code class="python">class Tree(object):
+
+    def __init__(self, root, left=None, right=None):
+        assert root and type(root) == Node
+        if left: assert type(left) == Tree and left.root &lt; root
+        if right: assert type(right) == Tree and root &lt; right.root
+
+        self.left = left
+        self.root = root
+        self.right = right
+
+    def is_leaf(self):
+        return not(self.left or self.right)
+
+
+    def __str__(self):
+        if type(self.left) != Tree and type(self.right) != Tree: return &#39;[{}]&#39;.format(self.root)
+        if type(self.left) == Tree and type(self.right) == Tree: return &#39;[{} {} {}]&#39;.format(self.left, self.root, self.right)
+        return &#39;[{}]&#39;.format(&#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [self.left, self.root, self.right]))
+
+    def __eq__(self, other):
+        if self.root != other.root: return False
+        if type(self.left) != type(other.left): return False
+        if type(self.right) != type(other.right): return False
+        return self.left == other.left and self.right == other.right
+
+    def __ne__(self, other):
+        return not self == other
+</code></pre>
+<p>Voile 在 <code>__str__()</code> 中用的 return 形式是 <code>&#39;[{}]&#39;.format()</code>，也是分了三种情况。注意第三种的单行写法，形如：</p>
+<pre><code class="python">&gt;&gt;&gt; &#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])
+&#39;1 _ 3&#39;
+&gt;&gt;&gt; &#39;&#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])
+&#39;1_3&#39;</code></pre>
+<p><code>__eq__()</code> 写法思路和我的写法差不多，都是在保证 <code>self.root == other.root</code> 的情况下，输出一个 <code>and</code> 并列语句，<code>self.left == other.left and self.right == other.right</code>。当然，他这里用 <code>type</code> 来判断是否是 Node 还是 None。</p>
+<p> <a href="https://www.codewars.com/users/brettso" target="_blank" rel="noopener">brettso</a></p>
+<pre><code class="python">class Tree(object):
+
+    def __init__(self, root, left=None, right=None):
+        assert root and type(root) == Node
+        if left: assert type(left) == Tree and left.root &lt; root
+        if right: assert type(right) == Tree and root &lt; right.root
+
+        self.left = left
+        self.root = root
+        self.right = right
+
+    def is_leaf(self):
+        return not(self.left or self.right)
+
+
+    def __str__(self):
+        if self.is_leaf():
+            return &#39;[&#39; + self.root.value + &#39;]&#39;
+        left = &quot;_&quot; if not self.left else self.left.__str__()
+        right = &quot;_&quot; if not self.right else self.right.__str__()
+        return &#39;[&#39; + left + &#39; &#39; + self.root.value + &#39; &#39; + right + &#39;]&#39;    
+
+
+    def __eq__(self, other):
+        return self.__str__() == other.__str__()
+
+
+    def __ne__(self, other):
+        return self.__str__() != other.__str__()</code></pre>
+<p>这个 <code>__eq__()</code> 的写法很巧妙啊，直接利用了 <code>__str__()</code> 来进行判断。</p>
+
+            </div>
+            <div class="entry-tags">
+                 
+                    <a href="/tags/Algorithm/">Algorithm</a>
+                 
+                    <a href="/tags/codewars/">codewars</a>
+                 
+                    <a href="/tags/Python/">Python</a>
+                
+            </div>
+            <div class="entry-footer"></div>
+        </article>
+    </div>
+</div>
+        <footer id="hagoromo-footer" class="hagoromo-footer">
+    <div class="container">
+        <div class="hagoromo-footer-widget"></div>
+        <div class="hagoromo-footer-widget">
+            <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
+            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+        </div>
+        <div class="hagoromo-footer-widget social">
+            
+                
+                    <span class="social-button">
+                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                    </span>
+                
+                    <span class="social-button">
+                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                    </span>
+                
+            
+            <span class="social-button">
+                <a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i></a>
+            </span>
+        </div> 
+    </div>
+</footer>
+    </div>
+
+    <div class="hagoromo-sidebar">
+    <div class="hagoromo-sidebar-header">
+        <div class="hagoromo-sidebar-header-wrapper">
+            <div class="hagoromo-site-branding">
+                <h1 class="site-title h4">
+                    <a href="/"><img class="typology-logo" src="/images/logo.png" alt="hagoromo" style="width: 125px;"></a>
+                </h1>
+            </div>
+            <span class="hagoromo-sidebar-close">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget search">
+        <form id="hagoromo-search-form" class="hagoromo-search-form">
+            <input name="s" type="text" placeholder="Type here to search ... ">
+            <button type="submit" class="hagoromo-button hagoromo-button-search">SEARCH</button>
+        </form>
+    </div>
+    <div class="widget categories">
+        <h4 class="widget-title h5">分类</h4>
+        <ul>
+            <li><a href="/archives">Archive</a></li>
+              
+            <li><a href="/categories/Coding/">Coding</a></li>
+              
+            <li><a href="/categories/I-O/">I/O</a></li>
+            
+        </ul>
+    </div>
+    <div class="widget tags">
+        <h4 class="widget-title h5">标签</h4>
+        <ul>
+              
+                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+              
+                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+              
+                <li><a href="/tags/Python/">Python<a></a></a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+              
+                <li><a href="/tags/电影/">电影<a></a></a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+              
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+              
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+              
+                <li><a href="/tags/故事/">故事<a></a></a></li>
+              
+                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="hagoromo-sidebar-overlay"></div>
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/highlight.min.js"></script>
+    <script src="/js/highlightjs-line-numbers.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

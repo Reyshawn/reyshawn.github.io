@@ -46,10 +46,10 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/07/10/1n- Cycle | 6kyu/">1/n- Cycle | 6kyu</a>
+                        <a href="/2019/01/23/1n- Cycle | 6kyu/">1/n- Cycle | 6kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 07 月 10 日
+                        2019 年 01 月 23 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -76,17 +76,52 @@ cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...</code></pre>
 </ul>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/07/10/1n- Cycle | 6kyu/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/23/1n- Cycle | 6kyu/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/06/29/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
+                        <a href="/2019/01/22/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 06 月 29 日
+                        2019 年 01 月 22 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a href="http://www.wikiwand.com/en/Xiangqi" target="_blank" rel="noopener">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
+<hr>
+<p>You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:</p>
+<pre><code>Example (the starting Xiangqi board):
+
+車馬象士將士象馬車
+　　　｜Ｘ｜　　　
+　砲　＋－＋　砲　
+卒　卒　卒　卒　卒
+－－－－－－－－－
+－－－－－－－－－
+兵　兵　兵　兵　兵
+　炮　＋－＋　炮　
+　　　｜Ｘ｜　　　
+俥傌相仕帥仕相傌俥
+
+The bottom and top half corresponds to red and black pieces, respectively.
+Note that red and black have different characters to distinguish the same piece of both sides.</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/22/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2019/01/22/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 01 月 22 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -103,89 +138,17 @@ cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...</code></pre>
 <p>这个题目的难度主要在于性能 performance 方面，对于数值较小的数字，通常方法很容易计算，一旦涉及到九位十位往上的大数，一般的循环方法就会耗时很久。</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/29/Lowest base system | 4kyu/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/22/Lowest base system | 4kyu/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/06/25/@wraps | 6kyu/">@wraps | 6kyu</a>
+                        <a href="/2019/01/22/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 06 月 25 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
-<li><code>decorator</code> 装饰器用法</li>
-<li><code>try</code>…<code>except</code>… <code>else</code> control flow</li>
-<li><code>getattr()</code> 和 <code>setattr()</code></li>
-<li><code>__dict__.update()</code></li>
-</ul>
-<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Implement the functools.wraps decorator, which is used to preserve the name and docstring of a decorated function. Your decorator must not modify the behavior of the decorated function. Here’s an example :</p>
-<pre><code class="python">def identity(func):
-  @wraps(func)
-  def wrapper(*args, **kwargs):
-    &quot;&quot;&quot;Wraps func&quot;&quot;&quot;
-    return func(*args, **kwargs)
-  return wrapper
-
-@identity
-def return_one():
-  &quot;&quot;&quot;Return one&quot;&quot;&quot;
-  return 1
-
-return_one.__name__ == &#39;return_one&#39; # If wraps hadn&#39;t been used, __name__ would be equal to &#39;wrapper&#39;
-return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;</code></pre>
-<p><strong>Note: of course, you may not use the functools module for this kata.</strong></p>
-<p>题目要求，经过一次二重的装饰器，保留原来函数的 <code>__name__</code> 和 <code>__doc__</code>。二重装饰器 decorator，就是用一个 decorator 去 decorate 另一个 decorator。该二重装饰器装饰后的函数， 输出的是一重装饰器装饰过的函数，但是 <code>__name__</code> 和 <code>__doc__</code>  得到保留，及为原函数的值。</p>
-<p>依照题目给的例子，就是输出是被 decorator wraps 修饰过的 <code>wrapper</code> 函数，即函数主体和功能还是 <code>wrapper</code>，但因为被 <code>wraps</code> 装饰了，输出的 <code>wrapper</code> 函数的  <code>__name__</code> 和 <code>__doc__</code>  值为原函数 <code>return_one</code> 的值。</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/25/@wraps | 6kyu/">Read More</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/23/Binary Search Trees | 5kyu/">Binary Search Trees | 5kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2018 年 06 月 23 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
-<li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;{}&#39;.format()</code></li>
-<li>A <code>and</code> B <code>and</code> C</li>
-<li><code>if</code>  … <code>else</code> 单行语句</li>
-<li><code>for</code> … <code>in</code> 单行语句</li>
-<li><code>join()</code> 函数</li>
-<li><code>str()</code> 函数与 <code>__str__()</code> 方法</li>
-</ul>
-<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p>
-<p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p>
-<pre><code class="python">&#39;[_ B [C]]&#39;</code></pre>
-<p>This tree is obtained by evaluating the following expression:</p>
-<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))</code></pre>
-<p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/23/Binary Search Trees | 5kyu/">Read More</a>
-                </div>
-            </article>
-            
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2018/06/20/Born to be chained | 4kyu/">Born to be chained | 4kyu</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2018 年 06 月 20 日
+                        2019 年 01 月 22 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -225,52 +188,48 @@ var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});</code><
 <p>Note that the chain can be reused (the internal state is not stored):</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/20/Born to be chained | 4kyu/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/22/Born to be chained | 4kyu/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
+                        <a href="/2019/01/22/Binary Search Trees | 5kyu/">Binary Search Trees | 5kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 06 月 10 日
+                        2019 年 01 月 22 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a href="http://www.wikiwand.com/en/Xiangqi" target="_blank" rel="noopener">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
-<hr>
-<p>You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:</p>
-<pre><code>Example (the starting Xiangqi board):
-
-車馬象士將士象馬車
-　　　｜Ｘ｜　　　
-　砲　＋－＋　砲　
-卒　卒　卒　卒　卒
-－－－－－－－－－
-－－－－－－－－－
-兵　兵　兵　兵　兵
-　炮　＋－＋　炮　
-　　　｜Ｘ｜　　　
-俥傌相仕帥仕相傌俥
-
-The bottom and top half corresponds to red and black pieces, respectively.
-Note that red and black have different characters to distinguish the same piece of both sides.</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
+                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;{}&#39;.format()</code></li>
+<li>A <code>and</code> B <code>and</code> C</li>
+<li><code>if</code>  … <code>else</code> 单行语句</li>
+<li><code>for</code> … <code>in</code> 单行语句</li>
+<li><code>join()</code> 函数</li>
+<li><code>str()</code> 函数与 <code>__str__()</code> 方法</li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p>
+<p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p>
+<pre><code class="python">&#39;[_ B [C]]&#39;</code></pre>
+<p>This tree is obtained by evaluating the following expression:</p>
+<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))</code></pre>
+<p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/10/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/22/Binary Search Trees | 5kyu/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/06/07/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
+                        <a href="/2019/01/22/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 06 月 07 日
+                        2019 年 01 月 22 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -288,17 +247,58 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
 <p>Hajime!</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/07/Argument Mapper | 5kyu/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/22/Argument Mapper | 5kyu/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/06/05/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
+                        <a href="/2019/01/22/@wraps | 6kyu/">@wraps | 6kyu</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 06 月 05 日
+                        2019 年 01 月 22 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li><code>decorator</code> 装饰器用法</li>
+<li><code>try</code>…<code>except</code>… <code>else</code> control flow</li>
+<li><code>getattr()</code> 和 <code>setattr()</code></li>
+<li><code>__dict__.update()</code></li>
+</ul>
+<h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Implement the functools.wraps decorator, which is used to preserve the name and docstring of a decorated function. Your decorator must not modify the behavior of the decorated function. Here’s an example :</p>
+<pre><code class="python">def identity(func):
+  @wraps(func)
+  def wrapper(*args, **kwargs):
+    &quot;&quot;&quot;Wraps func&quot;&quot;&quot;
+    return func(*args, **kwargs)
+  return wrapper
+
+@identity
+def return_one():
+  &quot;&quot;&quot;Return one&quot;&quot;&quot;
+  return 1
+
+return_one.__name__ == &#39;return_one&#39; # If wraps hadn&#39;t been used, __name__ would be equal to &#39;wrapper&#39;
+return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;</code></pre>
+<p><strong>Note: of course, you may not use the functools module for this kata.</strong></p>
+<p>题目要求，经过一次二重的装饰器，保留原来函数的 <code>__name__</code> 和 <code>__doc__</code>。二重装饰器 decorator，就是用一个 decorator 去 decorate 另一个 decorator。该二重装饰器装饰后的函数， 输出的是一重装饰器装饰过的函数，但是 <code>__name__</code> 和 <code>__doc__</code>  得到保留，及为原函数的值。</p>
+<p>依照题目给的例子，就是输出是被 decorator wraps 修饰过的 <code>wrapper</code> 函数，即函数主体和功能还是 <code>wrapper</code>，但因为被 <code>wraps</code> 装饰了，输出的 <code>wrapper</code> 函数的  <code>__name__</code> 和 <code>__doc__</code>  值为原函数 <code>return_one</code> 的值。</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/22/@wraps | 6kyu/">Read More</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
+                        <a href="/2019/01/22/Default Arguments | 4kyu/">Default Arguments | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 01 月 22 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -323,53 +323,39 @@ add_(10,10); // returns 20</code></pre>
 <p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/06/05/Default Arguments | 4kyu/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/22/Default Arguments | 4kyu/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/02/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
+                        <a href="/2019/01/18/Codewars.com-|-Catching-Car-Mileage-Numbers/">Catching Car Mileage Numbers</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 02 月 18 日
+                        2019 年 01 月 18 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
-<p>This is the first part of three (<a href="http://www.codewars.com/kata/es5-generators-ii" target="_blank" rel="noopener">part2</a>, <a href="http://www.codewars.com/kata/es5-generators-iii" target="_blank" rel="noopener">part3</a>).</p>
-<p>Generators and Iterators are new ES6 features that will allow things like this:</p>
-<pre><code class="javascript">function* fibonacci() {
-    let [prev, curr] = [0, 1];
-    for (;;) {
-        [prev, curr] = [curr, prev + curr];
-        yield curr;
-    }
-}</code></pre>
-<p>Using them in this way, we can do amazing things:</p>
-<pre><code class="javascript">let seq = fibonacci();
-print(seq.next()); // 1
-print(seq.next()); // 2
-print(seq.next()); // 3
-print(seq.next()); // 5
-print(seq.next()); // 8</code></pre>
-<p>This is powerful, but until a few months later, ES6 will not be born.</p>
-<p>The goal of this kata is to implement pseudo-generators with ES5.</p>
+                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><blockquote>
+<p>  “7777…<em>8?!??!</em>“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who <em>doesn’t</em> like catching those one-off interesting mileage numbers?</p>
+</blockquote>
+<p>Let’s make it so Bob <strong>never</strong> misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a <code>1</code> or a <code>2</code> (respectively).</p>
+<p>It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a <code>2</code> if the number is “interesting” (see below), a <code>1</code> if an interesting number occurs within the next two miles, or a <code>0</code> if the number is not interesting.</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/18/Codewars.com | ES5 Generators(i)/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/18/Codewars.com-|-Catching-Car-Mileage-Numbers/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/02/12/Codewars.com | Wrapped Function/">Wrapped Function</a>
+                        <a href="/2019/01/18/Codewars.com | Wrapped Function/">Wrapped Function</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 02 月 12 日
+                        2019 年 01 月 18 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
@@ -388,7 +374,7 @@ speak = speak.wrap(function(original, yourName, myName){
 var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);</code></pre>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/12/Codewars.com | Wrapped Function/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/18/Codewars.com | Wrapped Function/">Read More</a>
                 </div>
             </article>
             
@@ -486,19 +472,19 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);</code></pre>
               
                 <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
-              
                 <li><a href="/tags/电影/">电影<a></a></a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+              
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
               
                 <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
                 <li><a href="/tags/故事/">故事<a></a></a></li>
               
                 <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
-              
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>

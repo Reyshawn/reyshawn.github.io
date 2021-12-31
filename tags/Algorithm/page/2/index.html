@@ -46,22 +46,36 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">Catching Car Mileage Numbers</a>
+                        <a href="/2019/01/18/Codewars.com | ES5 Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
                     </h2>
                     <div class="entry-meta">
-                        2018 年 02 月 10 日
+                        2019 年 01 月 18 日
                     </div>
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><blockquote>
-<p>  “7777…<em>8?!??!</em>“, exclaimed Bob, “I missed it again! Argh!” Every time there’s an interesting number coming up, he notices and then promptly forgets. Who <em>doesn’t</em> like catching those one-off interesting mileage numbers?</p>
-</blockquote>
-<p>Let’s make it so Bob <strong>never</strong> misses another interesting number. We’ve hacked into his car’s computer, and we have a box hooked up that reads mileage numbers. We’ve got a box glued to his dash that lights up yellow or green depending on whether it receives a <code>1</code> or a <code>2</code> (respectively).</p>
-<p>It’s up to you, intrepid warrior, to glue the parts together. Write the function that parses the mileage number input, and returns a <code>2</code> if the number is “interesting” (see below), a <code>1</code> if an interesting number occurs within the next two miles, or a <code>0</code> if the number is not interesting.</p>
+                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
+<p>This is the first part of three (<a href="http://www.codewars.com/kata/es5-generators-ii" target="_blank" rel="noopener">part2</a>, <a href="http://www.codewars.com/kata/es5-generators-iii" target="_blank" rel="noopener">part3</a>).</p>
+<p>Generators and Iterators are new ES6 features that will allow things like this:</p>
+<pre><code class="javascript">function* fibonacci() {
+    let [prev, curr] = [0, 1];
+    for (;;) {
+        [prev, curr] = [curr, prev + curr];
+        yield curr;
+    }
+}</code></pre>
+<p>Using them in this way, we can do amazing things:</p>
+<pre><code class="javascript">let seq = fibonacci();
+print(seq.next()); // 1
+print(seq.next()); // 2
+print(seq.next()); // 3
+print(seq.next()); // 5
+print(seq.next()); // 8</code></pre>
+<p>This is powerful, but until a few months later, ES6 will not be born.</p>
+<p>The goal of this kata is to implement pseudo-generators with ES5.</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2018/02/10/Codewars.com-|-Catching-Car-Mileage-Numbers/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/18/Codewars.com | ES5 Generators(i)/">Read More</a>
                 </div>
             </article>
             
@@ -159,19 +173,19 @@
               
                 <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
-              
                 <li><a href="/tags/电影/">电影<a></a></a></li>
+              
+                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+              
+                <li><a href="/tags/音乐/">音乐<a></a></a></li>
               
                 <li><a href="/tags/Anime/">Anime<a></a></a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
               
                 <li><a href="/tags/故事/">故事<a></a></a></li>
               
                 <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
-              
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
             
         </ul>
     </div>
