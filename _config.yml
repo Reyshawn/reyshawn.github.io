@@ -99,5 +99,5 @@ since: 2017
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/Reyshawn/reyshawn.github.io
+  repo: git@github.com:Reyshawn/reyshawn.github.io.git
   branch: master
