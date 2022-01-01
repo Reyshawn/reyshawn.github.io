@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -43,7 +47,7 @@
         <article class="hagoromo-post">
             <header class="entry-header">
                 <h2 class="entry-title h1">
-                    <a href="/2019/01/22/Argument Mapper | 5kyu/">Argument Mapper | 5kyu</a>
+                    <a href="/2019/01/22/Argument%20Mapper%20%7C%205kyu/">Argument Mapper | 5kyu</a>
                 </h2>
                 <div class="entry-meta">
                     2019 年 01 月 22 日
@@ -54,33 +58,36 @@
                 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>As part of a broader functionality you need to develop an argument mapper.</p>
 <p>The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.</p>
 <p>The usage is:</p>
-<pre><code class="javascript">function func1(arg1, arg2) { ... }
+<pre><code class="javascript">function func1(arg1, arg2) &#123; ... &#125;
 
 var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
 console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
-console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
+console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
+</code></pre>
 <p>The passed values are in the same order as they appear in the function object.</p>
 <p>Invalid inputs, e.g. non-function objects, or wrong number of arguments, are not considered.</p>
 <p>Hajime!</p>
-<a id="more"></a>
+<span id="more"></span>
 
-<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function createArgumentMap(func) {
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function createArgumentMap(func) &#123;
     // create an argument map and return it
     let args = Array.prototype.slice.call(arguments,1);
-    let res = {};
-    for (var i = 1; i &lt;= args.length; i++) {
+    let res = &#123;&#125;;
+    for (var i = 1; i &lt;= args.length; i++) &#123;
         res[&#39;a&#39; + i] = args[i-1]
-    }
+    &#125;
     return res
-  }</code></pre>
-<p>关于 JavaScript 中 arguments 的性质参看：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments" target="_blank" rel="noopener">Arguments object</a></p>
+  &#125;
+</code></pre>
+<p>关于 JavaScript 中 arguments 的性质参看：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments">Arguments object</a></p>
 <p><code>res[&#39;a&#39;+i]</code> 是为了契合 test 中都是用形如 map[a1] map[a2] 等来 check 答案的。这里我的方法有些取巧。实际上需要得到的是实际定义函数时使用的参数名称，就像上次 review 中那样，要用到 <code>.toString()</code> 和正则表达式。</p>
-<h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p><a href="https://www.codewars.com/users/colbydauph" target="_blank" rel="noopener">colbydauph</a></p>
-<pre><code class="javascript">function createArgumentMap(func) {
+<h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p><a target="_blank" rel="noopener" href="https://www.codewars.com/users/colbydauph">colbydauph</a></p>
+<pre><code class="javascript">function createArgumentMap(func) &#123;
   var args = (/function\s[^(]*\(([^)]+)\)/g.exec(func.toString()) || [&#39;&#39;]).pop().split(/,/g);
-  return Array.prototype.slice.call(arguments, 1).reduce(function(p, c, i){ return p[args[i]] = c, p }, {});
-}</code></pre>
-<p><code>reduce()</code> 中 callback 函数的三个参数，依次分别是 <code>accumulator</code>, <code>currentValue</code>, <code>currentIndex</code>。对应代码中的 <code>function(p, c, i){...}</code></p>
+  return Array.prototype.slice.call(arguments, 1).reduce(function(p, c, i)&#123; return p[args[i]] = c, p &#125;, &#123;&#125;);
+&#125;
+</code></pre>
+<p><code>reduce()</code> 中 callback 函数的三个参数，依次分别是 <code>accumulator</code>, <code>currentValue</code>, <code>currentIndex</code>。对应代码中的 <code>function(p, c, i)&#123;...&#125;</code></p>
 <p>正则表达式分析：</p>
 <p><code>/function\s[^(]*\(([^)]+)\)/g</code></p>
 <ul>
@@ -95,40 +102,42 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;</code></pre>
 [ &#39;function func1(arg1, arg2)&#39;,
   &#39;arg1, arg2&#39;,
   index: 0,
-  input: &#39;function func1(arg1, arg2) { console.log(arg1, arg2) }&#39; ]
+  input: &#39;function func1(arg1, arg2) &#123; console.log(arg1, arg2) &#125;&#39; ]
 &gt;(/function\s[^(]*\([^)]+\)/g.exec(func1.toString()))
 [ &#39;function func1(arg1, arg2)&#39;,
   index: 0,
-  input: &#39;function func1(arg1, arg2) { console.log(arg1, arg2) }&#39; ]
-&gt;</code></pre>
+  input: &#39;function func1(arg1, arg2) &#123; console.log(arg1, arg2) &#125;&#39; ]
+&gt;
+</code></pre>
 <p>上述展示了加中间那对括号，和不加括号时的区别。</p>
 <p>另外注意这里的 <code>.split(/,/g)</code> 方法的参数。这里的参数并不是两个。而是一个，一个正则表达式，global 模式匹配单字符 <code>,</code>，用正则表达式的 <code>/.../g</code> 扩起来。同理也可以写成 <code>.split(&#39;,&#39;)</code>。</p>
-<p><code>.reduce()</code>方法使用及参数说明：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">Array.prototype.reduce()</a></p>
-<p>关于最后在 reduce 的 callback 函数中，return 那里出现的 comma，<code>return p[args[i]] = c, p</code>，其实就是多个语句的简写，先进行赋值，然后输出 <code>p</code>。参见 stack overflow 上的解释：<a href="https://stackoverflow.com/questions/10284536/return-statement-with-multiple-comma-separated-values" target="_blank" rel="noopener">return statement with multiple comma separated values</a></p>
+<p><code>.reduce()</code>方法使用及参数说明：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">Array.prototype.reduce()</a></p>
+<p>关于最后在 reduce 的 callback 函数中，return 那里出现的 comma，<code>return p[args[i]] = c, p</code>，其实就是多个语句的简写，先进行赋值，然后输出 <code>p</code>。参见 stack overflow 上的解释：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10284536/return-statement-with-multiple-comma-separated-values">return statement with multiple comma separated values</a></p>
 <blockquote>
-<p>It’s the <a href="http://es5.github.com/#x11.14" target="_blank" rel="noopener">comma operator</a>. It runs a series of expressions, in order, and then returns the result of the <em>last</em> of them.  </p>
+<p>It’s the <a target="_blank" rel="noopener" href="http://es5.github.com/#x11.14">comma operator</a>. It runs a series of expressions, in order, and then returns the result of the <em>last</em> of them.  </p>
 </blockquote>
-<p><a href="https://www.codewars.com/users/stnever" target="_blank" rel="noopener">stnever</a></p>
-<pre><code class="javascript">function createArgumentMap(func) {
+<p><a target="_blank" rel="noopener" href="https://www.codewars.com/users/stnever">stnever</a></p>
+<pre><code class="javascript">function createArgumentMap(func) &#123;
   var argumentNames = getArgumentNames(func);
   var argumentValues = arguments;
-  var result = {};
-  argumentNames.forEach(function(key, index) {
+  var result = &#123;&#125;;
+  argumentNames.forEach(function(key, index) &#123;
     result[key] = argumentValues[index+1];    
-  });
+  &#125;);
   return result;
-}
+&#125;
 
 // shamelessly copied from http://stackoverflow.com/questions/1007981
 var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 var ARGUMENT_NAMES = /([^\s,]+)/g;
-function getArgumentNames(func) {
+function getArgumentNames(func) &#123;
   var fnStr = func.toString().replace(STRIP_COMMENTS, &#39;&#39;)
   var result = fnStr.slice(fnStr.indexOf(&#39;(&#39;)+1, fnStr.indexOf(&#39;)&#39;)).match(ARGUMENT_NAMES)
   if(result === null)
      result = []
   return result
-}</code></pre>
+&#125;
+</code></pre>
 
             </div>
             <div class="entry-tags">
@@ -149,29 +158,29 @@ function getArgumentNames(func) {
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -217,27 +226,27 @@ function getArgumentNames(func) {
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -245,9 +254,17 @@ function getArgumentNames(func) {
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

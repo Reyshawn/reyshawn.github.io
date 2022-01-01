@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -46,7 +50,7 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/08/29/多个项目共享-Webpack/">多个项目共享 Webpack</a>
+                        <a href="/2019/08/29/%E5%A4%9A%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%85%B1%E4%BA%AB-Webpack/">多个项目共享 Webpack</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 08 月 29 日
@@ -54,16 +58,17 @@
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <p>最近在看 <a href>@keyframer</a> 的一系列视频，需要用到 webpack 来配置 scss 环境，这就导致了每一个项目都要重复下载一遍 webpack 和相关的所有 node modules，这样很浪费空间。</p>
+                    <p>最近在看 <a href="">@keyframer</a> 的一系列视频，需要用到 webpack 来配置 scss 环境，这就导致了每一个项目都要重复下载一遍 webpack 和相关的所有 node modules，这样很浪费空间。</p>
 <p>因此要想办法把 webpack 独立出来，让每一个项目都可以访问到 webpack，一个方法是全局安装 webpack。这里提供另一种方法，想到我们通常使用 webpack 的情景是，在  <code>package.json</code> 里预先定义好 </p>
-<pre><code class="json">&quot;scripts&quot;: {
+<pre><code class="json">&quot;scripts&quot;: &#123;
     &quot;dev&quot;: &quot;webpack-dev-server&quot;,
     &quot;build&quot;: &quot;webpack&quot;
-}</code></pre>
+&#125;
+</code></pre>
 <p>然后 <code>npm run dev</code>。我们需要把这里修改一下，让每个项目都统一调用同一个 webpack。</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/08/29/多个项目共享-Webpack/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/08/29/%E5%A4%9A%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%85%B1%E4%BA%AB-Webpack/">Read More</a>
                 </div>
             </article>
             
@@ -80,19 +85,20 @@
                 <div class="entry-content">
                     <p>关于 lazy evaluation，首先要明白两个概念：call by name 和 call by value：</p>
 <pre><code class="javascript">// Evaluates with call-by-name strategy
-1 function callByName (a, b) {
-2  if (a === 1) {
+1 function callByName (a, b) &#123;
+2  if (a === 1) &#123;
 3    return 10
-4  }
+4  &#125;
 5  return a + b
-6 }
+6 &#125;
 // Evaluates with call-by-value strategy
-1 function callByValue (a, b) {
-2  if (a === 1) {
+1 function callByValue (a, b) &#123;
+2  if (a === 1) &#123;
 3    return 10
-4  }
+4  &#125;
 5  return a + b
-6 }</code></pre>
+6 &#125;
+</code></pre>
 <p>两个函数在形式上没有什么区别，只是在运行时采取了不同的策略或态度，前者是 lazy，后者是 eager；</p>
 <pre><code class="shell">&gt; callByName (1, 2 + 3)
 &gt; a === 1
@@ -101,7 +107,8 @@
 &gt; callByValue(1, 2 + 3)
 &gt; callByValue(1, 5)
 &gt; a === 1
-&gt; return 10</code></pre>
+&gt; return 10
+</code></pre>
 <p>使用 lazy evaluation，只用当真正需要读取这个变量或 expression 的时候，才会对其进行运算或 evaluate，也就是字面意义上的 call by need。</p>
 <p>实现 lazy evaluation 有很多方法，但其核心概念则是 functional programming。即我们把所有的 variable 写成函数的形式，这样的函数通常被称为 thunk：</p>
                 </div>
@@ -113,7 +120,7 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/06/29/JavaScript-Semicolon 二三事/">JavaScript: Semicolon 二三事</a>
+                        <a href="/2019/06/29/JavaScript-Semicolon%20%E4%BA%8C%E4%B8%89%E4%BA%8B/">JavaScript: Semicolon 二三事</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 06 月 29 日
@@ -124,27 +131,31 @@
                     <p>由于 JavaScript 拥有 <em>Automatic Semicolon Insertion</em> 这样的机制，我已经很长时间在写 js 的时候不加分号了。但今天碰到了这样的一个情况：</p>
 <pre><code class="javascript">let i = 0
 
-(function test () {
+(function test () &#123;
   console.log(&#39;hello&#39;)
-})()</code></pre>
+&#125;)()
+</code></pre>
 <p>这里会提示报错：</p>
-<pre><code>TypeError: 0 is not a function</code></pre><p>观察了一会儿，才发现，JavaScript 引擎一定是把第一行和第三行看成一行代码，按道理，第一行末尾应该是要自动加一个分号的。这里如果我们手动加上分号，程序就不会报错了。</p>
+<pre><code>TypeError: 0 is not a function
+</code></pre>
+<p>观察了一会儿，才发现，JavaScript 引擎一定是把第一行和第三行看成一行代码，按道理，第一行末尾应该是要自动加一个分号的。这里如果我们手动加上分号，程序就不会报错了。</p>
 <pre><code class="javascript">let i = 0;
 
-(function test () {
+(function test () &#123;
   console.log(&#39;hello&#39;)
-})()</code></pre>
+&#125;)()
+</code></pre>
 <p>关于 JavaScript 的 <em>Automatic Semicolon Insertion</em>，规则是这样的：</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/06/29/JavaScript-Semicolon 二三事/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/06/29/JavaScript-Semicolon%20%E4%BA%8C%E4%B8%89%E4%BA%8B/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/06/12/JSON-Web-Token-的产生和认证/">JSON Web Token 的产生和认证</a>
+                        <a href="/2019/06/12/JSON-Web-Token-%E7%9A%84%E4%BA%A7%E7%94%9F%E5%92%8C%E8%AE%A4%E8%AF%81/">JSON Web Token 的产生和认证</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 06 月 12 日
@@ -177,7 +188,7 @@
 </ol>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/06/12/JSON-Web-Token-的产生和认证/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/06/12/JSON-Web-Token-%E7%9A%84%E4%BA%A7%E7%94%9F%E5%92%8C%E8%AE%A4%E8%AF%81/">Read More</a>
                 </div>
             </article>
             
@@ -196,7 +207,8 @@
 <h2 id="Event-loop"><a href="#Event-loop" class="headerlink" title="Event loop"></a>Event loop</h2><p>JavaScript 是一种 single thread 的语言。既然单一线程，那么在某个时间点，只能完成一项任务。于是</p>
 <pre><code class="javascript">$.get(&#39;http://twitter.com&#39;)
 $.get(&#39;http://youtube.com&#39;)
-$.get(&#39;http://google.com&#39;)</code></pre>
+$.get(&#39;http://google.com&#39;)
+</code></pre>
 <p>在单线程下，如果某一行执行所需要的时间太久了，那么余下的的 command 也无法执行，程序就在那一行停滞下来了。我们把这个叫做 blocking。然而事实上，当我们在使用 <code>setTimeout()</code> 函数时，程序似乎不会出现 blocking。</p>
 <pre><code class="Javascript">console.log(&#39;hi&#39;)
 setTimeout(() =&gt; console.log(&#39;there&#39;), 0)
@@ -205,7 +217,8 @@ console.log(&#39;Welcome!&#39;)
 // output:
 // hi
 // Welcome
-// there</code></pre>
+// there
+</code></pre>
 <p>这里哪怕是设置 delay 为 0s， <code>setTimeout()</code> 里的函数也是在最后才执行，是怎么回事呢？</p>
 <p>在 JavaScript 的执行环境中，所有的需要运行的函数是单线程的，按照次序会出现在 call stack 里。而通常，JavaScript 要么在 Browser 里运行，要么在 Node 环境运行，在 Browser 里运行时，会有一整套来自 Browser 提供的 web API，同理在 node 环境里也有相应的 API。 <code>setTimeout()</code> 函数就来自这些提供的 API 中。当我们 declare and call  一个  <code>setTimeout()</code> 函数时，Browser 会生成一个 timer 计时器，计时器的时间达到时，  <code>setTimeout()</code>  里定义的 callback 函数会进入到一个叫 <code>task queue</code> 的容器中，此时程序会去检测 call stack 是否为空，当 call stack 为空时，会将 task queue 中最上层的函数移入 call stack 中进行执行。因此本质上来讲，由于有 web API 的加持，最终类似  <code>setTimeout()</code> 函数还是使用了多线程。只不过对于 JavaScript 来讲，一直是执行的是 call stack 里的内容，可以认为一直是单线程操作。</p>
                 </div>
@@ -217,7 +230,7 @@ console.log(&#39;Welcome!&#39;)
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/02/02/「User Authentication with Passport and Koa 」Summary/">「User Authentication with Passport and Koa 」Summary</a>
+                        <a href="/2019/02/02/%E3%80%8CUser%20Authentication%20with%20Passport%20and%20Koa%20%E3%80%8DSummary/">「User Authentication with Passport and Koa 」Summary</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 02 月 02 日
@@ -225,7 +238,7 @@ console.log(&#39;Welcome!&#39;)
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <p>上周在阅读 <em>Express.js Blueprints</em> 时看到 Authentication 的部分，就想着使用 Koa 去复现一遍。于是在网上看到这篇文章 <a href="https://mherman.org/blog/user-authentication-with-passport-and-koa/" target="_blank" rel="noopener">User Authentication with Passport and Koa</a> 。文章给出了源代码和详细的步骤。其中不乏遇到自己不熟悉的知识领域，比如 knex，postgresql 和 redis 等等。写这篇文章的目的：一是熟悉下在 koa 框架下的程序结构；二是对于自己不熟悉的知识领域的一个总结。</p>
+                    <p>上周在阅读 <em>Express.js Blueprints</em> 时看到 Authentication 的部分，就想着使用 Koa 去复现一遍。于是在网上看到这篇文章 <a target="_blank" rel="noopener" href="https://mherman.org/blog/user-authentication-with-passport-and-koa/">User Authentication with Passport and Koa</a> 。文章给出了源代码和详细的步骤。其中不乏遇到自己不熟悉的知识领域，比如 knex，postgresql 和 redis 等等。写这篇文章的目的：一是熟悉下在 koa 框架下的程序结构；二是对于自己不熟悉的知识领域的一个总结。</p>
 <p>需要通过 brew 安装：</p>
 <ul>
 <li>postgresql</li>
@@ -237,14 +250,14 @@ console.log(&#39;Welcome!&#39;)
 </ul>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/02/02/「User Authentication with Passport and Koa 」Summary/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/02/02/%E3%80%8CUser%20Authentication%20with%20Passport%20and%20Koa%20%E3%80%8DSummary/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
+                        <a href="/2019/01/26/%E5%88%9D%E8%A7%81%20Koa/">初见 Koa.js</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 01 月 26 日
@@ -262,14 +275,14 @@ console.log(&#39;Welcome!&#39;)
 <p>通过本文，你能了解到。Koa 最基础的 HelloWorld，它 如何渲染一个 template 页面，传递数据。什么是「Routing 路由」，路由在 Koa 中如何实现的。</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/26/初见 Koa/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/26/%E5%88%9D%E8%A7%81%20Koa/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/01/25/异步 & callback/">异步 &amp; callback</a>
+                        <a href="/2019/01/25/%E5%BC%82%E6%AD%A5%20&%20callback/">异步 &amp; callback</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 01 月 25 日
@@ -277,18 +290,18 @@ console.log(&#39;Welcome!&#39;)
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <p>最近开始学习 Node.js。主要看两本书：<em>Node.js in Practice</em> 和 <em>Node.js Design Patterns</em>。前者类似于 o’reilly 的 cookbook 系列，整本书的编排是通过一个个 recipe，一个个具体的 problem&amp;solution 实现的。后者就是 <a href="https://search.packtpub.com/" target="_blank" rel="noopener">Packt Publishing</a> 出品的一系列 Design Patterns 书籍。包括这两本书在内的许多讲解 Node.js 的书籍，都会不断强调两个关键词， asynchronous 和 non-blocking I/O。在最初开始学习编程的时候，无论是写一些算法题目，或是做一些本地测试，它都是同步的，即时响应的，单线程的，blocking I/O。但如果进入的网络领域，「异步」则会被不断提起。相比 synchronous，「异步」更加接近我们相处的真实世界。</p>
+                    <p>最近开始学习 Node.js。主要看两本书：<em>Node.js in Practice</em> 和 <em>Node.js Design Patterns</em>。前者类似于 o’reilly 的 cookbook 系列，整本书的编排是通过一个个 recipe，一个个具体的 problem&amp;solution 实现的。后者就是 <a target="_blank" rel="noopener" href="https://search.packtpub.com/">Packt Publishing</a> 出品的一系列 Design Patterns 书籍。包括这两本书在内的许多讲解 Node.js 的书籍，都会不断强调两个关键词， asynchronous 和 non-blocking I/O。在最初开始学习编程的时候，无论是写一些算法题目，或是做一些本地测试，它都是同步的，即时响应的，单线程的，blocking I/O。但如果进入的网络领域，「异步」则会被不断提起。相比 synchronous，「异步」更加接近我们相处的真实世界。</p>
 <p>这篇文章以 <em>Node.js Design Patterns</em> 第二章的 Web Spider 例子，探究思考在 Node.js 中是如何通过 callback 来实现异步操作的。</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/25/异步 & callback/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/25/%E5%BC%82%E6%AD%A5%20&%20callback/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/01/22/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
+                        <a href="/2019/01/22/%E8%B1%A1%E6%A3%8B%20(XiangqiChinese%20Chess)%20Board%20Validator%20%7C%204kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 01 月 22 日
@@ -296,7 +309,7 @@ console.log(&#39;Welcome!&#39;)
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a href="http://www.wikiwand.com/en/Xiangqi" target="_blank" rel="noopener">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a target="_blank" rel="noopener" href="http://www.wikiwand.com/en/Xiangqi">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
 <hr>
 <p>You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:</p>
 <pre><code>Example (the starting Xiangqi board):
@@ -313,17 +326,19 @@ console.log(&#39;Welcome!&#39;)
 俥傌相仕帥仕相傌俥
 
 The bottom and top half corresponds to red and black pieces, respectively.
-Note that red and black have different characters to distinguish the same piece of both sides.</code></pre><p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
+Note that red and black have different characters to distinguish the same piece of both sides.
+</code></pre>
+<p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/22/象棋 (XiangqiChinese Chess) Board Validator | 4kyu/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/22/%E8%B1%A1%E6%A3%8B%20(XiangqiChinese%20Chess)%20Board%20Validator%20%7C%204kyu/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/01/22/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
+                        <a href="/2019/01/22/Lowest%20base%20system%20%7C%204kyu/">Lowest base system | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 01 月 22 日
@@ -343,7 +358,7 @@ Note that red and black have different characters to distinguish the same piece 
 <p>这个题目的难度主要在于性能 performance 方面，对于数值较小的数字，通常方法很容易计算，一旦涉及到九位十位往上的大数，一般的循环方法就会耗时很久。</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/22/Lowest base system | 4kyu/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/22/Lowest%20base%20system%20%7C%204kyu/">Read More</a>
                 </div>
             </article>
             
@@ -353,7 +368,7 @@ Note that red and black have different characters to distinguish the same piece 
     <nav class="navigation pagination" role="navigation">
         
         
-        <span class="page-number current">1</span><a class="page-number" href="/tags/JavaScript/page/2/">2</a><a class="extend next" rel="next" href="/tags/JavaScript/page/2/">next &raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/tags/JavaScript/page/2/">2</a><a class="extend next" rel="next" href="/tags/JavaScript/page/2/">next &amp;raquo;</a>
     </nav>
 </div>
 
@@ -365,29 +380,29 @@ Note that red and black have different characters to distinguish the same piece 
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -433,27 +448,27 @@ Note that red and black have different characters to distinguish the same piece 
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -461,9 +476,17 @@ Note that red and black have different characters to distinguish the same piece 
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

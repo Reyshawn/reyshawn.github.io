@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -43,7 +47,7 @@
         <article class="hagoromo-post">
             <header class="entry-header">
                 <h2 class="entry-title h1">
-                    <a href="/2019/01/22/Lowest base system | 4kyu/">Lowest base system | 4kyu</a>
+                    <a href="/2019/01/22/Lowest%20base%20system%20%7C%204kyu/">Lowest base system | 4kyu</a>
                 </h2>
                 <div class="entry-meta">
                     2019 年 01 月 22 日
@@ -61,42 +65,43 @@
 <p>‘21’ in base 2 is ‘10101’ - contains ‘0’ does not fit ‘21’ in base 3 is ‘210’ - contains ‘0’ and ‘2’ does not fit ‘21’ in base 4 is ‘111’ - contains only ‘1’ it fits! answer is 4</p>
 <p><code>n</code> is always less than <code>Number.MAX_SAFE_INTEGER</code>.</p>
 <p>这个题目的难度主要在于性能 performance 方面，对于数值较小的数字，通常方法很容易计算，一旦涉及到九位十位往上的大数，一般的循环方法就会耗时很久。</p>
-<a id="more"></a>
+<span id="more"></span>
 
-<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function getMinBase (number) {
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function getMinBase (number) &#123;
     if (number == 3) return 2;
     var divisor = number -1
-    for (let i = 2; i != divisor; i++) {
+    for (let i = 2; i != divisor; i++) &#123;
         var k = number - 1;
         if (i &gt; 5999) break;
-        while (!(k % i)) {
+        while (!(k % i)) &#123;
             divisor = k / i
             k = divisor - 1;
             if (k == 0) return i;
-        }
-    }
+        &#125;
+    &#125;
     var _root = [2,3,4,5]
     var k = 11
-    for (let i=0; i&lt;_root.length; i++){
+    for (let i=0; i&lt;_root.length; i++)&#123;
         var possible = parseInt(Math.pow(number, 1/_root[i]))
         var k = 10 * k + 1
         if (toTenBase(k,possible) == number) return possible
-    }
+    &#125;
 
     return number -1;
-}
+&#125;
 
 
-function toTenBase (number, base) {
+function toTenBase (number, base) &#123;
     n = number + &#39;&#39;;
     n = n.split(&#39;&#39;).map(a =&gt; parseInt(a));
     res = 0
-    for (var i = n.length -1; i &gt; -1; i--) {
+    for (var i = n.length -1; i &gt; -1; i--) &#123;
         res += Math.pow(base,i) * n[i]
-    }
+    &#125;
 
     return res;
-}</code></pre>
+&#125;
+</code></pre>
 <p>我的这个方法，似乎有些根据测试的数据，有些取巧。代码分成两部分，第一步是通常意义的查找，<code>i</code> 从 2 开始，依此类加，找到每次减 1 都能被整除的最小 <code>i</code> 值。这里面为了优化用了一些技巧，比如最开始一部其实是要找 <code>number - 1</code> 的所有因子，但注意，因为一个数的所有因子都是对称的。譬如 12 的因子：1，2，3，4，6，12。从 3 开始往后的每一个数，在之前的相除过程中都得到了。比如和 2 相除得到 6，和 3 相除得到 4。</p>
 <p>所以我在代码的第一部分加入了变量 <code>divisor</code>，并把它加入了跳出循环的条件。因为一旦 <code>i</code> 超过了 <code>number - 1</code>  的一半，那么就不可能存在除了 <code>number -1</code> 之外的数，使得以之为 base 能得到 <code>111...</code>。</p>
 <p>但因为每次 <code>i</code> 都是类加 1，经过多次反复实验，<code>i</code> 超过 5000 之后，再计算速度已经很慢了。于是我写了另一个函数 <code>toTenBase()</code> ，给出任意 number 和 base，计算以 10 base 的数。最开始写这个函数，不过是为了去找一些规律。对于测试中出现的那些很大的数，大部分的结果都是 <code>number - 1</code>，然而在特殊测试部分，类似这样的 <code>Test.assertEquals(getMinBase(2500050001), 50000);</code> 数就很难办。</p>
@@ -107,72 +112,76 @@ function toTenBase (number, base) {
 <p>对于 <code>11111</code> ，按照上述形式也可写出四次方程来。那么问题就是，针对这样的方程，该如何解呢？那么我们就要意识到，$n$ 此时已经很大了，相应 $x$ 也很大。所以它可以转化成一个球极限的问题，即：</p>
 <p>$\lim\limits_{x \to \infty }x^3+x^2 +x+1=\lim\limits_{n \to \infty }n$<br>$\lim\limits_{x \to \infty }x^3=\lim\limits_{n \to \infty }n$</p>
 <p>因此对于第一个方程，n 直接开方，对于第二个方程，n 直接开三次方。理论终究只是理论，实际检验一下，发现可以，于是就是有代码的第二部分。</p>
-<h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a href="https://www.codewars.com/users/Voile" target="_blank" rel="noopener">Voile</a></p>
-<pre><code class="javascript">function getMinBase(n) {
-  for(let i=Math.ceil(Math.log2(n)); i&gt;1; i--) {
+<h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/Voile">Voile</a></p>
+<pre><code class="javascript">function getMinBase(n) &#123;
+  for(let i=Math.ceil(Math.log2(n)); i&gt;1; i--) &#123;
     let root=Math.round(findRoot(n,i));
     if([...&#39;1&#39;.repeat(i)].reduce((s,_)=&gt;s*root+1,0)===n) return root;
-  }
-}
+  &#125;
+&#125;
 
-function findRoot(n,i) {
+function findRoot(n,i) &#123;
   var l=1, r=Number.MAX_SAFE_INTEGER;
-  while((r-l)/l&gt;1e-12) {
+  while((r-l)/l&gt;1e-12) &#123;
     let m=(r+l)/2, g=(Math.pow(m,i)-1)/(m-1);
     g&lt;n?l=m:r=m;
-  }
+  &#125;
   return (r+l)/2;
-}</code></pre>
+&#125;
+</code></pre>
 <p><code>Number.MAX_SAFE_INTEGER</code> 是我们可以在 JavaScript 中进行 <strong>准确计算</strong>的最大数字，比之更大的数依然存在，但如果参与计算就会误差很大。</p>
 <blockquote>
-<p>The <strong>Number.MAX_SAFE_INTEGER</strong> constant represents the maximum safe integer in JavaScript (<code>253 - 1</code>).</p>
-<p>The reasoning behind that number is that JavaScript uses <a href="http://www.wikiwand.com/en/Double_precision_floating-point_format" target="_blank" rel="noopener">double-precision floating-point format numbers</a> as specified in <a href="http://www.wikiwand.com/en/IEEE_floating_point" target="_blank" rel="noopener">IEEE 754</a> and can only safely represent numbers between <code>-(253 - 1)</code> and <code>253 - 1</code>.</p>
+<p>The <strong>Number.MAX_SAFE_INTEGER</strong> constant represents the maximum safe integer in JavaScript (<code>253 - 1</code>).</p>
+<p>The reasoning behind that number is that JavaScript uses <a target="_blank" rel="noopener" href="http://www.wikiwand.com/en/Double_precision_floating-point_format">double-precision floating-point format numbers</a> as specified in <a target="_blank" rel="noopener" href="http://www.wikiwand.com/en/IEEE_floating_point">IEEE 754</a> and can only safely represent numbers between <code>-(253 - 1)</code> and <code>253 - 1</code>.</p>
 </blockquote>
 <p> <code>findRoot(n,i)</code> 正是求我上面所说 $i-1$ 阶的一元方程。</p>
 <pre><code class="javascript">&gt;x = findRoot(1000,4)
 9.641969245752986
 &gt;Math.pow(x,3) + Math.pow(x,2) + Math.pow(x,1) + 1
-999.9999999995179</code></pre>
+999.9999999995179
+</code></pre>
 <p>关键一步：<code>g=(Math.pow(m,i)-1)/(m-1)</code>，写成数学式是：</p>
 <p>$g = \dfrac{m^i -1}{m-1} = m^{i-1}+m^{i-2} + … + m + 1$</p>
 <p>求解的方程是：</p>
 <p>$f(x) = x^{i-1}+x^{i-2} + … + x + 1 = n$</p>
 <p>注意到 <code>r</code> 和 <code>l</code>，分别为计算的上界和下届。求  <code>r</code> 和 <code>l</code> 平均值，带入减 $n$，比较 0，大小，按结果分别再次带入到 <code>r</code> 和 <code>l</code>  中。标准的二分法求根的迭代过程，bisection method。</p>
 <p>下面看一下函数的主体部分。主要是 for 循环中 <code>i</code> 的初始值：<code>i=Math.ceil(Math.log2(n))</code>。<code>i</code> 可能的 1 的最大位数，已知当 base 为 2 的时候，1 的位数是最多了，所以这里才会求 2 的对数。然后得到 i 值的上界，之后再依次减 1。</p>
-<p><a href="https://www.codewars.com/users/spiderPan" target="_blank" rel="noopener">spiderPan</a></p>
-<pre><code class="javascript">function getMinBase(number) {
-  for (var b =2; b&lt;= Math.floor(Math.sqrt(number)); b++) {
+<p><a target="_blank" rel="noopener" href="https://www.codewars.com/users/spiderPan">spiderPan</a></p>
+<pre><code class="javascript">function getMinBase(number) &#123;
+  for (var b =2; b&lt;= Math.floor(Math.sqrt(number)); b++) &#123;
     var num = number;
-    while (num % b == 1) {
+    while (num % b == 1) &#123;
       num = Math.floor(num / b);
-      if (num == 1) {
+      if (num == 1) &#123;
         return b;
-      }
-    }
+      &#125;
+    &#125;
 
-  }
+  &#125;
 
   return number - 1;
-}</code></pre>
-<p> <a href="https://www.codewars.com/users/LesRamer" target="_blank" rel="noopener">LesRamer</a>, <a href="https://www.codewars.com/users/yurak" target="_blank" rel="noopener">yurak</a></p>
-<pre><code class="javascript">function getMinBase(x) {
-  function test(b) {
+&#125;
+</code></pre>
+<p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/LesRamer">LesRamer</a>, <a target="_blank" rel="noopener" href="https://www.codewars.com/users/yurak">yurak</a></p>
+<pre><code class="javascript">function getMinBase(x) &#123;
+  function test(b) &#123;
     var z = x;
     while(z % b == 1)
       z = (z - 1) / b;
     return z == 0;
-  }
-  for(var n = Math.ceil(Math.log2(x)); n &gt;= 1; --n) {
+  &#125;
+  for(var n = Math.ceil(Math.log2(x)); n &gt;= 1; --n) &#123;
     var b = Math.floor(Math.pow(x,1/n));
     if (test(b)) return b;
     if (test(b-1)) return b-1;
-  }
+  &#125;
   return -1;
-}</code></pre>
+&#125;
+</code></pre>
 <p>参考文章：</p>
 <ul>
-<li><a href="https://math.stackexchange.com/questions/900869/prove-xn-1-x-1xn-1xn-2-x1" target="_blank" rel="noopener">Prove $x^n−1=(x−1)(x^{n−1}+x^{n−2}+…+x+1)$</a></li>
-<li><a href="http://www.wikiwand.com/zh/二分法_(數學)" target="_blank" rel="noopener">二分法 (數學)</a></li>
+<li><a target="_blank" rel="noopener" href="https://math.stackexchange.com/questions/900869/prove-xn-1-x-1xn-1xn-2-x1">Prove $x^n−1=(x−1)(x^{n−1}+x^{n−2}+…+x+1)$</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.wikiwand.com/zh/%E4%BA%8C%E5%88%86%E6%B3%95_(%E6%95%B8%E5%AD%B8)">二分法 (數學)</a></li>
 </ul>
 
             </div>
@@ -194,29 +203,29 @@ function findRoot(n,i) {
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -262,27 +271,27 @@ function findRoot(n,i) {
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -290,9 +299,17 @@ function findRoot(n,i) {
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -46,7 +50,7 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/08/29/多个项目共享-Webpack/">多个项目共享 Webpack</a>
+                        <a href="/2019/08/29/%E5%A4%9A%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%85%B1%E4%BA%AB-Webpack/">多个项目共享 Webpack</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 08 月 29 日
@@ -54,23 +58,24 @@
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <p>最近在看 <a href>@keyframer</a> 的一系列视频，需要用到 webpack 来配置 scss 环境，这就导致了每一个项目都要重复下载一遍 webpack 和相关的所有 node modules，这样很浪费空间。</p>
+                    <p>最近在看 <a href="">@keyframer</a> 的一系列视频，需要用到 webpack 来配置 scss 环境，这就导致了每一个项目都要重复下载一遍 webpack 和相关的所有 node modules，这样很浪费空间。</p>
 <p>因此要想办法把 webpack 独立出来，让每一个项目都可以访问到 webpack，一个方法是全局安装 webpack。这里提供另一种方法，想到我们通常使用 webpack 的情景是，在  <code>package.json</code> 里预先定义好 </p>
-<pre><code class="json">&quot;scripts&quot;: {
+<pre><code class="json">&quot;scripts&quot;: &#123;
     &quot;dev&quot;: &quot;webpack-dev-server&quot;,
     &quot;build&quot;: &quot;webpack&quot;
-}</code></pre>
+&#125;
+</code></pre>
 <p>然后 <code>npm run dev</code>。我们需要把这里修改一下，让每个项目都统一调用同一个 webpack。</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/08/29/多个项目共享-Webpack/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/08/29/%E5%A4%9A%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%85%B1%E4%BA%AB-Webpack/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/02/02/「User Authentication with Passport and Koa 」Summary/">「User Authentication with Passport and Koa 」Summary</a>
+                        <a href="/2019/02/02/%E3%80%8CUser%20Authentication%20with%20Passport%20and%20Koa%20%E3%80%8DSummary/">「User Authentication with Passport and Koa 」Summary</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 02 月 02 日
@@ -78,7 +83,7 @@
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <p>上周在阅读 <em>Express.js Blueprints</em> 时看到 Authentication 的部分，就想着使用 Koa 去复现一遍。于是在网上看到这篇文章 <a href="https://mherman.org/blog/user-authentication-with-passport-and-koa/" target="_blank" rel="noopener">User Authentication with Passport and Koa</a> 。文章给出了源代码和详细的步骤。其中不乏遇到自己不熟悉的知识领域，比如 knex，postgresql 和 redis 等等。写这篇文章的目的：一是熟悉下在 koa 框架下的程序结构；二是对于自己不熟悉的知识领域的一个总结。</p>
+                    <p>上周在阅读 <em>Express.js Blueprints</em> 时看到 Authentication 的部分，就想着使用 Koa 去复现一遍。于是在网上看到这篇文章 <a target="_blank" rel="noopener" href="https://mherman.org/blog/user-authentication-with-passport-and-koa/">User Authentication with Passport and Koa</a> 。文章给出了源代码和详细的步骤。其中不乏遇到自己不熟悉的知识领域，比如 knex，postgresql 和 redis 等等。写这篇文章的目的：一是熟悉下在 koa 框架下的程序结构；二是对于自己不熟悉的知识领域的一个总结。</p>
 <p>需要通过 brew 安装：</p>
 <ul>
 <li>postgresql</li>
@@ -90,14 +95,14 @@
 </ul>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/02/02/「User Authentication with Passport and Koa 」Summary/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/02/02/%E3%80%8CUser%20Authentication%20with%20Passport%20and%20Koa%20%E3%80%8DSummary/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
+                        <a href="/2019/01/26/%E5%88%9D%E8%A7%81%20Koa/">初见 Koa.js</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 01 月 26 日
@@ -115,14 +120,14 @@
 <p>通过本文，你能了解到。Koa 最基础的 HelloWorld，它 如何渲染一个 template 页面，传递数据。什么是「Routing 路由」，路由在 Koa 中如何实现的。</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/26/初见 Koa/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/26/%E5%88%9D%E8%A7%81%20Koa/">Read More</a>
                 </div>
             </article>
             
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
-                        <a href="/2019/01/22/Hexo Theme 开发不完全记录/">Hexo Theme 开发不完全记录</a>
+                        <a href="/2019/01/22/Hexo%20Theme%20%E5%BC%80%E5%8F%91%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AE%B0%E5%BD%95/">Hexo Theme 开发不完全记录</a>
                     </h2>
                     <div class="entry-meta">
                         2019 年 01 月 22 日
@@ -130,15 +135,15 @@
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <p>决定建立一个静态 Blog，已经是 2016 年的事了。在那之前，也就是在 2016 年 4 月 5 日，自己曾经使用 <a href="https://github.com/getpelican/pelican" target="_blank" rel="noopener">Pelican</a> 进行过短暂的尝试。生活在互联网时代，当你决定将一切电子化，义无反顾地投入比特的世界时，最大的好处便是，这以后发生的每一起事件，都有着清楚的记录。建立 Blog 这件事也不例外。但仅过 1 天，我就删除了 github 上的 repo。当时的自己这样写道：</p>
+                    <p>决定建立一个静态 Blog，已经是 2016 年的事了。在那之前，也就是在 2016 年 4 月 5 日，自己曾经使用 <a target="_blank" rel="noopener" href="https://github.com/getpelican/pelican">Pelican</a> 进行过短暂的尝试。生活在互联网时代，当你决定将一切电子化，义无反顾地投入比特的世界时，最大的好处便是，这以后发生的每一起事件，都有着清楚的记录。建立 Blog 这件事也不例外。但仅过 1 天，我就删除了 github 上的 repo。当时的自己这样写道：</p>
 <blockquote>
 <p>两天的尝试发现：没有足够的知识积累，挑战就是「摸着石头过河」，到处都是困难，耐心被一点一点消磨，直到像一只无头苍蝇乱撞，而无法再耐心地解决问题。所以，博客平台搭建计划暂停。</p>
 </blockquote>
 <p>那时自己才刚开始学 Python，也才刚开始接触 Github。其他方面更是经验甚少，处处碰壁。一年以后， 2017 年 3 月，自己使用 Hexo 建立了这个 Blog，并在 Godaddy 上购买了域名，采用 Hexo 预置主题 Next 。全面，简洁，美观大方。这个主题足够好用。当时的主题并不多，所以经常看到其他使用 Hexo 搭建的 Blog ，往往都是差不多的样式，我当时也只是改了以下 banner，才显得稍有不同。这也让我想试着自己去写一个主题。</p>
-<p>目前看到的这个 theme 所有样式，并非我本人设计。它来自于一款付费的 WordPress theme typology。我是一次偶然的机会看到它。考虑到可能的版权问题。自己可能不会把它发布到 <a href="https://hexo.io/themes/index.html" target="_blank" rel="noopener">Themes | Hexo</a> 或开源到 Github 上（无法联系到这个 theme 的作者）。以下我所做的大部分工作，不过是以 Hexo 的形式对 typology 的再现。为了方便。我把这个模仿之作命名为 hagoromo（羽衣）。至于为什么会叫这个名字，Google 会给你答案。</p>
+<p>目前看到的这个 theme 所有样式，并非我本人设计。它来自于一款付费的 WordPress theme typology。我是一次偶然的机会看到它。考虑到可能的版权问题。自己可能不会把它发布到 <a target="_blank" rel="noopener" href="https://hexo.io/themes/index.html">Themes | Hexo</a> 或开源到 Github 上（无法联系到这个 theme 的作者）。以下我所做的大部分工作，不过是以 Hexo 的形式对 typology 的再现。为了方便。我把这个模仿之作命名为 hagoromo（羽衣）。至于为什么会叫这个名字，Google 会给你答案。</p>
                 </div>
                 <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/22/Hexo Theme 开发不完全记录/">Read More</a>
+                    <a class="hagoromo-button" href="/2019/01/22/Hexo%20Theme%20%E5%BC%80%E5%8F%91%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AE%B0%E5%BD%95/">Read More</a>
                 </div>
             </article>
             
@@ -152,29 +157,29 @@
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -220,27 +225,27 @@
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -248,9 +253,17 @@
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

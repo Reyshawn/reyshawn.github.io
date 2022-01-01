@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -43,7 +47,7 @@
         <article class="hagoromo-post">
             <header class="entry-header">
                 <h2 class="entry-title h1">
-                    <a href="/2019/01/22/@wraps | 6kyu/">@wraps | 6kyu</a>
+                    <a href="/2019/01/22/@wraps%20%7C%206kyu/">@wraps | 6kyu</a>
                 </h2>
                 <div class="entry-meta">
                     2019 年 01 月 22 日
@@ -71,18 +75,20 @@ def return_one():
   return 1
 
 return_one.__name__ == &#39;return_one&#39; # If wraps hadn&#39;t been used, __name__ would be equal to &#39;wrapper&#39;
-return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;</code></pre>
+return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __doc__ would be equal to &#39;Wraps func&#39;
+</code></pre>
 <p><strong>Note: of course, you may not use the functools module for this kata.</strong></p>
 <p>题目要求，经过一次二重的装饰器，保留原来函数的 <code>__name__</code> 和 <code>__doc__</code>。二重装饰器 decorator，就是用一个 decorator 去 decorate 另一个 decorator。该二重装饰器装饰后的函数， 输出的是一重装饰器装饰过的函数，但是 <code>__name__</code> 和 <code>__doc__</code>  得到保留，及为原函数的值。</p>
 <p>依照题目给的例子，就是输出是被 decorator wraps 修饰过的 <code>wrapper</code> 函数，即函数主体和功能还是 <code>wrapper</code>，但因为被 <code>wraps</code> 装饰了，输出的 <code>wrapper</code> 函数的  <code>__name__</code> 和 <code>__doc__</code>  值为原函数 <code>return_one</code> 的值。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">def wraps(func):
     def first(wrapper):
         return func
-    return first</code></pre>
+    return first
+</code></pre>
 <p>我的这个方法，其实是不正确的。因为我这个经过几次 decorate 又输出了原函数，按道理应该是输出 <code>wrapper</code> 函数的。</p>
-<h2 id="Other-Solution"><a href="#Other-Solution" class="headerlink" title="Other Solution"></a>Other Solution</h2><p> <a href="https://www.codewars.com/users/siebenschlaefer" target="_blank" rel="noopener">siebenschlaefer</a></p>
+<h2 id="Other-Solution"><a href="#Other-Solution" class="headerlink" title="Other Solution"></a>Other Solution</h2><p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/siebenschlaefer">siebenschlaefer</a></p>
 <pre><code class="python">def wraps(wrapped):
     def wrapper(func):
         for attr in (&#39;__module__&#39;, &#39;__name__&#39;, &#39;__qualname__&#39;, &#39;__doc__&#39;, &#39;__annotations__&#39;):
@@ -92,10 +98,11 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
                 pass
             else:
                 setattr(func, attr, value)
-        func.__dict__.update(getattr(wrapped, attr, {}))
+        func.__dict__.update(getattr(wrapped, attr, &#123;&#125;))
         func.__wrapped__ = wrapped
         return func
-    return wrapper</code></pre>
+    return wrapper
+</code></pre>
 <p>首先注意一下对应关系。经过一次二重的装饰后，<br><code>wrapped</code> ➡️ <code>return_one</code><br><code>func</code> ➡️ <code>wrapper</code></p>
 <p>目标是输出 <code>func</code> ，但要把 <code>func</code> 的 <code>__name__</code> 和 <code>__doc__</code> 进行修改。修改这些 built-in 的值用到了 <code>getattr()</code> 和 <code>setattr()</code>。</p>
 <blockquote>
@@ -104,23 +111,20 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
 </blockquote>
 <p><code>try</code>…<code>except</code>… <code>else</code>，<code>else</code> 后面是当 <code>try</code> 中的内容无错误时才执行的，否则时执行 <code>except</code> 中的内容。</p>
 <blockquote>
-<p><code>try</code>:
-   Normal execution block<br><code>except</code> A:<br>   Exception A handle<br><code>except</code> B:<br>   Exception B handle<br><code>except</code>:
-   Other exception handleelse:<br><code>else</code>:
-   if no exception,get here<br><code>finally</code>:
-   print(“finally”)   </p>
+<p><code>try</code>:<br>   Normal execution block<br><code>except</code> A:<br>   Exception A handle<br><code>except</code> B:<br>   Exception B handle<br><code>except</code>:<br>   Other exception handleelse:<br><code>else</code>:<br>   if no exception,get here<br><code>finally</code>:<br>   print(“finally”)   </p>
 </blockquote>
-<p> <a href="https://www.codewars.com/users/Voile" target="_blank" rel="noopener">Voile</a></p>
+<p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/Voile">Voile</a></p>
 <pre><code class="python">def wraps(func):
     def f(g):
         g.__name__ = func.__name__
         g.__doc__ = func.__doc__
         return g
-    return f</code></pre>
+    return f
+</code></pre>
 <p>Voile 的解法更简洁。</p>
 <p>参考文章：</p>
 <ul>
-<li><a href="https://stackoverflow.com/questions/19123707/why-use-setattr-and-getattr-built-ins" target="_blank" rel="noopener">Why use setattr() and getattr() built-ins?</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19123707/why-use-setattr-and-getattr-built-ins">Why use setattr() and getattr() built-ins?</a></li>
 </ul>
 
             </div>
@@ -142,29 +146,29 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -210,27 +214,27 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -238,9 +242,17 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

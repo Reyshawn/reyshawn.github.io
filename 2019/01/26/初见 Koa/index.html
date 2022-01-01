@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -43,7 +47,7 @@
         <article class="hagoromo-post">
             <header class="entry-header">
                 <h2 class="entry-title h1">
-                    <a href="/2019/01/26/初见 Koa/">初见 Koa.js</a>
+                    <a href="/2019/01/26/%E5%88%9D%E8%A7%81%20Koa/">初见 Koa.js</a>
                 </h2>
                 <div class="entry-meta">
                     2019 年 01 月 26 日
@@ -59,42 +63,45 @@
 <li>ejs template engine</li>
 </ul>
 <p>通过本文，你能了解到。Koa 最基础的 HelloWorld，它 如何渲染一个 template 页面，传递数据。什么是「Routing 路由」，路由在 Koa 中如何实现的。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h2><p><code>app.use()</code> 就是添加一个 middleware。我们通过 Koa 进行的许多操作，比如处理 request，处理 data，routing 都是通过 <code>app.use()</code> 来实现的。</p>
 <p><code>ctx</code> 内封装了 request 和 response  object。</p>
 <pre><code class="javascript">const Koa = require(&#39;koa&#39;);
 const app = new Koa();
 
-app.use(async function(ctx) {
+app.use(async function(ctx) &#123;
     ctx.body = &quot;hello world ssss&quot;;
-})
+&#125;)
 
-app.listen(3000, function() {
+app.listen(3000, function() &#123;
     console.log(&#39;listen port: 3000...&#39;)
-})</code></pre>
+&#125;)
+</code></pre>
 <h2 id="渲染-ejs-模版"><a href="#渲染-ejs-模版" class="headerlink" title="渲染 ejs 模版"></a>渲染 ejs 模版</h2><p>这里以 ejs 为例来进行说明，其他的 template engine，使用方法都是相通的。</p>
 <p>使用 npm 安装：</p>
 <pre><code class="shell">$ npm install koa-views --save
-$ npm install ejs --save</code></pre>
+$ npm install ejs --save
+</code></pre>
 <p>server.js 内容是</p>
 <pre><code class="javascript">const Koa = require(&#39;koa&#39;);
 const app = new Koa();
 const views = require(&#39;koa-views&#39;);
 
-app.use(views(__dirname + &#39;/views&#39;, {
-    map: {
+app.use(views(__dirname + &#39;/views&#39;, &#123;
+    map: &#123;
         html: &#39;ejs&#39;
-    }
-}));
+    &#125;
+&#125;));
 
-app.use(async function(ctx) {
+app.use(async function(ctx) &#123;
     await ctx.render(&#39;layout.ejs&#39;);
-})
+&#125;)
 
-app.listen(3000, function() {
+app.listen(3000, function() &#123;
     console.log(&#39;listen port: 3000...&#39;)
-})</code></pre>
+&#125;)
+</code></pre>
 <p><code>./views/layout.ejs</code> 内容是</p>
 <pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;head&gt;
@@ -102,22 +109,25 @@ app.listen(3000, function() {
 &lt;/head&gt;
 &lt;body&gt;
     &lt;h1&gt;Hello Koa, This is from ejs&lt;/h1&gt;
-&lt;/body&gt;</code></pre>
+&lt;/body&gt;
+</code></pre>
 <p>上面这个例子是不包含传值的，当需要向 template 传递值时，通过 <code>ctx.state</code> 来设置，将上面 render 部分修改成：</p>
-<pre><code class="javascript">app.use(async function(ctx) {
-    ctx.state = {
+<pre><code class="javascript">app.use(async function(ctx) &#123;
+    ctx.state = &#123;
         title: &#39;This is title&#39;,
         body: &#39;body bla bla&#39;
-    };
+    &#125;;
     await ctx.render(&#39;layout.ejs&#39;);
-})</code></pre>
+&#125;)
+</code></pre>
 <p>或者写成 <code>render</code> 的参数，二者是等价的：</p>
-<pre><code class="javascript">app.use(async function(ctx) {
-    await ctx.render(&#39;layout.ejs&#39;, {
+<pre><code class="javascript">app.use(async function(ctx) &#123;
+    await ctx.render(&#39;layout.ejs&#39;, &#123;
         title: &#39;This is title&#39;,
         body: &#39;body bla bla&#39;
-    });
-})</code></pre>
+    &#125;);
+&#125;)
+</code></pre>
 <p>此时 template 修改成：</p>
 <pre><code class="ejs">&lt;!DOCTYPE html&gt;
 &lt;head&gt;
@@ -126,13 +136,15 @@ app.listen(3000, function() {
 &lt;body&gt;
     &lt;h1&gt;&lt;%- title %&gt;&lt;/h1&gt;
     &lt;p&gt;&lt;%- body %&gt;&lt;/p&gt;
-&lt;/body&gt;</code></pre>
+&lt;/body&gt;
+</code></pre>
 <p>通常我们在写一个 template 的时候，会分成好多组件，首先有一个大体的框架，layout.ejs，新建一个 partials 文件夹，里面存储我们所需的各个组件，如 head.ejs，header.ejs，footer.ejs 等等。我们在一个需要渲染的页面里引用这些组件，那么这个过程在 koa 应该如何实现呢？</p>
 <p>这里直接在 ejs 里使用 <code>include</code> 进行引用。</p>
 <p>header.ejs</p>
 <pre><code class="html">&lt;header&gt;
     &lt;p&gt;This is a header&lt;/p&gt;
-&lt;/header&gt;</code></pre>
+&lt;/header&gt;
+</code></pre>
 <p>layout.ejs</p>
 <pre><code class="ejs">&lt;!DOCTYPE html&gt;
 &lt;head&gt;
@@ -142,72 +154,75 @@ app.listen(3000, function() {
     &lt;%- include ./header %&gt;
     &lt;h1&gt;&lt;%- title %&gt;&lt;/h1&gt;
     &lt;p&gt;&lt;%- body %&gt;&lt;/p&gt;
-&lt;/body&gt;</code></pre>
+&lt;/body&gt;
+</code></pre>
 <h2 id="Router-路由功能"><a href="#Router-路由功能" class="headerlink" title="Router 路由功能"></a>Router 路由功能</h2><p>对于一个 web site，需要处理各种各样不同的请求，针对不同的请求 request，有着不同的反馈 response，以及可能要调用不同的资源 resource。有些需要调用一些 javascript 文件，css 文件，有些需要调用一些图片 images，有些需要访问数据库。这些不同的资源 resource 有着不同的存储路径，为了让 request 得到合适的反馈，就需要一个 router 路由功能，告诉 server，这个 request，需要去哪里找相应的 resource 去反馈。</p>
 <p><img src="/images/koa_routing.png" alt="koa_routing"></p>
-<pre><code class="shell">$ npm install koa-router --save</code></pre>
+<pre><code class="shell">$ npm install koa-router --save
+</code></pre>
 <p>server.js 中修改为：</p>
 <pre><code class="javascript">const Router = require(&#39;koa-router&#39;);
 const router = new Router()
 
-router.get(&#39;/&#39;, async function(ctx) {
-    await ctx.render(&#39;layout.ejs&#39;, {
+router.get(&#39;/&#39;, async function(ctx) &#123;
+    await ctx.render(&#39;layout.ejs&#39;, &#123;
         title: &#39;This is title&#39;,
         body: &#39;body bla bla&#39;
-    });
-})
+    &#125;);
+&#125;)
 
-app.use(router.routes());</code></pre>
+app.use(router.routes());
+</code></pre>
 <p>我们看到，各个页面的渲染完全由 router 进行了接管。</p>
-<p>上面是最简单的 “Get” 请求，下面是给出一个”Post” 请求的例子，来自 <a href="https://chenshenhai.github.io/koa2-note/note/request/post.html" target="_blank" rel="noopener">koa2 进阶学习笔记</a>，我做了一些小改动，原文使用的是原生 koa 中的 ctx 来判断请求。我这里直接使用了 <code>koa-router</code> 实现，通过对比，也可以明白 koa-router 这个 module 是如何工作的，只不过是在原生 Koa 基础上增加了一层判断。</p>
+<p>上面是最简单的 “Get” 请求，下面是给出一个”Post” 请求的例子，来自 <a target="_blank" rel="noopener" href="https://chenshenhai.github.io/koa2-note/note/request/post.html">koa2 进阶学习笔记</a>，我做了一些小改动，原文使用的是原生 koa 中的 ctx 来判断请求。我这里直接使用了 <code>koa-router</code> 实现，通过对比，也可以明白 koa-router 这个 module 是如何工作的，只不过是在原生 Koa 基础上增加了一层判断。</p>
 <pre><code class="javascript">// receive the posting data
-function parsePostData(ctx) {
-    return new Promise((resolve, reject) =&gt; {
-        try {
+function parsePostData(ctx) &#123;
+    return new Promise((resolve, reject) =&gt; &#123;
+        try &#123;
             let postData = &quot;&quot;;
-            ctx.req.addListener(&#39;data&#39;, (data) =&gt; {
+            ctx.req.addListener(&#39;data&#39;, (data) =&gt; &#123;
                 postData += data;
-            });
-            ctx.req.addListener(&#39;end&#39;, () =&gt; {
+            &#125;);
+            ctx.req.addListener(&#39;end&#39;, () =&gt; &#123;
                 let parseData = parseQueryStr(postData);
                 resolve(parseData);
-            });
-        } catch(err) {
+            &#125;);
+        &#125; catch(err) &#123;
             reject(err);
-        }
-    })
-}
+        &#125;
+    &#125;)
+&#125;
 
 // convert the posting data to Object
-function parseQueryStr(data) {
-    let queryData = {};
+function parseQueryStr(data) &#123;
+    let queryData = &#123;&#125;;
     let queryStrList = data.split(&#39;&amp;&#39;);
-    for (let queryStr of queryStrList) {
+    for (let queryStr of queryStrList) &#123;
         let itemList = queryStr.split(&#39;=&#39;);
         queryData[ itemList[0] ] = decodeURIComponent(itemList[1]);
-    }
+    &#125;
 
     return queryData;
-}
+&#125;
 
-app.use(views(__dirname + &#39;/views&#39;, {
-    map: {
+app.use(views(__dirname + &#39;/views&#39;, &#123;
+    map: &#123;
         html: &#39;ejs&#39;
-    }
-}));
+    &#125;
+&#125;));
 
-router.get(&#39;/&#39;, async function(ctx) {
-    await ctx.render(&#39;layout.ejs&#39;, {
+router.get(&#39;/&#39;, async function(ctx) &#123;
+    await ctx.render(&#39;layout.ejs&#39;, &#123;
         data: &#39;no data posted&#39;
-    });
-})
+    &#125;);
+&#125;)
 
-router.post(&#39;/&#39;, async function(ctx) {
+router.post(&#39;/&#39;, async function(ctx) &#123;
     let postData = await parsePostData(ctx);
-    await ctx.render(&#39;layout.ejs&#39;, {
+    await ctx.render(&#39;layout.ejs&#39;, &#123;
         data: JSON.stringify(postData)
-    })
-})
+    &#125;)
+&#125;)
 
 app.use(router.routes());
 </code></pre>
@@ -229,7 +244,8 @@ app.use(router.routes());
             &lt;button type=&quot;submit&quot;&gt;submit&lt;/button&gt;
       &lt;/form&gt;
       &lt;p&gt;&lt;%- data %&gt;&lt;p&gt;
-&lt;/body&gt;</code></pre>
+&lt;/body&gt;
+</code></pre>
 
             </div>
             <div class="entry-tags">
@@ -250,29 +266,29 @@ app.use(router.routes());
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -318,27 +334,27 @@ app.use(router.routes());
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -346,9 +362,17 @@ app.use(router.routes());
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

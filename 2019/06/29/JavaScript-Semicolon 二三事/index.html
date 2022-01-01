@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -43,7 +47,7 @@
         <article class="hagoromo-post">
             <header class="entry-header">
                 <h2 class="entry-title h1">
-                    <a href="/2019/06/29/JavaScript-Semicolon 二三事/">JavaScript: Semicolon 二三事</a>
+                    <a href="/2019/06/29/JavaScript-Semicolon%20%E4%BA%8C%E4%B8%89%E4%BA%8B/">JavaScript: Semicolon 二三事</a>
                 </h2>
                 <div class="entry-meta">
                     2019 年 06 月 29 日
@@ -54,22 +58,26 @@
                 <p>由于 JavaScript 拥有 <em>Automatic Semicolon Insertion</em> 这样的机制，我已经很长时间在写 js 的时候不加分号了。但今天碰到了这样的一个情况：</p>
 <pre><code class="javascript">let i = 0
 
-(function test () {
+(function test () &#123;
   console.log(&#39;hello&#39;)
-})()</code></pre>
+&#125;)()
+</code></pre>
 <p>这里会提示报错：</p>
-<pre><code>TypeError: 0 is not a function</code></pre><p>观察了一会儿，才发现，JavaScript 引擎一定是把第一行和第三行看成一行代码，按道理，第一行末尾应该是要自动加一个分号的。这里如果我们手动加上分号，程序就不会报错了。</p>
+<pre><code>TypeError: 0 is not a function
+</code></pre>
+<p>观察了一会儿，才发现，JavaScript 引擎一定是把第一行和第三行看成一行代码，按道理，第一行末尾应该是要自动加一个分号的。这里如果我们手动加上分号，程序就不会报错了。</p>
 <pre><code class="javascript">let i = 0;
 
-(function test () {
+(function test () &#123;
   console.log(&#39;hello&#39;)
-})()</code></pre>
+&#125;)()
+</code></pre>
 <p>关于 JavaScript 的 <em>Automatic Semicolon Insertion</em>，规则是这样的：</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <ol>
 <li>当下一行开头的代码和本行末尾的代码连不上；</li>
-<li>当下一行是以 <code>}</code> 开头；</li>
+<li>当下一行是以 <code>&#125;</code> 开头；</li>
 <li>在整个文件末尾会加分号；</li>
 <li>在 <code>return</code> 所在行末尾会加分号；</li>
 <li>在 <code>break</code> 所在行末尾会加分号；</li>
@@ -82,15 +90,17 @@ const you = &#39;hey&#39;
 const heyYou = hey + &#39; &#39; + you
 
 [&#39;h&#39;, &#39;e&#39;, &#39;y&#39;].forEach((letter) =&gt; console.log(letter))
-// Uncaught TypeError: Cannot read property &#39;forEach&#39; of undefined</code></pre>
+// Uncaught TypeError: Cannot read property &#39;forEach&#39; of undefined
+</code></pre>
 <p>以及关于 return </p>
-<pre><code class="javascript">(() =&gt; {
+<pre><code class="javascript">(() =&gt; &#123;
   return
-  {
+  &#123;
     color: &#39;white&#39;
-  }
-})()
-// Instead, it’s undefined, because JavaScript inserts a semicolon after return.</code></pre>
+  &#125;
+&#125;)()
+// Instead, it’s undefined, because JavaScript inserts a semicolon after return.
+</code></pre>
 <p>以上都是由于不写分号，完全依赖 ASI ( Automatic Semicolon Insertion ) 可能造成的错误。</p>
 <p>Dr. Axel Rauschmayer 在 2011 年就写了一篇 blog 来阐述这个问题，以及他对于分号的态度：</p>
 <blockquote>
@@ -103,8 +113,8 @@ const heyYou = hey + &#39; &#39; + you
 </blockquote>
 <p>参考文章：</p>
 <ul>
-<li><a href="https://flaviocopes.com/javascript-automatic-semicolon-insertion/" target="_blank" rel="noopener">Semicolons in JavaScript</a></li>
-<li><a href="https://2ality.com/2011/05/semicolon-insertion.html" target="_blank" rel="noopener">Automatic semicolon insertion in JavaScript</a></li>
+<li><a target="_blank" rel="noopener" href="https://flaviocopes.com/javascript-automatic-semicolon-insertion/">Semicolons in JavaScript</a></li>
+<li><a target="_blank" rel="noopener" href="https://2ality.com/2011/05/semicolon-insertion.html">Automatic semicolon insertion in JavaScript</a></li>
 </ul>
 
             </div>
@@ -122,29 +132,29 @@ const heyYou = hey + &#39; &#39; + you
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -190,27 +200,27 @@ const heyYou = hey + &#39; &#39; + you
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -218,9 +228,17 @@ const heyYou = hey + &#39; &#39; + you
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

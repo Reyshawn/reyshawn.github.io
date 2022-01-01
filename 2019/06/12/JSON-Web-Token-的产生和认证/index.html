@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -43,7 +47,7 @@
         <article class="hagoromo-post">
             <header class="entry-header">
                 <h2 class="entry-title h1">
-                    <a href="/2019/06/12/JSON-Web-Token-的产生和认证/">JSON Web Token 的产生和认证</a>
+                    <a href="/2019/06/12/JSON-Web-Token-%E7%9A%84%E4%BA%A7%E7%94%9F%E5%92%8C%E8%AE%A4%E8%AF%81/">JSON Web Token 的产生和认证</a>
                 </h2>
                 <div class="entry-meta">
                     2019 年 06 月 12 日
@@ -74,38 +78,44 @@
 <li>stateless，也就是不需要再在 server 端保存一份纪录，但 server 端要保存用于签名时用的「secret key」；</li>
 <li>cookie 对跨域 CORS 操作不友好，token 则没有这个问题；</li>
 </ol>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="JWT-如何产生的"><a href="#JWT-如何产生的" class="headerlink" title="JWT 如何产生的"></a>JWT 如何产生的</h2><p>一条完整的 JWT 格式是这样的：<code>header.payload.signature</code>。</p>
 <p>第一步，创建一个 JSON 格式的 header。header 里包含的信息需要有这个 JSON 使用的 hash 算法，例如：</p>
-<pre><code class="javascript">const header = {
+<pre><code class="javascript">const header = &#123;
     typ: &quot;JWT&quot;,
     alg: &quot;HS256&quot;
-}</code></pre>
+&#125;
+</code></pre>
 <p><code>&quot;typ&quot;</code> 声明这是一个 JWT，<code>&quot;alg&quot;</code> 声明所有是用的 hash 算法；</p>
 <p>第二步，创建 payload。这里的 payload 就是你想在 JWT 里存储的任何数据信息，但最好不要把敏感信息，比如密码放在里面，</p>
-<pre><code class="javascript">const payload = {
+<pre><code class="javascript">const payload = &#123;
     userId: &quot;b08f86af-35da-48f2-8fab-cef3904660bd&quot;
-}</code></pre>
+&#125;
+</code></pre>
 <p>对于 JWT 的 payload，会有一些标准，比如 <code>iss</code> 代表 issuer，<code>sub</code> 代表 subject，<code>exp</code> 代表 expiration time。</p>
 <p>第三步，创建 signature 签名。</p>
 <pre><code class="javascript">const encodedHeader = Buffer.from(JSON.stringify(header)).toString(&#39;base64&#39;)
-const encodedPayload = Buffer.from(JSON.stringify(payload)).toString(&#39;base64&#39;)</code></pre>
+const encodedPayload = Buffer.from(JSON.stringify(payload)).toString(&#39;base64&#39;)
+</code></pre>
 <p>将 header 和 payload 都使用 base64 编码。</p>
 <pre><code class="javascript">const crypto = require(&#39;crypto&#39;)
 const jwtSecret = &#39;secretKey&#39;
 
-const signature = crypto.createHmac(&#39;sha256&#39;, jwtSecret).update(encodedHeader + &#39;.&#39; + encodedPayload).digest(&#39;base64&#39;)</code></pre>
+const signature = crypto.createHmac(&#39;sha256&#39;, jwtSecret).update(encodedHeader + &#39;.&#39; + encodedPayload).digest(&#39;base64&#39;)
+</code></pre>
 <p>base64 编码后的文本使用 <code>.</code> 连接，再进行 hash，hash 后的文本再进行 base64 编码。</p>
 <p>最终 JWT 为：</p>
-<pre><code class="javascript">const jwt = `${encodedHeader}.${encodedPayload}.${signature}`</code></pre>
+<pre><code class="javascript">const jwt = `$&#123;encodedHeader&#125;.$&#123;encodedPayload&#125;.$&#123;signature&#125;`
+</code></pre>
 <h2 id="JWT-的认证"><a href="#JWT-的认证" class="headerlink" title="JWT 的认证"></a>JWT 的认证</h2><blockquote>
-<p>The <strong>very</strong> important thing to note here is that this token is signed by the HMACSHA256 algorithm, and the header and payload are Base64URL encoded, it is <strong>not</strong> encrypted. If I go to <a href="https://jwt.io/" target="_blank" rel="noopener">jwt.io</a>, paste this token and select the HMACSHA256 algorithm, I could decode the token and read its contents. Therefore, it should go without saying that sensitive data, such as passwords, should never be stored in the payload.</p>
-<p>— <a href="https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide" target="_blank" rel="noopener">Cookies vs. Tokens: The Definitive Guide</a></p>
+<p>The <strong>very</strong> important thing to note here is that this token is signed by the HMACSHA256 algorithm, and the header and payload are Base64URL encoded, it is <strong>not</strong> encrypted. If I go to <a target="_blank" rel="noopener" href="https://jwt.io/">jwt.io</a>, paste this token and select the HMACSHA256 algorithm, I could decode the token and read its contents. Therefore, it should go without saying that sensitive data, such as passwords, should never be stored in the payload.</p>
+<p>— <a target="_blank" rel="noopener" href="https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide">Cookies vs. Tokens: The Definitive Guide</a></p>
 </blockquote>
 <p>一定要区分认证和加密，JWT 不会加密混淆数据。当用户成功登录，服务器端按照上述过程生成一条 JWT 返回给了客户端。因为 JWT 涉及到了身份认证，还是很敏感的，客户端把这个 JWT 存储在 <code>HttpOnly Cookie</code>，不同于传统 cookie，标有 <code>HttpOnly</code> 的 cookie 只能由 Server 端获取。</p>
 <p>登录成功后，当需要请求某个需要权限的 api 或是进入某个 route 时，client 端在发送 request 请求就会把这个 JWT 稍带着，通常是在 <code>Authorization</code> 里，以 Bearer 作为开头：</p>
-<pre><code class="yaml">Authorization: Bearer &lt;token&gt;</code></pre>
+<pre><code class="yaml">Authorization: Bearer &lt;token&gt;
+</code></pre>
 <p>服务器收到请求后，首先需要验证这个 token。验证 JWT 包含以下几个步骤：</p>
 <ol>
 <li>验证 JWT 的格式是否正确；</li>
@@ -118,59 +128,59 @@ const signature = crypto.createHmac(&#39;sha256&#39;, jwtSecret).update(encodedH
 <p>The API needs to check if the algorithm, as specified by the JWT header (property <code>alg</code>), matches the one expected by the API. If not, the token is considered invalid and the request must be rejected.</p>
 <p>To check if the signature matches the API’s expectations, you have to decode the JWT and retrieve the <code>alg</code> property of the JWT header.</p>
 <p>Remember that the signature is created using the header and the payload of the JWT, a secret and the hashing algorithm being used (as specified in the header: HMAC, SHA256 or RSA). The way to verify it, depends on the hashing algorithm:</p>
-<p>— <a href="https://auth0.com/docs/api-auth/tutorials/verify-access-token" target="_blank" rel="noopener">Verify Access Tokens for Custom APIs</a></p>
+<p>— <a target="_blank" rel="noopener" href="https://auth0.com/docs/api-auth/tutorials/verify-access-token">Verify Access Tokens for Custom APIs</a></p>
 </blockquote>
-<h2 id="在-express-里实际应用"><a href="#在-express-里实际应用" class="headerlink" title="在 express 里实际应用"></a>在 express 里实际应用</h2><p><a href="https://www.youtube.com/watch?v=7nafaH9SddU" target="_blank" rel="noopener">Node.js API Authentication With JWT</a></p>
+<h2 id="在-express-里实际应用"><a href="#在-express-里实际应用" class="headerlink" title="在 express 里实际应用"></a>在 express 里实际应用</h2><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=7nafaH9SddU">Node.js API Authentication With JWT</a></p>
 <p>这个视频 step-by-step 讲解了如何在 express 里使用 jsonwebtoken 这个 package，以下是最终完整代码：</p>
 <pre><code class="javascript">const express = require(&#39;express&#39;);
 const jwt = require(&#39;jsonwebtoken&#39;);
 
 const app = express();
 
-app.get(&#39;/api&#39;, (req, res) =&gt; {
-  res.json({
+app.get(&#39;/api&#39;, (req, res) =&gt; &#123;
+  res.json(&#123;
     messgae: &#39;welcome to the api&#39;
-  })
-});
+  &#125;)
+&#125;);
 
-app.post(&#39;/api/posts&#39;, verifyToken, (req, res) =&gt; {
-  jwt.verify(req.token, &#39;secretkey&#39;, (err, authData) =&gt; {
-    if (err) {
+app.post(&#39;/api/posts&#39;, verifyToken, (req, res) =&gt; &#123;
+  jwt.verify(req.token, &#39;secretkey&#39;, (err, authData) =&gt; &#123;
+    if (err) &#123;
       res.sendStatus(403);
-    } else {
-      res.json({
+    &#125; else &#123;
+      res.json(&#123;
         message: &#39;post created ...&#39;,
         authData
-      })
-    }
-  })
+      &#125;)
+    &#125;
+  &#125;)
+  
+&#125;)
 
-})
-
-app.post(&#39;/api/login&#39;, (req, res) =&gt; {
+app.post(&#39;/api/login&#39;, (req, res) =&gt; &#123;
   // Mock user
-  const user = {
+  const user = &#123;
     id: 1,
     usernmae: &#39;brad&#39;,
     email: &#39;brad@gamil.com&#39;
-  }
-  jwt.sign({user}, &#39;secretkey&#39;, (err, token) =&gt; {
-    res.json({
+  &#125;
+  jwt.sign(&#123;user&#125;, &#39;secretkey&#39;, (err, token) =&gt; &#123;
+    res.json(&#123;
       token
-    })
-  });
-});
+    &#125;)
+  &#125;);
+&#125;);
 
 // Format of Token
 // Authorization: Bearer &lt;access_token&gt;
 
 // Verify Token
 
-function verifyToken(req, res, next) {
+function verifyToken(req, res, next) &#123;
   // Get auth header value;
   const bearerHeader = req.headers[&#39;authorization&#39;];
   // Check if bearer is undefined
-  if (typeof bearerHeader !== &#39;undefined&#39;) {
+  if (typeof bearerHeader !== &#39;undefined&#39;) &#123;
     // Split at the space
     const bearer = bearerHeader.split(&#39; &#39;);
     // Get token from array
@@ -179,31 +189,32 @@ function verifyToken(req, res, next) {
     req.token = bearerToken;
     // Next middleware
     next();
-  } else {
+  &#125; else &#123;
     // Forbidden
     res.sendStatus(403);
-  }
+  &#125;
 
-}
+&#125;
 
-app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))</code></pre>
+app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))
+</code></pre>
 <p>通过 <code>jwt.sign()</code> 进行签名。</p>
 <p>函数 <code>verifyToken</code>  仅仅是作为一个 middleware 去 retrieve header 里的 token，并把它保存在 <code>req.token</code>  里，具体的认证是通过 <code>jwt.verify()</code> 实现的。</p>
 <h2 id="HS256-vs-RS256"><a href="#HS256-vs-RS256" class="headerlink" title="HS256 vs RS256"></a>HS256 vs RS256</h2><p>前者是对称加密，只有一个 key 值。后者 RS256 是非对称加密，有一个 private key 和一个 public key。上文仅仅提到了 HS256 的认证过程，但如果使用非对称加密（也更推荐这种方式）来生成 JWT，认证时需要用到 JSON Web Key Set。</p>
 <blockquote>
-<p>For <code>RS256</code>, the tenant’s <a href="https://auth0.com/docs/jwks" target="_blank" rel="noopener">JSON Web Key Set (JWKS)</a> is used. Your tenant’s JWKS is <code>https://YOUR_DOMAIN/.well-known/jwks.json</code>.</p>
+<p>For <code>RS256</code>, the tenant’s <a target="_blank" rel="noopener" href="https://auth0.com/docs/jwks">JSON Web Key Set (JWKS)</a> is used. Your tenant’s JWKS is <code>https://YOUR_DOMAIN/.well-known/jwks.json</code>.</p>
 </blockquote>
 <p>通过 private key 来生成 JWT，再通过 public key 对 JWT 进行验证。在使用 RS256 非对称加密时，我们可以想象有两个 Server 端，一个是 Authentication Server，进行认证，并使用 private key 产生 JWT。另一个是 Application Server，获得来自  Authentication Server 的 public key，可以对经过Authentication Server 产生的 JWT 进行验证。</p>
 <p><img src="/images/auth02.png" alt="auth02"> </p>
 <p>参考：</p>
 <ul>
-<li><a href="https://jwt.io/introduction/" target="_blank" rel="noopener">Introduction to JSON Web Tokens</a></li>
-<li><a href="https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide" target="_blank" rel="noopener">Cookies vs. Tokens: The Definitive Guide</a></li>
-<li><a href="https://flaviocopes.com/jwt/" target="_blank" rel="noopener">JSON Web Token (JWT) explained</a></li>
-<li><a href="https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec" target="_blank" rel="noopener">5 Easy Steps to Understanding JSON Web Tokens (JWT)</a></li>
-<li><a href="https://auth0.com/docs/api-auth/tutorials/verify-access-token" target="_blank" rel="noopener">Verify Access Tokens for Custom APIs</a></li>
-<li><a href="https://auth0.com/docs/jwks" target="_blank" rel="noopener">JSON Web Key Set</a></li>
-<li><a href="https://tools.ietf.org/html/rfc7519#section-7.2" target="_blank" rel="noopener">JSON Web Token (JWT)</a></li>
+<li><a target="_blank" rel="noopener" href="https://jwt.io/introduction/">Introduction to JSON Web Tokens</a></li>
+<li><a target="_blank" rel="noopener" href="https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide">Cookies vs. Tokens: The Definitive Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://flaviocopes.com/jwt/">JSON Web Token (JWT) explained</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec">5 Easy Steps to Understanding JSON Web Tokens (JWT)</a></li>
+<li><a target="_blank" rel="noopener" href="https://auth0.com/docs/api-auth/tutorials/verify-access-token">Verify Access Tokens for Custom APIs</a></li>
+<li><a target="_blank" rel="noopener" href="https://auth0.com/docs/jwks">JSON Web Key Set</a></li>
+<li><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7519#section-7.2">JSON Web Token (JWT)</a></li>
 </ul>
 
             </div>
@@ -221,29 +232,29 @@ app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))</code><
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -289,27 +300,27 @@ app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))</code><
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -317,9 +328,17 @@ app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))</code><
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

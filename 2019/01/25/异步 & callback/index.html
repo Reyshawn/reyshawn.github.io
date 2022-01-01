@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -43,7 +47,7 @@
         <article class="hagoromo-post">
             <header class="entry-header">
                 <h2 class="entry-title h1">
-                    <a href="/2019/01/25/异步 & callback/">异步 &amp; callback</a>
+                    <a href="/2019/01/25/%E5%BC%82%E6%AD%A5%20&%20callback/">异步 &amp; callback</a>
                 </h2>
                 <div class="entry-meta">
                     2019 年 01 月 25 日
@@ -51,35 +55,36 @@
                 <div class="post-letter"></div>
             </header>
             <div class="entry-content">
-                <p>最近开始学习 Node.js。主要看两本书：<em>Node.js in Practice</em> 和 <em>Node.js Design Patterns</em>。前者类似于 o’reilly 的 cookbook 系列，整本书的编排是通过一个个 recipe，一个个具体的 problem&amp;solution 实现的。后者就是 <a href="https://search.packtpub.com/" target="_blank" rel="noopener">Packt Publishing</a> 出品的一系列 Design Patterns 书籍。包括这两本书在内的许多讲解 Node.js 的书籍，都会不断强调两个关键词， asynchronous 和 non-blocking I/O。在最初开始学习编程的时候，无论是写一些算法题目，或是做一些本地测试，它都是同步的，即时响应的，单线程的，blocking I/O。但如果进入的网络领域，「异步」则会被不断提起。相比 synchronous，「异步」更加接近我们相处的真实世界。</p>
+                <p>最近开始学习 Node.js。主要看两本书：<em>Node.js in Practice</em> 和 <em>Node.js Design Patterns</em>。前者类似于 o’reilly 的 cookbook 系列，整本书的编排是通过一个个 recipe，一个个具体的 problem&amp;solution 实现的。后者就是 <a target="_blank" rel="noopener" href="https://search.packtpub.com/">Packt Publishing</a> 出品的一系列 Design Patterns 书籍。包括这两本书在内的许多讲解 Node.js 的书籍，都会不断强调两个关键词， asynchronous 和 non-blocking I/O。在最初开始学习编程的时候，无论是写一些算法题目，或是做一些本地测试，它都是同步的，即时响应的，单线程的，blocking I/O。但如果进入的网络领域，「异步」则会被不断提起。相比 synchronous，「异步」更加接近我们相处的真实世界。</p>
 <p>这篇文章以 <em>Node.js Design Patterns</em> 第二章的 Web Spider 例子，探究思考在 Node.js 中是如何通过 callback 来实现异步操作的。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="callback，递归，libuv"><a href="#callback，递归，libuv" class="headerlink" title="callback，递归，libuv"></a>callback，递归，libuv</h2><blockquote>
 <p>Callbacks are to be used when we don’t know <strong>when</strong> something will be done. Again, think of something like an API call, fetching data from a database or I/O with the hard drive.</p>
-<p>–<a href="https://medium.com/javascript-in-plain-english/callbacks-in-node-js-how-why-when-ac293f0403ca" target="_blank" rel="noopener">Callbacks in Node.js: Why, When, How?</a></p>
+<p>–<a target="_blank" rel="noopener" href="https://medium.com/javascript-in-plain-english/callbacks-in-node-js-how-why-when-ac293f0403ca">Callbacks in Node.js: Why, When, How?</a></p>
 </blockquote>
-<p>在解决一些算法题目时，经常会用到「递归」。「递归」是函数不断调用自身的过程。callback 和「递归」有些相似，区别是，「递归」是重复的调用自身，而 callback 是去调用另一个不同的函数。本质来讲，都会形成一个  <a href="http://www.wikiwand.com/en/Call_stack" target="_blank" rel="noopener">Call stack</a>。那么为什么可以通过 callback 来实现异步？</p>
+<p>在解决一些算法题目时，经常会用到「递归」。「递归」是函数不断调用自身的过程。callback 和「递归」有些相似，区别是，「递归」是重复的调用自身，而 callback 是去调用另一个不同的函数。本质来讲，都会形成一个  <a target="_blank" rel="noopener" href="http://www.wikiwand.com/en/Call_stack">Call stack</a>。那么为什么可以通过 callback 来实现异步？</p>
 <pre><code class="javascript">// This is synchronous.
-function processData() {   
+function processData() &#123;   
     let data = fetchData();   
     data += 1;   
     return data; 
-}
+&#125;
 // This is asynchronous... 
-function processData(callback) {   
-    fetchData(function (err, data) {     
-        if (err) {
+function processData(callback) &#123;   
+    fetchData(function (err, data) &#123;     
+        if (err) &#123;
            return callback(err);
-        }     
+        &#125;     
         data += 1;     
         callback(null, data);   
-    }); 
-}</code></pre>
-<p>在  synchronous 中，line 3 获得数据，存储在 data 中，line 4 对数据进行处理。这是一个线性的，单线程的，需要等待的 synchronous 操作。在 async 中，函数 <code>fetchData()</code> 多了一个 callback 参数，后续的数据处理，<code>data += 1</code> 写在了这个 callback 里。也就意味着，当调用 <code>fetchData()</code> 后，整个程序不会停下来等待，而是接着进行下面的操作。当 <code>fetchData()</code> 中获得了数据，更抽象点，是达成了某个条件，则调用 callback 函数。</p>
+    &#125;); 
+&#125;
+</code></pre>
+<p>在  synchronous 中，line 3 获得数据，存储在 data 中，line 4 对数据进行处理。这是一个线性的，单线程的，需要等待的 synchronous 操作。在 async 中，函数 <code>fetchData()</code> 多了一个 callback 参数，后续的数据处理，<code>data += 1 </code> 写在了这个 callback 里。也就意味着，当调用 <code>fetchData()</code> 后，整个程序不会停下来等待，而是接着进行下面的操作。当 <code>fetchData()</code> 中获得了数据，更抽象点，是达成了某个条件，则调用 callback 函数。</p>
 <blockquote>
 <p>Callbacks are functions. You pass them to other functions so they can be executed when the time is right, i.e. when the event needed by the callback has happened.</p>
-<p>–<a href="https://medium.com/javascript-in-plain-english/callbacks-in-node-js-how-why-when-ac293f0403ca" target="_blank" rel="noopener">Callbacks in Node.js: Why, When, How?</a></p>
+<p>–<a target="_blank" rel="noopener" href="https://medium.com/javascript-in-plain-english/callbacks-in-node-js-how-why-when-ac293f0403ca">Callbacks in Node.js: Why, When, How?</a></p>
 </blockquote>
 <p>看似在 async 中出现了第二条线程，实际上，在 Node.js 中依旧是单线程。通过单线程，来模拟多线程下的 concurrency，借助底层库 <code>libuv</code> 来实现。<code>libuv</code> 让 Node.js 有了 non-blocking I/O 特性。</p>
 <blockquote>
@@ -92,138 +97,146 @@ function processData(callback) {
 </blockquote>
 <blockquote>
 <p>每个我们常见的操作系统都为我们封装了类似的高并发异步模型，那libuv其实就是对各个操作系统进行封装，最后暴露出统一的api供开发者调用，开发者不需要关系底层是什么操作系统，什么API了。 </p>
-<p>–<a href="https://zhuanlan.zhihu.com/p/50480439" target="_blank" rel="noopener">libuv — 知乎专栏</a></p>
+<p>–<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/50480439">libuv — 知乎专栏</a></p>
 </blockquote>
 <p>这里单线程模拟多线程的原理，和计算机中实现的 concurrency 差不多。因为在计算机中，如果从单个时钟来看，计算机只能完成一条命令。而借助诸如 time shared 分时系统等等，在一段时间内可以认为计算机同时「并发」地在进行多个任务。因此，在 Node.js 由于有了 <code>libuv</code>，会让有着 callback 的函数会进行「异步」操作。</p>
 <blockquote>
 <p>So why show you this? Because you can’t just call one function after another and hope they execute in the right order. Callbacks are a way to make sure certain code doesn’t execute until other code has already finished execution.</p>
-<p>–<a href="https://codeburst.io/javascript-what-the-heck-is-a-callback-aba4da2deced" target="_blank" rel="noopener">JavaScript: What the heck is a Callback?</a></p>
+<p>–<a target="_blank" rel="noopener" href="https://codeburst.io/javascript-what-the-heck-is-a-callback-aba4da2deced">JavaScript: What the heck is a Callback?</a></p>
 </blockquote>
 <p>关于 callback 的使用，是有一些 conventions 的。比如 callback 的第一个参数是 error。callback 本身作为函数参数，通常放在最后一个。</p>
 <blockquote>
 <p>Nearly everything in node.js is asynchronous. So, nearly every method that is called, you must specify a callback method to handle the result of the method call. Normally, the callback function takes two parameters: error, result. So it is up to you to check for the error and then handle the result. </p>
-<p>– <a href="https://stackoverflow.com/questions/13789095/understanding-node-js-callback-structure" target="_blank" rel="noopener">understanding node.js callback structure</a></p>
+<p>– <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/13789095/understanding-node-js-callback-structure">understanding node.js callback structure</a></p>
 </blockquote>
 <h2 id="Web-Spider-的-callback-实现"><a href="#Web-Spider-的-callback-实现" class="headerlink" title="Web Spider 的 callback 实现"></a>Web Spider 的 callback 实现</h2><p>在 <em>Node.js Design Patterns</em> 这本书的第二章节，作者通过 web spider 这个例子，介绍了 async 在 node 里的各种实现方案。有最原生的 callback hell，改良后的 callback，也有 async，Promise，generator 等等更加简单的写法。无论使用哪种方式，会用到 <code>fs.stat(path, callback)</code> 和 <code>request(url, callback)</code>[^1]。前者是 Node.js 自身的关于文件操作的一系列 api，后者是一个第三方 module。因为这两个函数都用到了 callback，所以在 debug 模式下，就去更深一层看看是如何运作的。Web Spider 的函数源码已附在了参考链接里。</p>
-<pre><code class="javascript">function download(url, filename, callback) {
-  console.log(`Downloading ${url}`);
-  request(url, (err, response, body) =&gt; {
-    if(err) {
+<pre><code class="javascript">function download(url, filename, callback) &#123;
+  console.log(`Downloading $&#123;url&#125;`);
+  request(url, (err, response, body) =&gt; &#123;
+    if(err) &#123;
       return callback(err);
-    }
-    saveFile(filename, body, err =&gt; {
-      if(err) {
+    &#125;
+    saveFile(filename, body, err =&gt; &#123;
+      if(err) &#123;
         return callback(err);
-      }
-      console.log(`Downloaded and saved: ${url}`);
+      &#125;
+      console.log(`Downloaded and saved: $&#123;url&#125;`);
       callback(null, body);
-    });
-  });
-}
+    &#125;);
+  &#125;);
+&#125;
 
-function spider(url, callback) {
+function spider(url, callback) &#123;
   const filename = utilities.urlToFilename(url);
-  fs.stat(filename, err =&gt; {
-    if(!err) {
+  fs.stat(filename, err =&gt; &#123;
+    if(!err) &#123;
       return callback(null, filename, false);
-    }
-    download(url, filename, err =&gt; {
-      if(err) {
+    &#125;
+    download(url, filename, err =&gt; &#123;
+      if(err) &#123;
         return callback(err);
-      }
+      &#125;
       callback(null, filename, true);
-    })
-  });
-}</code></pre>
+    &#125;)
+  &#125;);
+&#125;
+</code></pre>
 <h3 id="fs-stat"><a href="#fs-stat" class="headerlink" title="fs.stat()"></a>fs.stat()</h3><p>首先进入 <code>fs.stat()</code> 函数：</p>
-<pre><code class="javascript">function stat(path, options, callback) {
-  if (typeof options === &#39;function&#39;) {
+<pre><code class="javascript">function stat(path, options, callback) &#123;
+  if (typeof options === &#39;function&#39;) &#123;
     callback = options;
-    options = {};
-  }
+    options = &#123;&#125;;
+  &#125;
   callback = makeStatsCallback(callback);
   path = toPathIfFileURL(path);
   validatePath(path);
   const req = new FSReqCallback(options.bigint);
   req.oncomplete = callback;
   binding.stat(pathModule.toNamespacedPath(path), options.bigint, req);
-}</code></pre>
+&#125;
+</code></pre>
 <p>line 2 到 line 5 是参数判断和转换。line 6 <code>makeStatsCallback(callback)</code>，调用：</p>
 <pre><code class="Javascript">// Special case of `makeCallback()` that is specific to async `*stat()` calls as
 // an optimization, since the data passed back to the callback needs to be
 // transformed anyway.
-function makeStatsCallback(cb) {
-  if (typeof cb !== &#39;function&#39;) {
+function makeStatsCallback(cb) &#123;
+  if (typeof cb !== &#39;function&#39;) &#123;
     throw new ERR_INVALID_CALLBACK();
-  }
+  &#125;
 
-  return (err, stats) =&gt; {
+  return (err, stats) =&gt; &#123;
     if (err) return cb(err);
     cb(err, getStatsFromBinding(stats));
-  };
-}</code></pre>
+  &#125;;
+&#125;
+</code></pre>
 <p>按照注释说明，是 <code>makeCallback()</code> 的特殊情况，那我们就去看看 <code>makeCallback()</code> 是什么。</p>
 <pre><code class="javascript">// Ensure that callbacks run in the global context. Only use this function
 // for callbacks that are passed to the binding layer, callbacks that are
 // invoked from JS already run in the proper scope.
-function makeCallback(cb) {
-  if (typeof cb !== &#39;function&#39;) {
+function makeCallback(cb) &#123;
+  if (typeof cb !== &#39;function&#39;) &#123;
     throw new ERR_INVALID_CALLBACK();
-  }
+  &#125;
 
-  return (...args) =&gt; {
+  return (...args) =&gt; &#123;
     return Reflect.apply(cb, undefined, args);
-  };
-}</code></pre>
+  &#125;;
+&#125;
+</code></pre>
 <p>这段 code  的关键是 <code>Reflect.apply(cb, undefined, args);</code>。按照 MDN 的叙述，<code>Reflect</code> 是：</p>
 <blockquote>
-<p><strong>Reflect</strong> is a built-in object that provides methods for interceptable JavaScript operations. The methods are the same as those of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler" target="_blank" rel="noopener">proxy handlers</a>. <code>Reflect</code> is not a function object, so it’s not constructible.</p>
-<p>Unlike most global objects, <code>Reflect</code> is not a constructor. You cannot use it with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new" target="_blank" rel="noopener"><code>new</code>operator</a> or invoke the <code>Reflect</code> object as a function. All properties and methods of <code>Reflect</code>are static (just like the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math" target="_blank" rel="noopener"><code>Math</code></a> object).</p>
+<p><strong>Reflect</strong> is a built-in object that provides methods for interceptable JavaScript operations. The methods are the same as those of <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler">proxy handlers</a>. <code>Reflect</code> is not a function object, so it’s not constructible.</p>
+<p>Unlike most global objects, <code>Reflect</code> is not a constructor. You cannot use it with a <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new"><code>new</code>operator</a> or invoke the <code>Reflect</code> object as a function. All properties and methods of <code>Reflect</code>are static (just like the <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math"><code>Math</code></a> object).</p>
 </blockquote>
 <p>Reflect 是一个 global object。那么当调用 <code>Reflect.apply()</code>，就是在 global context 下进行的。为什么需要 global context 呢？首先想什么时候会去调用 callback，往往是 error handling，出错的时候，或者是进行最后一步工作的时候。两种情况，无论是哪一种，程序都要从不管多深的 call stack 出来，回到地面，回到 global context，去 handle error，或是进行所有前提工作结束后的下一步工作。</p>
 <p><code>makeStatsCallback(callback)</code>之后关键的三步是：</p>
 <pre><code class="javascript">const req = new FSReqCallback(options.bigint);
 req.oncomplete = callback;
-binding.stat(pathModule.toNamespacedPath(path), </code></pre>
+binding.stat(pathModule.toNamespacedPath(path), 
+</code></pre>
 <p><code>FSReqCallback</code> 和 <code>binding</code> 都是对更底层的 C library 调用。</p>
 <pre><code class="javascript">const binding = process.binding(&#39;fs&#39;);
-const { FSReqCallback, statValues } = binding;</code></pre>
+const &#123; FSReqCallback, statValues &#125; = binding;
+</code></pre>
 <p>从这里开始，就逐渐进入 <code>libuv</code> ，C library 的领域了。在这些 C library 中做了什么事情，以我目前的知识结构就很难理解了。只是大体上，应该是设置异步操作，规定在函数结束后去执行 callback 等等，就如这句 <code>req.oncomplete = callback;</code> 字面含义所写的那样。</p>
-<h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><p>request 是一个简单的 Http client。这是它们的 <a href="https://github.com/request/request" target="_blank" rel="noopener">Git repo</a>。web spider 的目标就是要下载目标 url 的内容。在上一小节，我们通过 <code>fs.stat()</code> 来检测文件是否存在。当检测到文件不存在的时候，则对目标 url 进行下载。下载这个动作，展开来讲，首要工作就是创建一个 http clinet，来向 server 发送请求，然后接收来自 server 返回的数据。即 <code>body</code> 内容。这些操作，都是通过 <code>request</code> 这个 module 来实现的。创建的 http client 就可类比浏览器，当它发送 request 请求时，需要按照 TCP/IP 协议，加入 head，设置 tunnel，redirect 等等内容。这些是通过 <code>request.Request(params)</code> 来实现的。</p>
-<pre><code class="javascript">function request (uri, options, callback) {
-  if (typeof uri === &#39;undefined&#39;) {
+<h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><p>request 是一个简单的 Http client。这是它们的 <a target="_blank" rel="noopener" href="https://github.com/request/request">Git repo</a>。web spider 的目标就是要下载目标 url 的内容。在上一小节，我们通过 <code>fs.stat()</code> 来检测文件是否存在。当检测到文件不存在的时候，则对目标 url 进行下载。下载这个动作，展开来讲，首要工作就是创建一个 http clinet，来向 server 发送请求，然后接收来自 server 返回的数据。即 <code>body</code> 内容。这些操作，都是通过 <code>request</code> 这个 module 来实现的。创建的 http client 就可类比浏览器，当它发送 request 请求时，需要按照 TCP/IP 协议，加入 head，设置 tunnel，redirect 等等内容。这些是通过 <code>request.Request(params)</code> 来实现的。</p>
+<pre><code class="javascript">function request (uri, options, callback) &#123;
+  if (typeof uri === &#39;undefined&#39;) &#123;
     throw new Error(&#39;undefined is not a valid uri or options object.&#39;)
-  }
+  &#125;
 
   var params = initParams(uri, options, callback)
 
-  if (params.method === &#39;HEAD&#39; &amp;&amp; paramsHaveRequestBody(params)) {
+  if (params.method === &#39;HEAD&#39; &amp;&amp; paramsHaveRequestBody(params)) &#123;
     throw new Error(&#39;HTTP HEAD requests MUST NOT include a request body.&#39;)
-  }
+  &#125;
 
   return new request.Request(params)
-}</code></pre>
+&#125;
+</code></pre>
 <p>line 6 对参数进行初始化：</p>
 <pre><code class="javascript">// organize params for patch, post, put, head, del
-function initParams (uri, options, callback) {
-  if (typeof options === &#39;function&#39;) {
+function initParams (uri, options, callback) &#123;
+  if (typeof options === &#39;function&#39;) &#123;
     callback = options
-  }
+  &#125;
 
-  var params = {}
-  if (typeof options === &#39;object&#39;) {
-    extend(params, options, {uri: uri})
-  } else if (typeof uri === &#39;string&#39;) {
-    extend(params, {uri: uri})
-  } else {
+  var params = &#123;&#125;
+  if (typeof options === &#39;object&#39;) &#123;
+    extend(params, options, &#123;uri: uri&#125;)
+  &#125; else if (typeof uri === &#39;string&#39;) &#123;
+    extend(params, &#123;uri: uri&#125;)
+  &#125; else &#123;
     extend(params, uri)
-  }
+  &#125;
 
   params.callback = callback || params.callback
   return params
-}</code></pre>
+&#125;
+</code></pre>
 <p><code>request()</code> 函数返回的  <code>request.Request(params)</code>  如下：</p>
-<pre><code class="javascript">function Request (options) {
+<pre><code class="javascript">function Request (options) &#123;
   // if given the method property in options, set property explicitMethod to true
 
   // extend the Request instance with any non-reserved properties
@@ -234,10 +247,10 @@ function initParams (uri, options, callback) {
   var self = this
 
   // start with HAR, then override with additional options
-  if (options.har) {
+  if (options.har) &#123;
     self._har = new Har(self)
     options = self._har.options(options)
-  }
+  &#125;
 
   stream.Stream.call(self)
   var reserved = Object.keys(Request.prototype)
@@ -248,9 +261,9 @@ function initParams (uri, options, callback) {
 
   self.readable = true
   self.writable = true
-  if (options.method) {
+  if (options.method) &#123;
     self.explicitMethod = true
-  }
+  &#125;
   self._qs = new Querystring(self)
   self._auth = new Auth(self)
   self._oauth = new OAuth(self)
@@ -258,15 +271,17 @@ function initParams (uri, options, callback) {
   self._redirect = new Redirect(self)
   self._tunnel = new Tunnel(self)
   self.init(options)
-}</code></pre>
+&#125;
+</code></pre>
 <p>注意一下 line 17，<code>stream.Stream.call(self)</code>，在进入这个函数内部后，来到：</p>
 <pre><code class="javascript">// legacy.js
 const EE = require(&#39;events&#39;);
 const util = require(&#39;util&#39;);
 
-function Stream() {
+function Stream() &#123;
   EE.call(this);
-}</code></pre>
+&#125;
+</code></pre>
 <p>因为 EE 是来自 events 导出的 EventEmitter，<code>EE.call(this)</code> 实际上是对 EventEmitter 的初始化。到这里会发现，request 处理 callback 所使用的方式，是和 EventEmitter 相关的。具体的继承关系是：</p>
 <p><code>EventEmitter</code> &lt;- <code>stream.Stream</code> &lt;- <code>Request</code></p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这篇文章最初是想弄清楚 <code>fs</code> 和 <code>request</code> 是怎么处理 callback 函数，是如何去调用的，一路 debug 下去，终归绕不开 <code>libuv</code> ，计算机底层关于 thread 的内容以及网络方面的 TCP/IP 协议。这两方面都是我的知识弱项，因此也就在合适的地方浅尝辄止了。当然，写这篇文章也让我对于 callback 有了更深的理解之外，同时，我想必要抽时间再去好好读读 CSAPP 和 TCP/IP 那两本书了。</p>
@@ -274,10 +289,10 @@ function Stream() {
 <hr>
 <p>参考：</p>
 <ul>
-<li><a href="https://medium.com/javascript-in-plain-english/callbacks-in-node-js-how-why-when-ac293f0403ca" target="_blank" rel="noopener">Callbacks in Node.js: Why, When, How?</a></li>
-<li><a href="https://stackoverflow.com/questions/24042861/nodejs-what-does-process-binding-mean" target="_blank" rel="noopener">Nodejs: What does <code>process.binding</code> mean?</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/40977678" target="_blank" rel="noopener">深入出不来nodejs源码-从fs.stat看node架构</a></li>
-<li><a href="https://github.com/PacktPublishing/Node.js_Design_Patterns_Second_Edition_Code" target="_blank" rel="noopener">Node.js_Design Patterns Second Edition Code</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/javascript-in-plain-english/callbacks-in-node-js-how-why-when-ac293f0403ca">Callbacks in Node.js: Why, When, How?</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24042861/nodejs-what-does-process-binding-mean">Nodejs: What does <code>process.binding</code> mean?</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/40977678">深入出不来nodejs源码-从fs.stat看node架构</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/PacktPublishing/Node.js_Design_Patterns_Second_Edition_Code">Node.js_Design Patterns Second Edition Code</a></li>
 </ul>
 
             </div>
@@ -297,29 +312,29 @@ function Stream() {
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -365,27 +380,27 @@ function Stream() {
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -393,9 +408,17 @@ function Stream() {
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>

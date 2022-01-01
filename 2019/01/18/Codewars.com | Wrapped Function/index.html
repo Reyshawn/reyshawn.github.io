@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -11,10 +11,14 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i" rel="stylesheet">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/main.css">
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
     <title>reyshawn.C</title>
-</head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -43,7 +47,7 @@
         <article class="hagoromo-post">
             <header class="entry-header">
                 <h2 class="entry-title h1">
-                    <a href="/2019/01/18/Codewars.com | Wrapped Function/">Wrapped Function</a>
+                    <a href="/2019/01/18/Codewars.com%20%7C%20Wrapped%20Function/">Wrapped Function</a>
                 </h2>
                 <div class="entry-meta">
                     2019 年 01 月 18 日
@@ -53,68 +57,73 @@
             <div class="entry-content">
                 <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Create a function method that allow you to wrap an existing function. The method signature would look something like this:</p>
 <p><strong>Usage Example</strong>:</p>
-<pre><code class="javascript">function speak(name){
+<pre><code class="javascript">function speak(name)&#123;
    return &quot;Hello &quot; + name;
-}
+&#125;
 
-speak = speak.wrap(function(original, yourName, myName){
+speak = speak.wrap(function(original, yourName, myName)&#123;
    greeting = original(yourName);
    return greeting + &quot;, my name is &quot; + myName;
-})
+&#125;)
 
-var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);</code></pre>
-<a id="more"></a>
+var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
+</code></pre>
+<span id="more"></span>
 
 <p>这个题目就是给函数扩展一个 <code>wrap</code> 方法，wrap 本意是「包裹」，这里可以理解为，在原由函数功能的基础上，再次添加新的功能，可以视为对原有函数的一种增强。在本例中，<code>speak</code> 是一个简单函数，通过 <code>wrap</code> 方法，使之在 <code>speak</code> 基础之上，增加了 greeting 的功能。</p>
-<h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><h3 id="1-that-this"><a href="#1-that-this" class="headerlink" title="1. that = this"></a>1. that = this</h3><pre><code class="javascript">Function.prototype.wrap = function(fn) {
+<h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><h3 id="1-that-this"><a href="#1-that-this" class="headerlink" title="1. that = this"></a>1. that = this</h3><pre><code class="javascript">Function.prototype.wrap = function(fn) &#123;
     var that = this;
-    return function(arg2,arg3) {
+    return function(arg2,arg3) &#123;
         return fn(that,arg2,arg3);
-    };
-}</code></pre>
+    &#125;;
+&#125;
+</code></pre>
 <p>因为 <code>wrap</code> 方法的参数是一个 callback 函数，其中 <code>original</code> 参数是要能够映射到原函数中才行。这里涉及到 <code>this</code> keyword, scope 以及函数调用的问题。</p>
 <p>在 JavaScript 中，函数调用有三种情况：</p>
 <ol>
-<li><code>fn(arg)</code></li>
-<li><code>obj.child.method(arg)</code></li>
-<li>``fn.call(context,arg)`</li>
+<li> <code>fn(arg)</code></li>
+<li> <code>obj.child.method(arg)</code></li>
+<li> ``fn.call(context,arg)`</li>
 </ol>
 <p>但其实第三种调用方法才是最通用的书写形式，前两种都可以用第三种书写形式写出来，比如第一种，可以写成 <code>fn.call(undefined,arg)</code>， 第二种可以写成 <code>obj.child.method.call(obj.child,arg)</code> 。因此当 <code>wrap</code> 作为函数的方法被函数 <code>speak</code> 调用时，<code>this</code> 指代的为函数 <code>speak</code>。通过创建变量并赋值，将这种映射关系存储下来。</p>
-<h3 id="2-bind"><a href="#2-bind" class="headerlink" title="2. bind()"></a>2. bind()</h3><pre><code class="javascript">Function.prototype.wrap = function(callback) {
+<h3 id="2-bind"><a href="#2-bind" class="headerlink" title="2. bind()"></a>2. bind()</h3><pre><code class="javascript">Function.prototype.wrap = function(callback) &#123;
   return callback.bind(this, this);
-}</code></pre>
+&#125;
+</code></pre>
 <p><code>bind()</code> 方法首先会创建一个新函数，这个新函数的函数体和 <code>callback</code> 保持一致。 <code>bind()</code> 方法本身可能带多个参数，第一个参数用于指定 <code>this</code> 的值，之后的参数作为「预制参数」传入到新函数中。预制参数的含义可以查阅文末的参考链接。</p>
 <p>而在这个例子里，<code>bind()</code> 方法的参数是两个 <code>this</code>，第一个 <code>this</code> 仅仅指定 context，因为是 <code>speak()</code> 调用的 <code>wrap()</code>，所以 <code>this</code> 就指向 <code>speak()</code>。 第二个 <code>this</code> 则作为 <code>callback</code> 函数第一个参数的预制参数，即参数 <code>original</code>。所以 <code>original</code> 表示函数 <code>speak()</code>。剩余参数则通过实参（实际调用时使用的参数）进行传入。为了便于理解其中的参数传递，可以试着做以下实验：</p>
-<pre><code class="javascript">function speak(name){
+<pre><code class="javascript">function speak(name)&#123;
    return &quot;Hello &quot; + name;
-}
+&#125;
 
-Function.prototype.wrap = function(callback) {
+Function.prototype.wrap = function(callback) &#123;
   return callback.bind(&#39;context&#39;,this, &#39;s&#39;, &#39;this&#39;);
-}
+&#125;
 
-speak = speak.wrap(function(original, yourName, myName){
+speak = speak.wrap(function(original, yourName, myName)&#123;
     console.log(original,yourName,myName)
 
    return &quot;, my name is &quot; + myName;
-})
+&#125;)
 
 
-console.log(speak(&quot;Mary&quot;, &quot;Kate&quot;)) //</code></pre>
+console.log(speak(&quot;Mary&quot;, &quot;Kate&quot;)) //
+</code></pre>
 <p>随意改变 <code>callback.bind()</code> 的参数值，查看对应的 <code>console.log(original,yourName,myName)</code> 的输出。可以找到规律，<code>bind()</code> 方法的第一个参数仅仅指定 context，对参数传递无影响。除了第一个之外的其他参数作为预制参数，影响参数传递。</p>
 <p>tl;dr: </p>
 <p><code>bind()</code> 方法第一个参数对应原函数( bound function )的 <code>this</code>，第二个参数对应原函数( bound function )的第一个参数，但三个参数对应原函数的第二个参数，以此类推。</p>
-<h3 id="3-arrow-function"><a href="#3-arrow-function" class="headerlink" title="3. arrow function"></a>3. arrow function</h3><pre><code class="javascript">Function.prototype.wrap = function (f) {
+<h3 id="3-arrow-function"><a href="#3-arrow-function" class="headerlink" title="3. arrow function"></a>3. arrow function</h3><pre><code class="javascript">Function.prototype.wrap = function (f) &#123;
   return (...args) =&gt; f(this, ...args)
-};</code></pre>
+&#125;;
+</code></pre>
 <p><code>…args</code> 表明 rest paramaters，其余参数，字面意思很好理解。<code>=&gt;</code> 为 arrow function，类似 lambda 函数，这里 return 一个新函数，新函数的第一个参数值改为 <code>this</code>，其余参数作为实参传入。原理上这种方法也是类似于预制参数。</p>
 <p>参考：</p>
 <ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this" target="_blank" rel="noopener">this - MDN web docs</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/23804247" target="_blank" rel="noopener">this 的值到底是什么？一次说清楚 - 方应杭</a></li>
-<li><a href="https://github.com/Aaaaaaaty/Blog/issues/1" target="_blank" rel="noopener">Javascript之bind #1( 预制参数 )</a></li>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/2" target="_blank" rel="noopener">JavaScript深入之从原型到原型链 #2</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters" target="_blank" rel="noopener">Rest parameters</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">this - MDN web docs</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23804247">this 的值到底是什么？一次说清楚 - 方应杭</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://github.com/Aaaaaaaty/Blog/issues/1">Javascript之bind #1( 预制参数 )</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/2">JavaScript深入之从原型到原型链 #2</a></li>
+<li>  <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters">Rest parameters</a></li>
 </ul>
 
             </div>
@@ -136,29 +145,29 @@ console.log(speak(&quot;Mary&quot;, &quot;Kate&quot;)) //</code></pre>
         <div class="hagoromo-footer-widget"></div>
         <div class="hagoromo-footer-widget">
             <img class="typology-logo" src="/images/footer.png" alt="hagoromo" style="width: 125px;">
-            <p>Inspired by <a href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
+            <p>Inspired by <a target="_blank" rel="noopener" href="https://demo.mekshq.com/typology/">typology</a> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> <br> All rights reserved</p>
         </div>
         <div class="hagoromo-footer-widget social">
             
                 
                     <span class="social-button">
-                        <a href="https://github.com/Reyshawn" rel="alternate"><i class="fa fa-github"></i></a>
+                        <a target="_blank" href="https://github.com/Reyshawn" rel="alternate noopener"><i class="fa fa-github"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://twitter.com/ReshawnChang" rel="alternate"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="https://twitter.com/ReshawnChang" rel="alternate noopener"><i class="fa fa-twitter"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="http://weibo.com/u/1724849591" rel="alternate"><i class="fa fa-weibo"></i></a>
+                        <a target="_blank" href="http://weibo.com/u/1724849591" rel="alternate noopener"><i class="fa fa-weibo"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.douban.com/people/53350454/" rel="alternate"><i class="fa fa-film"></i></a>
+                        <a target="_blank" href="https://www.douban.com/people/53350454/" rel="alternate noopener"><i class="fa fa-film"></i></a>
                     </span>
                 
                     <span class="social-button">
-                        <a href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhang-yun-xiao-61/activities" rel="alternate noopener"><i class="fa fa-globe"></i></a>
                     </span>
                 
             
@@ -204,27 +213,27 @@ console.log(speak(&quot;Mary&quot;, &quot;Kate&quot;)) //</code></pre>
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></a></a></li>
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
               
-                <li><a href="/tags/codewars/">codewars<a></a></a></li>
+                <li><a href="/tags/codewars/">codewars<a></li>
               
-                <li><a href="/tags/Python/">Python<a></a></a></li>
+                <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></a></a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
-                <li><a href="/tags/电影/">电影<a></a></a></li>
+                <li><a href="/tags/Front-end/">Front-end<a></li>
               
-                <li><a href="/tags/游戏/">游戏<a></a></a></li>
+                <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
-                <li><a href="/tags/音乐/">音乐<a></a></a></li>
+                <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></a></a></li>
+                <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Front-end/">Front-end<a></a></a></li>
+                <li><a href="/tags/Anime/">Anime<a></li>
               
-                <li><a href="/tags/故事/">故事<a></a></a></li>
+                <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
-                <li><a href="/tags/Node-js/">Node.js<a></a></a></li>
+                <li><a href="/tags/Node-js/">Node.js<a></li>
             
         </ul>
     </div>
@@ -232,9 +241,17 @@ console.log(speak(&quot;Mary&quot;, &quot;Kate&quot;)) //</code></pre>
 
 <div class="hagoromo-sidebar-overlay"></div>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/highlight.min.js"></script>
-    <script src="/js/highlightjs-line-numbers.js"></script>
-    <script src="/js/main.js"></script>
+    
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+    
+<script src="/js/highlight.min.js"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+    
+<script src="/js/main.js"></script>
+
 </body>
 </html>
