@@ -1,8 +1,8 @@
 <% if (page.total > 1){ %>
 <div class="hagoromo-pagination">
     <nav class="navigation pagination" role="navigation">
-        <% let prev_text = "&laquo; " + __('prev'); %>
-        <% let next_text = __('next') + " &raquo;"; %>
+        <% let prev_text = "<< " + __('prev'); %>
+        <% let next_text = __('next') + " >>"; %>
         <%- paginator({
           prev_text: prev_text,
           next_text: next_text
