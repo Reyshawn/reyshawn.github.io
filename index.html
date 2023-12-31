@@ -50,6 +50,28 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2023/12/30/2023-summary/">『別れの予感』</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2023 年 12 月 30 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <p>今年发生了很多事，告别了一些人，也认识了新的朋友，有些说大不大，说小不小的改变，无论是我，还是这个世界。大概是一个月之前就开始构思这篇文章，然后花上两到三天的时间整理链接，图片，文字和回忆。</p>
+<blockquote>
+<p>「说到邓丽君的代表作」<br>「很多粉丝会说〈何日君再来〉」<br>「〈再见我的爱人〉或〈我只在乎你〉」<br>「不瞒大家，其实我最喜欢这首」<br>- 老爸啊，到底想干什么呢？<br>- 干什么？<br>「请听邓丽君的〈别离的预感〉」<br>- 他自己的人生啊<br>- 我不知道，到最后还是搞不懂他<br>- 他很多事无法心想事成吧，都怪时代不好<br>- 他把自己的缺点都怪在时代上<br>- 你干嘛感慨良多<br>- 没有<br>- 你现在把那柱香当成你爸了吧，人走了之后，再思念都是枉然，还是得在人在的时候，好好对待才行。<br>- 我知道<br>- 为什么男人们都学不会珍惜当下，总是在追逐失去的东西，做着那些虚妄而无法实现的梦，把自己困住，每天怎么会快乐<br>- 也许吧<br>- 其实幸福这种东西，没有牺牲就无法入手<br>「比海还深，比天还蓝」<br>- 我到这把年纪了，还没有爱过谁比海还深的<br>- 别说这种孤僻话<br>- 你有吗？<br>- 我？<br>- 还算有吧<br>- 一般人不会有的啦，但还是每天过得开开心心。不对，就是没有才过得开心，平凡的生活也能自得其乐<br>- 真复杂<br>- 单纯得很，人生很单纯的。我刚讲了很棒的名言吧。借你写到下一本小说里。阿良，笔记一下啊<br>- 不用啦  - 不然会忘记的<br>- 不用抄啦，我记住了</p>
+<p>-- 『比海更深』</p>
+</blockquote>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2023/12/30/2023-summary/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2022/12/31/%E7%83%AD%E7%97%85/">热病</a>
                     </h2>
                     <div class="entry-meta">
@@ -306,46 +328,6 @@
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2019/06/12/JSON-Web-Token-%E7%9A%84%E4%BA%A7%E7%94%9F%E5%92%8C%E8%AE%A4%E8%AF%81/">JSON Web Token 的产生和认证</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2019 年 06 月 12 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Cookie-based-vs-Token-based"><a href="#Cookie-based-vs-Token-based" class="headerlink" title="Cookie-based vs Token-based"></a>Cookie-based vs Token-based</h2><p>有两种认证方式，一种是基于 cookie 的认证，另一种是基于 token 的认证。后者实现往往是通过 JSON Web Token （以下简称 JWT）实现的。首先要说明一下两种认证方式的区别：</p>
-<p>cookie-based authentication 的认证流程是:</p>
-<ol>
-<li>用户填写 credentials，包括用户名，邮箱，密码这些内容；</li>
-<li>Server 服务器验证这些 credentials 是否正确，如果正确，则<strong>认证成功</strong>，创建一个 session 存储在数据库中；</li>
-<li>将这个 session 的 session id 存储在浏览器端的 cookie 里；</li>
-<li>接下来的每一个请求，都会带着这个 session id，Server 在接收请求后也会验证 session id 与 session 是否匹配；</li>
-<li>一旦用户登出，client 端和 server 端的 session 均被摧毁；</li>
-</ol>
-<p>token-based authentication:</p>
-<ol>
-<li>用户填写 credentials，包括用户名，邮箱，密码；</li>
-<li>Server 服务器验证这些 credentials 是否正确，如果<strong>认证成功</strong>，则返回一个 signed token；</li>
-<li>这个 token 会被存储在 client 端，大部分是在 localStorage，但也会存储在 session storage 或是 cookie 里；</li>
-<li>接下来的每一个请求，都会带着 token 作为额外的 authentication 信息。</li>
-<li>Server 收到请求后，首先 decode 这个 token 并对 token 里的 signature 进行验证；</li>
-</ol>
-<p><img src="/images/auto01.png" alt="auto01"></p>
-<p>为什么会说 token-based 更好：</p>
-<ol>
-<li>stateless，也就是不需要再在 server 端保存一份纪录，但 server 端要保存用于签名时用的「secret key」；</li>
-<li>cookie 对跨域 CORS 操作不友好，token 则没有这个问题；</li>
-</ol>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/06/12/JSON-Web-Token-%E7%9A%84%E4%BA%A7%E7%94%9F%E5%92%8C%E8%AE%A4%E8%AF%81/">READ MORE</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
@@ -422,9 +404,9 @@
         <ul>
             <li><a href="/archives">Archive</a></li>
               
-            <li><a href="/categories/Coding/">Coding</a></li>
-              
             <li><a href="/categories/I-O/">I/O</a></li>
+              
+            <li><a href="/categories/Coding/">Coding</a></li>
             
         </ul>
     </div>
@@ -432,19 +414,19 @@
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
-              
-                <li><a href="/tags/codewars/">codewars<a></li>
-              
-                <li><a href="/tags/Python/">Python<a></li>
-              
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
+              
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+              
+                <li><a href="/tags/codewars/">codewars<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
               

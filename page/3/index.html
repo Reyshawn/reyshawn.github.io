@@ -50,6 +50,43 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/01/22/%E8%B1%A1%E6%A3%8B%20(XiangqiChinese%20Chess)%20Board%20Validator%20%7C%204kyu/">象棋 (Xiangqi/Chinese Chess) Board Validator | 4kyu</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 01 月 22 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a target="_blank" rel="noopener" href="http://www.wikiwand.com/en/Xiangqi">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
+<hr>
+<p>You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:</p>
+<pre><code>Example (the starting Xiangqi board):
+
+車馬象士將士象馬車
+　　　｜Ｘ｜　　　
+　砲　＋－＋　砲　
+卒　卒　卒　卒　卒
+－－－－－－－－－
+－－－－－－－－－
+兵　兵　兵　兵　兵
+　炮　＋－＋　炮　
+　　　｜Ｘ｜　　　
+俥傌相仕帥仕相傌俥
+
+The bottom and top half corresponds to red and black pieces, respectively.
+Note that red and black have different characters to distinguish the same piece of both sides.
+</code></pre>
+<p>Your function, <code>chessValidator</code>, should determine whether the pieces in argument <code>board</code> are placed legally. Unlike the chess you’re familiar with, there are restrictions as to where the various chess pieces can be at:</p>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/22/%E8%B1%A1%E6%A3%8B%20(XiangqiChinese%20Chess)%20Board%20Validator%20%7C%204kyu/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/22/Lowest%20base%20system%20%7C%204kyu/">Lowest base system | 4kyu</a>
                     </h2>
                     <div class="entry-meta">
@@ -343,44 +380,6 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
                 </div>
             </article>
             
-            <article class="hagoromo-post">
-                <header class="entry-header">
-                    <h2 class="entry-title h1">
-                        <a href="/2019/01/18/Codewars.com%20%7C%20ES5%20Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
-                    </h2>
-                    <div class="entry-meta">
-                        2019 年 01 月 18 日
-                    </div>
-                    <div class="post-letter"></div>
-                </header>
-                <div class="entry-content">
-                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
-<p>This is the first part of three (<a target="_blank" rel="noopener" href="http://www.codewars.com/kata/es5-generators-ii">part2</a>, <a target="_blank" rel="noopener" href="http://www.codewars.com/kata/es5-generators-iii">part3</a>).</p>
-<p>Generators and Iterators are new ES6 features that will allow things like this:</p>
-<pre><code class="javascript">function* fibonacci() &#123;
-    let [prev, curr] = [0, 1];
-    for (;;) &#123;
-        [prev, curr] = [curr, prev + curr];
-        yield curr;
-    &#125;
-&#125;
-</code></pre>
-<p>Using them in this way, we can do amazing things:</p>
-<pre><code class="javascript">let seq = fibonacci();
-print(seq.next()); // 1
-print(seq.next()); // 2
-print(seq.next()); // 3
-print(seq.next()); // 5
-print(seq.next()); // 8
-</code></pre>
-<p>This is powerful, but until a few months later, ES6 will not be born.</p>
-<p>The goal of this kata is to implement pseudo-generators with ES5.</p>
-                </div>
-                <div class="entry-footer">
-                    <a class="hagoromo-button" href="/2019/01/18/Codewars.com%20%7C%20ES5%20Generators(i)/">READ MORE</a>
-                </div>
-            </article>
-            
         </div>
         
 <div class="hagoromo-pagination">
@@ -457,9 +456,9 @@ print(seq.next()); // 8
         <ul>
             <li><a href="/archives">Archive</a></li>
               
-            <li><a href="/categories/Coding/">Coding</a></li>
-              
             <li><a href="/categories/I-O/">I/O</a></li>
+              
+            <li><a href="/categories/Coding/">Coding</a></li>
             
         </ul>
     </div>
@@ -467,19 +466,19 @@ print(seq.next()); // 8
         <h4 class="widget-title h5">标签</h4>
         <ul>
               
-                <li><a href="/tags/Algorithm/">Algorithm<a></li>
-              
-                <li><a href="/tags/codewars/">codewars<a></li>
-              
-                <li><a href="/tags/Python/">Python<a></li>
-              
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
+              
+                <li><a href="/tags/Algorithm/">Algorithm<a></li>
+              
+                <li><a href="/tags/codewars/">codewars<a></li>
+              
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
+              
+                <li><a href="/tags/Python/">Python<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
               
