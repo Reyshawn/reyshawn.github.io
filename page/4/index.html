@@ -50,6 +50,36 @@
             <article class="hagoromo-post">
                 <header class="entry-header">
                     <h2 class="entry-title h1">
+                        <a href="/2019/01/18/Codewars.com%20%7C%20Wrapped%20Function/">Wrapped Function</a>
+                    </h2>
+                    <div class="entry-meta">
+                        2019 年 01 月 18 日
+                    </div>
+                    <div class="post-letter"></div>
+                </header>
+                <div class="entry-content">
+                    <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Create a function method that allow you to wrap an existing function. The method signature would look something like this:</p>
+<p><strong>Usage Example</strong>:</p>
+<pre><code class="javascript">function speak(name)&#123;
+   return &quot;Hello &quot; + name;
+&#125;
+
+speak = speak.wrap(function(original, yourName, myName)&#123;
+   greeting = original(yourName);
+   return greeting + &quot;, my name is &quot; + myName;
+&#125;)
+
+var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
+</code></pre>
+                </div>
+                <div class="entry-footer">
+                    <a class="hagoromo-button" href="/2019/01/18/Codewars.com%20%7C%20Wrapped%20Function/">READ MORE</a>
+                </div>
+            </article>
+            
+            <article class="hagoromo-post">
+                <header class="entry-header">
+                    <h2 class="entry-title h1">
                         <a href="/2019/01/18/Codewars.com%20%7C%20ES5%20Generators(i)/">ES5 Generators(i) 和闭包 closure</a>
                     </h2>
                     <div class="entry-meta">
