@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -57,12 +58,12 @@
             <div class="entry-content">
                 <p>非常推荐先看一下参考链接里两个 youtube 视频，分别介绍了 event loop 和 setTimeout 的实现原理，这对于理解 JavaScript 里异步操作实现非常有帮助。其次是关于 Promise object 的手动实现，有一些抽象，因为包含了大量的  callback 函数。这里一定要分清楚，哪些是函数的声明，哪些是函数的调用。</p>
 <h2 id="Event-loop"><a href="#Event-loop" class="headerlink" title="Event loop"></a>Event loop</h2><p>JavaScript 是一种 single thread 的语言。既然单一线程，那么在某个时间点，只能完成一项任务。于是</p>
-<pre><code class="javascript">$.get(&#39;http://twitter.com&#39;)
+<pre><code class="language-javascript">$.get(&#39;http://twitter.com&#39;)
 $.get(&#39;http://youtube.com&#39;)
 $.get(&#39;http://google.com&#39;)
 </code></pre>
 <p>在单线程下，如果某一行执行所需要的时间太久了，那么余下的的 command 也无法执行，程序就在那一行停滞下来了。我们把这个叫做 blocking。然而事实上，当我们在使用 <code>setTimeout()</code> 函数时，程序似乎不会出现 blocking。</p>
-<pre><code class="Javascript">console.log(&#39;hi&#39;)
+<pre><code class="language-Javascript">console.log(&#39;hi&#39;)
 setTimeout(() =&gt; console.log(&#39;there&#39;), 0)
 console.log(&#39;Welcome!&#39;)
 
@@ -85,11 +86,11 @@ console.log(&#39;Welcome!&#39;)
 </blockquote>
 <p>以下是来自 <a target="_blank" rel="noopener" href="https://www.promisejs.org/implementing/">Implementing</a>，对于 Promise object 的实现：</p>
 <p>最好的方式是将下面的代码粘贴进 editor 里，调试几遍。不太明白的地方打上断点，或是 <code>console.log()</code>。</p>
-<pre><code class="javascript">let PENDING = 0;
+<pre><code class="language-javascript">let PENDING = 0;
 let FULFILLED = 1;
 let REJECTED = 2;
 
-function Promise(fn) &#123;
+function Promise(fn) {
   // store state which can be PENDING, FULFILLED or REJECTED
   let state = PENDING;
 
@@ -99,130 +100,130 @@ function Promise(fn) &#123;
   // store sucess &amp; failure handlers attached by calling .then or .done
   let handlers = [];
 
-  function fulfill(result) &#123;
+  function fulfill(result) {
     state = FULFILLED;
     value = result;
     handlers.forEach(handle);
     handlers = null;
-  &#125;
+  }
 
-  function reject(error) &#123;
+  function reject(error) {
     state = REJECTED;
     value = error;
     handlers.forEach(handle);
     handlers = null;
-  &#125;
+  }
 
-  function resolve(result) &#123;
-    try &#123;
+  function resolve(result) {
+    try {
       let then = getThen(result);
-      if (then) &#123;
+      if (then) {
         doResolve(then.bind(result), resolve, reject);
         return ;
-      &#125;
+      }
       fulfill(result)
-    &#125; catch (e) &#123;
+    } catch (e) {
       reject(e);
-    &#125;
-  &#125;
+    }
+  }
 
-  function handle(handler) &#123;
-    if (state === PENDING) &#123;
+  function handle(handler) {
+    if (state === PENDING) {
       handlers.push(handler);
-    &#125; else &#123;
+    } else {
       if (state === FULFILLED &amp;&amp;
-        typeof handler.onFulfilled === &#39;function&#39;) &#123;
+        typeof handler.onFulfilled === &#39;function&#39;) {
         handler.onFulfilled(value);
-      &#125;
+      }
       if (state === REJECTED &amp;&amp;
-        typeof handler.onRejected === &#39;function&#39;) &#123;
+        typeof handler.onRejected === &#39;function&#39;) {
         handler.onRejected(value);
-      &#125;
-    &#125;
-  &#125;
+      }
+    }
+  }
 
-  this.done = function (onFulfilled, onRejected) &#123;
+  this.done = function (onFulfilled, onRejected) {
     // ensure we are always asynchronous
-    setTimeout(function () &#123;
+    setTimeout(function () {
       console.log(&#39;instantly implemented ⚠️&#39;)
-      handle(&#123;
+      handle({
         onFulfilled: onFulfilled,
         onRejected: onRejected
-      &#125;);
-    &#125;, 0);
-  &#125;
+      });
+    }, 0);
+  }
   
   doResolve(fn, resolve, reject)
 
-  this.then = function (onFulfilled, onRejected) &#123;
+  this.then = function (onFulfilled, onRejected) {
     var self = this;
-    return new Promise(function (resolve, reject) &#123;
-      return self.done(function (result) &#123;
-        if (typeof onFulfilled === &#39;function&#39;) &#123;
-          try &#123;
+    return new Promise(function (resolve, reject) {
+      return self.done(function (result) {
+        if (typeof onFulfilled === &#39;function&#39;) {
+          try {
             return resolve(onFulfilled(result));
-          &#125; catch (ex) &#123;
+          } catch (ex) {
             return reject(ex);
-          &#125;
-        &#125; else &#123;
+          }
+        } else {
           return resolve(result);
-        &#125;
-      &#125;, function (error) &#123;
-        if (typeof onRejected === &#39;function&#39;) &#123;
-          try &#123;
+        }
+      }, function (error) {
+        if (typeof onRejected === &#39;function&#39;) {
+          try {
             return resolve(onRejected(error));
-          &#125; catch (ex) &#123;
+          } catch (ex) {
             return reject(ex);
-          &#125;
-        &#125; else &#123;
+          }
+        } else {
           return reject(error);
-        &#125;
-      &#125;);
-    &#125;);
-  &#125;
-&#125;
+        }
+      });
+    });
+  }
+}
 
-function getThen(value) &#123;
+function getThen(value) {
   var t = typeof value;
-  if (value &amp;&amp; (t === &#39;object&#39; || t === &#39;function&#39;)) &#123;
+  if (value &amp;&amp; (t === &#39;object&#39; || t === &#39;function&#39;)) {
     var then = value.then;
-    if (typeof then === &#39;function&#39;) &#123;
+    if (typeof then === &#39;function&#39;) {
       return then;
-    &#125;
-  &#125;
+    }
+  }
   return null;
-&#125;
+}
 
-function doResolve(fn, onFulfilled, onRejected) &#123;
+function doResolve(fn, onFulfilled, onRejected) {
   var done = false;
-  try &#123;
-    fn(function (value) &#123;
+  try {
+    fn(function (value) {
       if (done) return
       done = true
       onFulfilled(value)
-    &#125;, function (reason) &#123;
+    }, function (reason) {
       if (done) return
       done = true
       onRejected(reason)
-    &#125;)
-  &#125; catch (ex) &#123;
+    })
+  } catch (ex) {
     if (done) return
     done = true
     onRejected(ex)
-  &#125;
-&#125;
+  }
+}
 
 
-var promise1 = new Promise(function(resolve, reject) &#123;
-  setTimeout(function() &#123;
+var promise1 = new Promise(function(resolve, reject) {
+  setTimeout(function() {
     resolve(&#39;foo&#39;);
-  &#125;, 3000);
-&#125;);
+  }, 3000);
+});
 
-promise1.then(function(value) &#123;
+promise1.then(function(value) {
   console.log(value)
   // expected output: &quot;foo&quot;
-&#125;);
+});
 
 console.log(promise1);
 </code></pre>
@@ -326,17 +327,17 @@ console.log(promise1);
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -355,7 +356,7 @@ console.log(promise1);
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

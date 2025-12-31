@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -57,16 +58,16 @@
             <div class="entry-content">
                 <p>最近在看 <a href="">@keyframer</a> 的一系列视频，需要用到 webpack 来配置 scss 环境，这就导致了每一个项目都要重复下载一遍 webpack 和相关的所有 node modules，这样很浪费空间。</p>
 <p>因此要想办法把 webpack 独立出来，让每一个项目都可以访问到 webpack，一个方法是全局安装 webpack。这里提供另一种方法，想到我们通常使用 webpack 的情景是，在  <code>package.json</code> 里预先定义好 </p>
-<pre><code class="json">&quot;scripts&quot;: &#123;
+<pre><code class="language-json">&quot;scripts&quot;: {
     &quot;dev&quot;: &quot;webpack-dev-server&quot;,
     &quot;build&quot;: &quot;webpack&quot;
-&#125;
+}
 </code></pre>
 <p>然后 <code>npm run dev</code>。我们需要把这里修改一下，让每个项目都统一调用同一个 webpack。</p>
 <span id="more"></span>
 
 <p>项目的结构是这样的：</p>
-<pre><code class="shell">.
+<pre><code class="language-shell">.
 ├── Project1
 │   ├── dist
 │   ├── package.json
@@ -89,10 +90,10 @@
 └── package.json
 </code></pre>
 <p>需要一个parent directory，在 parent directory 里首先 <code>npn init -y</code>，并安装好 webpack 和所有相关 node modules。为每一个子项目单独创建一个文件夹，把每个项目下 <code>package.json</code> 中的  <code>script</code> 修改成：</p>
-<pre><code class="json">&quot;scripts&quot;: &#123;
+<pre><code class="language-json">&quot;scripts&quot;: {
     &quot;dev&quot;: &quot;../node_modules/.bin/webpack-dev-server&quot;,
     &quot;build&quot;: &quot;../node_modules/.bin/webpack&quot;
- &#125;
+ }
 </code></pre>
 <p>这样一来，仅仅安装了一遍 webpack，每个子项目都可以 access 到 parent directory 里的 webpack。而且每个子项目都可以独立配置 webpack，配置文件为 <code>webpack.config.js</code>。</p>
 
@@ -175,17 +176,17 @@
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -204,7 +205,7 @@
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

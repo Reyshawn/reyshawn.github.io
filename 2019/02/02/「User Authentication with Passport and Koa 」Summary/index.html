@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -68,7 +69,7 @@
 <span id="more"></span>
 
 <h2 id="文件结构，逻辑"><a href="#文件结构，逻辑" class="headerlink" title="文件结构，逻辑"></a>文件结构，逻辑</h2><p>文件最后的结构：</p>
-<pre><code class="shell">.
+<pre><code class="language-shell">.
 ├── LICENSE
 ├── README.md
 ├── knexfile.js
@@ -105,14 +106,14 @@
 </code></pre>
 <p>有一些文件夹，文件属于自动生成的 boilerplate，比如 <code>package.json</code>，<code>knexfile.js</code>，<code>db</code> 文件夹里的一些内容。项目的结构清晰明朗。<code>test</code> 为测试文件夹。测试文件的标题统一加上 <code>test</code> 标示，并用 dot 分隔。这也提醒自己，文件标题的命名可以不使用 underscore 或 dash 来分隔，也可以用 dot。在 <code>server</code> 文件夹下，<code>db</code> 几乎都是数据库，knex 相关的。另外有路由 <code>routes</code> 文件夹和 <code>views</code> 视图文件夹。</p>
 <h2 id="Postgresql"><a href="#Postgresql" class="headerlink" title="Postgresql"></a>Postgresql</h2><p>在 macOS 上直接使用 Brew 安装即可。由于我个人不习惯开机自动启动数据库，那个需要用到类似 <code>service start</code> 的命令。这里是手动开启的办法：</p>
-<pre><code class="shell">$ pg_ctl -D /usr/local/var/postgres start  
+<pre><code class="language-shell">$ pg_ctl -D /usr/local/var/postgres start  
 </code></pre>
 <p>和 Mysql 一样，把 <code>start</code> 可以换成 <code>stop</code>，<code>restart</code>。</p>
 <p>数据库初始化：</p>
-<pre><code class="shell">$ initdb /usr/local/var/postgres  
+<pre><code class="language-shell">$ initdb /usr/local/var/postgres  
 </code></pre>
 <p>在这篇教程里，需要我事先创建两个数据库，创建数据库用如下命令：</p>
-<pre><code class="shell">$ createdb koa_api    
+<pre><code class="language-shell">$ createdb koa_api    
 $ createdb koa_api_test
 </code></pre>
 <p><code>psql</code> + Database，进入 database 的命令行。</p>
@@ -138,37 +139,37 @@ $ createdb koa_api_test
 <p>Knex，可以看作是各种不同数据库下统一封装的一套 API。通过 Knex 来和数据库进行交互。比如创建表，更新，添加数据等等。上文引用里提到了「battery-included」一词，意思是「开箱即用」，即这个 Library 已经包含了它所需要的全部依赖 Dependency。我们装完拿来直接用即可，不需要在进行其他 Library 的安装。</p>
 <p><img src="/images/knex.png" alt="knex"></p>
 <p>因为要频繁在 Terminal 里用到 <code>knex</code> 命令，所以最后事先全局安装 Knex。在这篇教程里，我们在使用 Postgresql 创建完数据库以后，会看到需要我们执行这两条命令：</p>
-<pre><code class="shell">$ knex migrate:latest --env development
+<pre><code class="language-shell">$ knex migrate:latest --env development
 $ knex seed:run --env development
 </code></pre>
 <hr>
 <p><em>Tips：</em></p>
 <p><em>如果不想要全局安装 Knex，依然想在 Terminal 运行。在生成的 <code>node_modules</code> 文件夹下会有个隐藏文件夹 <code>.bin</code>，里面包含了全部我们可以直接运行的 package。所以直接：</em></p>
-<pre><code class="shell">$ node_modules/.bin/knex init
+<pre><code class="language-shell">$ node_modules/.bin/knex init
 </code></pre>
 <hr>
-<p><code>init</code> 之后，本地会自动生成一个 <code>knexfile.js</code> 文件。里面大致是些 boilerplates。在这篇教程给的 source code 里，    <code>knexfile.js</code> 已经针对 postgresql 配置完毕。但这里要明白 migration 和 seed 两个操作。</p>
+<p><code>init</code> 之后，本地会自动生成一个 <code>knexfile.js</code> 文件。里面大致是些 boilerplates。在这篇教程给的 source code 里，	<code>knexfile.js</code> 已经针对 postgresql 配置完毕。但这里要明白 migration 和 seed 两个操作。</p>
 <blockquote>
 <p>Migrations are a way to make database changes or updates, like creating or dropping tables, as well as updating a table with new columns with constraints via generated scripts. We can build these scripts via the command line using <code>knex</code>command line tool.</p>
 </blockquote>
 <p>例如，通过 knex 创建 table：</p>
-<pre><code class="shell">$ knex migrate:make users
+<pre><code class="language-shell">$ knex migrate:make users
 </code></pre>
 <p>这里会自动生成一个 <code>users.js</code> 文件，文件名前面还会有 time stamp。存储路径在 <code>./server/db/migration/</code>。所有的文件夹都会自动生成。在新生成的文件，我们需要定义新建的这个 table 各个 field 属性。例如在这篇文章的例子里，新建了 users table，定义属性如下：</p>
-<pre><code class="javascript">exports.up = (knex, Promise) =&gt; &#123;
-  return knex.schema.createTable(&#39;users&#39;, (table) =&gt; &#123;
+<pre><code class="language-javascript">exports.up = (knex, Promise) =&gt; {
+  return knex.schema.createTable(&#39;users&#39;, (table) =&gt; {
     table.increments();
     table.string(&#39;username&#39;).unique().notNullable();
     table.string(&#39;password&#39;).notNullable();
-  &#125;);
-&#125;;
+  });
+};
 
-exports.down = (knex, Promise) =&gt; &#123;
+exports.down = (knex, Promise) =&gt; {
   return knex.schema.dropTable(&#39;users&#39;);
-&#125;;
+};
 </code></pre>
 <p>通过下面这条命令来应用我们定义的属性：</p>
-<pre><code class="shell">knex migrate:latest --env development
+<pre><code class="language-shell">knex migrate:latest --env development
 </code></pre>
 <blockquote>
 <p>To run the migration, use the command:</p>
@@ -183,7 +184,7 @@ exports.down = (knex, Promise) =&gt; &#123;
 <p>Similar to migrations, the <code>knex</code> module allows us to create scripts to insert initial data into our tables called seed files! If we have relations on our tables, the seeding <strong>must be in a specific order</strong> to so that we can rely on data that might already be in the database. </p>
 </blockquote>
 <p>seed 是用来初始化数据的。同 migrate 一样：</p>
-<pre><code class="shell">$ knex seed:make users
+<pre><code class="language-shell">$ knex seed:make users
 $ knex seed:run --env development
 </code></pre>
 <p>line 1 会自动创建一个 <code>user.js</code> 在路径 <code>./server/db/seeds/</code> 里。line 2 运行这个 seeds，对 table 里数据进行初始化。</p>
@@ -201,18 +202,18 @@ $ knex seed:run --env development
 <p>Mocha automatically looks for tests inside the <code>**test**</code> directory of your project. Hence, you should go ahead and create this directory in your project root.</p>
 </blockquote>
 <p>以下是写的一个很简单的小例子：</p>
-<pre><code class="javascript">const assert = require(&#39;assert&#39;);
+<pre><code class="language-javascript">const assert = require(&#39;assert&#39;);
 
-describe(&quot;sample&quot;, ()=&gt;&#123;
-    it(&quot;it&#39;s just a test&quot;, ()=&gt;&#123;
+describe(&quot;sample&quot;, ()=&gt;{
+    it(&quot;it&#39;s just a test&quot;, ()=&gt;{
         let x = 5;
         let result = x;
         assert.equal(Math.pow(x, 1), result);
-    &#125;);
-&#125;);
+    });
+});
 </code></pre>
 <p>在 Terminal 里运行：</p>
-<pre><code class="shell">$ node_modules/.bin/_mocha
+<pre><code class="language-shell">$ node_modules/.bin/_mocha
 
   sample
     ✓ it&#39;s just a test
@@ -221,11 +222,11 @@ describe(&quot;sample&quot;, ()=&gt;&#123;
   1 passing (6ms)
 </code></pre>
 <p>Chai 的作用是提供了更多测试的方法。例如教程里测试是否 render view 成功：</p>
-<pre><code class="javascript">describe(&#39;GET /auth/register&#39;, () =&gt; &#123;
-  it(&#39;should render the register view&#39;, (done) =&gt; &#123;
+<pre><code class="language-javascript">describe(&#39;GET /auth/register&#39;, () =&gt; {
+  it(&#39;should render the register view&#39;, (done) =&gt; {
     chai.request(server)
     .get(&#39;/auth/register&#39;)
-    .end((err, res) =&gt; &#123;
+    .end((err, res) =&gt; {
       should.not.exist(err);
       res.redirects.length.should.eql(0);
       res.status.should.eql(200);
@@ -234,9 +235,9 @@ describe(&quot;sample&quot;, ()=&gt;&#123;
       res.text.should.contain(
         &#39;&lt;p&gt;&lt;button type=&quot;submit&quot;&gt;Register&lt;/button&gt;&lt;/p&gt;&#39;);
       done();
-    &#125;);
-  &#125;);
-&#125;);
+    });
+  });
+});
 </code></pre>
 <p>其主要内容检测返回的 res 里有没有想的 DOM Node 。当然，前提还是去验证返回代码是否是 200， 返回文本类型这些。</p>
 <h2 id="Redis-Session"><a href="#Redis-Session" class="headerlink" title="Redis, Session"></a>Redis, Session</h2><p>这篇教程的最后介绍了 redis，把用户的 user 信息从 memory 中拿出来存进 redis 里。这样当关闭浏览器，短时间再重新打开时，不需要重新输入用户名密码进行登录。</p>
@@ -247,8 +248,8 @@ describe(&quot;sample&quot;, ()=&gt;&#123;
 <p>关于 session 和 cookie 的区别。</p>
 <p>cookie 是存储在 client 端的，通常是一些偏好设定，比如颜色啊等等，通常不会有敏感信息。session 存储在 server 端，因为 http 通信是无状态的。session 用来保存 client 和 server 之间的通信状态，以及 client 可能会访问多个不同的页面，这些页面都在这一个 server 上，通信的双方并没有变化，通过 session 在不同的页面共享数据。</p>
 <blockquote>
-<p>A session is a unit of maybe variables, state, settings while a certain user is accessing a server/domain in a specific time frame. All the session information is in the traditional model stored on the server (!)</p>
-<p>Because many concurrent users can visit a server/domain at the same time the server needs to be able to distinguish many different concurrent sessions and always assign the right session to the right user. (And no user may “steal” another uses’s session)</p>
+<p>A session is a unit of maybe variables, state, settings while a certain user is accessing a server&#x2F;domain in a specific time frame. All the session information is in the traditional model stored on the server (!)</p>
+<p>Because many concurrent users can visit a server&#x2F;domain at the same time the server needs to be able to distinguish many different concurrent sessions and always assign the right session to the right user. (And no user may “steal” another uses’s session)</p>
 </blockquote>
 <p>这里首先用到两个 middleware，koa-session 和 koa-redis。koa-session 是 koa 基础的 session 管理 middleware。通常 session 是存储在 memory 里的，通过 koa-redis 将 session 存储在 redis 里。</p>
 <p>把 session 存储在 redis 的优势：</p>
@@ -258,16 +259,16 @@ describe(&quot;sample&quot;, ()=&gt;&#123;
 </blockquote>
 <p>依旧是通过 brew 安装 redis。</p>
 <p>redis 启动：</p>
-<pre><code class="shell">$ redis-server /usr/local/etc/redis.conf
+<pre><code class="language-shell">$ redis-server /usr/local/etc/redis.conf
 </code></pre>
 <p>redis 关闭，直接 <code>ctrl</code> + <code>C</code> 或是：</p>
-<pre><code class="shell">$ redis-cli shutdown
+<pre><code class="language-shell">$ redis-cli shutdown
 </code></pre>
 <p>参考：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://knexjs.org/">Knex.js</a></li>
 <li><a target="_blank" rel="noopener" href="https://medium.com/@jaeger.rob/seed-knex-postgresql-database-with-json-data-3677c6e7c9bc">Seed Knex PostgreSQL Database with JSON Data</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/l4nk332/stuff/tree/master/node/Knex">l4nk332/stuff - Github</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/l4nk332/stuff/tree/master/node/Knex">l4nk332&#x2F;stuff - Github</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24710451">「batteries-included」该怎么翻译比较好？ - 知乎</a></li>
 <li><a target="_blank" rel="noopener" href="https://gist.github.com/NigelEarle/70db130cc040cc2868555b29a0278261">Migrations &amp; Seeding</a></li>
 <li><a target="_blank" rel="noopener" href="https://javascript.info/testing-mocha">Automated testing with mocha</a></li>
@@ -359,17 +360,17 @@ describe(&quot;sample&quot;, ()=&gt;&#123;
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -388,7 +389,7 @@ describe(&quot;sample&quot;, ()=&gt;&#123;
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

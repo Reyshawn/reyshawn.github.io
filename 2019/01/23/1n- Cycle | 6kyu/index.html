@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -62,7 +63,7 @@
 <p><strong>Task</strong></p>
 <p>Given an integer n (n &gt; 1), the function cycle(n) returns the length of the cycle if n and 10 are coprimes, otherwise returns -1.</p>
 <p><strong>Exemples:</strong></p>
-<pre><code class="python">cycle(5) = -1
+<pre><code class="language-python">cycle(5) = -1
 cycle(13) = 6 -&gt; 0.076923 076923 0769
 cycle(21) = 6 -&gt; 0.047619 047619 0476
 cycle(27) = 3 -&gt; 0.037 037 037 037 0370
@@ -78,7 +79,7 @@ cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...
 </ul>
 <span id="more"></span>
 
-<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">import math
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="language-python">import math
 import fractions
 
 def cycle(n) :
@@ -131,7 +132,7 @@ def isprime(n):
     return True
 
 def primes(limit):
-    D = &#123;&#125;
+    D = {}
     q = 2
     while q &lt;= limit:
         if q not in D:
@@ -145,13 +146,13 @@ def primes(limit):
 
 print(cycle(219199))
 </code></pre>
-<p>这道题是求 $1/n$ 的循环小数位数的。通过观察其实可以得到如下的性质，假设 $1/n$ 的循环小数位数有 $p$ 位，则有：</p>
-<pre><code class="python">10**p % n == 1
+<p>这道题是求 $1&#x2F;n$ 的循环小数位数的。通过观察其实可以得到如下的性质，假设 $1&#x2F;n$ 的循环小数位数有 $p$ 位，则有：</p>
+<pre><code class="language-python">10**p % n == 1
 </code></pre>
-<p>其实也很好理解，就是 10 扩大 $p$ 倍，小数点向右移动 $p$ 位，整数部分恰好位一个循环数，小数部分则等于 $1/n$ 。</p>
+<p>其实也很好理解，就是 10 扩大 $p$ 倍，小数点向右移动 $p$ 位，整数部分恰好位一个循环数，小数部分则等于 $1&#x2F;n$ 。</p>
 <p>但是如果按照这个思路来进行求解，写一个循环，对一个稍微大一点的数，如上面的 <code>219199</code>，它的循环位数是 <code>36180</code>。暴力写循环根本就行不通！</p>
 <h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/lechevalier">lechevalier</a></p>
-<pre><code class="python">def cycle(n):
+<pre><code class="language-python">def cycle(n):
     if not n % 2 or not n % 5:
         return -1
     x, mods = 1, set()
@@ -166,7 +167,7 @@ print(cycle(219199))
 <p>You can calculate the decimal representation of <code>a / b</code> using the long-division algorithm you learned at school, as Mark Ransom said. To calculate each successive digit, divide the current dividend (numerator or remainder) by <code>b</code>, and find the next dividend as the remainder multiplied by 10 (“bringing down a 0”). When a remainder is the same as some previous remainder, it means that the digits from then on will repeat as well, so you can note this fact and stop.</p>
 </blockquote>
 <p>明白了。其实整个迭代的过程就是去做一次 long division。long division 就是我们小学学过的那种除法计算。</p>
-<p>![long division](/images/long division.png)</p>
+<p><img src="/images/long_division.png" alt="long division"></p>
 <p>那么为什么这样一种循环就比之前我想的那种暴力破解快呢？答案就在于迭代。每次只用 remainder 乘 10 进行迭代，一个非常小的数，算起来自然比用 $10^{n}$ 直接去除要快得多。 </p>
 <p>参考文章：</p>
 <ul>
@@ -255,17 +256,17 @@ print(cycle(219199))
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -284,7 +285,7 @@ print(cycle(219199))
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

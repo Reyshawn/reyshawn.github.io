@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -59,21 +60,21 @@
                 </header>
                 <div class="entry-content">
                     <p>由于 JavaScript 拥有 <em>Automatic Semicolon Insertion</em> 这样的机制，我已经很长时间在写 js 的时候不加分号了。但今天碰到了这样的一个情况：</p>
-<pre><code class="javascript">let i = 0
+<pre><code class="language-javascript">let i = 0
 
-(function test () &#123;
+(function test () {
   console.log(&#39;hello&#39;)
-&#125;)()
+})()
 </code></pre>
 <p>这里会提示报错：</p>
 <pre><code>TypeError: 0 is not a function
 </code></pre>
 <p>观察了一会儿，才发现，JavaScript 引擎一定是把第一行和第三行看成一行代码，按道理，第一行末尾应该是要自动加一个分号的。这里如果我们手动加上分号，程序就不会报错了。</p>
-<pre><code class="javascript">let i = 0;
+<pre><code class="language-javascript">let i = 0;
 
-(function test () &#123;
+(function test () {
   console.log(&#39;hello&#39;)
-&#125;)()
+})()
 </code></pre>
 <p>关于 JavaScript 的 <em>Automatic Semicolon Insertion</em>，规则是这样的：</p>
                 </div>
@@ -169,7 +170,7 @@
                 <div class="entry-content">
                     <p>今早安装了 iPadOS Development Beta 版本，体验了一会儿。因为不太敢拿 mac 升级 Catalina，据说文件系统改掉了。目前 mac 不太敢升，所以 Sidecar 功能暂时还没办法体验。iPhone 变化其实没那么大，也就只有 iPad 可以尝试了。提前做好备份，在苹果的开发者官网 <a target="_blank" rel="noopener" href="https://developer.apple.com/support/beta-software/install-beta/">Installing Apple Beta Software</a> 下载安装 Xcode beta，安装完毕要打开运行，这样做的目的是帮助 iTunes 能够识别 iOS13。下载你所使用设备的 ipsw 文件。我是在<a target="_blank" rel="noopener" href="https://www.udid.in/install-beta">这里</a>下载的。然后在 iTunes 里更新就行了，注意要提前做好备份。</p>
 <p>具体的安装教程也可以参考这个 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=iPZ6eNc8BvU&frags=pl,wn">YouTube 视频</a>。</p>
-<p>下面按照给我带来惊喜的顺序，来简单谈一下这次的 iPadOS / iOS13。</p>
+<p>下面按照给我带来惊喜的顺序，来简单谈一下这次的 iPadOS &#x2F; iOS13。</p>
                 </div>
                 <div class="entry-footer">
                     <a class="hagoromo-button" href="/2019/06/05/iPadOS-%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">READ MORE</a>
@@ -208,12 +209,12 @@
                 <div class="entry-content">
                     <p>非常推荐先看一下参考链接里两个 youtube 视频，分别介绍了 event loop 和 setTimeout 的实现原理，这对于理解 JavaScript 里异步操作实现非常有帮助。其次是关于 Promise object 的手动实现，有一些抽象，因为包含了大量的  callback 函数。这里一定要分清楚，哪些是函数的声明，哪些是函数的调用。</p>
 <h2 id="Event-loop"><a href="#Event-loop" class="headerlink" title="Event loop"></a>Event loop</h2><p>JavaScript 是一种 single thread 的语言。既然单一线程，那么在某个时间点，只能完成一项任务。于是</p>
-<pre><code class="javascript">$.get(&#39;http://twitter.com&#39;)
+<pre><code class="language-javascript">$.get(&#39;http://twitter.com&#39;)
 $.get(&#39;http://youtube.com&#39;)
 $.get(&#39;http://google.com&#39;)
 </code></pre>
 <p>在单线程下，如果某一行执行所需要的时间太久了，那么余下的的 command 也无法执行，程序就在那一行停滞下来了。我们把这个叫做 blocking。然而事实上，当我们在使用 <code>setTimeout()</code> 函数时，程序似乎不会出现 blocking。</p>
-<pre><code class="Javascript">console.log(&#39;hi&#39;)
+<pre><code class="language-Javascript">console.log(&#39;hi&#39;)
 setTimeout(() =&gt; console.log(&#39;there&#39;), 0)
 console.log(&#39;Welcome!&#39;)
 
@@ -267,7 +268,7 @@ console.log(&#39;Welcome!&#39;)
                 </header>
                 <div class="entry-content">
                     <p>又是一个新年过去了。在年复一年不变的习俗和渐渐消淡的年味里，我把 Lara Croft Go 打通了。在 Square Enix 的 Go 游戏三部曲里，Hitman Go 是几年前玩过的，去年尝试了 Deus Ex Go。相比之下，更喜欢这部 Lara Go。Deus 里的科幻风太过浓重，Hitman Go 很贴近现代都市，在棋盘模拟的场景里，有熟悉的游泳池，花园，房屋里的家具等等。Lara Go 的场景都是放在野外，山窟洞穴，悬崖峭壁。如果另外两作的特点都是在「潜入」，那么 Lara Go 的特点则是在「冒险」。尽管有着固定的棋盘，每次只能前进一格，但这的确是个不折不扣的 Tomb Raider 式的冒险故事。</p>
-<p>![Lara Go 1](/images/Game/Lara Go 1.jpg)</p>
+<p><img src="/images/Game/Lara_Go_1.jpg" alt="Lara Go 1"></p>
 <p>游戏整体美术风格，偏向折纸，背景的黑色剪影提供沉浸感。这样的美术风格在 iOS 平台并不少见。熟悉的有「纪念碑谷」「Alto’s Odyssey」。这样偏折纸的艺术风格，也比较适合这样的游戏模式。Square Enix 在 Go 系列游戏里想做的，是希望把 Go 系列做成一种桌游类型的游戏，所以这样的折纸风格再完美不过了。几年前在玩 Hitman Go 时，每一关的地图，都是按照桌游的包装盒来设计的。</p>
 <p>以下内容涉及剧透。</p>
                 </div>
@@ -314,10 +315,10 @@ console.log(&#39;Welcome!&#39;)
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <p>去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async/await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：</p>
+                    <p>去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async&#x2F;await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：</p>
 <ul>
 <li>Node.js 的异步特性及异步是如何实现的</li>
-<li>异步实现的几种方式，callback 到 Promise 到 async/await</li>
+<li>异步实现的几种方式，callback 到 Promise 到 async&#x2F;await</li>
 <li>什么是 middleware？</li>
 <li>ejs template engine</li>
 </ul>
@@ -408,17 +409,17 @@ console.log(&#39;Welcome!&#39;)
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -437,7 +438,7 @@ console.log(&#39;Welcome!&#39;)
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -56,7 +57,7 @@
             </header>
             <div class="entry-content">
                 <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
-<li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;&#123;&#125;&#39;.format()</code></li>
+<li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;{}&#39;.format()</code></li>
 <li>A <code>and</code> B <code>and</code> C</li>
 <li><code>if</code>  … <code>else</code> 单行语句</li>
 <li><code>for</code> … <code>in</code> 单行语句</li>
@@ -65,15 +66,15 @@
 </ul>
 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p>
 <p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p>
-<pre><code class="python">&#39;[_ B [C]]&#39;
+<pre><code class="language-python">&#39;[_ B [C]]&#39;
 </code></pre>
 <p>This tree is obtained by evaluating the following expression:</p>
-<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))
+<pre><code class="language-python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))
 </code></pre>
 <p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p>
 <span id="more"></span>
 
-<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">class Tree(object):
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="language-python">class Tree(object):
 
     def __init__(self, root, left=None, right=None):
         assert root and type(root) == Node
@@ -138,8 +139,8 @@ class Node(object):
         return self.value != other.value
 </code></pre>
 <h2 id="Other-Solution"><a href="#Other-Solution" class="headerlink" title="Other Solution"></a>Other Solution</h2><p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/siebenschlaefer">siebenschlaefer</a></p>
-<pre><code class="python">class Tree(object):
-    # ... 其余重复部分省略
+<pre><code class="language-python">class Tree(object):
+	# ... 其余重复部分省略
     def __str__(self):
         if self.is_leaf():
             return &quot;[%s]&quot; % self.root
@@ -164,7 +165,7 @@ class Node(object):
 <p>这个在 <code>__str__()</code> 部分写得异常简洁，并且利用到了 <code>is_leaf()</code> 方法。如果  <code>is_leaf()</code> 返回值为 <code>True</code>，则说明 self 没有 left 和 right。还有 <code>if</code> 的单行写法，也要学会使用。</p>
 <p><code>__eq__()</code> 方法的 <code>and</code> 连续使用，要用括号括起来。</p>
 <p><a target="_blank" rel="noopener" href="https://www.codewars.com/users/Voile">Voile</a></p>
-<pre><code class="python">class Tree(object):
+<pre><code class="language-python">class Tree(object):
     
     def __init__(self, root, left=None, right=None):
         assert root and type(root) == Node
@@ -180,9 +181,9 @@ class Node(object):
         
     
     def __str__(self):
-        if type(self.left) != Tree and type(self.right) != Tree: return &#39;[&#123;&#125;]&#39;.format(self.root)
-        if type(self.left) == Tree and type(self.right) == Tree: return &#39;[&#123;&#125; &#123;&#125; &#123;&#125;]&#39;.format(self.left, self.root, self.right)
-        return &#39;[&#123;&#125;]&#39;.format(&#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [self.left, self.root, self.right]))
+        if type(self.left) != Tree and type(self.right) != Tree: return &#39;[{}]&#39;.format(self.root)
+        if type(self.left) == Tree and type(self.right) == Tree: return &#39;[{} {} {}]&#39;.format(self.left, self.root, self.right)
+        return &#39;[{}]&#39;.format(&#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [self.left, self.root, self.right]))
     
     def __eq__(self, other):
         if self.root != other.root: return False
@@ -193,15 +194,15 @@ class Node(object):
     def __ne__(self, other):
         return not self == other
 </code></pre>
-<p>Voile 在 <code>__str__()</code> 中用的 return 形式是 <code>&#39;[&#123;&#125;]&#39;.format()</code>，也是分了三种情况。注意第三种的单行写法，形如：</p>
-<pre><code class="python">&gt;&gt;&gt; &#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])
+<p>Voile 在 <code>__str__()</code> 中用的 return 形式是 <code>&#39;[{}]&#39;.format()</code>，也是分了三种情况。注意第三种的单行写法，形如：</p>
+<pre><code class="language-python">&gt;&gt;&gt; &#39; &#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])
 &#39;1 _ 3&#39;
 &gt;&gt;&gt; &#39;&#39;.join(str(v) if v else &#39;_&#39; for v in [1, 0, 3])
 &#39;1_3&#39;
 </code></pre>
 <p><code>__eq__()</code> 写法思路和我的写法差不多，都是在保证 <code>self.root == other.root</code> 的情况下，输出一个 <code>and</code> 并列语句，<code>self.left == other.left and self.right == other.right</code>。当然，他这里用 <code>type</code> 来判断是否是 Node 还是 None。</p>
 <p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/brettso">brettso</a></p>
-<pre><code class="python">class Tree(object):
+<pre><code class="language-python">class Tree(object):
     
     def __init__(self, root, left=None, right=None):
         assert root and type(root) == Node
@@ -314,17 +315,17 @@ class Node(object):
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -343,7 +344,7 @@ class Node(object):
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

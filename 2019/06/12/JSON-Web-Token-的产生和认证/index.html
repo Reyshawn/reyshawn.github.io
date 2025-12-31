@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -82,31 +83,31 @@
 
 <h2 id="JWT-如何产生的"><a href="#JWT-如何产生的" class="headerlink" title="JWT 如何产生的"></a>JWT 如何产生的</h2><p>一条完整的 JWT 格式是这样的：<code>header.payload.signature</code>。</p>
 <p>第一步，创建一个 JSON 格式的 header。header 里包含的信息需要有这个 JSON 使用的 hash 算法，例如：</p>
-<pre><code class="javascript">const header = &#123;
+<pre><code class="language-javascript">const header = {
     typ: &quot;JWT&quot;,
     alg: &quot;HS256&quot;
-&#125;
+}
 </code></pre>
 <p><code>&quot;typ&quot;</code> 声明这是一个 JWT，<code>&quot;alg&quot;</code> 声明所有是用的 hash 算法；</p>
 <p>第二步，创建 payload。这里的 payload 就是你想在 JWT 里存储的任何数据信息，但最好不要把敏感信息，比如密码放在里面，</p>
-<pre><code class="javascript">const payload = &#123;
+<pre><code class="language-javascript">const payload = {
     userId: &quot;b08f86af-35da-48f2-8fab-cef3904660bd&quot;
-&#125;
+}
 </code></pre>
 <p>对于 JWT 的 payload，会有一些标准，比如 <code>iss</code> 代表 issuer，<code>sub</code> 代表 subject，<code>exp</code> 代表 expiration time。</p>
 <p>第三步，创建 signature 签名。</p>
-<pre><code class="javascript">const encodedHeader = Buffer.from(JSON.stringify(header)).toString(&#39;base64&#39;)
+<pre><code class="language-javascript">const encodedHeader = Buffer.from(JSON.stringify(header)).toString(&#39;base64&#39;)
 const encodedPayload = Buffer.from(JSON.stringify(payload)).toString(&#39;base64&#39;)
 </code></pre>
 <p>将 header 和 payload 都使用 base64 编码。</p>
-<pre><code class="javascript">const crypto = require(&#39;crypto&#39;)
+<pre><code class="language-javascript">const crypto = require(&#39;crypto&#39;)
 const jwtSecret = &#39;secretKey&#39;
 
 const signature = crypto.createHmac(&#39;sha256&#39;, jwtSecret).update(encodedHeader + &#39;.&#39; + encodedPayload).digest(&#39;base64&#39;)
 </code></pre>
 <p>base64 编码后的文本使用 <code>.</code> 连接，再进行 hash，hash 后的文本再进行 base64 编码。</p>
 <p>最终 JWT 为：</p>
-<pre><code class="javascript">const jwt = `$&#123;encodedHeader&#125;.$&#123;encodedPayload&#125;.$&#123;signature&#125;`
+<pre><code class="language-javascript">const jwt = `${encodedHeader}.${encodedPayload}.${signature}`
 </code></pre>
 <h2 id="JWT-的认证"><a href="#JWT-的认证" class="headerlink" title="JWT 的认证"></a>JWT 的认证</h2><blockquote>
 <p>The <strong>very</strong> important thing to note here is that this token is signed by the HMACSHA256 algorithm, and the header and payload are Base64URL encoded, it is <strong>not</strong> encrypted. If I go to <a target="_blank" rel="noopener" href="https://jwt.io/">jwt.io</a>, paste this token and select the HMACSHA256 algorithm, I could decode the token and read its contents. Therefore, it should go without saying that sensitive data, such as passwords, should never be stored in the payload.</p>
@@ -114,7 +115,7 @@ const signature = crypto.createHmac(&#39;sha256&#39;, jwtSecret).update(encodedH
 </blockquote>
 <p>一定要区分认证和加密，JWT 不会加密混淆数据。当用户成功登录，服务器端按照上述过程生成一条 JWT 返回给了客户端。因为 JWT 涉及到了身份认证，还是很敏感的，客户端把这个 JWT 存储在 <code>HttpOnly Cookie</code>，不同于传统 cookie，标有 <code>HttpOnly</code> 的 cookie 只能由 Server 端获取。</p>
 <p>登录成功后，当需要请求某个需要权限的 api 或是进入某个 route 时，client 端在发送 request 请求就会把这个 JWT 稍带着，通常是在 <code>Authorization</code> 里，以 Bearer 作为开头：</p>
-<pre><code class="yaml">Authorization: Bearer &lt;token&gt;
+<pre><code class="language-yaml">Authorization: Bearer &lt;token&gt;
 </code></pre>
 <p>服务器收到请求后，首先需要验证这个 token。验证 JWT 包含以下几个步骤：</p>
 <ol>
@@ -132,55 +133,55 @@ const signature = crypto.createHmac(&#39;sha256&#39;, jwtSecret).update(encodedH
 </blockquote>
 <h2 id="在-express-里实际应用"><a href="#在-express-里实际应用" class="headerlink" title="在 express 里实际应用"></a>在 express 里实际应用</h2><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=7nafaH9SddU">Node.js API Authentication With JWT</a></p>
 <p>这个视频 step-by-step 讲解了如何在 express 里使用 jsonwebtoken 这个 package，以下是最终完整代码：</p>
-<pre><code class="javascript">const express = require(&#39;express&#39;);
+<pre><code class="language-javascript">const express = require(&#39;express&#39;);
 const jwt = require(&#39;jsonwebtoken&#39;);
 
 const app = express();
 
-app.get(&#39;/api&#39;, (req, res) =&gt; &#123;
-  res.json(&#123;
+app.get(&#39;/api&#39;, (req, res) =&gt; {
+  res.json({
     messgae: &#39;welcome to the api&#39;
-  &#125;)
-&#125;);
+  })
+});
 
-app.post(&#39;/api/posts&#39;, verifyToken, (req, res) =&gt; &#123;
-  jwt.verify(req.token, &#39;secretkey&#39;, (err, authData) =&gt; &#123;
-    if (err) &#123;
+app.post(&#39;/api/posts&#39;, verifyToken, (req, res) =&gt; {
+  jwt.verify(req.token, &#39;secretkey&#39;, (err, authData) =&gt; {
+    if (err) {
       res.sendStatus(403);
-    &#125; else &#123;
-      res.json(&#123;
+    } else {
+      res.json({
         message: &#39;post created ...&#39;,
         authData
-      &#125;)
-    &#125;
-  &#125;)
+      })
+    }
+  })
   
-&#125;)
+})
 
-app.post(&#39;/api/login&#39;, (req, res) =&gt; &#123;
+app.post(&#39;/api/login&#39;, (req, res) =&gt; {
   // Mock user
-  const user = &#123;
+  const user = {
     id: 1,
     usernmae: &#39;brad&#39;,
     email: &#39;brad@gamil.com&#39;
-  &#125;
-  jwt.sign(&#123;user&#125;, &#39;secretkey&#39;, (err, token) =&gt; &#123;
-    res.json(&#123;
+  }
+  jwt.sign({user}, &#39;secretkey&#39;, (err, token) =&gt; {
+    res.json({
       token
-    &#125;)
-  &#125;);
-&#125;);
+    })
+  });
+});
 
 // Format of Token
 // Authorization: Bearer &lt;access_token&gt;
 
 // Verify Token
 
-function verifyToken(req, res, next) &#123;
+function verifyToken(req, res, next) {
   // Get auth header value;
   const bearerHeader = req.headers[&#39;authorization&#39;];
   // Check if bearer is undefined
-  if (typeof bearerHeader !== &#39;undefined&#39;) &#123;
+  if (typeof bearerHeader !== &#39;undefined&#39;) {
     // Split at the space
     const bearer = bearerHeader.split(&#39; &#39;);
     // Get token from array
@@ -189,12 +190,12 @@ function verifyToken(req, res, next) &#123;
     req.token = bearerToken;
     // Next middleware
     next();
-  &#125; else &#123;
+  } else {
     // Forbidden
     res.sendStatus(403);
-  &#125;
+  }
 
-&#125;
+}
 
 app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))
 </code></pre>
@@ -294,17 +295,17 @@ app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -323,7 +324,7 @@ app.listen(5000, () =&gt; console.log(&#39;server started on 5000&#39;))
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

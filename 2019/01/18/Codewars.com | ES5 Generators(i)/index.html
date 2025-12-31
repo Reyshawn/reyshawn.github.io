@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -58,16 +59,16 @@
                 <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
 <p>This is the first part of three (<a target="_blank" rel="noopener" href="http://www.codewars.com/kata/es5-generators-ii">part2</a>, <a target="_blank" rel="noopener" href="http://www.codewars.com/kata/es5-generators-iii">part3</a>).</p>
 <p>Generators and Iterators are new ES6 features that will allow things like this:</p>
-<pre><code class="javascript">function* fibonacci() &#123;
+<pre><code class="language-javascript">function* fibonacci() {
     let [prev, curr] = [0, 1];
-    for (;;) &#123;
+    for (;;) {
         [prev, curr] = [curr, prev + curr];
         yield curr;
-    &#125;
-&#125;
+    }
+}
 </code></pre>
 <p>Using them in this way, we can do amazing things:</p>
-<pre><code class="javascript">let seq = fibonacci();
+<pre><code class="language-javascript">let seq = fibonacci();
 print(seq.next()); // 1
 print(seq.next()); // 2
 print(seq.next()); // 3
@@ -79,34 +80,34 @@ print(seq.next()); // 8
 <span id="more"></span>
 
 <p>The first thing to do is to implement the generator function:</p>
-<pre><code class="javascript">function generator(sequencer) &#123;
+<pre><code class="language-javascript">function generator(sequencer) {
    ...
-&#125;
+}
 </code></pre>
 <p><code>generator(sequencer[, arg1, arg2, …])</code> receives a sequencer function to generate the sequence and returns and object with a <code>next()</code> method. When the <code>next()</code> method is invoked, the next value is generated. The method could receive as well optional arguments to be passed to the sequencer function.</p>
 <p>This is an example of a dummy sequencer:</p>
-<pre><code class="javascript">function dummySeq() &#123;
-  return function() &#123;
+<pre><code class="language-javascript">function dummySeq() {
+  return function() {
     return &quot;dummy&quot;;
-  &#125;;
-&#125;
+  };
+}
 </code></pre>
 <p>To test generator(), you could use <code>dummySeq()</code> in this way:</p>
-<pre><code class="javascript">var seq = generator(dummySeq);
+<pre><code class="language-javascript">var seq = generator(dummySeq);
 seq.next(); // &#39;dummy&#39;
 seq.next(); // &#39;dummy&#39;
 seq.next(); // &#39;dummy&#39;
 ....
 </code></pre>
 <p>When you’re done, you should implement the following generators (I think the functions are self explanatory):</p>
-<pre><code class="javascript">function factorialSeq() &#123;...&#125; // 1, 1, 2, 6, 24, ...
-function fibonacciSeq() &#123;...&#125; // 1, 1, 2, 3, 5, 8, 13, ...
-function rangeSeq(start, step) &#123;...&#125; // rangeSeq(1, 2)  -&gt; 1, 3, 5, 7, ...
-function primeSeq() &#123;...&#125; // 2, 3, 5, 7, 11, 13, ...
-partialSumSeq(1, 3, 7, 2, 0) &#123;...&#125; // 1, 4, 11, 13, 13, end
+<pre><code class="language-javascript">function factorialSeq() {...} // 1, 1, 2, 6, 24, ...
+function fibonacciSeq() {...} // 1, 1, 2, 3, 5, 8, 13, ...
+function rangeSeq(start, step) {...} // rangeSeq(1, 2)  -&gt; 1, 3, 5, 7, ...
+function primeSeq() {...} // 2, 3, 5, 7, 11, 13, ...
+partialSumSeq(1, 3, 7, 2, 0) {...} // 1, 4, 11, 13, 13, end
 </code></pre>
 <p>You can use any of them in the same way:</p>
-<pre><code class="javascript">var seq = generator(factorialSeq);
+<pre><code class="language-javascript">var seq = generator(factorialSeq);
 seq.next(); // !0 = 1
 seq.next(); // !1 = 1
 seq.next(); // !2 = 2
@@ -116,29 +117,29 @@ seq.next(); // !4 = 24
 </code></pre>
 <p>There are some sequences which are infinite and others are not. For example:</p>
 <ul>
-<li>  primeSeq: Is infinite</li>
-<li>  partialSumSeq: Is limited to the passed values.</li>
+<li>primeSeq: Is infinite</li>
+<li>partialSumSeq: Is limited to the passed values.</li>
 </ul>
 <p>When the sequence is done (in finite sequences), if you call seq.next() again, it should produce an error.</p>
 <p>Good luck!</p>
 <h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><p>题目的大体含义是想要通过 ES5 来模拟 ES6 中才有的 generator 生成器功能。主要思路就是使用闭包 closure 这一特性：</p>
-<pre><code class="javascript">function generator(sequencer) &#123;
+<pre><code class="language-javascript">function generator(sequencer) {
     var args = Array.prototype.slice.call(arguments, 1);
-    return &#123;
+    return {
         next: sequencer.apply(this,args)
-    &#125;;
-&#125;
+    };
+}
 
-function fibonacciSeq() &#123;
+function fibonacciSeq() {
     var prev = 0
     var current = 1
-    return function() &#123;
+    return function() {
         var old = current
         current = prev + current
         prev = old
         return prev
-    &#125;
-&#125;
+    }
+}
 
 // 直接调用
 console.log(fibonacciSeq()())
@@ -155,18 +156,18 @@ console.log(seq())
 <p>二、其他一些细节</p>
 <p>在 <code>generator()</code> 中使用的 <code>call()</code> <code>apply()</code> 方法，主要是为了函数传参。 </p>
 <ul>
-<li>  <code>Array.prototype.slice.call(arguments, 1)</code> </li>
+<li><code>Array.prototype.slice.call(arguments, 1)</code></li>
 </ul>
 <p>因为 <code>arguments</code> 是一个 array-like object，而不是真正的 array，所以无法使用 array 的诸多方法，包括 slice。<code>call()</code> 的作用就是让 <code>arguments</code> 用上 slice 方法。在这里去掉了  <code>arguments</code> 里的第一个元素，剩下元素作为一个新的 array 存储到 <code>args</code> 中。</p>
 <ul>
-<li>  <code>sequencer.apply(this,args)</code></li>
+<li><code>sequencer.apply(this,args)</code></li>
 </ul>
 <p>绑定 this 到 <code>sequencer </code> 并将参数 <code>args</code> 传递到函数中。</p>
 <p>参考：</p>
 <ul>
-<li>  <a target="_blank" rel="noopener" href="https://www.quora.com/What-are-the-reasons-to-use-return-function-in-JavaScript">What are the reasons to use ‘return function’ in JavaScript? - Quora</a></li>
-<li>  <a target="_blank" rel="noopener" href="https://javascript.info/closure">Closure - The Modern JavaScript Tutorial</a> ✪</li>
-<li>  You Don’t Know JS: Scope &amp; Closures - Kyle Simpson</li>
+<li><a target="_blank" rel="noopener" href="https://www.quora.com/What-are-the-reasons-to-use-return-function-in-JavaScript">What are the reasons to use ‘return function’ in JavaScript? - Quora</a></li>
+<li><a target="_blank" rel="noopener" href="https://javascript.info/closure">Closure - The Modern JavaScript Tutorial</a> ✪</li>
+<li>You Don’t Know JS: Scope &amp; Closures - Kyle Simpson</li>
 </ul>
 
             </div>
@@ -250,17 +251,17 @@ console.log(seq())
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -279,7 +280,7 @@ console.log(seq())
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

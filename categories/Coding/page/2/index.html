@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -82,14 +83,14 @@
                 <div class="entry-content">
                     <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Create a function method that allow you to wrap an existing function. The method signature would look something like this:</p>
 <p><strong>Usage Example</strong>:</p>
-<pre><code class="javascript">function speak(name)&#123;
+<pre><code class="language-javascript">function speak(name){
    return &quot;Hello &quot; + name;
-&#125;
+}
 
-speak = speak.wrap(function(original, yourName, myName)&#123;
+speak = speak.wrap(function(original, yourName, myName){
    greeting = original(yourName);
    return greeting + &quot;, my name is &quot; + myName;
-&#125;)
+})
 
 var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
 </code></pre>
@@ -113,16 +114,16 @@ var greeting = speak(&quot;Mary&quot;, &quot;Kate&quot;);
                     <h2 id="Kata"><a href="#Kata" class="headerlink" title="Kata"></a>Kata</h2><p>Description:</p>
 <p>This is the first part of three (<a target="_blank" rel="noopener" href="http://www.codewars.com/kata/es5-generators-ii">part2</a>, <a target="_blank" rel="noopener" href="http://www.codewars.com/kata/es5-generators-iii">part3</a>).</p>
 <p>Generators and Iterators are new ES6 features that will allow things like this:</p>
-<pre><code class="javascript">function* fibonacci() &#123;
+<pre><code class="language-javascript">function* fibonacci() {
     let [prev, curr] = [0, 1];
-    for (;;) &#123;
+    for (;;) {
         [prev, curr] = [curr, prev + curr];
         yield curr;
-    &#125;
-&#125;
+    }
+}
 </code></pre>
 <p>Using them in this way, we can do amazing things:</p>
-<pre><code class="javascript">let seq = fibonacci();
+<pre><code class="language-javascript">let seq = fibonacci();
 print(seq.next()); // 1
 print(seq.next()); // 2
 print(seq.next()); // 3
@@ -217,17 +218,17 @@ print(seq.next()); // 8
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -246,7 +247,7 @@ print(seq.next()); // 8
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

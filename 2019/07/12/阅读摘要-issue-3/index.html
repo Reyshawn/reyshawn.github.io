@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -76,7 +77,7 @@
 
 
 
-<h2 id="CSS-Architecture-—-Folders-amp-Files-Structure"><a href="#CSS-Architecture-—-Folders-amp-Files-Structure" class="headerlink" title="CSS Architecture — Folders &amp; Files Structure"></a><a target="_blank" rel="noopener" href="https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b">CSS Architecture — Folders &amp; Files Structure</a></h2><p>Elad Shechter 介绍了他的 CSS 文件结构。</p>
+<h2 id="CSS-Architecture-—-Folders-Files-Structure"><a href="#CSS-Architecture-—-Folders-Files-Structure" class="headerlink" title="CSS Architecture — Folders &amp; Files Structure"></a><a target="_blank" rel="noopener" href="https://medium.com/@elad/css-architecture-folders-files-structure-f92b40c78d0b">CSS Architecture — Folders &amp; Files Structure</a></h2><p>Elad Shechter 介绍了他的 CSS 文件结构。</p>
 <h2 id="How-to-Increase-Your-Page-Size-by-1-500-with-webpack-and-Vue"><a href="#How-to-Increase-Your-Page-Size-by-1-500-with-webpack-and-Vue" class="headerlink" title="How to Increase Your Page Size by 1,500% with webpack and Vue"></a><a target="_blank" rel="noopener" href="https://css-tricks.com/how-to-increase-your-page-size-by-1500-with-webpack-and-vue/">How to Increase Your Page Size by 1,500% with webpack and Vue</a></h2><p>Burke Holland 引入了 Bulma 来重构了它的网站，结果发现编译后 css 从原来 30kb 增加到了接近 300 kb。这里涉及到 Vue 中关于 css style 的 scoped 概念。因为 Bulma 被重复声明了十多次的缘故。解决办法就是 Bulma 首先要能够全局引入，Bulma 的变量要能够在各个 component 被调用。把 Bulma 的所有文件在 <code>main.js</code> 里导入即可，以及在 vue.config.js 增加 css.loadOptions.sass.data 的配置，让 components 能够使用预先定义的变量。</p>
 <h2 id="Blendle"><a href="#Blendle" class="headerlink" title="Blendle"></a><a target="_blank" rel="noopener" href="https://launch.blendle.com/">Blendle</a></h2><p>今天在美区 App Store 偶然看到这个。一家荷兰公司，和 New Yorker，The Economists 等报业集团合作，将内容打包统一放在他们这一个平台上，供人们选择阅读。</p>
 <p>它的收费模式很有意思。文章按照单篇收费，大概20 - 40 美分不等，不满意可以退款。我下载下来适用了一下，免费的账户会有 0.45$。所有单篇文章价格小于这个数字的都可以打开，但更贵的文章就会提示 no enough credits。在一篇文章停留过长时间，超过 1min？就会判定为阅读，并从你的账户里扣除相应金额。但假如你不满意，可以 refund，被扣除的金额又会立即回来。</p>
@@ -171,17 +172,17 @@
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -200,7 +201,7 @@
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

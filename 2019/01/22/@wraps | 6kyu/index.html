@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -62,7 +63,7 @@
 <li><code>__dict__.update()</code></li>
 </ul>
 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Implement the functools.wraps decorator, which is used to preserve the name and docstring of a decorated function. Your decorator must not modify the behavior of the decorated function. Here’s an example :</p>
-<pre><code class="python">def identity(func):
+<pre><code class="language-python">def identity(func):
   @wraps(func)
   def wrapper(*args, **kwargs):
     &quot;&quot;&quot;Wraps func&quot;&quot;&quot;
@@ -82,14 +83,14 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
 <p>依照题目给的例子，就是输出是被 decorator wraps 修饰过的 <code>wrapper</code> 函数，即函数主体和功能还是 <code>wrapper</code>，但因为被 <code>wraps</code> 装饰了，输出的 <code>wrapper</code> 函数的  <code>__name__</code> 和 <code>__doc__</code>  值为原函数 <code>return_one</code> 的值。</p>
 <span id="more"></span>
 
-<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="python">def wraps(func):
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="language-python">def wraps(func):
     def first(wrapper):
         return func
     return first
 </code></pre>
 <p>我的这个方法，其实是不正确的。因为我这个经过几次 decorate 又输出了原函数，按道理应该是输出 <code>wrapper</code> 函数的。</p>
 <h2 id="Other-Solution"><a href="#Other-Solution" class="headerlink" title="Other Solution"></a>Other Solution</h2><p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/siebenschlaefer">siebenschlaefer</a></p>
-<pre><code class="python">def wraps(wrapped):
+<pre><code class="language-python">def wraps(wrapped):
     def wrapper(func):
         for attr in (&#39;__module__&#39;, &#39;__name__&#39;, &#39;__qualname__&#39;, &#39;__doc__&#39;, &#39;__annotations__&#39;):
             try:
@@ -98,7 +99,7 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
                 pass
             else:
                 setattr(func, attr, value)
-        func.__dict__.update(getattr(wrapped, attr, &#123;&#125;))
+        func.__dict__.update(getattr(wrapped, attr, {}))
         func.__wrapped__ = wrapped
         return func
     return wrapper
@@ -106,15 +107,15 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
 <p>首先注意一下对应关系。经过一次二重的装饰后，<br><code>wrapped</code> ➡️ <code>return_one</code><br><code>func</code> ➡️ <code>wrapper</code></p>
 <p>目标是输出 <code>func</code> ，但要把 <code>func</code> 的 <code>__name__</code> 和 <code>__doc__</code> 进行修改。修改这些 built-in 的值用到了 <code>getattr()</code> 和 <code>setattr()</code>。</p>
 <blockquote>
-<p>You use them if the attribute you want to access is a variable and not a literal string. They let you parameterize attribute access/setting.</p>
+<p>You use them if the attribute you want to access is a variable and not a literal string. They let you parameterize attribute access&#x2F;setting.</p>
 <p>There’s no reason to do <code>getattr(x, &#39;foobar&#39;)</code>, but you might have a variable called <code>attr</code> that could be set to “foobar” or “otherAttr”, and then do <code>getattr(x, attr)</code>.</p>
 </blockquote>
 <p><code>try</code>…<code>except</code>… <code>else</code>，<code>else</code> 后面是当 <code>try</code> 中的内容无错误时才执行的，否则时执行 <code>except</code> 中的内容。</p>
 <blockquote>
-<p><code>try</code>:<br>   Normal execution block<br><code>except</code> A:<br>   Exception A handle<br><code>except</code> B:<br>   Exception B handle<br><code>except</code>:<br>   Other exception handleelse:<br><code>else</code>:<br>   if no exception,get here<br><code>finally</code>:<br>   print(“finally”)   </p>
+<p><code>try</code>:<br>Normal execution block<br><code>except</code> A:<br>Exception A handle<br><code>except</code> B:<br>Exception B handle<br><code>except</code>:<br>Other exception handleelse:<br><code>else</code>:<br>if no exception,get here<br><code>finally</code>:<br>print(“finally”)   </p>
 </blockquote>
 <p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/Voile">Voile</a></p>
-<pre><code class="python">def wraps(func):
+<pre><code class="language-python">def wraps(func):
     def f(g):
         g.__name__ = func.__name__
         g.__doc__ = func.__doc__
@@ -208,17 +209,17 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -237,7 +238,7 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

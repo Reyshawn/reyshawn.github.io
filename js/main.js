@@ -60,5 +60,5 @@ $(function() {
 
 });
 
-hljs.initHighlightingOnLoad();
+hljs.highlightAll();
 hljs.initLineNumbersOnLoad();

@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -55,10 +56,10 @@
                 <div class="post-letter"></div>
             </header>
             <div class="entry-content">
-                <p>去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async/await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：</p>
+                <p>去网上检索 Koa，往往会看到诸多 Koa 和 Express 文章。Koa 的确是比 Express 更新的框架，因此也使用到了 ES6 更新的特性，比如 async&#x2F;await。Koa 的核心 module 仅仅是 middleware kernel，Express 则提供了一套完整的解决方案，功能，routing，template 这些。Koa 要使用这些需要安装额外的 module。这样的对比，容易让人联想到 editor 和 IDE 的区别，前者注重轻量，可定制，后者追求大而全的设计。两种不同的设计哲学，我是偏爱前者，相信 less is more 的力量。当然，毕竟 Koa 和 Express 都是来自于同一个开发团队，很多基础概念是相通的。阅读本文，你需要提前了解以下内容：</p>
 <ul>
 <li>Node.js 的异步特性及异步是如何实现的</li>
-<li>异步实现的几种方式，callback 到 Promise 到 async/await</li>
+<li>异步实现的几种方式，callback 到 Promise 到 async&#x2F;await</li>
 <li>什么是 middleware？</li>
 <li>ejs template engine</li>
 </ul>
@@ -67,43 +68,43 @@
 
 <h2 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h2><p><code>app.use()</code> 就是添加一个 middleware。我们通过 Koa 进行的许多操作，比如处理 request，处理 data，routing 都是通过 <code>app.use()</code> 来实现的。</p>
 <p><code>ctx</code> 内封装了 request 和 response  object。</p>
-<pre><code class="javascript">const Koa = require(&#39;koa&#39;);
+<pre><code class="language-javascript">const Koa = require(&#39;koa&#39;);
 const app = new Koa();
 
-app.use(async function(ctx) &#123;
+app.use(async function(ctx) {
     ctx.body = &quot;hello world ssss&quot;;
-&#125;)
+})
 
-app.listen(3000, function() &#123;
+app.listen(3000, function() {
     console.log(&#39;listen port: 3000...&#39;)
-&#125;)
+})
 </code></pre>
 <h2 id="渲染-ejs-模版"><a href="#渲染-ejs-模版" class="headerlink" title="渲染 ejs 模版"></a>渲染 ejs 模版</h2><p>这里以 ejs 为例来进行说明，其他的 template engine，使用方法都是相通的。</p>
 <p>使用 npm 安装：</p>
-<pre><code class="shell">$ npm install koa-views --save
+<pre><code class="language-shell">$ npm install koa-views --save
 $ npm install ejs --save
 </code></pre>
 <p>server.js 内容是</p>
-<pre><code class="javascript">const Koa = require(&#39;koa&#39;);
+<pre><code class="language-javascript">const Koa = require(&#39;koa&#39;);
 const app = new Koa();
 const views = require(&#39;koa-views&#39;);
 
-app.use(views(__dirname + &#39;/views&#39;, &#123;
-    map: &#123;
+app.use(views(__dirname + &#39;/views&#39;, {
+    map: {
         html: &#39;ejs&#39;
-    &#125;
-&#125;));
+    }
+}));
 
-app.use(async function(ctx) &#123;
+app.use(async function(ctx) {
     await ctx.render(&#39;layout.ejs&#39;);
-&#125;)
+})
 
-app.listen(3000, function() &#123;
+app.listen(3000, function() {
     console.log(&#39;listen port: 3000...&#39;)
-&#125;)
+})
 </code></pre>
 <p><code>./views/layout.ejs</code> 内容是</p>
-<pre><code class="html">&lt;!DOCTYPE html&gt;
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;head&gt;
 
 &lt;/head&gt;
@@ -112,24 +113,24 @@ app.listen(3000, function() &#123;
 &lt;/body&gt;
 </code></pre>
 <p>上面这个例子是不包含传值的，当需要向 template 传递值时，通过 <code>ctx.state</code> 来设置，将上面 render 部分修改成：</p>
-<pre><code class="javascript">app.use(async function(ctx) &#123;
-    ctx.state = &#123;
+<pre><code class="language-javascript">app.use(async function(ctx) {
+    ctx.state = {
         title: &#39;This is title&#39;,
         body: &#39;body bla bla&#39;
-    &#125;;
+    };
     await ctx.render(&#39;layout.ejs&#39;);
-&#125;)
+})
 </code></pre>
 <p>或者写成 <code>render</code> 的参数，二者是等价的：</p>
-<pre><code class="javascript">app.use(async function(ctx) &#123;
-    await ctx.render(&#39;layout.ejs&#39;, &#123;
+<pre><code class="language-javascript">app.use(async function(ctx) {
+    await ctx.render(&#39;layout.ejs&#39;, {
         title: &#39;This is title&#39;,
         body: &#39;body bla bla&#39;
-    &#125;);
-&#125;)
+    });
+})
 </code></pre>
 <p>此时 template 修改成：</p>
-<pre><code class="ejs">&lt;!DOCTYPE html&gt;
+<pre><code class="language-ejs">&lt;!DOCTYPE html&gt;
 &lt;head&gt;
 
 &lt;/head&gt;
@@ -141,12 +142,12 @@ app.listen(3000, function() &#123;
 <p>通常我们在写一个 template 的时候，会分成好多组件，首先有一个大体的框架，layout.ejs，新建一个 partials 文件夹，里面存储我们所需的各个组件，如 head.ejs，header.ejs，footer.ejs 等等。我们在一个需要渲染的页面里引用这些组件，那么这个过程在 koa 应该如何实现呢？</p>
 <p>这里直接在 ejs 里使用 <code>include</code> 进行引用。</p>
 <p>header.ejs</p>
-<pre><code class="html">&lt;header&gt;
+<pre><code class="language-html">&lt;header&gt;
     &lt;p&gt;This is a header&lt;/p&gt;
 &lt;/header&gt;
 </code></pre>
 <p>layout.ejs</p>
-<pre><code class="ejs">&lt;!DOCTYPE html&gt;
+<pre><code class="language-ejs">&lt;!DOCTYPE html&gt;
 &lt;head&gt;
 
 &lt;/head&gt;
@@ -158,76 +159,76 @@ app.listen(3000, function() &#123;
 </code></pre>
 <h2 id="Router-路由功能"><a href="#Router-路由功能" class="headerlink" title="Router 路由功能"></a>Router 路由功能</h2><p>对于一个 web site，需要处理各种各样不同的请求，针对不同的请求 request，有着不同的反馈 response，以及可能要调用不同的资源 resource。有些需要调用一些 javascript 文件，css 文件，有些需要调用一些图片 images，有些需要访问数据库。这些不同的资源 resource 有着不同的存储路径，为了让 request 得到合适的反馈，就需要一个 router 路由功能，告诉 server，这个 request，需要去哪里找相应的 resource 去反馈。</p>
 <p><img src="/images/koa_routing.png" alt="koa_routing"></p>
-<pre><code class="shell">$ npm install koa-router --save
+<pre><code class="language-shell">$ npm install koa-router --save
 </code></pre>
 <p>server.js 中修改为：</p>
-<pre><code class="javascript">const Router = require(&#39;koa-router&#39;);
+<pre><code class="language-javascript">const Router = require(&#39;koa-router&#39;);
 const router = new Router()
 
-router.get(&#39;/&#39;, async function(ctx) &#123;
-    await ctx.render(&#39;layout.ejs&#39;, &#123;
+router.get(&#39;/&#39;, async function(ctx) {
+    await ctx.render(&#39;layout.ejs&#39;, {
         title: &#39;This is title&#39;,
         body: &#39;body bla bla&#39;
-    &#125;);
-&#125;)
+    });
+})
 
 app.use(router.routes());
 </code></pre>
 <p>我们看到，各个页面的渲染完全由 router 进行了接管。</p>
 <p>上面是最简单的 “Get” 请求，下面是给出一个”Post” 请求的例子，来自 <a target="_blank" rel="noopener" href="https://chenshenhai.github.io/koa2-note/note/request/post.html">koa2 进阶学习笔记</a>，我做了一些小改动，原文使用的是原生 koa 中的 ctx 来判断请求。我这里直接使用了 <code>koa-router</code> 实现，通过对比，也可以明白 koa-router 这个 module 是如何工作的，只不过是在原生 Koa 基础上增加了一层判断。</p>
-<pre><code class="javascript">// receive the posting data
-function parsePostData(ctx) &#123;
-    return new Promise((resolve, reject) =&gt; &#123;
-        try &#123;
+<pre><code class="language-javascript">// receive the posting data
+function parsePostData(ctx) {
+    return new Promise((resolve, reject) =&gt; {
+        try {
             let postData = &quot;&quot;;
-            ctx.req.addListener(&#39;data&#39;, (data) =&gt; &#123;
+            ctx.req.addListener(&#39;data&#39;, (data) =&gt; {
                 postData += data;
-            &#125;);
-            ctx.req.addListener(&#39;end&#39;, () =&gt; &#123;
+            });
+            ctx.req.addListener(&#39;end&#39;, () =&gt; {
                 let parseData = parseQueryStr(postData);
                 resolve(parseData);
-            &#125;);
-        &#125; catch(err) &#123;
+            });
+        } catch(err) {
             reject(err);
-        &#125;
-    &#125;)
-&#125;
+        }
+    })
+}
 
 // convert the posting data to Object
-function parseQueryStr(data) &#123;
-    let queryData = &#123;&#125;;
+function parseQueryStr(data) {
+    let queryData = {};
     let queryStrList = data.split(&#39;&amp;&#39;);
-    for (let queryStr of queryStrList) &#123;
+    for (let queryStr of queryStrList) {
         let itemList = queryStr.split(&#39;=&#39;);
         queryData[ itemList[0] ] = decodeURIComponent(itemList[1]);
-    &#125;
+    }
 
     return queryData;
-&#125;
+}
 
-app.use(views(__dirname + &#39;/views&#39;, &#123;
-    map: &#123;
+app.use(views(__dirname + &#39;/views&#39;, {
+    map: {
         html: &#39;ejs&#39;
-    &#125;
-&#125;));
+    }
+}));
 
-router.get(&#39;/&#39;, async function(ctx) &#123;
-    await ctx.render(&#39;layout.ejs&#39;, &#123;
+router.get(&#39;/&#39;, async function(ctx) {
+    await ctx.render(&#39;layout.ejs&#39;, {
         data: &#39;no data posted&#39;
-    &#125;);
-&#125;)
+    });
+})
 
-router.post(&#39;/&#39;, async function(ctx) &#123;
+router.post(&#39;/&#39;, async function(ctx) {
     let postData = await parsePostData(ctx);
-    await ctx.render(&#39;layout.ejs&#39;, &#123;
+    await ctx.render(&#39;layout.ejs&#39;, {
         data: JSON.stringify(postData)
-    &#125;)
-&#125;)
+    })
+})
 
 app.use(router.routes());
 </code></pre>
 <p>layout.ejs 添加一个可以提交的表格，注意表格的 <code>method</code> 是 <code>POST</code>，<code>action</code> 是根目录页面 <code>&quot;/&quot;</code>。 </p>
-<pre><code class="ejs">&lt;!DOCTYPE html&gt;
+<pre><code class="language-ejs">&lt;!DOCTYPE html&gt;
 &lt;head&gt;
 
 &lt;/head&gt;
@@ -328,17 +329,17 @@ app.use(router.routes());
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -357,7 +358,7 @@ app.use(router.routes());
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

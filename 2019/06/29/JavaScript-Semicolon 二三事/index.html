@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -56,28 +57,28 @@
             </header>
             <div class="entry-content">
                 <p>由于 JavaScript 拥有 <em>Automatic Semicolon Insertion</em> 这样的机制，我已经很长时间在写 js 的时候不加分号了。但今天碰到了这样的一个情况：</p>
-<pre><code class="javascript">let i = 0
+<pre><code class="language-javascript">let i = 0
 
-(function test () &#123;
+(function test () {
   console.log(&#39;hello&#39;)
-&#125;)()
+})()
 </code></pre>
 <p>这里会提示报错：</p>
 <pre><code>TypeError: 0 is not a function
 </code></pre>
 <p>观察了一会儿，才发现，JavaScript 引擎一定是把第一行和第三行看成一行代码，按道理，第一行末尾应该是要自动加一个分号的。这里如果我们手动加上分号，程序就不会报错了。</p>
-<pre><code class="javascript">let i = 0;
+<pre><code class="language-javascript">let i = 0;
 
-(function test () &#123;
+(function test () {
   console.log(&#39;hello&#39;)
-&#125;)()
+})()
 </code></pre>
 <p>关于 JavaScript 的 <em>Automatic Semicolon Insertion</em>，规则是这样的：</p>
 <span id="more"></span>
 
 <ol>
 <li>当下一行开头的代码和本行末尾的代码连不上；</li>
-<li>当下一行是以 <code>&#125;</code> 开头；</li>
+<li>当下一行是以 <code>}</code> 开头；</li>
 <li>在整个文件末尾会加分号；</li>
 <li>在 <code>return</code> 所在行末尾会加分号；</li>
 <li>在 <code>break</code> 所在行末尾会加分号；</li>
@@ -85,7 +86,7 @@
 <li>在 <code>continue</code> 所在行末尾会加分号；</li>
 </ol>
 <p>上面这个例子，就是如果不在第一行加分号，则下一行以 <code>(</code> 开头，则会被当作函数调用。相似的情况还有：</p>
-<pre><code class="javascript">const hey = &#39;hey&#39;
+<pre><code class="language-javascript">const hey = &#39;hey&#39;
 const you = &#39;hey&#39;
 const heyYou = hey + &#39; &#39; + you
 
@@ -93,12 +94,12 @@ const heyYou = hey + &#39; &#39; + you
 // Uncaught TypeError: Cannot read property &#39;forEach&#39; of undefined
 </code></pre>
 <p>以及关于 return </p>
-<pre><code class="javascript">(() =&gt; &#123;
+<pre><code class="language-javascript">(() =&gt; {
   return
-  &#123;
+  {
     color: &#39;white&#39;
-  &#125;
-&#125;)()
+  }
+})()
 // Instead, it’s undefined, because JavaScript inserts a semicolon after return.
 </code></pre>
 <p>以上都是由于不写分号，完全依赖 ASI ( Automatic Semicolon Insertion ) 可能造成的错误。</p>
@@ -194,17 +195,17 @@ const heyYou = hey + &#39; &#39; + you
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -223,7 +224,7 @@ const heyYou = hey + &#39; &#39; + you
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

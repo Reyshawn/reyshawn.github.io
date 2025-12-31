@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -58,25 +59,25 @@
                 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p>
 <p>You cannot assume that the function’s arguments have any particular names.</p>
 <p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p>
-<pre><code class="javascript">function add(a,b) &#123; return a+b;&#125;;
+<pre><code class="language-javascript">function add(a,b) { return a+b;};
 
-var add_ = defaultArguments(add,&#123;b:9&#125;);
+var add_ = defaultArguments(add,{b:9});
 add_(10); // returns 19
 add_(10,7); // returns 17
 add_(); // returns NaN
 
-add_ = defaultArguments(add_,&#123;b:3, a:2&#125;);
+add_ = defaultArguments(add_,{b:3, a:2});
 add_(10); // returns 13 now
 add_(); // returns 5
 
-add_ = defaultArguments(add_,&#123;c:3&#125;); // doesn&#39;t do anything, since c isn&#39;t an argument
+add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
 add_(10); // returns NaN
 add_(10,10); // returns 20
 </code></pre>
 <p>HINT: This problem requires using <code>Fuction.prototype.toString()</code> in order to extract a function’s argument list</p>
 <span id="more"></span>
 
-<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function defaultArguments(func, params) &#123;
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="language-javascript">function defaultArguments(func, params) {
 
     // get the properties list of params
     let defArg = Object.keys(params);
@@ -85,33 +86,33 @@ add_(10,10); // returns 20
     let args = func.args || func.toString().replace(/\/\/.*$|\/\*.*?\*\/|\s/gm, &#39;&#39;).match(/(?:[\w]+(?:,[\w]+)*)?(?=\))/m)[0].split(&#39;,&#39;);
 
     // pass the properties into func
-    let newArgs = &#123;&#125;;
-    for (var i = 0; i &lt; defArg.length; i++) &#123;
-        if (args.indexOf(defArg[i]) &gt; -1) &#123;
+    let newArgs = {};
+    for (var i = 0; i &lt; defArg.length; i++) {
+        if (args.indexOf(defArg[i]) &gt; -1) {
             let idx = args.indexOf(defArg[i]);
             newArgs[idx] = params[defArg[i]];
-        &#125;
-    &#125;
+        }
+    }
     // bind the func and params into a new function
 
-    let detour = function() &#123;
+    let detour = function() {
                 let argsArray = [].slice.call(arguments);
                 let x = Object.keys(newArgs);
-                for (var i = 0; i &lt; x.length; i++) &#123;
-                    if(x[i] &gt;= argsArray.length) &#123;
+                for (var i = 0; i &lt; x.length; i++) {
+                    if(x[i] &gt;= argsArray.length) {
                         argsArray[x[i]] = newArgs[x[i]];
-                    &#125;
-                &#125;
+                    }
+                }
                 return func.apply(this,argsArray);
-            &#125;
+            }
     detour.args = args;
     return detour;
-&#125;
+}
 </code></pre>
 <p><code>args</code> 那一大串正则表达式，获得的是原函数的参数列表，是一个 array。<code>defArg</code> 是函数 <code>defaultArguments()</code> 预先给定的参数。将两者合并成新的参数 <code>newArgs</code> ，类型为 object。</p>
-<p>举例说明，如果 <code>params</code> 传入的值是 <code>&#123; b: 3, a: 2 &#125;</code>，那么经过中间 10 行到 16 行的循环运算得到的 <code>newArgs</code> 值是 <code>&#123; &#39;0&#39;: 2, &#39;1&#39;: 3 &#125;</code>。</p>
+<p>举例说明，如果 <code>params</code> 传入的值是 <code>{ b: 3, a: 2 }</code>，那么经过中间 10 行到 16 行的循环运算得到的 <code>newArgs</code> 值是 <code>{ &#39;0&#39;: 2, &#39;1&#39;: 3 }</code>。</p>
 <p>20 行 <code>argsArray = [].slice.call(arguments);</code>作用是打印参数列表。举例说明：</p>
-<pre><code class="javascript">&gt;function add(a,b) &#123; console.log([].slice.call(arguments));return a+b;&#125;;
+<pre><code class="language-javascript">&gt;function add(a,b) { console.log([].slice.call(arguments));return a+b;};
 undefined
 &gt;add(1,2)
 [ 1, 2 ]
@@ -127,21 +128,21 @@ undefined
 <p>27 行 <code>apply()</code> 方法的应用，就是调取 <code>func</code> 函数，并给他特定的 arguments 值，并获得结果。第一个参数是修改 <code>func</code> 函数的 <code>this</code> 指向的， 是 <code>this</code> 还是 <code>null</code> 对结果都是没有影响的。<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9644044/javascript-this-pointer-within-nested-function">因为都是对函数的直接调用，不存在对某个 object 的 method 进行调用。</a></p>
 <p>注意第 29 行的，函数也是 object，而且这个定义使得返回的函数对象多携带了 args 信息。这一点当时自己没有想到，也是看了答案后才明白的。</p>
 <h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p> <a target="_blank" rel="noopener" href="https://www.codewars.com/users/mrkishi">mrkishi</a>, <a target="_blank" rel="noopener" href="https://www.codewars.com/users/guyingll">guyingll</a>, <a target="_blank" rel="noopener" href="https://www.codewars.com/users/iphp">iphp</a>, <a target="_blank" rel="noopener" href="https://www.codewars.com/users/willin">willin</a>, <a target="_blank" rel="noopener" href="https://www.codewars.com/users/marek_mistrzuk">marek_mistrzuk</a></p>
-<pre><code class="javascript">function defaultArguments(func, params) &#123;
+<pre><code class="language-javascript">function defaultArguments(func, params) {
   var names = func.names || func.toString()
     .replace(/\/\/.*$|\/\*.*?\*\/|\s/gm, &#39;&#39;)
     .match(/(?:[\w]+(?:,[\w]+)*)?(?=\))/m)[0].split(&#39;,&#39;);
   
-  var detour = function () &#123;
+  var detour = function () {
     var input = arguments;
-    return func.apply(this, names.map(function (val, i) &#123;
+    return func.apply(this, names.map(function (val, i) {
       return i &lt; input.length ? input[i] : params[names[i]];
-    &#125;));
-  &#125;;
+    }));
+  };
   
   detour.names = names;
   return detour;
-&#125;
+}
 </code></pre>
 
             </div>
@@ -225,17 +226,17 @@ undefined
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -254,7 +255,7 @@ undefined
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

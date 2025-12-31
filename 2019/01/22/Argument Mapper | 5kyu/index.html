@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -58,7 +59,7 @@
                 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>As part of a broader functionality you need to develop an argument mapper.</p>
 <p>The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.</p>
 <p>The usage is:</p>
-<pre><code class="javascript">function func1(arg1, arg2) &#123; ... &#125;
+<pre><code class="language-javascript">function func1(arg1, arg2) { ... }
 
 var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
 console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
@@ -69,25 +70,25 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
 <p>Hajime!</p>
 <span id="more"></span>
 
-<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="javascript">function createArgumentMap(func) &#123;
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><pre><code class="language-javascript">function createArgumentMap(func) {
     // create an argument map and return it
     let args = Array.prototype.slice.call(arguments,1);
-    let res = &#123;&#125;;
-    for (var i = 1; i &lt;= args.length; i++) &#123;
+    let res = {};
+    for (var i = 1; i &lt;= args.length; i++) {
         res[&#39;a&#39; + i] = args[i-1]
-    &#125;
+    }
     return res
-  &#125;
+  }
 </code></pre>
 <p>关于 JavaScript 中 arguments 的性质参看：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments">Arguments object</a></p>
 <p><code>res[&#39;a&#39;+i]</code> 是为了契合 test 中都是用形如 map[a1] map[a2] 等来 check 答案的。这里我的方法有些取巧。实际上需要得到的是实际定义函数时使用的参数名称，就像上次 review 中那样，要用到 <code>.toString()</code> 和正则表达式。</p>
 <h2 id="Other-Solutions"><a href="#Other-Solutions" class="headerlink" title="Other Solutions"></a>Other Solutions</h2><p><a target="_blank" rel="noopener" href="https://www.codewars.com/users/colbydauph">colbydauph</a></p>
-<pre><code class="javascript">function createArgumentMap(func) &#123;
+<pre><code class="language-javascript">function createArgumentMap(func) {
   var args = (/function\s[^(]*\(([^)]+)\)/g.exec(func.toString()) || [&#39;&#39;]).pop().split(/,/g);
-  return Array.prototype.slice.call(arguments, 1).reduce(function(p, c, i)&#123; return p[args[i]] = c, p &#125;, &#123;&#125;);
-&#125;
+  return Array.prototype.slice.call(arguments, 1).reduce(function(p, c, i){ return p[args[i]] = c, p }, {});
+}
 </code></pre>
-<p><code>reduce()</code> 中 callback 函数的三个参数，依次分别是 <code>accumulator</code>, <code>currentValue</code>, <code>currentIndex</code>。对应代码中的 <code>function(p, c, i)&#123;...&#125;</code></p>
+<p><code>reduce()</code> 中 callback 函数的三个参数，依次分别是 <code>accumulator</code>, <code>currentValue</code>, <code>currentIndex</code>。对应代码中的 <code>function(p, c, i){...}</code></p>
 <p>正则表达式分析：</p>
 <p><code>/function\s[^(]*\(([^)]+)\)/g</code></p>
 <ul>
@@ -98,15 +99,15 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
 <li><code>([^)]+)</code>: 1个或多个非 <code>)</code> 的字符。注意这里用括号括住，那么输出匹配结果时也会把这个括号括住的匹配输出来。</li>
 <li><code>\)</code>: 匹配右括号 <code>)</code>。</li>
 </ul>
-<pre><code class="javascript">&gt;(/function\s[^(]*\(([^)]+)\)/g.exec(func1.toString()))
+<pre><code class="language-javascript">&gt;(/function\s[^(]*\(([^)]+)\)/g.exec(func1.toString()))
 [ &#39;function func1(arg1, arg2)&#39;,
   &#39;arg1, arg2&#39;,
   index: 0,
-  input: &#39;function func1(arg1, arg2) &#123; console.log(arg1, arg2) &#125;&#39; ]
+  input: &#39;function func1(arg1, arg2) { console.log(arg1, arg2) }&#39; ]
 &gt;(/function\s[^(]*\([^)]+\)/g.exec(func1.toString()))
 [ &#39;function func1(arg1, arg2)&#39;,
   index: 0,
-  input: &#39;function func1(arg1, arg2) &#123; console.log(arg1, arg2) &#125;&#39; ]
+  input: &#39;function func1(arg1, arg2) { console.log(arg1, arg2) }&#39; ]
 &gt;
 </code></pre>
 <p>上述展示了加中间那对括号，和不加括号时的区别。</p>
@@ -117,26 +118,26 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
 <p>It’s the <a target="_blank" rel="noopener" href="http://es5.github.com/#x11.14">comma operator</a>. It runs a series of expressions, in order, and then returns the result of the <em>last</em> of them.  </p>
 </blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.codewars.com/users/stnever">stnever</a></p>
-<pre><code class="javascript">function createArgumentMap(func) &#123;
+<pre><code class="language-javascript">function createArgumentMap(func) {
   var argumentNames = getArgumentNames(func);
   var argumentValues = arguments;
-  var result = &#123;&#125;;
-  argumentNames.forEach(function(key, index) &#123;
+  var result = {};
+  argumentNames.forEach(function(key, index) {
     result[key] = argumentValues[index+1];    
-  &#125;);
+  });
   return result;
-&#125;
+}
 
 // shamelessly copied from http://stackoverflow.com/questions/1007981
 var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 var ARGUMENT_NAMES = /([^\s,]+)/g;
-function getArgumentNames(func) &#123;
+function getArgumentNames(func) {
   var fnStr = func.toString().replace(STRIP_COMMENTS, &#39;&#39;)
   var result = fnStr.slice(fnStr.indexOf(&#39;(&#39;)+1, fnStr.indexOf(&#39;)&#39;)).match(ARGUMENT_NAMES)
   if(result === null)
      result = []
   return result
-&#125;
+}
 </code></pre>
 
             </div>
@@ -220,17 +221,17 @@ function getArgumentNames(func) &#123;
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -249,7 +250,7 @@ function getArgumentNames(func) &#123;
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>

@@ -18,7 +18,8 @@
 <link rel="stylesheet" href="/css/main.css">
 
     <title>reyshawn.C</title>
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="reyshawn.C" type="application/atom+xml">
+</head>
 
 <body class='home blog'>
     <header id="hagoromo-header" class="hagoromo-header">
@@ -58,7 +59,7 @@
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <p>最近开始学习 Node.js。主要看两本书：<em>Node.js in Practice</em> 和 <em>Node.js Design Patterns</em>。前者类似于 o’reilly 的 cookbook 系列，整本书的编排是通过一个个 recipe，一个个具体的 problem&amp;solution 实现的。后者就是 <a target="_blank" rel="noopener" href="https://search.packtpub.com/">Packt Publishing</a> 出品的一系列 Design Patterns 书籍。包括这两本书在内的许多讲解 Node.js 的书籍，都会不断强调两个关键词， asynchronous 和 non-blocking I/O。在最初开始学习编程的时候，无论是写一些算法题目，或是做一些本地测试，它都是同步的，即时响应的，单线程的，blocking I/O。但如果进入的网络领域，「异步」则会被不断提起。相比 synchronous，「异步」更加接近我们相处的真实世界。</p>
+                    <p>最近开始学习 Node.js。主要看两本书：<em>Node.js in Practice</em> 和 <em>Node.js Design Patterns</em>。前者类似于 o’reilly 的 cookbook 系列，整本书的编排是通过一个个 recipe，一个个具体的 problem&amp;solution 实现的。后者就是 <a target="_blank" rel="noopener" href="https://search.packtpub.com/">Packt Publishing</a> 出品的一系列 Design Patterns 书籍。包括这两本书在内的许多讲解 Node.js 的书籍，都会不断强调两个关键词， asynchronous 和 non-blocking I&#x2F;O。在最初开始学习编程的时候，无论是写一些算法题目，或是做一些本地测试，它都是同步的，即时响应的，单线程的，blocking I&#x2F;O。但如果进入的网络领域，「异步」则会被不断提起。相比 synchronous，「异步」更加接近我们相处的真实世界。</p>
 <p>这篇文章以 <em>Node.js Design Patterns</em> 第二章的 Web Spider 例子，探究思考在 Node.js 中是如何通过 callback 来实现异步操作的。</p>
                 </div>
                 <div class="entry-footer">
@@ -84,7 +85,7 @@
 <p><strong>Task</strong></p>
 <p>Given an integer n (n &gt; 1), the function cycle(n) returns the length of the cycle if n and 10 are coprimes, otherwise returns -1.</p>
 <p><strong>Exemples:</strong></p>
-<pre><code class="python">cycle(5) = -1
+<pre><code class="language-python">cycle(5) = -1
 cycle(13) = 6 -&gt; 0.076923 076923 0769
 cycle(21) = 6 -&gt; 0.047619 047619 0476
 cycle(27) = 3 -&gt; 0.037 037 037 037 0370
@@ -115,7 +116,7 @@ cycle(22) = -1 since 1/22 ~ 0.0 45 45 45 45 ...
                     <div class="post-letter"></div>
                 </header>
                 <div class="entry-content">
-                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a target="_blank" rel="noopener" href="http://www.wikiwand.com/en/Xiangqi">象棋</a>, also known as Xiangqi/Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
+                    <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Your friend recently has shown you some chess puzzles he found somewhere. It’s not your ordinary chess: but the mysterious, distinct relative of chess, the legendary <a target="_blank" rel="noopener" href="http://www.wikiwand.com/en/Xiangqi">象棋</a>, also known as Xiangqi&#x2F;Chinese chess! As a Chinese, you know that your friend doesn’t know anything in Chinese besides recognizing a few sigils (for example, he doesn’t know what is <code>七步擒士</code> or <code>雙馬飲泉</code>), so it’s probably likely that the “puzzles” he got is actually bogus, and the pieces are not placed properly. However, you don’t want to actually teach him Xiangqi either (yet), so the best tactic you could come up with is to write a validator program and let your friend use it instead of using you.</p>
 <hr>
 <p>You will be given an ASCII board. Xiangqi board is 9 tiles wide and 10 tiles high, with the pieces placed as follows:</p>
 <pre><code>Example (the starting Xiangqi board):
@@ -183,35 +184,35 @@ Note that red and black have different characters to distinguish the same piece 
 <li>对于 Object 的遍历；</li>
 </ul>
 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Function composition is a powerful technique. For example:</p>
-<pre><code class="javascript">function sum(x, y) &#123;
+<pre><code class="language-javascript">function sum(x, y) {
   return x + y;
-&#125;
+}
 
-function double(x) &#123;
+function double(x) {
   return sum(x, x);
-&#125;
+}
 
-function minus (x, y) &#123;
+function minus (x, y) {
   return x - y;
-&#125;
+}
 
-function addOne(x) &#123;
+function addOne(x) {
   return sum(x, 1);
-&#125;
+}
 
 double(sum(2, 3)); // 10
 </code></pre>
 <p>But in complex expressions, composition may be difficult to understand. For example:</p>
-<pre><code class="javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72
+<pre><code class="language-javascript">double(double(addOne(sum(7, minus(sum(5, sum(4, 5)), 4))))); // 72
 </code></pre>
 <p>In this kata, we will implement a function that allows us to perform this by applying a fluid style:</p>
-<pre><code class="javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72
+<pre><code class="language-javascript">c.sum(4, 5).sum(5).minus(4).sum(7).addOne().double().double().execute(); // 72
 </code></pre>
 <p>Your job is implement the <code>chain</code> function:</p>
-<pre><code class="javascript">function chain(fns) &#123;
-&#125;
+<pre><code class="language-javascript">function chain(fns) {
+}
 
-var c = chain(&#123;sum: sum, minus: minus, double: double, addOne: addOne&#125;);
+var c = chain({sum: sum, minus: minus, double: double, addOne: addOne});
 </code></pre>
 <p>As you can see, this function receives the methods to be chained and returns an object that allows you to call the chained methods. The result is obtained by calling the <code>execute</code>method.</p>
 <p>Chained functions receive an arbitrary number of arguments. The first function in the chain receives all its arguments. In the other functions, the first argument is the result of the previous function and then it only receives the remainder arguments (second, third, etc.). The tests always pass the appropriate arguments and you do not have to worry about checking this.</p>
@@ -234,7 +235,7 @@ var c = chain(&#123;sum: sum, minus: minus, double: double, addOne: addOne&#125;
                 </header>
                 <div class="entry-content">
                     <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
-<li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;&#123;&#125;&#39;.format()</code></li>
+<li><code>__str__()</code> 的几种定义方法：如  <code>&quot;%s&quot; % value</code>  和 <code>&#39;{}&#39;.format()</code></li>
 <li>A <code>and</code> B <code>and</code> C</li>
 <li><code>if</code>  … <code>else</code> 单行语句</li>
 <li><code>for</code> … <code>in</code> 单行语句</li>
@@ -243,10 +244,10 @@ var c = chain(&#123;sum: sum, minus: minus, double: double, addOne: addOne&#125;
 </ul>
 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>A <code>Tree</code> consists of a root, which is of type <code>Node</code>, and possibly a left subtree of type <code>Tree</code> and possibly a right subtree of type <code>Tree</code>. If the left subtree is present, then all its nodes are less than the parent tree’s root and if the right tree is present, then all its nodes are greater than the parent tree’s root. In this kata, classes <code>Tree</code> and <code>Node</code> have been provided. However, the methods <code>__eq__</code>, <code>__ne__</code>, and <code>__str__</code> are missing from the <code>Tree</code> class. Your job is to provide the implementation of these methods. The example test cases should provide enough information to implement these methods correctly.</p>
 <p>As an illustrative example, here is the string representation of a tree that has two nodes, ‘B’ at the root and ‘C’ at the root of the right subtree. The left subtree is missing and the right subtree is a leaf, i.e., has no subtrees: </p>
-<pre><code class="python">&#39;[_ B [C]]&#39;
+<pre><code class="language-python">&#39;[_ B [C]]&#39;
 </code></pre>
 <p>This tree is obtained by evaluating the following expression:</p>
-<pre><code class="python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))
+<pre><code class="language-python">Tree(Node(&#39;B&#39;), None, Tree(Node(&#39;C&#39;))))
 </code></pre>
 <p>Notice in particular that when one subtree, but not both, is missing, an underscore is in its place, a single space separates the root node from the subtrees, and when both subtrees are missing, the root node is enclosed in brackets.</p>
                 </div>
@@ -269,7 +270,7 @@ var c = chain(&#123;sum: sum, minus: minus, double: double, addOne: addOne&#125;
                     <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>As part of a broader functionality you need to develop an argument mapper.</p>
 <p>The function receives a function object as first parameter and an unknown number of arguments [zero to many]. You have to return an associative array that maps the name of an argument and its related value.</p>
 <p>The usage is:</p>
-<pre><code class="javascript">function func1(arg1, arg2) &#123; ... &#125;
+<pre><code class="language-javascript">function func1(arg1, arg2) { ... }
 
 var map = createArgumentMap(func1,&#39;valueOfArg1&#39;, &#39;valueOfArg2&#39;);
 console.log(map[&#39;arg1&#39;]);  // writes &#39;valueOfArg1&#39;
@@ -302,7 +303,7 @@ console.log(map[&#39;arg2&#39;]);  // writes &#39;valueOfArg2&#39;
 <li><code>__dict__.update()</code></li>
 </ul>
 <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Implement the functools.wraps decorator, which is used to preserve the name and docstring of a decorated function. Your decorator must not modify the behavior of the decorated function. Here’s an example :</p>
-<pre><code class="python">def identity(func):
+<pre><code class="language-python">def identity(func):
   @wraps(func)
   def wrapper(*args, **kwargs):
     &quot;&quot;&quot;Wraps func&quot;&quot;&quot;
@@ -340,18 +341,18 @@ return_one.__doc__ == &#39;Return one&#39; # If wraps hadn&#39;t been used, __do
                     <h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>Write a function <code>defaultArguments</code>. It takes a function as an argument, along with an object containing default values for that function’s arguments, and returns another function which defaults to the right values. </p>
 <p>You cannot assume that the function’s arguments have any particular names.</p>
 <p>You should be able to call <code>defaultArguments</code> repeatedly to change the defaults.</p>
-<pre><code class="javascript">function add(a,b) &#123; return a+b;&#125;;
+<pre><code class="language-javascript">function add(a,b) { return a+b;};
 
-var add_ = defaultArguments(add,&#123;b:9&#125;);
+var add_ = defaultArguments(add,{b:9});
 add_(10); // returns 19
 add_(10,7); // returns 17
 add_(); // returns NaN
 
-add_ = defaultArguments(add_,&#123;b:3, a:2&#125;);
+add_ = defaultArguments(add_,{b:3, a:2});
 add_(10); // returns 13 now
 add_(); // returns 5
 
-add_ = defaultArguments(add_,&#123;c:3&#125;); // doesn&#39;t do anything, since c isn&#39;t an argument
+add_ = defaultArguments(add_,{c:3}); // doesn&#39;t do anything, since c isn&#39;t an argument
 add_(10); // returns NaN
 add_(10,10); // returns 20
 </code></pre>
@@ -465,17 +466,17 @@ add_(10,10); // returns 20
               
                 <li><a href="/tags/Python/">Python<a></li>
               
-                <li><a href="/tags/JavaScript/">JavaScript<a></li>
-              
                 <li><a href="/tags/%E7%94%B5%E5%BD%B1/">电影<a></li>
               
                 <li><a href="/tags/%E6%B8%B8%E6%88%8F/">游戏<a></li>
               
                 <li><a href="/tags/%E9%9F%B3%E4%B9%90/">音乐<a></li>
               
-                <li><a href="/tags/Anime/">Anime<a></li>
+                <li><a href="/tags/JavaScript/">JavaScript<a></li>
               
                 <li><a href="/tags/Front-end/">Front-end<a></li>
+              
+                <li><a href="/tags/Anime/">Anime<a></li>
               
                 <li><a href="/tags/%E6%95%85%E4%BA%8B/">故事<a></li>
               
@@ -494,7 +495,7 @@ add_(10,10); // returns 20
 <script src="/js/highlight.min.js"></script>
 
     
-<script src="/js/highlightjs-line-numbers.js"></script>
+<script src="/js/highlightjs-line-numbers.min.js"></script>
 
     
 <script src="/js/main.js"></script>
