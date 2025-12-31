@@ -62,17 +62,17 @@ Safari 终于有了原生的下载功能。可以在 Settings 设置里选择下
 
 不清楚各位有没有连接 APFS 格式机械硬盘成功的。
 
-![ipad files bug](/images/ipad files bug.png)
+![ipad files bug](/images/ipad_files_bug.png)
 
 ## UI 变化
 
 苹果在每一代系统里，对 UI 设计都有一些细微的变化。最明显的是顶部选项卡
 
-![iOS13 tab 1](/images/iOS13 tab 1.png)
+![iOS13 tab 1](/images/iOS13_tab_1.png)
 
-![iOS13 tab 2](/images/iOS13 tab 2.png)
+![iOS13 tab 2](/images/iOS13_tab_2.png)
 
-![iOS13 tab 3](/images/iOS13 tab 3.png)
+![iOS13 tab 3](/images/iOS13_tab_3.png)
 
 ## 关于 iPad 的未来
 

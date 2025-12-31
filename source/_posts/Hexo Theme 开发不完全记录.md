@@ -99,7 +99,7 @@ archive_dir: archives
 
 这样在执行完 `hexo g` 时候，会自动在 `public` 文件夹下生成一个 `archives` 文件，这个文件夹里的内容是和 template 文件 `archive.ejs` 文件相关联的。也就是，这个插件已经做了所有的「router」路由工作。所以在 template 想要创建一个 archive 点击链接，只需要即可。
 
-```ejs
+```html
 <a href="/archives">Archive</a>
 ```
 
