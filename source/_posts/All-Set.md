@@ -28,9 +28,9 @@ categories: 'I/O'
 
 我极少看历史相关的书籍。但这本书文笔非常出色，很容易让人沉浸其中读下去。
 
-其他技术类书籍今年倒没怎么看。因为大多数时间都在和 Codex / ChatGPT 聊天结对编程，AI 能够帮助我很快补足缺失的知识，这样我不必再像原来那要碰到不太懂的领域找好多书来看。
+其他技术类书籍今年倒没怎么看。因为大多数时间都在和 Codex / ChatGPT 聊天结对编程，AI 能够帮助我很快补足缺失的知识，这样我不必再像原来那样，碰到不太懂的领域找好多书来看。
 
-但后知后觉还是要继续找时间继续读书来着。
+但后知后觉还是要继续找时间多读书来着。
 
 ## 漫画
 
@@ -114,13 +114,13 @@ categories: 'I/O'
 
 我已经有七八年不曾使用过 Windows 操作系统。早已习惯了 macOS 一整套的快捷键和操作逻辑。所以组装完成 PC 后又花了好长时间把 macOS 的快捷键和操作逻辑搬到 Windows 上，以此保证我能够在两个系统的使用过程中无缝切换。快捷键配置部分我主要使用 AutoHotkey，一款极其强大的热键软件，又很轻量。没有用 PowerToys 是因为那个软件很重，占用不少内存且大部分功能我并不需要，快捷键映射部分也没有 AutoHotkey 强大。我把我目前使用的脚本文件放在了 github 上：
 
-[Reyshaw/autohotkey](https://github.com/Reyshawn/autohotkey)
+[Reyshawn/autohotkey](https://github.com/Reyshawn/autohotkey)
 
-因为在 macOS 一直是使用触控板，在 Window 系统下不免要用到鼠标。其实我尝试把我的 Magic Trackpad 连接到 Window 上使用，也能用，支持一些简单的手势，四指左右滑切换桌面，四指上下滑显示和隐藏桌面等等。但终归比不上 macOS 上的使用体验。
+因为在 macOS 一直是使用触控板，在 Windows 系统下不免要用到鼠标。其实我尝试把我的 Magic Trackpad 连接到 Windows 上使用，也能用，支持一些简单的手势，四指左右滑切换桌面，四指上下滑显示和隐藏桌面等等。但终归比不上 macOS 上的使用体验。
 
-我后面又购入一款罗技 G502x 鼠标，这款鼠标支持的自定义键很多。罗技的 ghub 软件支持用户编写 lua 脚本进行自定义内容，我就给鼠标的某些键加了一些手势进去，最终实现的效果就是想要在 Windows 上使用鼠标，就像 macOS 上的触控板一样方便和舒服。
+我后面又购入一款罗技 G502x 鼠标，这款鼠标支持的自定义键很多。罗技的 ghub 软件支持用户编写 lua 脚本进行自定义内容，我就给鼠标的某些键加了一些手势进去，最终实现的效果就是在 Windows 上使用鼠标，就像 macOS 上的触控板一样方便和舒服。
 
-我是在此脚本做了一些简单的修改，后续应该也会放在 github 上。
+我是在此脚本基础上做了一些简单的修改，后续应该也会放在 github 上。
 
 [mark-vandenberg/g-hub-mouse-gestures](https://github.com/mark-vandenberg/g-hub-mouse-gestures)
 
